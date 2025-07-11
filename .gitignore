@@ -20,3 +20,5 @@
 
 # Ignore all files in the docs folder
 docs/
+
+/.quarto/

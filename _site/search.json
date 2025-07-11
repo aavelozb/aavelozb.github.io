@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Cursos",
+    "section": "",
+    "text": "Cursos\n\n\n\nCourse Name\nDescription\nLink\n\n\n\n\nMediciones Biomédicas\n2025\nIr al curso\n\n\nProc. imágenes\n2025\nIr al curso"
+  },
+  {
+    "objectID": "courses/mediciones.html",
+    "href": "courses/mediciones.html",
+    "title": "Mediciones Biomédicas",
+    "section": "",
+    "text": "Course 1 Lectures\n\n\n\nLecture Title\nLink to Material\nDescription\n\n\n\n\nLecture 1\nPDF\nIntroduction"
+  }
+]

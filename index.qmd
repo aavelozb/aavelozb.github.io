@@ -1,0 +1,11 @@
+---
+title: "Cursos"
+---
+
+# Cursos
+
+| Course Name | Description | Link |
+|-------------|-------------|------|
+| Mediciones Biomédicas    | 2025  | [Ir al curso](courses/mediciones.qmd) |
+| Proc. imágenes    | 2025  | [Ir al curso](courses/procimagenes.qmd) |
+
