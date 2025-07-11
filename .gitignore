@@ -1,5 +1,8 @@
 .DS_Store
 
+/.quarto/
+/_site/
+
 # Ignore LaTeX auxiliary files
 *.aux
 *.bbl

@@ -2,8 +2,8 @@
 title: "Mediciones Biomédicas"
 ---
 
-# Course 1 Lectures
+# Clases y material complementario
 
-| Lecture Title   | Link to Material | Description        |
+| Clase   | Enlace al material | Descripción        |
 |-----------------|------------------|-------------------|
-| Lecture 1       | [PDF](../docs-mediciones/07 - missing data.pdf) | Introduction      |
+| Introducción       | [PDF](../docs-mediciones/01-sistemas-medición.pdf) |      |
