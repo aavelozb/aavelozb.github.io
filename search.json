@@ -1,16 +1,16 @@
 [
   {
-    "objectID": "courses/mediciones.html",
-    "href": "courses/mediciones.html",
-    "title": "Mediciones Biomédicas",
-    "section": "",
-    "text": "Clases y material complementario\n\n\n\nClase\nEnlace al material\nDescripción\n\n\n\n\nIntroducción\nPDF"
-  },
-  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Cursos",
     "section": "",
-    "text": "Cursos\n\n\n\nCourse Name\nDescription\nLink\n\n\n\n\nMediciones Biomédicas\n2025\nIr al curso\n\n\nProc. imágenes\n2025\nIr al curso"
+    "text": "Cursos\n\nMediciones Biomédicas Ir al curso\nProcesamiento de imágenes Ir al curso"
+  },
+  {
+    "objectID": "cursos/mediciones.html",
+    "href": "cursos/mediciones.html",
+    "title": "ICB323 - Mediciones Biomédicas 2025",
+    "section": "",
+    "text": "Staff\n\nProf. Dr. Alejandro Veloz (alejandro.veloz@uv.cl)\n\nHorario de atención:\n\nAyudante:\n\n\n\nObjetivos\n\n\nEvaluación\n\nPrueba 1\nPrueba 2\nPrueba 3\nPresentación paper\n\n\n\nClases\n\n\n\nClase\nEnlace\nDescripción\n\n\n\n\nIntroducción\nPDF"
   }
 ]
