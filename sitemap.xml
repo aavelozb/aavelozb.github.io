@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://aavelozb.github.io/mediciones.html</loc>
+    <lastmod>2025-07-21T17:35:32.551Z</lastmod>
+  </url>
+  <url>
     <loc>https://aavelozb.github.io/index.html</loc>
-    <lastmod>2025-07-21T16:39:29.120Z</lastmod>
+    <lastmod>2025-07-21T17:35:43.346Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/cursos/procimagenes.html</loc>
+    <loc>https://aavelozb.github.io/proc-imagenes.html</loc>
     <lastmod>2025-07-11T17:15:35.542Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/cursos/mediciones.html</loc>
-    <lastmod>2025-07-21T14:56:55.436Z</lastmod>
   </url>
 </urlset>
