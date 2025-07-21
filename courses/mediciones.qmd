@@ -1,9 +1,0 @@
----
-title: "Mediciones Biomédicas"
----
-
-# Clases y material complementario
-
-| Clase   | Enlace al material | Descripción        |
-|-----------------|------------------|-------------------|
-| Introducción       | [PDF](../docs-mediciones/01-sistemas-medición.pdf) |      |

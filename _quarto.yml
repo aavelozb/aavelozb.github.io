@@ -3,14 +3,14 @@ project:
   output-dir: docs
 
 website:
-  title: "Cursos"
+  title: ""
   navbar:
     left:
       - text: "Home"
         href: index.qmd
       - text: "Cursos"
         menu:
-          - text: "Course 1"
-            href: courses/mediciones.qmd
-          - text: "Course 2"
-            href: courses/procimagenes.qmd
+          - text: "Mediciones Biomédicas"
+            href: mediciones.qmd
+          - text: "Procesamiento de Imágenes"
+            href: proc-imagenes.qmd

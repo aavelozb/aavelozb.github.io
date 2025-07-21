@@ -1,0 +1,37 @@
+---
+title: "CBM321 - Mediciones Biomédicas 2025"
+---
+
+# Staff
+
+- Prof. Dr. Alejandro Veloz
+    - alejandro.veloz@uv.cl
+    - Horario de atención: 
+- Prof. Sebastián Lobos (Lab)
+    - sebastian.lobos@uv.cl
+    - Horario de atención:
+- Ayudante: 
+
+# Descripción de la asignatura
+
+<!-- La asignatura de Sensores y Transductores Biomédicos está orientada a entregar los conocimientos fundamentales sobre los principales tipos de transductores empleados en dispositivos biomédicos, con énfasis en sus principios de funcionamiento y la integración con interfaces electrónicas. El curso permite comprender y aplicar conceptos esenciales en el campo de los sensores y mediciones biomédicas, abordando principios de bioinstrumentación, el análisis de bloques funcionales de los instrumentos de medición y la identificación de las especificaciones técnicas relevantes para aplicaciones clínicas y de laboratorio. Esta formación proporciona una visión integral sobre la instrumentación biomédica, facilitando la aplicación práctica y el desarrollo de soluciones innovadoras en el ámbito de la ingeniería biomédica. -->
+
+La asignatura *CBM321 Mediciones Biomédicas* entrega conocimientos fundamentales sobre los principales tipos de transductores usados en dispositivos biomédicos, enfocándose en sus principios de funcionamiento, las interfaces electrónicas y su aplicación en mediciones biomédicas.
+
+# Evaluación
+
+- Prueba 1
+- Prueba 2
+- Prueba 3
+- Presentación paper
+
+# Bibliografía
+
+- Medical Instrumentation Application and Design - John G. Webster (2010).
+- The measurement, instrumentation, and sensors: handbook / edited by John G. Webster (2012).
+
+# Clases
+
+| Fecha | Clase | Enlace | Descripción |
+|-----|--------|----------|-------------------|
+| 5/08 | Sistemas de medición | [PDF](docs-mediciones/01-sistemas-medición.pdf) |      |
