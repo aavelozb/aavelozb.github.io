@@ -6,5 +6,5 @@ title: ""
 
 # Cursos
 
-- Mediciones Biomédicas [Ir al curso](mediciones.qmd)
+- Mediciones Biomédicas 2 [Ir al curso](mediciones.qmd)
 - Procesamiento de imágenes [Ir al curso](proc-imagenes.qmd)
