@@ -1,5 +1,16 @@
 [
   {
+    "objectID": "bme423-ejercicios.html",
+    "href": "bme423-ejercicios.html",
+    "title": "BME423 - Ejercicios",
+    "section": "",
+    "text": "En el siguiente enlace encontrará una guía de ejercicios 🖥️",
+    "crumbs": [
+      "Procesamiento de imágenes médicas",
+      "Ejercicios"
+    ]
+  },
+  {
     "objectID": "bme423-code/lab1.html#outline",
     "href": "bme423-code/lab1.html#outline",
     "title": "Laboratorio 1",
@@ -53,7 +64,7 @@
   {
     "objectID": "bme321-ejercicios.html",
     "href": "bme321-ejercicios.html",
-    "title": "BME423 - Ejercicios",
+    "title": "BME321 - Ejercicios",
     "section": "",
     "text": "En el siguiente enlace encontrará una guía de ejercicios 🖥️"
   },
