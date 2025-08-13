@@ -1,89 +1,117 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Cursos - Alejandro Veloz",
+    "objectID": "labs/lab1.html#outline",
+    "href": "labs/lab1.html#outline",
+    "title": "Laboratorio 1",
+    "section": "Outline",
+    "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
+  },
+  {
+    "objectID": "bme423.html",
+    "href": "bme423.html",
+    "title": "BME321 - Mediciones Biomédicas",
     "section": "",
-    "text": "Fecha\nTópico\nMaterial\nLab\nMCIB\nDCIS\n\n\n\n\n14-08\nIntroducciónDefiniciones\n🖥️🖥️\n🖥️",
-    "crumbs": [
-      "Cursos"
-    ]
+    "text": "Bienvenidos al sitio web del curso BME321 Mediciones Biomédicas. En este sitio encontrarás la información relacionada con las clases y las actividades desarrolladas en éstas."
+  },
+  {
+    "objectID": "bme423.html#enlaces-importantes",
+    "href": "bme423.html#enlaces-importantes",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Enlaces importantes",
+    "text": "Enlaces importantes\n\nPlanificación y material visto en clases.\nEvaluaciones.\nEjercicios.\nAula virtual."
+  },
+  {
+    "objectID": "bme423.html#clases-y-laboratorios",
+    "href": "bme423.html#clases-y-laboratorios",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Clases y laboratorios",
+    "text": "Clases y laboratorios\n\n\n\n\n\n\n\n\n\n\nDía\nHora\nLugar\n\n\n\n\nCátedra\nJueves\n08:30 - 11:45\n202 (Hucke)\n\n\nLab\nMiércoles\n14:30 - 17:45\nLab. 302 (Hucke)"
+  },
+  {
+    "objectID": "bme423.html#objetivos",
+    "href": "bme423.html#objetivos",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Objetivos",
+    "text": "Objetivos\nAl finalizar el semestre, será capaz de:\n\nComprender y aplicar los conceptos fundamentales relacionados con sensores biomédicos y mediciones biomédicas.\nComprender principios de bioinstrumentación relacionados con las mediciones biomédicas.\nComprender bloques funcionales de todo instrumento de medición biomédica.\nAnalizar e interpretar parámetros y especificaciones técnicas necesarias en aplicaciones de mediciones biomédicas."
+  },
+  {
+    "objectID": "bme423.html#bibliografía",
+    "href": "bme423.html#bibliografía",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Bibliografía",
+    "text": "Bibliografía\nAunque existen muchos recursos excelentes producidos por diversos investigadores en las últimas décadas, asignaremos lecturas de los siguientes libros:\n\nPattern Recognition and Machine Learning, Christopher Bishop (2006)."
+  },
+  {
+    "objectID": "bme423.html#equipo-docente",
+    "href": "bme423.html#equipo-docente",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Equipo docente",
+    "text": "Equipo docente\n\nProfesor: Dr. Alejandro Veloz - alejandro.veloz@uv.cl\n\nHorario de atención: Viernes 13:00 (solicitud vía correo)\n\n\n\nAyudante:\n\nHorario de atención:"
+  },
+  {
+    "objectID": "bme423.html#políticas-del-curso",
+    "href": "bme423.html#políticas-del-curso",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Políticas del Curso",
+    "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio.\n\n\nUso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.\n\n\nColaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.\n\n\nUso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.\n\n\nEntregas tardías\nDispone de un total de 7 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso, excepto la entrega del proyecto final. Los días de retraso le permiten entregar trabajos y tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.\n\n\nAsistencia\nLos estudiantes son responsables de asistir a clase; se espera una asistencia regular. Los estudiantes que asistan a más del 70% de las clases serán eximidos de rendir una prueba final al término del semestre."
   },
   {
     "objectID": "bme321.html",
     "href": "bme321.html",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "",
-    "text": "Bienvenidos al sitio web del curso BME321 Mediciones Biomédicas. En este sitio encontrarás la información relacionada con las clases y las actividades desarrolladas en éstas.",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
+    "text": "Bienvenidos al sitio web del curso BME321 Mediciones Biomédicas. En este sitio encontrarás la información relacionada con las clases y las actividades desarrolladas en éstas."
   },
   {
     "objectID": "bme321.html#enlaces-importantes",
     "href": "bme321.html#enlaces-importantes",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Enlaces importantes",
-    "text": "Enlaces importantes\n\nPlanificación y material visto en clases.\nEvaluaciones.\nEjercicios.\nAula virtual.",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
+    "text": "Enlaces importantes\n\nPlanificación y material visto en clases.\nEvaluaciones.\nEjercicios.\nAula virtual."
   },
   {
     "objectID": "bme321.html#clases-y-laboratorios",
     "href": "bme321.html#clases-y-laboratorios",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Clases y laboratorios",
-    "text": "Clases y laboratorios\n\n\n\n\n\n\n\n\n\n\nDía\nHora\nLugar\n\n\n\n\nCátedra\nViernes\n08:30 - 11:45\n212 (Hucke)\n\n\nLab\nLunes\n10:15 - 13:30\nLab. Electrom.",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
+    "text": "Clases y laboratorios\n\n\n\n\n\n\n\n\n\n\nDía\nHora\nLugar\n\n\n\n\nCátedra\nViernes\n08:30 - 11:45\n212 (Hucke)\n\n\nLab\nLunes\n10:15 - 13:30\nLab. Electrom."
   },
   {
     "objectID": "bme321.html#objetivos",
     "href": "bme321.html#objetivos",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Objetivos",
-    "text": "Objetivos\nAl finalizar el semestre, será capaz de:\n\nComprender y aplicar los conceptos fundamentales relacionados con sensores biomédicos y mediciones biomédicas.\nComprender principios de bioinstrumentación relacionados con las mediciones biomédicas.\nComprender bloques funcionales de todo instrumento de medición biomédica.\nAnalizar e interpretar parámetros y especificaciones técnicas necesarias en aplicaciones de mediciones biomédicas.",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
+    "text": "Objetivos\nAl finalizar el semestre, será capaz de:\n\nComprender y aplicar los conceptos fundamentales relacionados con sensores biomédicos y mediciones biomédicas.\nComprender principios de bioinstrumentación relacionados con las mediciones biomédicas.\nComprender bloques funcionales de todo instrumento de medición biomédica.\nAnalizar e interpretar parámetros y especificaciones técnicas necesarias en aplicaciones de mediciones biomédicas."
   },
   {
     "objectID": "bme321.html#bibliografía",
     "href": "bme321.html#bibliografía",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Bibliografía",
-    "text": "Bibliografía\nAunque existen muchos recursos excelentes producidos por diversos investigadores en las últimas décadas, asignaremos lecturas de los siguientes libros:\n\nPattern Recognition and Machine Learning, Christopher Bishop (2006).",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
+    "text": "Bibliografía\nAunque existen muchos recursos excelentes producidos por diversos investigadores en las últimas décadas, asignaremos lecturas de los siguientes libros:\n\nPattern Recognition and Machine Learning, Christopher Bishop (2006)."
   },
   {
     "objectID": "bme321.html#equipo-docente",
     "href": "bme321.html#equipo-docente",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Equipo docente",
-    "text": "Equipo docente\n\nProfesor: Dr. Alejandro Veloz - alejandro.veloz@uv.cl\n\nHorario de atención: Viernes 13:00 (solicitud vía correo)\n\n\n\nAyudante:\n\nHorario de atención:",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
+    "text": "Equipo docente\n\nProfesor: Dr. Alejandro Veloz - alejandro.veloz@uv.cl\n\nHorario de atención: Viernes 13:00 (solicitud vía correo)\n\n\n\nAyudante:\n\nHorario de atención:"
   },
   {
     "objectID": "bme321.html#políticas-del-curso",
     "href": "bme321.html#políticas-del-curso",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Políticas del Curso",
-    "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio.\n\n\nUso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.\n\n\nColaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.\n\n\nUso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.\n\n\nEntregas tardías\nDispone de un total de 7 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso, excepto la entrega del proyecto final. Los días de retraso le permiten entregar trabajos y tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.\n\n\nAsistencia\nLos estudiantes son responsables de asistir a clase; se espera una asistencia regular. Los estudiantes que asistan a más del 70% de las clases serán eximidos de rendir una prueba final al término del semestre.",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
+    "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio.\n\n\nUso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.\n\n\nColaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.\n\n\nUso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.\n\n\nEntregas tardías\nDispone de un total de 7 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso, excepto la entrega del proyecto final. Los días de retraso le permiten entregar trabajos y tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.\n\n\nAsistencia\nLos estudiantes son responsables de asistir a clase; se espera una asistencia regular. Los estudiantes que asistan a más del 70% de las clases serán eximidos de rendir una prueba final al término del semestre."
   },
   {
-    "objectID": "labs/lab1.html#outline",
-    "href": "labs/lab1.html#outline",
-    "title": "Laboratorio 1",
-    "section": "Outline",
-    "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Cursos - Alejandro Veloz",
+    "section": "",
+    "text": "Fecha\nTópico\nMaterial\nLab\nMCIB\nDCIS\n\n\n\n\n14-08\nIntroducciónDefiniciones\n🖥️🖥️\n🖥️",
+    "crumbs": [
+      "Inicio"
+    ]
   }
 ]

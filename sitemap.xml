@@ -1,27 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aavelozb.github.io/bme321-evaluacion.html</loc>
+    <loc>https://aavelozb.github.io/bme423-ejercicios.html</loc>
+    <lastmod>2025-08-13T18:05:18.627Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423-eval-bme.html</loc>
     <lastmod>2025-08-13T18:22:53.737Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/index.html</loc>
-    <lastmod>2025-08-13T13:45:35.906Z</lastmod>
+    <loc>https://aavelozb.github.io/bme321-clases.html</loc>
+    <lastmod>2025-08-13T18:23:16.618Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme321.html</loc>
-    <lastmod>2025-08-13T18:23:42.616Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/labs/lab1.html</loc>
-    <lastmod>2025-08-13T00:12:23.228Z</lastmod>
+    <loc>https://aavelozb.github.io/bme423-eval-mcib.html</loc>
+    <lastmod>2025-08-13T18:22:53.737Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321-ejercicios.html</loc>
     <lastmod>2025-08-13T18:05:18.627Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme321-clases.html</loc>
+    <loc>https://aavelozb.github.io/labs/lab1.html</loc>
+    <lastmod>2025-08-13T00:12:23.228Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423.html</loc>
+    <lastmod>2025-08-13T18:43:07.897Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme321.html</loc>
+    <lastmod>2025-08-13T18:23:42.616Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/index.html</loc>
+    <lastmod>2025-08-13T13:45:35.906Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423-eval-dcib.html</loc>
+    <lastmod>2025-08-13T18:22:53.737Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme321-evaluacion.html</loc>
+    <lastmod>2025-08-13T18:22:53.737Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423-clases.html</loc>
     <lastmod>2025-08-13T18:23:16.618Z</lastmod>
   </url>
 </urlset>
