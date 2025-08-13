@@ -1,7 +1,7 @@
 [
   {
-    "objectID": "labs/lab1.html#outline",
-    "href": "labs/lab1.html#outline",
+    "objectID": "bme423-code/lab1.html#outline",
+    "href": "bme423-code/lab1.html#outline",
     "title": "Laboratorio 1",
     "section": "Outline",
     "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
@@ -105,13 +105,21 @@
     "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio.\n\n\nUso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.\n\n\nColaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.\n\n\nUso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.\n\n\nEntregas tardías\nDispone de un total de 7 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso, excepto la entrega del proyecto final. Los días de retraso le permiten entregar trabajos y tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.\n\n\nAsistencia\nLos estudiantes son responsables de asistir a clase; se espera una asistencia regular. Los estudiantes que asistan a más del 70% de las clases serán eximidos de rendir una prueba final al término del semestre."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Cursos - Alejandro Veloz",
+    "objectID": "bme423-labs/lab1.html#outline",
+    "href": "bme423-labs/lab1.html#outline",
+    "title": "Laboratorio 1",
+    "section": "Outline",
+    "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
+  },
+  {
+    "objectID": "bme423-clases.html",
+    "href": "bme423-clases.html",
+    "title": "BME423 - Planificación",
     "section": "",
-    "text": "Fecha\nTópico\nMaterial\nLab\nMCIB\nDCIS\n\n\n\n\n14-08\nIntroducciónDefiniciones\n🖥️🖥️\n🖥️",
+    "text": "Fecha\nTópico\nMaterial\nLab\nMCIB\nDCIS\n\n\n\n\n14-08\nIntroducciónDefiniciones\n🖥️🖥️",
     "crumbs": [
-      "Inicio"
+      "Procesamiento de imágenes médicas",
+      "Clases"
     ]
   }
 ]
