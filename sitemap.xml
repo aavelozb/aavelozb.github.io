@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://aavelozb.github.io/bme321-clases.html</loc>
-    <lastmod>2025-08-13T14:00:31.914Z</lastmod>
+    <loc>https://aavelozb.github.io/bme321-evaluacion.html</loc>
+    <lastmod>2025-08-13T18:05:18.627Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme321.html</loc>
-    <lastmod>2025-08-13T14:13:31.982Z</lastmod>
+    <loc>https://aavelozb.github.io/index.html</loc>
+    <lastmod>2025-08-13T13:45:35.906Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/labs/lab1.html</loc>
     <lastmod>2025-08-13T00:12:23.228Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/index.html</loc>
-    <lastmod>2025-08-13T13:45:35.906Z</lastmod>
+    <loc>https://aavelozb.github.io/bme321.html</loc>
+    <lastmod>2025-08-13T18:14:18.550Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme321-clases.html</loc>
+    <lastmod>2025-08-13T14:00:31.914Z</lastmod>
   </url>
 </urlset>
