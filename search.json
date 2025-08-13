@@ -11,11 +11,26 @@
     ]
   },
   {
-    "objectID": "bme423-code/lab1.html#outline",
-    "href": "bme423-code/lab1.html#outline",
-    "title": "Laboratorio 1",
-    "section": "Outline",
-    "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
+    "objectID": "bme423-eval-bme.html",
+    "href": "bme423-eval-bme.html",
+    "title": "Evaluaciones (BME423)",
+    "section": "",
+    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en enlace.",
+    "crumbs": [
+      "Procesamiento de imágenes médicas",
+      "Evaluación nivel BME"
+    ]
+  },
+  {
+    "objectID": "bme423-eval-bme.html#laboratorios",
+    "href": "bme423-eval-bme.html#laboratorios",
+    "title": "Evaluaciones (BME423)",
+    "section": "Laboratorios",
+    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria.",
+    "crumbs": [
+      "Procesamiento de imágenes médicas",
+      "Evaluación nivel BME"
+    ]
   },
   {
     "objectID": "bme423-eval-dcis.html",
@@ -139,6 +154,17 @@
     ]
   },
   {
+    "objectID": "bme423-planificacion.html",
+    "href": "bme423-planificacion.html",
+    "title": "BME423 - Planificación y material de clases",
+    "section": "",
+    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n🖥️  🖥️\n\n\n\n\n\nLab\n20-08\n\n\nLab 1\nLab 1\n\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramas\n🖥️\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nRuido / degradación\n🖥️\n\n\n\n\n\nLab\n03-09\nFiltros espacialesEjemplo convolución\n🖥️🖥️\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\n\n\n\nCátedra\n11-09\nFiltros mediante PDE\n🖥️\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\nFourier\n🖥️\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\n\n\n\nCátedra\n02-10\nPrueba 1\n\n\n\n\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\n\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\n\n\n\n\nLab\n19-11\n\n\nLab 5\nTarea 5\n\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\n🖥️🖥️🖥️🖥️\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\n\n\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\n\n\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias",
+    "crumbs": [
+      "Procesamiento de imágenes médicas",
+      "Planificación"
+    ]
+  },
+  {
     "objectID": "bme321.html",
     "href": "bme321.html",
     "title": "BME321 - Mediciones Biomédicas",
@@ -195,36 +221,10 @@
     "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
   },
   {
-    "objectID": "bme423-eval-bme.html",
-    "href": "bme423-eval-bme.html",
-    "title": "Evaluaciones (BME423)",
-    "section": "",
-    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en enlace.",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel BME"
-    ]
-  },
-  {
-    "objectID": "bme423-eval-bme.html#laboratorios",
-    "href": "bme423-eval-bme.html#laboratorios",
-    "title": "Evaluaciones (BME423)",
-    "section": "Laboratorios",
-    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria.",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel BME"
-    ]
-  },
-  {
-    "objectID": "bme423-clases.html",
-    "href": "bme423-clases.html",
-    "title": "BME423 - Planificación y material de clases",
-    "section": "",
-    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n🖥️  🖥️\n\n\n\n\n\nLab\n20-08\n\n\nLab 1\nLab 1\n\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramas\n🖥️\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nRuido / degradación\n🖥️\n\n\n\n\n\nLab\n03-09\nFiltros espacialesEjemplo convolución\n🖥️🖥️\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\n\n\n\nCátedra\n11-09\nFiltros mediante PDE\n🖥️\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\nFourier\n🖥️\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\n\n\n\nCátedra\n02-10\nPrueba 1\n\n\n\n\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\n\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\n\n\n\n\nLab\n19-11\n\n\nLab 5\nLab 5\n\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\n🖥️🖥️🖥️🖥️\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\n\n\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\n\n\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Clases"
-    ]
+    "objectID": "bme423-code/lab1.html#outline",
+    "href": "bme423-code/lab1.html#outline",
+    "title": "Laboratorio 1",
+    "section": "Outline",
+    "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
   }
 ]
