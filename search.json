@@ -22,7 +22,7 @@
     "href": "bme423-eval-dcis.html#proyecto",
     "title": "Evaluaciones (nivel DCIS)",
     "section": "Proyecto",
-    "text": "Proyecto\nEl proyecto comprende una presentación oral, la entrega de un manuscrito (inglés o español) y la implementación. Los códigos deben disponibilizarse\ndebe asegurarse que los códigos puedan ser ejecutados",
+    "text": "Proyecto\nEl proyecto comprende una presentación oral, la entrega de un manuscrito (inglés o español) y la implementación. Los códigos deben disponibilizarse en repositorio en github. En la fecha correspendiente\ndebe asegurarse que los códigos puedan ser ejecutados",
     "crumbs": [
       "Procesamiento de imágenes médicas",
       "Evaluación nivel DCIS"
@@ -182,7 +182,7 @@
     "href": "bme423-clases.html",
     "title": "BME423 - Planificación y material de clases",
     "section": "",
-    "text": "Fecha\nTópico\nMaterial\nLab\nMCIB\nDCIS\n\n\n\n\n14-08\nIntroducciónDefiniciones\n🖥️🖥️",
+    "text": "Fecha\nTópico\nMaterial\nLab\nMCIB\nDCIS\n\n\n\n\n14-08\nIntroducciónDefiniciones\n🖥️🖥️\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nTipo\nFecha\nTópico\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08-2025\nIntroducción  definiciones\n\n\n\n\n\nLab\n20-08-2025\n\nLab 1\nLab 1\n\n\n\nCátedra\n21-08-2025\nOperaciones puntuales y en histogramas\n\n\n\n\n\nLab\n27-08-2025\n\n\n\n\n\n\nCátedra\n28-08-2025\nRuido / degradación\n\n\n\n\n\nLab\n03-09-2025\nFiltros espaciales\n\n\n\n\n\nCátedra\n04-09-2025\nClase suspendida\n\n\n\n\n\nLab\n10-09-2025\n\nLab 2\nLab 2\n\n\n\nCátedra\n11-09-2025\nFiltros mediante PDE\n\n\n\n\n\nLab\n17-09-2025\nFiestas patrias\n\n\n\n\n\nCátedra\n18-09-2025\nFiestas patrias\n\n\n\n\n\nLab\n24-09-2025\n\n\n\n\n\n\nCátedra\n25-09-2025\nFourier\n\n\n\n\n\nLab\n01-10-2025\n\nLab 3\nLab 3\n\n\n\nCátedra\n02-10-2025\nPrueba 1\n\n\n\n\n\nLab\n08-10-2025\n\n\n\n\n\n\nCátedra\n09-10-2025\nTransformaciones geométricas\n\n\n\n\n\nLab\n15-10-2025\nPausa\n\n\n\n\n\nCátedra\n16-10-2025\nPausa\n\n\n\n\n\nLab\n22-10-2025\n\n\n\n\n\n\nCátedra\n23-10-2025\nSegmentación I\n\n\n\n\n\nLab\n29-10-2025\n\nLab 4\nLab 4\n\n\n\nCátedra\n30-10-2025\nSegmentación I\n\n\n\n\n\nLab\n05-11-2025\n\n\n\n\n\n\nCátedra\n06-11-2025\nMorfología matemática\n\n\n\n\n\nLab\n12-11-2025\n\n\n\n\n\n\nCátedra\n13-11-2025\nPrueba 2\n\n\n\n\n\nLab\n19-11-2025\n\nLab 5\nLab 5\n\n\n\nCátedra\n20-11-2025\nIA en procesamiento de imágenes\n\n\n\n\n\nLab\n26-11-2025\n\n\n\n\n\n\nCátedra\n27-11-2025\nSegmentación II\n\n\n\n\n\nLab\n03-12-2025\n\n\n\n\n\n\nCátedra\n04-12-2025\nReconstrucción\n\n\n\n\n\nLab\n10-12-2025\n\n\n\n\n\n\nCátedra\n11-12-2025\nPrueba 3\n\n\n\n\n\nLab\n17-12-2025\nPruebas extraordinarias\n\n\n\n\n\nCátedra\n18-12-2025\nPruebas extraordinarias",
     "crumbs": [
       "Procesamiento de imágenes médicas",
       "Clases"
