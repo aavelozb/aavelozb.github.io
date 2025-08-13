@@ -2,6 +2,8 @@
 
 /.quarto/
 /_site/
+/.quarto/
+/tempfiles/
 
 # Ignore LaTeX auxiliary files
 *.aux
