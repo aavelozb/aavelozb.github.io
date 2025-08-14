@@ -13,7 +13,7 @@
   {
     "objectID": "bme423-eval-bme.html",
     "href": "bme423-eval-bme.html",
-    "title": "Evaluaciones (BME423)",
+    "title": "Evaluaciones (nivel BME423)",
     "section": "",
     "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en enlace.",
     "crumbs": [
@@ -24,9 +24,9 @@
   {
     "objectID": "bme423-eval-bme.html#laboratorios",
     "href": "bme423-eval-bme.html#laboratorios",
-    "title": "Evaluaciones (BME423)",
+    "title": "Evaluaciones (nivel BME423)",
     "section": "Laboratorios",
-    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria.",
+    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que corresponden al inicio de una nueva actividad del laboratorio (ver las fechas en el enlace.).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas.",
     "crumbs": [
       "Procesamiento de imágenes médicas",
       "Evaluación nivel BME"
@@ -70,7 +70,7 @@
     "href": "bme423-eval-mcib.html#laboratorios",
     "title": "Evaluaciones (nivel MCIB)",
     "section": "Laboratorios",
-    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria.",
+    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que corresponden al inicio de una nueva actividad del laboratorio (ver las fechas en el enlace.).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas.",
     "crumbs": [
       "Procesamiento de imágenes médicas",
       "Evaluación nivel MCIB"
@@ -86,9 +86,9 @@
   {
     "objectID": "bme423.html",
     "href": "bme423.html",
-    "title": "BME321 - Mediciones Biomédicas",
+    "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "",
-    "text": "Bienvenidos al sitio web del curso BME321 Mediciones Biomédicas. En este sitio encontrarás la información relacionada con las clases y las actividades desarrolladas en éstas.",
+    "text": "Bienvenidos al sitio web del curso de procesamiento de imágenes médicas. En este sitio encontrarás la información relacionada con las clases y las actividades desarrolladas en el transcurso del semestre.",
     "crumbs": [
       "Procesamiento de imágenes médicas"
     ]
@@ -96,7 +96,7 @@
   {
     "objectID": "bme423.html#enlaces-importantes",
     "href": "bme423.html#enlaces-importantes",
-    "title": "BME321 - Mediciones Biomédicas",
+    "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Enlaces importantes",
     "text": "Enlaces importantes\n\nPlanificación y material visto en clases.\nEjercicios.\nEvaluaciones (nivel BME).\nEvaluaciones (nivel MCIB).\nEvaluaciones (nivel DCIS).\nAula virtual de pregrado.\nAula virtual de postgrado.",
     "crumbs": [
@@ -106,7 +106,7 @@
   {
     "objectID": "bme423.html#clases-y-laboratorios",
     "href": "bme423.html#clases-y-laboratorios",
-    "title": "BME321 - Mediciones Biomédicas",
+    "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Clases y laboratorios",
     "text": "Clases y laboratorios\n\n\n\n\n\n\n\n\n\n\nDía\nHora\nLugar\n\n\n\n\nCátedra\nJueves\n08:30 - 11:45\n202 (Hucke)\n\n\nLab\nMiércoles\n14:30 - 17:45\nLab. 302 (Hucke)",
     "crumbs": [
@@ -116,19 +116,19 @@
   {
     "objectID": "bme423.html#objetivos",
     "href": "bme423.html#objetivos",
-    "title": "BME321 - Mediciones Biomédicas",
+    "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Objetivos",
-    "text": "Objetivos\nAl finalizar el semestre, será capaz de:\n\nComprender y aplicar los conceptos fundamentales relacionados con sensores biomédicos y mediciones biomédicas.\nComprender principios de bioinstrumentación relacionados con las mediciones biomédicas.\nComprender bloques funcionales de todo instrumento de medición biomédica.\nAnalizar e interpretar parámetros y especificaciones técnicas necesarias en aplicaciones de mediciones biomédicas.",
+    "text": "Objetivos\nAl finalizar el semestre, será capaz de:\n\nComprender y aplicar los fundamentos teóricos y prácticos del procesamiento de imágenes médicas: Abordar desde la adquisición y representación de imágenes hasta el uso de técnicas de mejora y preprocesamiento, incluyendo operaciones puntuales y sobre histogramas, filtrado espacial, transformada de Fourier, filtrado mediante ecuaciones diferenciales y análisis del impacto del ruido y degradación en imágenes médicas.\nDiseñar, implementar y evaluar algoritmos de segmentación y análisis cuantitativo: Desarrollar métodos para aislar, identificar y medir estructuras anatómicas o patológicas en imágenes médicas, utilizando enfoques clásicos y avanzados que garanticen precisión y reproducibilidad.\nDesarrollar y evaluar algoritmos de reconocimiento de patrones y aprendizaje automático: Aplicar métodos de inteligencia artificial, aprendizaje supervisado (ANN, CNN), y diseño de pipelines automatizados para la clasificación y detección en imágenes médicas.\nAnalizar y ejecutar métodos de reconstrucción:: Implementar algoritmos para la reconstrucción volumétrica y bidimensional a partir de proyecciones, comprendiendo su aplicación en modalidades como tomografía.\nInterpretar especificaciones técnicas y parámetros: Analizar especificaciones críticas de equipos y softwares de procesamiento de imágenes médicas para seleccionar estrategias y herramientas apropiadas en aplicaciones clínicas.\nIntegrar conocimientos en proyectos aplicados: Planificar y ejecutar proyectos prácticos/laboratorios, documentando metódicamente los procedimientos, resultados y conclusiones, en concordancia con estándares académicos y éticos.",
     "crumbs": [
       "Procesamiento de imágenes médicas"
     ]
   },
   {
-    "objectID": "bme423.html#bibliografía",
-    "href": "bme423.html#bibliografía",
-    "title": "BME321 - Mediciones Biomédicas",
-    "section": "Bibliografía",
-    "text": "Bibliografía\nAunque existen muchos recursos excelentes producidos por diversos investigadores en las últimas décadas, asignaremos lecturas de los siguientes libros:\n\nPattern Recognition and Machine Learning, Christopher Bishop (2006).",
+    "objectID": "bme423.html#bibliografía-y-otros-recursos",
+    "href": "bme423.html#bibliografía-y-otros-recursos",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Bibliografía y otros recursos",
+    "text": "Bibliografía y otros recursos\n\nDigital image processing, Rafael González, Richard Woods. Ediciones 2, 3 o 4.\nHandbook of medical image processing and analysis I. Bankman.\nPattern Recognition and Machine Learning, Christopher Bishop (2006).\nImage Processing, Analysis, and Machine Vision M. Sonka, V. Hlavac, R. Boyle (2008, 2015).\nScikit-image\nOpenCV\nSimpleITK\nVTK\n\nNibabel, pydicom",
     "crumbs": [
       "Procesamiento de imágenes médicas"
     ]
@@ -136,9 +136,9 @@
   {
     "objectID": "bme423.html#equipo-docente",
     "href": "bme423.html#equipo-docente",
-    "title": "BME321 - Mediciones Biomédicas",
+    "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Equipo docente",
-    "text": "Equipo docente\n\nProfesor: Dr. Alejandro Veloz - alejandro.veloz@uv.cl\n\nHorario de atención: Viernes 13:00 (solicitud vía correo)\n\n\n\nAyudante:\n\nHorario de atención:",
+    "text": "Equipo docente\n\nProfesor: Dr. Alejandro Veloz - alejandro.veloz@uv.cl\n\nHorario de atención: Lunes 09:00-10:00 (solicitud vía correo)\n\n\n\nAyudante:\n\nHorario de atención:",
     "crumbs": [
       "Procesamiento de imágenes médicas"
     ]
@@ -146,9 +146,9 @@
   {
     "objectID": "bme423.html#políticas-del-curso",
     "href": "bme423.html#políticas-del-curso",
-    "title": "BME321 - Mediciones Biomédicas",
+    "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Políticas del Curso",
-    "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio.\n\n\nUso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.\n\n\nColaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.\n\n\nUso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.\n\n\nEntregas tardías\nDispone de un total de 7 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso, excepto la entrega del proyecto final. Los días de retraso le permiten entregar trabajos y tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.\n\n\nAsistencia\nLos estudiantes son responsables de asistir a clase; se espera una asistencia regular. Los estudiantes que asistan a más del 70% de las clases serán eximidos de rendir una prueba final al término del semestre.",
+    "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio.\n\n\nUso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.\n\n\nColaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.\n\n\nUso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.\n\n\nEntregas tardías\nDispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.\n\n\nAsistencia\nLos estudiantes son responsables de asistir a clase; se espera una asistencia regular. Los estudiantes que asistan a más del 70% de las clases serán eximidos de rendir una prueba final al término del semestre.",
     "crumbs": [
       "Procesamiento de imágenes médicas"
     ]
