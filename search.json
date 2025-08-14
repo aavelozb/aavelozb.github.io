@@ -33,33 +33,11 @@
     ]
   },
   {
-    "objectID": "bme423-eval-dcis.html",
-    "href": "bme423-eval-dcis.html",
-    "title": "Evaluaciones (nivel DCIS)",
-    "section": "",
-    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas asociadas a las evaluaciones se encuentran en el enlace.",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel DCIS"
-    ]
-  },
-  {
-    "objectID": "bme423-eval-dcis.html#proyecto",
-    "href": "bme423-eval-dcis.html#proyecto",
-    "title": "Evaluaciones (nivel DCIS)",
-    "section": "Proyecto",
-    "text": "Proyecto\nEl proyecto comprende una presentación oral, la entrega de un manuscrito (inglés o español) y la implementación. Los códigos deben disponibilizarse en repositorio en github. En la fecha correspendiente\ndebe asegurarse que los códigos puedan ser ejecutados",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel DCIS"
-    ]
-  },
-  {
     "objectID": "bme423-eval-mcib.html",
     "href": "bme423-eval-mcib.html",
     "title": "Evaluaciones (nivel MCIB)",
     "section": "",
-    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en enlace.",
+    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en la planificación..",
     "crumbs": [
       "Procesamiento de imágenes médicas",
       "Evaluación nivel MCIB"
@@ -70,7 +48,18 @@
     "href": "bme423-eval-mcib.html#laboratorios",
     "title": "Evaluaciones (nivel MCIB)",
     "section": "Laboratorios",
-    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que corresponden al inicio de una nueva actividad del laboratorio (ver las fechas en el enlace.).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas.",
+    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio (ver las fechas en la planificación.).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas.",
+    "crumbs": [
+      "Procesamiento de imágenes médicas",
+      "Evaluación nivel MCIB"
+    ]
+  },
+  {
+    "objectID": "bme423-eval-mcib.html#proyectos",
+    "href": "bme423-eval-mcib.html#proyectos",
+    "title": "Evaluaciones (nivel MCIB)",
+    "section": "Proyectos",
+    "text": "Proyectos\nEl proyecto comprende una presentación oral, la entrega de un manuscrito (inglés o español) y la implementación. Los códigos deben disponibilizarse en repositorio en github. En la fecha correspendiente",
     "crumbs": [
       "Procesamiento de imágenes médicas",
       "Evaluación nivel MCIB"
