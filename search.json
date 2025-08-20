@@ -33,8 +33,8 @@
     ]
   },
   {
-    "objectID": "bme423-eval-mcib.html",
-    "href": "bme423-eval-mcib.html",
+    "objectID": "bme423-eval-mcib-dcis.html",
+    "href": "bme423-eval-mcib-dcis.html",
     "title": "Evaluaciones (niveles MCIB/DCIS)",
     "section": "",
     "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en la planificación.",
@@ -44,8 +44,8 @@
     ]
   },
   {
-    "objectID": "bme423-eval-mcib.html#laboratorios",
-    "href": "bme423-eval-mcib.html#laboratorios",
+    "objectID": "bme423-eval-mcib-dcis.html#laboratorios",
+    "href": "bme423-eval-mcib-dcis.html#laboratorios",
     "title": "Evaluaciones (niveles MCIB/DCIS)",
     "section": "Laboratorios",
     "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio (ver las fechas en la planificación).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas.",
@@ -55,8 +55,8 @@
     ]
   },
   {
-    "objectID": "bme423-eval-mcib.html#proyectos",
-    "href": "bme423-eval-mcib.html#proyectos",
+    "objectID": "bme423-eval-mcib-dcis.html#proyectos",
+    "href": "bme423-eval-mcib-dcis.html#proyectos",
     "title": "Evaluaciones (niveles MCIB/DCIS)",
     "section": "Proyectos",
     "text": "Proyectos",
@@ -64,6 +64,118 @@
       "Procesamiento de imágenes médicas",
       "Evaluación nivel MCIB/DCIS"
     ]
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#objetivos",
+    "href": "bme423-labs/lab1.html#objetivos",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Objetivos",
+    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nFamiliarizarse con las bibliotecas NumPy, SciPy, y Matplotlib.\nFamiliarizarse con el manejo básico de imágenes digitales.\nFamiliarizarse con el estándar DICOM, utilizado para transmitir, almacenar, recuperar, imprimir, procesar y mostrar información relativa a las imágenes médicas.\nAprender a utilizar la biblioteca pydicom."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#actividades",
+    "href": "bme423-labs/lab1.html#actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Actividades",
+    "text": "Actividades\n\nTrabajo complementario (opcional)\nDICOM\nMejora de contraste\nFiltrado espacial\nVisualización de mapas de activación\nInstrucciones para la entrega"
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#trabajo-complementario-1",
+    "href": "bme423-labs/lab1.html#trabajo-complementario-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "1. Trabajo complementario",
+    "text": "1. Trabajo complementario\n\nInstale la plataforma de desarrollo Anaconda, disponible de forma gratuita en LINK. También puede usar Google Colab o Visual Studio Code.\nEstudie y haga los ejercicios de las siguientes secciones del documento “Scipy Lecture Notes”:\n\nSección 1.4. NumPy: creating and manipulating numerical data.\nSección 1.5. Matplotlib: plotting.\nSecciones 1.6.1, 1.6.3, 1.6.5, 1.6.6 y 1.6.10. Scipy : high-level scientific computing."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#trabajo-complementario-2",
+    "href": "bme423-labs/lab1.html#trabajo-complementario-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "1. Trabajo complementario",
+    "text": "1. Trabajo complementario\n\nLeer el siguiente material de referencia:\n\nWhy Does the DICOM Standard Exist?\nParte 1 “Introduction and Overview” del estándar DICOM.\nDocumentación de la biblioteca PyDicom."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#dicom-1",
+    "href": "bme423-labs/lab1.html#dicom-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM",
+    "text": "2. DICOM\n\nSe trabajará con dos conjunto de datos.\n\ndata1: imágenes de CT de distintos pacientes.\ndata2: Imágenes de CT de cortes de un mismo paciente.\n\nLos datos están disponibles en Github.\n\n!git clone https://github.com/aavelozb/bme423-data.git\n!unzip bme423-data/data1.zip -d bme423-data/\n!unzip bme423-data/data2.zip -d bme423-data/"
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#dicom---actividades",
+    "href": "bme423-labs/lab1.html#dicom---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nDesarrolle un programa que genere un archivo CSV con los nombres y fechas de nacimiento de los pacientes de las imágenes contenidas en el directorio data1.\nDesarrolle un programa que muestre en una sola figura todas las imágenes del directorio data1. Cada imagen debe estar identificada por el nombre del paciente.\nDesarrolle un programa que anonimice todas las imágenes del directorio data1.\nImplemente un programa que permita visualizar un corte coronal y sagital de las imágenes del directorio data2."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#dicom---actividades-1",
+    "href": "bme423-labs/lab1.html#dicom---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nImplemente un programa que permita visualizar un corte oblicuo coronal-sagital de las imágenes del directorio data2.\nEl proceso de downsampling consiste en re-muestrear una imagen. La forma más simple de realizar este proceso es conservar uno de cada \\(n \\in \\mathbb{N}\\) píxeles de la imagen.\n\n\nRealice el proceso de downsampling de la imagen p5.dcm, conservando uno de cada 2, 3 y 4 píxeles.\nMuestre la imagen original y las de tamaño reducido. Analice las diferencias entre éstas."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#dicom---actividades-2",
+    "href": "bme423-labs/lab1.html#dicom---actividades-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nVisualice las imágenes del directorio data2 usando widgets de Matplotlib, o ipywidgets."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#contraste---actividades",
+    "href": "bme423-labs/lab1.html#contraste---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "3. Contraste - actividades",
+    "text": "3. Contraste - actividades\n\nAgregue opciones a un widget para aplicar operaciones de mejora de contraste, en base a la transformación \\(\\gamma\\) (Ec. 3.2-3, sección 3.2.3, página 110) y usando una función de transformación definida por tramos (Figura 3.10(a), página 116).\nGenere situaciones que permitan apreciar en qué situaciones el contraste mejora, versus cuándo empeora. Se recomienda usar los histogramas de las imágenes resultantes, junto a los histogramas de las imágenes de entrada para su explicación."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#contraste---actividades-1",
+    "href": "bme423-labs/lab1.html#contraste---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "3. Contraste - actividades",
+    "text": "3. Contraste - actividades\n\nImplemente la ecualización (Ec. 3.3-8, página 126) y especificación de histogramas (Ec. 3.3-12, página 130). Explique los resultados (no es necesario usar widgets)."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#filtrado-espacial---actividades",
+    "href": "bme423-labs/lab1.html#filtrado-espacial---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\n\nImplemente la operación de convolución (sección 3.4.2, página 148, ecuación 3.4-1).\nUsando su implementación de la convolución:\n\n\nImplemente los filtros de suavizado, incluyendo el filtro Gaussiano, (sección 3.5.1, página 152) y agudizado (sección 3.6, página 157).\nAplique estos filtros al volumen de CT de una misma persona (data2). Aplique la convolución en 2D y luego en 3D.\nCompare con el resultado obtenido usando la función \\(\\texttt{scipy.ndimage.convolve}\\) (para un filtro)."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#section",
+    "href": "bme423-labs/lab1.html#section",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "",
+    "text": "Ayuda: La siguiente sentencia permite construir la versión rellenada con ceros de la imagen:\npad_len = (mask.shape[0] - 1) // 2\nimg_padded = np.pad(img, ((pad_len, pad_len), (pad_len, pad_len)),\n                    'constant', constant_values=0)\ndonde \\(\\texttt{mask}\\) contiene la máscara del filtro (se asume que es cuadrada, con largo impar), e \\(\\texttt{img}\\) es la imagen original."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#filtrado-espacial---actividades-1",
+    "href": "bme423-labs/lab1.html#filtrado-espacial---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\n\nAplique los filtros de suavizado, filtros de agudizado y operaciones de mejora de contraste de manera combinada en la imagen xray.dcm.\n\n\nExplique la pertinencia de los pasos aplicados y cuantifique la mejora en la calidad de la imagen a medida que aplica los pasos considerados.\nUse el ejemplo de la sección 3.7 (pág. 169) como inspiración.\n\n\nResuelva el mismo problema de la pregunta anterior para el caso 3D con el volumen data2."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#filtrado-espacial---actividades-2",
+    "href": "bme423-labs/lab1.html#filtrado-espacial---actividades-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\nNota: La operación de convolución, los filtros, y los métodos de mejora de contraste debe implementarlos Ud., sin utilizar librerías específicas de procesamiento de imágenes."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#visualización-de-mapas-de-activación---actividades",
+    "href": "bme423-labs/lab1.html#visualización-de-mapas-de-activación---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "5. Visualización de mapas de activación - actividades",
+    "text": "5. Visualización de mapas de activación - actividades\n\nDesarrolle un programa que permita visualizar un mapa como el siguiente:\n\n\n\n\n\n\nDispone de los archivos anat.nii, zmap_voice.nii.gz y zmap_nonvoice.nii.gz.\nNote que los archivos están en formato .nii, los cuales pueden ser leídos usando la librería \\(\\texttt{nibabel}\\)."
+  },
+  {
+    "objectID": "bme423-labs/lab1.html#section-1",
+    "href": "bme423-labs/lab1.html#section-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "",
+    "text": "Entregas:\n\n\n\napellido_nombre_l1e1.ipynb y apellido_nombre_l1e1.pdf\n\nFecha: hoy\nRespuestas desde la 1 hasta la 7.\nMedio: Aula virtual\n\n\n\n\napellido_nombre_l1e2.ipynb y apellido_nombre_l1e2.pdf\n\nFecha: 10/09/2025\nRespuestas desde la 8 en adelante.\nMedio: Aula virtual\n\n\n\nLas versiones \\(\\texttt{.pdf}\\) en las entregas corresponden a los archivos \\(\\texttt{.ipynb}\\) con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
   },
   {
     "objectID": "bme321-ejercicios.html",
@@ -87,7 +199,7 @@
     "href": "bme423.html#enlaces-importantes",
     "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Enlaces importantes",
-    "text": "Enlaces importantes\n\nPlanificación y material visto en clases.\nEjercicios.\nEvaluaciones (nivel BME).\nEvaluaciones (nivel MCIB).\nEvaluaciones (nivel DCIS).\nAula virtual de pregrado.\nAula virtual de postgrado.",
+    "text": "Enlaces importantes\n\nPlanificación y material visto en clases.\nEjercicios.\nEvaluaciones (nivel BME).\nEvaluaciones (nivel MCIB y DCIS).\nAula virtual de pregrado.\nAula virtual de postgrado.",
     "crumbs": [
       "Procesamiento de imágenes médicas"
     ]
@@ -147,7 +259,7 @@
     "href": "bme423-planificacion.html",
     "title": "BME423 - Planificación y material de clases",
     "section": "",
-    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n🖥️  🖥️\n\n\n\n\n\nLab\n20-08\n\n&lt;&gt;\nLab 1\nLab 1\n\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramas\n🖥️\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nRuido / degradación\n🖥️\n\nEntrega de temas de proyecto\nEntrega de temas de proyecto\n\n\nLab\n03-09\nFiltros espacialesEjemplo convolución\n🖥️🖥️\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\n\n\n\nCátedra\n11-09\nFiltros mediante PDE\n🖥️\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\nFourier\n🖥️\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\n\n\n\nCátedra\n02-10\nPrueba 1\n\n\n\n\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\n\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\n\n\n\n\nLab\n19-11\n\n\nLab 5\nTarea 5\n\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\n🖥️🖥️🖥️🖥️\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\n\n\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\n\n\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias",
+    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n🖥️  🖥️\n\n\n\n\n\nLab\n20-08\n\n&lt;\\&gt;\nLab 1  🖥️\nLab 1\n\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramas\n🖥️\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nRuido / degradación\n🖥️\n\nEntrega de temas de proyecto\nEntrega de temas de proyecto\n\n\nLab\n03-09\nFiltros espacialesEjemplo convolución\n🖥️🖥️\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\n\n\n\nCátedra\n11-09\nFiltros mediante PDE\n🖥️\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\nFourier\n🖥️\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\n\n\n\nCátedra\n02-10\nPrueba 1\n\n\n\n\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\n\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\n\n\n\n\nLab\n19-11\n\n\nLab 5\nTarea 5\n\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\n🖥️🖥️🖥️🖥️\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\n\n\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\n\n\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias",
     "crumbs": [
       "Procesamiento de imágenes médicas",
       "Planificación"
@@ -201,13 +313,6 @@
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Políticas del Curso",
     "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio.\n\n\nUso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.\n\n\nColaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.\n\n\nUso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.\n\n\nEntregas tardías\nDispone de un total de 7 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso, excepto la entrega del proyecto final. Los días de retraso le permiten entregar trabajos y tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.\n\n\nAsistencia\nLos estudiantes son responsables de asistir a clase; se espera una asistencia regular. Los estudiantes que asistan a más del 70% de las clases serán eximidos de rendir una prueba final al término del semestre."
-  },
-  {
-    "objectID": "bme423-labs/lab1.html#outline",
-    "href": "bme423-labs/lab1.html#outline",
-    "title": "Laboratorio 1",
-    "section": "Outline",
-    "text": "Outline\nBasic concepts\nDeconvolution\nSpectral GP"
   },
   {
     "objectID": "bme423-code/lab1.html#outline",
