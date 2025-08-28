@@ -196,6 +196,17 @@
     ]
   },
   {
+    "objectID": "bme423-planificacion.html",
+    "href": "bme423-planificacion.html",
+    "title": "BME423 - Planificación y material de clases",
+    "section": "",
+    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n\n\n\n\n\n\nLab\n20-08\n\n\nLab 1  📖\nLab 1\nLab 1\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramasRuido / degradaciónFiltros espaciales\nEjemplo convolución\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nFiltros mediante PDE\n🖥️ - difusión lineal\n\nEntrega de temas de proyecto\nEntrega de temas de proyecto\n\n\nLab\n03-09\n\n\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\nLab 2\n\n\nCátedra\n11-09\nFourier\n\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\n\n\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\nLab 3\n\n\nCátedra\n02-10\nPrueba 1\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\nLab 4\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n19-11\n\n\nLab 5\nLab 5\nLab 5\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\n🖥️🖥️🖥️🖥️\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\nEntrega proyecto\nEntrega proyecto\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\nPrueba\nPrueba\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias",
+    "crumbs": [
+      "Procesamiento de imágenes médicas",
+      "Planificación"
+    ]
+  },
+  {
     "objectID": "bme423.html",
     "href": "bme423.html",
     "title": "BME423 - Procesamiento de imágenes médicas",
@@ -266,15 +277,11 @@
     ]
   },
   {
-    "objectID": "bme423-planificacion.html",
-    "href": "bme423-planificacion.html",
-    "title": "BME423 - Planificación y material de clases",
+    "objectID": "bme423-ejemplos/difusion_lineal.html",
+    "href": "bme423-ejemplos/difusion_lineal.html",
+    "title": "Filtrado mediante la ecuación de difusión lineal",
     "section": "",
-    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n🖥️  🖥️\n\n\n\n\n\nLab\n20-08\n\n&lt;\\&gt;\nLab 1  🖥️\nLab 1\n\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramas\n🖥️\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nRuido / degradación\n🖥️\n\nEntrega de temas de proyecto\nEntrega de temas de proyecto\n\n\nLab\n03-09\nFiltros espacialesEjemplo convolución\n🖥️🖥️\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\n\n\n\nCátedra\n11-09\nFiltros mediante PDE\n🖥️\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\nFourier\n🖥️\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\n\n\n\nCátedra\n02-10\nPrueba 1\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\n\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n19-11\n\n\nLab 5\nTarea 5\n\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\n🖥️🖥️🖥️🖥️\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\nEntrega proyecto\nEntrega proyecto\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\nPrueba\nPrueba\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Planificación"
-    ]
+    "text": "from matplotlib import pyplot as plt\nimport os\nimport numpy as np\nfrom skimage import io\nfrom scipy.signal import convolve2d\n\n\ndef escalar_intensidades(img, scale=255):\n  img = img - img.min()\n  img = img / img.max()\n  return scale * img\n\ndef gradient(f, kx, ky):\n  gradx = convolve2d(f, kx, boundary='symm', mode='same')\n  grady = convolve2d(f, ky, boundary='symm', mode='same')\n  return gradx, grady\n\n# kernels para calcular gradientes\nkx = np.array([[-1, 0, 1], [-2, 0, 1], [-1, 0, 1]])\nky = np.array([[-1, -2, -1], [0, 0, 0], [1, 2, 1]])\n\n\npath = '.'\nfilename = 'lorenzo.jpg'\nimg = io.imread( os.path.join(path, filename) )\nimg = np.mean(img, axis=2)\nimg = escalar_intensidades(img)\n\n\nGradiente de una imagen\n\ngx, gy = gradient(img, kx, ky)\n\n\nfig, axs = plt.subplots(nrows=1, ncols=3, figsize=(10,3))\n\nim0 = axs[0].imshow(img, cmap='gray')\naxs[0].set_title(r'$f, r=['+f'{img.min()},{img.max()}'+']$')\naxs[0].axis('off')\nfig.colorbar(im0, ax=axs[0], fraction=0.046, pad=0.04)\n\nim1 = axs[1].imshow(gx, cmap='gray')\naxs[1].set_title(r'$\\nabla_{\\mathbf{x}} f$')\naxs[1].axis('off')\nfig.colorbar(im1, ax=axs[1], fraction=0.046, pad=0.04)\n\nim2 = axs[2].imshow(gy, cmap='gray')\naxs[2].set_title(r'$\\nabla_{\\mathbf{y}} f$')\naxs[2].axis('off')\nfig.colorbar(im2, ax=axs[2], fraction=0.046, pad=0.04)\n\nplt.show()\n\n\n\n\n\n\n\n\n\n\nEjemplo de implementación del filtro de difusión lineal\nEl siguiente programa implementa la solución numérica de la siguiente PDE:\n\\[\\frac{\\partial f}{\\partial t} = c \\frac{\\partial^2 f}{\\partial x^2} + c \\frac{\\partial^2 f}{\\partial y^2}\\]\n\nc = 0.02\nit_max = 10\ndt = 1\n\nfs = [np.copy(img)]\n\nfor it in range(1, it_max+1):\n  print(f'iteración {it}')\n  gx, gy = gradient(fs[it-1], kx, ky)\n  g2x, _ = gradient(gx, kx, ky)\n  _, g2y = gradient(gy, kx, ky)\n  f_actual  = fs[it-1] + dt*c*(g2x+g2y)\n  fs.append( f_actual )\n\niteración 1\niteración 2\niteración 3\niteración 4\niteración 5\niteración 6\niteración 7\niteración 8\niteración 9\niteración 10\n\n\n\nfig, axs = plt.subplots(nrows=1, ncols=2, figsize=(10,6))\naxs[0].imshow(img, cmap='gray')\naxs[0].set_title(r'$f$')\naxs[0].axis('off')\naxs[1].imshow(fs[-1], cmap='gray')\naxs[1].set_title(r'$\\frac{\\partial f}{\\partial t} = c \\frac{\\partial^2 f}{\\partial x^2} + c\\frac{\\partial^2 f}{\\partial y^2}$')\naxs[1].axis('off')\nplt.show()"
   },
   {
     "objectID": "bme321.html",
