@@ -374,17 +374,6 @@
     "text": "En el siguiente enlace encontrará una guía de ejercicios 🖥️"
   },
   {
-    "objectID": "bme321-planificacion.html",
-    "href": "bme321-planificacion.html",
-    "title": "BME321 - Planificación",
-    "section": "",
-    "text": "22-08. Introducción\nSistemas de medición\nParámetros\nTransductores\nTransductores resistivos, ejemplo\nTransductores capacitivos y piezoeléctricos\nTransductores inductivos\nTransductores térmicos\nTransductores de radiación\nAplicación - fotopletismografía\nAplicación - oximetría\nAplicación - sistema circulatorio y respiratorio (videos)\nBiopotenciales\n05-09. Clase suspendida.\n19-09. Fiestas patrias.\n03-10. Prueba 1.\n17-10. Semana de Pausa.\n14-11. Prueba 2.\n12-12. Prueba 3.",
-    "crumbs": [
-      "Mediciones Biomédicas",
-      "Planificación"
-    ]
-  },
-  {
     "objectID": "bme423-ejemplos/difusion_lineal.html",
     "href": "bme423-ejemplos/difusion_lineal.html",
     "title": "Filtrado mediante la ecuación de difusión lineal",
@@ -624,27 +613,7 @@
     "href": "bme321.html",
     "title": "BME321 - Mediciones Biomédicas",
     "section": "",
-    "text": "Bienvenidos al sitio web del curso BME321 Mediciones Biomédicas. En este sitio encontrarás la información relacionada con las clases y las actividades desarrolladas en éstas.",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
-  },
-  {
-    "objectID": "bme321.html#enlaces-importantes",
-    "href": "bme321.html#enlaces-importantes",
-    "title": "BME321 - Mediciones Biomédicas",
-    "section": "Enlaces importantes",
-    "text": "Enlaces importantes\n\nPlanificación y material visto en clases.\nEvaluaciones.\nEjercicios.\nAula virtual.",
-    "crumbs": [
-      "Mediciones Biomédicas"
-    ]
-  },
-  {
-    "objectID": "bme321.html#clases-y-laboratorios",
-    "href": "bme321.html#clases-y-laboratorios",
-    "title": "BME321 - Mediciones Biomédicas",
-    "section": "Clases y laboratorios",
-    "text": "Clases y laboratorios\n\n\n\n\n\n\n\n\n\n\nDía\nHora\nLugar\n\n\n\n\nCátedra\nViernes\n08:30 - 11:45\n212 (Hucke)\n\n\nLab\nLunes\n10:15 - 13:30\nLab. Electrom.",
+    "text": "Bienvenidos al sitio web del curso BME321 Mediciones Biomédicas. En este sitio encontrarás la información y el material relacionado con el desarrollo del curso. Puedes comunicarte con el profesor al correo alejandro.veloz@uv.cl.",
     "crumbs": [
       "Mediciones Biomédicas"
     ]
@@ -660,11 +629,31 @@
     ]
   },
   {
-    "objectID": "bme321.html#equipo-docente",
-    "href": "bme321.html#equipo-docente",
+    "objectID": "bme321.html#fechas-de-pruebas",
+    "href": "bme321.html#fechas-de-pruebas",
     "title": "BME321 - Mediciones Biomédicas",
-    "section": "Equipo docente",
-    "text": "Equipo docente\n\nProfesor: Dr. Alejandro Veloz - alejandro.veloz@uv.cl\n\nHorario de atención: Lunes 09:00-10:00 (solicitud vía correo)\n\n\n\nAyudante:\n\nHorario de atención:",
+    "section": "Fechas de pruebas",
+    "text": "Fechas de pruebas\n\n03-10. Prueba 1.\n14-11. Prueba 2.\n12-12. Prueba 3.",
+    "crumbs": [
+      "Mediciones Biomédicas"
+    ]
+  },
+  {
+    "objectID": "bme321.html#clases-y-laboratorios",
+    "href": "bme321.html#clases-y-laboratorios",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Clases y laboratorios",
+    "text": "Clases y laboratorios\n\n\n\n\n\n\n\n\n\n\nDía\nHora\nLugar\n\n\n\n\nCátedra\nViernes\n08:30 - 11:45\n212 (Hucke)\n\n\nLab\nLunes\n10:15 - 13:30\nLab. Electrom.",
+    "crumbs": [
+      "Mediciones Biomédicas"
+    ]
+  },
+  {
+    "objectID": "bme321.html#material",
+    "href": "bme321.html#material",
+    "title": "BME321 - Mediciones Biomédicas",
+    "section": "Material",
+    "text": "Material\nSistemas de medición\nParámetros\nTransductores\nTransductores resistivos, ejemplo\nTransductores capacitivos y piezoeléctricos\nTransductores inductivos\nTransductores térmicos\nTransductores de radiación\nAplicación - fotopletismografía\nAplicación - oximetría\nAplicación - sistema circulatorio y respiratorio \nBiopotenciales",
     "crumbs": [
       "Mediciones Biomédicas"
     ]
