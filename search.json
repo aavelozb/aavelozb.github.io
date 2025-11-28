@@ -4,66 +4,42 @@
     "href": "bme423-ejercicios.html",
     "title": "BME423 - Ejercicios",
     "section": "",
-    "text": "En el siguiente enlace encontrará una guía de ejercicios 🖥️",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Ejercicios"
-    ]
+    "text": "En el siguiente enlace encontrará una guía de ejercicios 🖥️"
   },
   {
     "objectID": "bme423-eval-bme.html",
     "href": "bme423-eval-bme.html",
     "title": "Evaluaciones (nivel BME423)",
     "section": "",
-    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en la planificación.",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel BME"
-    ]
+    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en la planificación."
   },
   {
     "objectID": "bme423-eval-bme.html#laboratorios",
     "href": "bme423-eval-bme.html#laboratorios",
     "title": "Evaluaciones (nivel BME423)",
     "section": "Laboratorios",
-    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio (ver las fechas en la planificación).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas.",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel BME"
-    ]
+    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio (ver las fechas en la planificación).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas."
   },
   {
     "objectID": "bme423-eval-mcib-dcis.html",
     "href": "bme423-eval-mcib-dcis.html",
     "title": "Evaluaciones (niveles MCIB/DCIS)",
     "section": "",
-    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en la planificación.",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel MCIB/DCIS"
-    ]
+    "text": "El curso contempla las siguientes evaluaciones:\nLas fechas de las pruebas y laboratorios se encuentran en la planificación."
   },
   {
     "objectID": "bme423-eval-mcib-dcis.html#laboratorios",
     "href": "bme423-eval-mcib-dcis.html#laboratorios",
     "title": "Evaluaciones (niveles MCIB/DCIS)",
     "section": "Laboratorios",
-    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio (ver las fechas en la planificación).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas.",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel MCIB/DCIS"
-    ]
+    "text": "Laboratorios\nLa asistencia a laboratorio es obligatoria. Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio sin necesidad de presentar justificación. Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio (ver las fechas en la planificación).\nLas notas de los laboratorios contemplarán los siguientes aspectos:\n\nSeguimiento de instrucciones de entrega.\nEntrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).\nContenido de las respuestas a las preguntas formuladas."
   },
   {
     "objectID": "bme423-eval-mcib-dcis.html#proyectos",
     "href": "bme423-eval-mcib-dcis.html#proyectos",
     "title": "Evaluaciones (niveles MCIB/DCIS)",
     "section": "Proyectos",
-    "text": "Proyectos\nLos proyectos deben desarrollarse durante el transcurso del semestre (no al final). Los hitos relacionados a los proyectos están disponibles en el enlace.\nAl final del semestre deberá hacer una presentación de 15 min, entregar un informe escrito y poner a disposición del curso un video explicativo del proyecto, el informe escrito y la implementación realizada.\nLos temas son a elección de los estudiantes.\n\nDefinición de los temas de proyecto.\nLa entrega de los temas de proyecto tiene como propósito verificar que el trabajo que será realizado posee la “dificultad apropiada”. Usted recibirá retroalimentación que le permitirá hacer los ajustes necesarios a su proyecto de tal manera de no resolver problemas muy simples o muy complejos.\nEn la fecha indicada debe entregar un documento de no más de dos páginas vía Aula Virtual con lo siguiente:\n\nTítulo del proyecto.\nDescripción. Esto incluye un breve contexto del tema a abordar de manera simple y concreta. Por ejemplo,\n\n“Se quiere detectar de manera automática la variable (…) en base a imágenes de (…). En la literatura se han alcanzado accuracies entre el 60-70% en el problema descrito”.\n\nProblema específico a abordar. Debe explicitar el objetivo del trabajo de manera simple y concreta. Por ejemplo,\n\n“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.\n“Varios artículos que resuelven el problema descrito emplean el modelo X. Mi objetivo es evaluar el modelo Y y comparar los resultados obtenidos al usar el enfoque tradicional”.\n“No existen implementaciones disponibles públicamente del método propuesto en el artículo X. Mi objetivo es implementar el método propuesto en ese artículo y reproducir los resultados obtenidos”.\n\nPunto de partida. Debe indicar si hay implementaciones disponibles de lo que usted propone desarrollar o si lo que propone hacer en este curso es la continuación de un proyecto desarrollado en otra asignatura. Debe establecer de manera clara la diferencia de lo que usted hará con lo hecho por otras personas o en su trabajo previo. Esta diferencia no necesariamente la tendrá clara en este momento, pero es algo que deberá indicar en la entrega parcial o final del proyecto.\nDataset(s). Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos, etc.\nArtículo(s) relacionado(s). Mencione el o los artículos que de una u otra manera se relacionen con el proyecto que abordará.\n\nSi tiene más de una idea a desarrollar, debe hacer un documento por idea (no mezclar ideas de proyecto).",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Evaluación nivel MCIB/DCIS"
-    ]
+    "text": "Proyectos\nLos proyectos deben desarrollarse durante el transcurso del semestre (no al final). Los hitos relacionados a los proyectos están disponibles en el enlace.\nAl final del semestre deberá hacer una presentación de 15 min, entregar un informe escrito y poner a disposición del curso un video explicativo del proyecto, el informe escrito y la implementación realizada.\nLos temas son a elección de los estudiantes.\n\nDefinición de los temas de proyecto.\nLa entrega de los temas de proyecto tiene como propósito verificar que el trabajo que será realizado posee la “dificultad apropiada”. Usted recibirá retroalimentación que le permitirá hacer los ajustes necesarios a su proyecto de tal manera de no resolver problemas muy simples o muy complejos.\nEn la fecha indicada debe entregar un documento de no más de dos páginas vía Aula Virtual con lo siguiente:\n\nTítulo del proyecto.\nDescripción. Esto incluye un breve contexto del tema a abordar de manera simple y concreta. Por ejemplo,\n\n“Se quiere detectar de manera automática la variable (…) en base a imágenes de (…). En la literatura se han alcanzado accuracies entre el 60-70% en el problema descrito”.\n\nProblema específico a abordar. Debe explicitar el objetivo del trabajo de manera simple y concreta. Por ejemplo,\n\n“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.\n“Varios artículos que resuelven el problema descrito emplean el modelo X. Mi objetivo es evaluar el modelo Y y comparar los resultados obtenidos al usar el enfoque tradicional”.\n“No existen implementaciones disponibles públicamente del método propuesto en el artículo X. Mi objetivo es implementar el método propuesto en ese artículo y reproducir los resultados obtenidos”.\n\nPunto de partida. Debe indicar si hay implementaciones disponibles de lo que usted propone desarrollar o si lo que propone hacer en este curso es la continuación de un proyecto desarrollado en otra asignatura. Debe establecer de manera clara la diferencia de lo que usted hará con lo hecho por otras personas o en su trabajo previo. Esta diferencia no necesariamente la tendrá clara en este momento, pero es algo que deberá indicar en la entrega parcial o final del proyecto.\nDataset(s). Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos, etc.\nArtículo(s) relacionado(s). Mencione el o los artículos que de una u otra manera se relacionen con el proyecto que abordará.\n\nSi tiene más de una idea a desarrollar, debe hacer un documento por idea (no mezclar ideas de proyecto)."
   },
   {
     "objectID": "gp/gp-2025.html",
@@ -463,6 +439,26 @@
     ]
   },
   {
+    "objectID": "bme423.html#material-visto-en-clases",
+    "href": "bme423.html#material-visto-en-clases",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Material visto en clases",
+    "text": "Material visto en clases\n[14-08] Introducción Definiciones\n[21-08] Operaciones puntuales y en histogramas Ruido / degradación Filtros espaciales Ejemplo convolución",
+    "crumbs": [
+      "Procesamiento de imágenes médicas"
+    ]
+  },
+  {
+    "objectID": "bme423.html#laboratorios",
+    "href": "bme423.html#laboratorios",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Laboratorios",
+    "text": "Laboratorios\nLab 1, 📖 Chap3 - Rafael Gonzalez",
+    "crumbs": [
+      "Procesamiento de imágenes médicas"
+    ]
+  },
+  {
     "objectID": "bme423.html#bibliografía-y-otros-recursos",
     "href": "bme423.html#bibliografía-y-otros-recursos",
     "title": "BME423 - Procesamiento de imágenes médicas",
@@ -497,11 +493,7 @@
     "href": "bme423-planificacion.html",
     "title": "BME423 - Planificación y material de clases",
     "section": "",
-    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n\n\n\n\n\n\nLab\n20-08\n\n\nLab 1  📖\nLab 1\nLab 1\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramasRuido / degradaciónFiltros espaciales\nEjemplo convolución\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nFiltros mediante PDE\n🖥️ - difusión lineal\n\nEntrega de temas de proyecto\nEntrega de temas de proyecto\n\n\nLab\n03-09\n\n\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\nLab 2\n\n\nCátedra\n11-09\nFourier\n\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\n\n\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\nLab 3\n\n\nCátedra\n02-10\nPrueba 1\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\nLab 4\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n19-11\n\n\nLab 5\nLab 5\nLab 5\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\nslides FANNslides CNN-1slides CNN-2slides repr🖥️ - conv🖥️ - modelos preentrenados🖥️ - arquitecturas🖥️ - fully convolutional🖥️ - object localization\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\nEntrega proyecto\nEntrega proyecto\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\nPrueba\nPrueba\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias",
-    "crumbs": [
-      "Procesamiento de imágenes médicas",
-      "Planificación"
-    ]
+    "text": "Tipo\nFecha\nTópico\nMaterial\nLab\nMICB\nDCIS\n\n\n\n\nCátedra\n14-08\nIntroducciónDefiniciones\n\n\n\n\n\n\nLab\n20-08\n\n\nLab 1  📖\nLab 1\nLab 1\n\n\nCátedra\n21-08\nOperaciones puntuales y en histogramasRuido / degradaciónFiltros espaciales\nEjemplo convolución\n\n\n\n\n\nLab\n27-08\n\n\n\n\n\n\n\nCátedra\n28-08\nFiltros mediante PDE\n🖥️ - difusión lineal\n\nEntrega de temas de proyecto\nEntrega de temas de proyecto\n\n\nLab\n03-09\n\n\n\n\n\n\n\nCátedra\n04-09\nClase suspendida\n\n\n\n\n\n\nLab\n10-09\n\n\nLab 2\nLab 2\nLab 2\n\n\nCátedra\n11-09\nFourier\n\n\n\n\n\n\nLab\n17-09\nFiestas patrias\n\n\n\n\n\n\nCátedra\n18-09\nFiestas patrias\n\n\n\n\n\n\nLab\n24-09\n\n\n\n\n\n\n\nCátedra\n25-09\n\n\n\n\n\n\n\nLab\n01-10\n\n\nLab 3\nLab 3\nLab 3\n\n\nCátedra\n02-10\nPrueba 1\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n08-10\n\n\n\n\n\n\n\nCátedra\n09-10\nTransformaciones geométricas\n🖥️\n\n\n\n\n\nLab\n15-10\nPausa\n\n\n\n\n\n\nCátedra\n16-10\nPausa\n\n\n\n\n\n\nLab\n22-10\n\n\n\n\n\n\n\nCátedra\n23-10\nSegmentación I\n🖥️\n\n\n\n\n\nLab\n29-10\n\n\nLab 4\nLab 4\nLab 4\n\n\nCátedra\n30-10\nSegmentación I\n\n\n\n\n\n\nLab\n05-11\n\n\n\n\n\n\n\nCátedra\n06-11\nMorfología matemática\n🖥️🖥️🖥️\n\n\n\n\n\nLab\n12-11\n\n\n\n\n\n\n\nCátedra\n13-11\nPrueba 2\n\n\nPresentación avance\nPresentación avance\n\n\nLab\n19-11\n\n\nLab 5\nLab 5\nLab 5\n\n\nCátedra\n20-11\nIA en procesamiento de imágenes\nslides FANNslides CNN-1slides CNN-2slides repr🖥️ - conv🖥️ - modelos preentrenados🖥️ - arquitecturas🖥️ - fully convolutional🖥️ - object localization\n\n\n\n\n\nLab\n26-11\n\n\n\n\n\n\n\nCátedra\n27-11\nSegmentación II\n\n\n\n\n\n\nLab\n03-12\n\n\n\n\n\n\n\nCátedra\n04-12\nReconstrucciónReconstrucción a partir de proyecciones\n🖥️🖥️\n\nEntrega proyecto\nEntrega proyecto\n\n\nLab\n10-12\n\n\n\n\n\n\n\nCátedra\n11-12\nPrueba 3\n\n\nPrueba\nPrueba\n\n\nLab\n17-12\nPruebas extraordinarias\n\n\n\n\n\n\nCátedra\n18-12\nPruebas extraordinarias"
   },
   {
     "objectID": "bambinos/corazon.html#posizione-e-dimensione-del-cuore",
