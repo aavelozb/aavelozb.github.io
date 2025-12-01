@@ -311,10 +311,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#objetivo" id="toc-objetivo" class="nav-link active" data-scroll-target="#objetivo">Objetivo</a></li>
-  <li><a href="#slides" id="toc-slides" class="nav-link" data-scroll-target="#slides">Slides</a></li>
+  <li><a href="#slides" id="toc-slides" class="nav-link active" data-scroll-target="#slides">Slides</a></li>
   <li><a href="#hands-on" id="toc-hands-on" class="nav-link" data-scroll-target="#hands-on">Hands-on</a></li>
-  <li><a href="#bibliografía-y-otros-recursos" id="toc-bibliografía-y-otros-recursos" class="nav-link" data-scroll-target="#bibliografía-y-otros-recursos">Bibliografía y otros recursos</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources">Resources</a></li>
   </ul>
 </nav>
     </div>
@@ -341,40 +340,28 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="objetivo" class="level1">
-<h1>Objetivo</h1>
-<p>Al finalizar el semestre, será capaz de:</p>
-<ul>
-<li><strong>Comprender y aplicar los fundamentos teóricos y prácticos del procesamiento de imágenes médicas:</strong> Abordar desde la adquisición y representación de imágenes hasta el uso de técnicas de mejora y preprocesamiento, incluyendo operaciones puntuales y sobre histogramas, filtrado espacial, transformada de Fourier, filtrado mediante ecuaciones diferenciales y análisis del impacto del ruido y degradación en imágenes médicas.</li>
-<li><strong>Diseñar, implementar y evaluar algoritmos de segmentación y análisis cuantitativo:</strong> Desarrollar métodos para aislar, identificar y medir estructuras anatómicas o patológicas en imágenes médicas, utilizando enfoques clásicos y avanzados que garanticen precisión y reproducibilidad.</li>
-<li><strong>Desarrollar y evaluar algoritmos de reconocimiento de patrones y aprendizaje automático:</strong> Aplicar métodos de inteligencia artificial, aprendizaje supervisado (ANN, CNN), y diseño de pipelines automatizados para la clasificación y detección en imágenes médicas.</li>
-<li><strong>Analizar y ejecutar métodos de reconstrucción:</strong>: Implementar algoritmos para la reconstrucción volumétrica y bidimensional a partir de proyecciones, comprendiendo su aplicación en modalidades como tomografía.</li>
-<li><strong>Interpretar especificaciones técnicas y parámetros:</strong> Analizar especificaciones críticas de equipos y softwares de procesamiento de imágenes médicas para seleccionar estrategias y herramientas apropiadas en aplicaciones clínicas.</li>
-<li><strong>Integrar conocimientos en proyectos aplicados:</strong> Planificar y ejecutar proyectos prácticos/laboratorios, documentando metódicamente los procedimientos, resultados y conclusiones, en concordancia con estándares académicos y éticos.</li>
-</ul>
-</section>
 <section id="slides" class="level1">
 <h1>Slides</h1>
-<p><a href="04-gp-covariances.pdf">Planificación y material visto en clases.</a></p>
+<p><a href="01-gp-main.pdf">Gaussian processes I</a><br> <a href="02-gp-main.pdf">Gaussian processes II</a></p>
 </section>
 <section id="hands-on" class="level1">
 <h1>Hands-on</h1>
-<p><a href="gp01-regression.html">Gaussian Process Regression</a></p>
+<p><a href="gp01-regression.html">Gaussian Process Regression</a><br> <a href="gp01-regression-pytorch.html">Gaussian Process Regression (Pytorch)</a><br> <a href="gp02-example-noiseest-sklearn.html">Noise estimation example</a><br> <a href="gp02-example-co2-sklearn.html">CO2 example, choosing a kernel</a></p>
 </section>
-<section id="bibliografía-y-otros-recursos" class="level1">
-<h1>Bibliografía y otros recursos</h1>
-<ul>
-<li><a href="https://www.pearson.com/en-us/subject-catalog/p/digital-image-processing/P200000003224/9780137848560?srsltid=AfmBOopbevUva4BjsSzl5WR1Yqui5kgNYtqmZtrPtCEes0f43VrRM3je">Digital image processing</a>, Rafael González, Richard Woods. Ediciones 2, 3 o 4.</li>
-<li><a href="">Handbook of medical image processing and analysis</a> I. Bankman.</li>
-<li><a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Christopher Bishop (2006).</li>
-<li><a href="">Image Processing, Analysis, and Machine Vision</a> M. Sonka, V. Hlavac, R. Boyle (2008, 2015).</li>
-<li><a href="https://scikit-image.org">Scikit-image</a></li>
-<li><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV</a></li>
-<li><a href="https://simpleitk.readthedocs.io/en/master/">SimpleITK</a></li>
-<li><a href="https://examples.vtk.org/site/Python/">VTK</a><br>
-</li>
-<li>Nibabel, pydicom</li>
-</ul>
+<section id="resources" class="level1">
+<h1>Resources</h1>
+<p><a href="http://www.gaussianprocess.org/gpml/chapters/RW.pdf">Rasmussen, Carl Edward. “Gaussian processes in machine learning.” Summer school on machine learning. Springer, Berlin, Heidelberg, 2003</a>.<br></p>
+<!-- # 
+
+-   [Digital image processing](https://www.pearson.com/en-us/subject-catalog/p/digital-image-processing/P200000003224/9780137848560?srsltid=AfmBOopbevUva4BjsSzl5WR1Yqui5kgNYtqmZtrPtCEes0f43VrRM3je), Rafael González, Richard Woods. Ediciones 2, 3 o 4.
+-   [Handbook of medical image processing and analysis]() I. Bankman.
+-   [Pattern Recognition and Machine Learning](https://link.springer.com/book/9780387310732), Christopher Bishop (2006).
+-   [Image Processing, Analysis, and Machine Vision]() M. Sonka, V. Hlavac, R. Boyle (2008, 2015).
+-   [Scikit-image](https://scikit-image.org)
+-   [OpenCV](https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html)
+-   [SimpleITK](https://simpleitk.readthedocs.io/en/master/)
+-   [VTK](https://examples.vtk.org/site/Python/)\
+-   Nibabel, pydicom -->
 
 
 </section>
