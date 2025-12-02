@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Basic GP Regression (Pytorch and GPyTorch) – AV</title>
+<title>Deep Gaussian Processes – AV</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -140,7 +140,7 @@ window.Quarto = {
 };
 </script>
 
-<meta property="og:title" content="Basic GP Regression (Pytorch and GPyTorch) – AV">
+<meta property="og:title" content="Deep Gaussian Processes – AV">
 <meta property="og:description" content="AV">
 <meta property="og:image" content="https://aavelozb.github.io/gp/gp04-deep_GPs_files/figure-html/cell-6-output-1.png">
 <meta property="og:site_name" content="AV">
@@ -319,7 +319,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Basic GP Regression (Pytorch and GPyTorch)</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Deep Gaussian Processes</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -355,11 +355,8 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../bme513.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inteligencia Artificial en Salud</span></a>
-  </div>
-</li>
+ <span class="menu-text">Inteligencia Artificial en Salud</span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bme423.html" class="sidebar-item-text sidebar-link">
@@ -382,7 +379,7 @@ window.Quarto = {
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#deep-gaussian-processes" id="toc-deep-gaussian-processes" class="nav-link active" data-scroll-target="#deep-gaussian-processes">Deep Gaussian Processes</a>
+  <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section"></a>
   <ul class="collapse">
   <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">1. Getting started</a></li>
   <li><a href="#deep-gp-regression" id="toc-deep-gp-regression" class="nav-link" data-scroll-target="#deep-gp-regression">2. Deep GP Regression</a>
@@ -394,7 +391,6 @@ window.Quarto = {
   </ul></li>
   <li><a href="#approximating-discontinuities" id="toc-approximating-discontinuities" class="nav-link" data-scroll-target="#approximating-discontinuities">3. Approximating Discontinuities</a>
   <ul class="collapse">
-  <li><a href="#exercise-1" id="toc-exercise-1" class="nav-link" data-scroll-target="#exercise-1">Exercise</a></li>
   <li><a href="#credit" id="toc-credit" class="nav-link" data-scroll-target="#credit">Credit</a></li>
   </ul></li>
   </ul></li>
@@ -407,7 +403,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Basic GP Regression (Pytorch and GPyTorch)</h1>
+<h1 class="title">Deep Gaussian Processes</h1>
 </div>
 
 
@@ -430,8 +426,8 @@ window.Quarto = {
 <figcaption>Open In Colab</figcaption>
 </figure>
 </div>
-<section id="deep-gaussian-processes" class="level1">
-<h1>Deep Gaussian Processes</h1>
+<section id="section" class="level1">
+<h1></h1>
 <p>In this lab, we introduce practical use of <em>deep Gaussian processes</em>.</p>
 <p>The level of this notebook is aimed as an introduction to deep GPs, but will assume some familiarity from previous topics, including regression and using inducing variables for scalable inference.</p>
 <p>This notebook makes use of <a href="https://github.com/SheffieldML/PyDeepGP"><code>PyDeepGP</code></a>.</p>
@@ -1086,11 +1082,7 @@ Note: you may need to restart the kernel to use updated packages.</code></pre>
 </div>
 </div>
 </div>
-<section id="exercise-1" class="level3">
-<h3 class="anchored" data-anchor-id="exercise-1">Exercise</h3>
-<p>Plot the different layers of the GP and comment on the warping. Can you explain why we are observing simulated discontinuities in the extrapolated regions?</p>
 <hr>
-</section>
 <section id="credit" class="level3">
 <h3 class="anchored" data-anchor-id="credit">Credit</h3>
 <p>This notebook was written by Wil Ward, based on documentation of PyDeepGP and talks by <a href="http://inverseprobability.com/">Neil Lawrence</a>.</p>

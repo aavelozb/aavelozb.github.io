@@ -108,11 +108,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <meta property="og:title" content="Gaussian Process Regression – AV">
-<meta property="og:description" content="AV">
-<meta property="og:image" content="https://aavelozb.github.io/gp/gp01-regression_files/figure-html/cell-3-output-2.png">
+<meta property="og:image" content="https://aavelozb.github.io/gp/gp01-regression_files/figure-html/cell-2-output-1.png">
 <meta property="og:site_name" content="AV">
-<meta property="og:image:height" content="418">
-<meta property="og:image:width" content="425">
+<meta property="og:image:height" content="490">
+<meta property="og:image:width" content="790">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -322,11 +321,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../bme513.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inteligencia Artificial en Salud</span></a>
-  </div>
-</li>
+ <span class="menu-text">Inteligencia Artificial en Salud</span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../bme423.html" class="sidebar-item-text sidebar-link">
@@ -349,11 +345,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#descargas" id="toc-descargas" class="nav-link active" data-scroll-target="#descargas">Descargas</a></li>
-  <li><a href="#lectura-y-apertura-de-imágenes" id="toc-lectura-y-apertura-de-imágenes" class="nav-link" data-scroll-target="#lectura-y-apertura-de-imágenes">Lectura y apertura de imágenes</a></li>
-  <li><a href="#filtro-de-convolución" id="toc-filtro-de-convolución" class="nav-link" data-scroll-target="#filtro-de-convolución">Filtro de convolución</a></li>
-  <li><a href="#detección-de-bordes-en-imágenes-en-escala-de-grises" id="toc-detección-de-bordes-en-imágenes-en-escala-de-grises" class="nav-link" data-scroll-target="#detección-de-bordes-en-imágenes-en-escala-de-grises">Detección de bordes en imágenes en escala de grises</a></li>
-  <li><a href="#pooling-y-strides-con-convoluciones" id="toc-pooling-y-strides-con-convoluciones" class="nav-link" data-scroll-target="#pooling-y-strides-con-convoluciones">Pooling y <em>strides</em> con convoluciones</a></li>
+  <li><a href="#illustration-of-prior-and-posterior-gaussian-process-for-different-kernels" id="toc-illustration-of-prior-and-posterior-gaussian-process-for-different-kernels" class="nav-link active" data-scroll-target="#illustration-of-prior-and-posterior-gaussian-process-for-different-kernels">Illustration of prior and posterior Gaussian process for different kernels</a>
+  <ul class="collapse">
+  <li><a href="#dataset-and-gaussian-process-generation" id="toc-dataset-and-gaussian-process-generation" class="nav-link" data-scroll-target="#dataset-and-gaussian-process-generation">Dataset and Gaussian process generation</a>
+  <ul class="collapse">
+  <li><a href="#radial-basis-function-kernel" id="toc-radial-basis-function-kernel" class="nav-link" data-scroll-target="#radial-basis-function-kernel">Radial Basis Function kernel</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -380,31 +378,124 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Este notebook muestra la aplicación de convoluciones en imágenes.</p>
-<section id="descargas" class="level3">
-<h3 class="anchored" data-anchor-id="descargas">Descargas</h3>
-<p><a href="bee.png">bee.png</a></p>
-</section>
-<section id="lectura-y-apertura-de-imágenes" class="level3">
-<h3 class="anchored" data-anchor-id="lectura-y-apertura-de-imágenes">Lectura y apertura de imágenes</h3>
-<p>El siguiente código permite leer una imagen, cargarla en un arreglo de numpy y mostrarla.</p>
-<div id="cell-2" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span>
+<p><a href="https://colab.research.google.com/github/aavelozb/aavelozb.github.io/blob/main/gp/gp01-regression.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid"></a></p>
+<div id="cell-2" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimage.io <span class="im">import</span> imread</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimage.transform <span class="im">import</span> resize</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process <span class="im">import</span> GaussianProcessRegressor</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process.kernels <span class="im">import</span> RBF, ConstantKernel, WhiteKernel</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>plot_params <span class="op">=</span> {<span class="st">'legend.fontsize'</span>: <span class="dv">18</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>               <span class="st">'figure.figsize'</span>: (<span class="dv">8</span>, <span class="dv">5</span>),</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>               <span class="st">'xtick.labelsize'</span>:<span class="st">'18'</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>               <span class="st">'ytick.labelsize'</span>:<span class="st">'18'</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>               <span class="st">'axes.titlesize'</span>:<span class="st">'24'</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>               <span class="st">'axes.labelsize'</span>:<span class="st">'22'</span>}</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update(plot_params)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>sns.set_style(<span class="st">"whitegrid"</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sin(x) <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> np.cos(<span class="dv">3</span> <span class="op">*</span> x)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">100</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>plt.plot(x, f(x), alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'f(x)'</span>)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">0</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a><span class="co"># training data</span></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">12</span>)[:, <span class="va">None</span>]</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">3</span>, <span class="op">-</span><span class="fl">1.9</span>, <span class="dv">2</span>])[:, <span class="va">None</span>]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> f(X_train[:, <span class="dv">0</span>]) <span class="op">+</span> <span class="fl">0.1</span> <span class="op">*</span> np.random.randn(<span class="bu">len</span>(X_train))</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a><span class="co"># test grid</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">400</span>)[:, <span class="va">None</span>]</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>plt.plot(X_train[:, <span class="dv">0</span>], y_train, <span class="st">'or'</span>, label<span class="op">=</span><span class="st">'observations'</span>)</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>plt.plot(X_test[:, <span class="dv">0</span>], f(X_test[:, <span class="dv">0</span>]), <span class="st">'k--'</span>, label<span class="op">=</span><span class="st">'ground truth'</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'x'</span>)</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'y'</span>)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
 </div>
-<div id="cell-3" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>sample_image <span class="op">=</span> imread(<span class="st">"bee.png"</span>).astype(<span class="st">"float32"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"sample image shape: "</span>, sample_image.shape)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>size <span class="op">=</span> sample_image.shape</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>plt.imshow(sample_image.astype(<span class="st">'uint8'</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>sample image shape:  (600, 600, 3)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-2-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-3" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> n_samples <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">4</span>]:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    idx_fig <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> sigma_f <span class="kw">in</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]:</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> length_scale <span class="kw">in</span> [<span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">3</span>]:</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            idx_fig<span class="op">+=</span><span class="dv">1</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>            kernel <span class="op">=</span> ConstantKernel(sigma_f, (<span class="fl">1e-3</span>, <span class="fl">1e3</span>)) <span class="op">\</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>                        <span class="op">*</span> RBF(length_scale<span class="op">=</span>length_scale, length_scale_bounds<span class="op">=</span>(<span class="fl">1e-2</span>, <span class="fl">1e2</span>)) <span class="op">\</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>                        <span class="op">+</span> WhiteKernel(noise_level<span class="op">=</span><span class="fl">0.0</span>, noise_level_bounds<span class="op">=</span>(<span class="fl">1e-10</span>, <span class="fl">1e0</span>))</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>            gp <span class="op">=</span> GaussianProcessRegressor(</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                kernel<span class="op">=</span>kernel,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                alpha<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                optimizer<span class="op">=</span><span class="va">None</span>,          <span class="co"># &lt;- disables LML optimization / 'fmin_l_bfgs_b'</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>                n_restarts_optimizer<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>                normalize_y<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Prior mean/cov on test grid</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            mu_prior, cov_prior <span class="op">=</span> gp.predict(X_test, return_cov<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Draw prior samples</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            prior_samps <span class="op">=</span> np.random.multivariate_normal(mean<span class="op">=</span>mu_prior.ravel(), cov<span class="op">=</span>cov_prior, size<span class="op">=</span>n_samples)</span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            plt.close(<span class="st">'all'</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>), gridspec_kw<span class="op">=</span>{<span class="st">'width_ratios'</span>: [<span class="dv">1</span>, <span class="dv">2</span>]})</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            axs <span class="op">=</span> axs.flatten()</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Left: covariance matrix</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            im <span class="op">=</span> axs[<span class="dv">0</span>].imshow(cov_prior, origin<span class="op">=</span><span class="st">"lower"</span>, extent<span class="op">=</span>[<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>], vmin<span class="op">=</span><span class="fl">0.0</span>, vmax<span class="op">=</span><span class="fl">2.0</span>)</span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">0</span>].set_xlabel(<span class="vs">r'</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">'</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">0</span>].set_ylabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">^</span><span class="er">\</span><span class="vs">prime</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">0</span>].grid(<span class="va">False</span>)</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">0</span>].set_xlim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            fig.colorbar(im, ax<span class="op">=</span>axs[<span class="dv">0</span>], fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Right: prior samples</span></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples):</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>                axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], prior_samps[i], alpha<span class="op">=</span><span class="fl">0.7</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">1</span>].set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">1</span>].set_ylabel(<span class="st">'f(x)'</span>)</span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">1</span>].set_xlim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>            axs[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>            plt.suptitle(<span class="ss">f'$</span><span class="er">\</span><span class="ss">ell=</span><span class="sc">{</span>length_scale<span class="sc">}</span><span class="ss">$, $</span><span class="er">\</span><span class="ss">sigma_f=</span><span class="sc">{</span>sigma_f<span class="sc">}</span><span class="ss">$'</span>, fontsize<span class="op">=</span><span class="dv">38</span>)</span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>            plt.tight_layout()</span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            <span class="co"># plt.savefig(os.path.join('.',f'fig-prior-rbf-nsamp{n_samples}-{idx_fig}.pdf'))</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>            plt.show()</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -413,413 +504,586 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-</div>
-</section>
-<section id="filtro-de-convolución" class="level3">
-<h3 class="anchored" data-anchor-id="filtro-de-convolución">Filtro de convolución</h3>
-<p>El objetivo de esta sección es utilizar TensorFlow / Keras para realizar convoluciones individuales sobre imágenes. En esta sección todavía no se entrena ningún modelo.</p>
-<div id="cell-5" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> tensorflow <span class="im">as</span> tf</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(tf.__version__)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>2.16.2</code></pre>
-</div>
-</div>
-<div id="cell-6" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.models <span class="im">import</span> Sequential</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> Conv2D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-7" class="cell" data-scrolled="true" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>conv <span class="op">=</span> Conv2D(filters<span class="op">=</span><span class="dv">3</span>, kernel_size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), padding<span class="op">=</span><span class="st">"same"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-8" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>sample_image.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>(600, 600, 3)</code></pre>
-</div>
-</div>
-<div id="cell-9" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>img_in <span class="op">=</span> np.expand_dims(sample_image, <span class="dv">0</span>)</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>img_in.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>(1, 600, 600, 3)</code></pre>
-</div>
-</div>
-<p>Si aplicamos esta convolución a esta imagen, ¿cuál será la forma del mapa de características generado?</p>
-<p>Pistas:</p>
-<ul>
-<li>En Keras <code>padding="same"</code> significa que las convoluciones usan el relleno necesario para preservar la dimensión espacial de las imágenes o mapas de entrada.<br>
-</li>
-<li>En Keras, las convoluciones no tienen <em>strides</em> por defecto.<br>
-</li>
-<li>¿Cuánto padding debe usar Keras en este caso particular para preservar las dimensiones espaciales?</li>
-</ul>
-<div id="cell-11" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>img_out <span class="op">=</span> conv(img_in)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(img_out), img_out.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'tensorflow.python.framework.ops.EagerTensor'&gt; (1, 600, 600, 3)</code></pre>
-</div>
-</div>
-<p>La salida puede convertirse a un arreglo de numpy</p>
-<div id="cell-13" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>np_img_out <span class="op">=</span> img_out[<span class="dv">0</span>].numpy()</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">type</span>(np_img_out))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'numpy.ndarray'&gt;</code></pre>
-</div>
-</div>
-<div id="cell-14" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>ax0.imshow(sample_image.astype(<span class="st">'uint8'</span>))</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>ax1.imshow(np_img_out.astype(<span class="st">'uint8'</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="gp01-regression_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+<p><img src="gp01-regression_files/figure-html/cell-3-output-3.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
-</div>
-</div>
-<p>La salida tiene 3 canales, por lo tanto, también puede interpretarse como una imagen RGB con matplotlib. Sin embargo, es el resultado de un filtro convolucional aleatorio aplicado a la imagen original.</p>
-<p>Veamos los parámetros:</p>
-<div id="cell-16" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>conv.count_params()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>228</code></pre>
-</div>
-</div>
-<p><strong>Pregunta</strong>: ¿Puedes calcular el número de parámetros entrenables a partir de los hiperparámetros de la capa?</p>
-<p>Pistas:</p>
-<ul>
-<li>la imagen de entrada tiene 3 colores y un único <strong>kernel de convolución</strong> mezcla información de los tres canales de entrada para calcular su salida;<br>
-</li>
-<li>una <strong>capa convolucional</strong> genera muchos canales de salida a la vez: cada canal es el resultado de una operación de convolución distinta (también llamada unidad) de la capa;<br>
-</li>
-<li>No olvidar los sesgos/biases</li>
-</ul>
-<div id="cell-18" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(conv.get_weights())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>2</code></pre>
-</div>
-</div>
-<div id="cell-19" class="cell" data-scrolled="true" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>weights <span class="op">=</span> conv.get_weights()[<span class="dv">0</span>]</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>weights.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>(5, 5, 3, 3)</code></pre>
-</div>
-</div>
-<p>Cada uno de los 3 canales de salida es generado por un kernel de convolución distinto.</p>
-<p>Cada kernel tiene dimensión 5x5 y opera sobre los 3 canales de entrada.</p>
-<div id="cell-21" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>biases <span class="op">=</span> conv.get_weights()[<span class="dv">1</span>]</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>biases.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
-<pre><code>(3,)</code></pre>
-</div>
-</div>
-<p>Un bias por canal de salida.</p>
-<p>Podemos construir un kernel nosotros mismos (“manualmente”).</p>
-<div id="cell-23" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_init(shape<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>), dtype<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> np.zeros(shape<span class="op">=</span>shape, dtype<span class="op">=</span><span class="st">"float32"</span>)</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    array[:, :, <span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">25</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    array[:, :, <span class="dv">1</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">25</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    array[:, :, <span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="dv">25</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> array</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-24" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>np.transpose(my_init(), (<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>array([[[[0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04]],
-
-        [[0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ]],
-
-        [[0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ]]],
-
-
-       [[[0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ]],
-
-        [[0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04]],
-
-        [[0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ]]],
-
-
-       [[[0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ]],
-
-        [[0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ],
-         [0.  , 0.  , 0.  , 0.  , 0.  ]],
-
-        [[0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04],
-         [0.04, 0.04, 0.04, 0.04, 0.04]]]], dtype=float32)</code></pre>
-</div>
-</div>
-<div id="cell-25" class="cell" data-scrolled="true" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>conv <span class="op">=</span> Conv2D(filters<span class="op">=</span><span class="dv">3</span>, kernel_size<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>), padding<span class="op">=</span><span class="st">"same"</span>, kernel_initializer<span class="op">=</span>my_init)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-26" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>ax0.imshow(img_in[<span class="dv">0</span>].astype(<span class="st">'uint8'</span>))</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>img_out <span class="op">=</span> conv(img_in)</span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(img_out.shape)</span>
-<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>np_img_out <span class="op">=</span> img_out[<span class="dv">0</span>].numpy()</span>
-<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>ax1.imshow(np_img_out.astype(<span class="st">'uint8'</span>))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(1, 600, 600, 3)</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="gp01-regression_files/figure-html/cell-19-output-2.png" class="img-fluid figure-img"></p>
+<p><img src="gp01-regression_files/figure-html/cell-3-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-5.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-6.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-7.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-8.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-9.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-10.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-11.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-12.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-13.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-14.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-15.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-16.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-17.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-3-output-18.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<ul>
-<li>Define una capa Conv2D con 3 filtros (5x5) que calculen la función identidad (preserven la imagen de entrada sin mezclar los colores).<br>
-</li>
-<li>Cambia el <em>stride</em> a 2. ¿Cuál es el tamaño de la imagen de salida?<br>
-</li>
-<li>Cambia el <em>padding</em> a VALID. ¿Qué se observa?</li>
-</ul>
-<div id="cell-28" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_init(shape<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">3</span>, <span class="dv">3</span>), dtype<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> np.zeros(shape<span class="op">=</span>shape, dtype<span class="op">=</span><span class="st">"float32"</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    array[<span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> np.eye(<span class="dv">3</span>)</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> array</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>conv_strides_same <span class="op">=</span> Conv2D(filters<span class="op">=</span><span class="dv">3</span>, kernel_size<span class="op">=</span><span class="dv">5</span>, strides<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>           padding<span class="op">=</span><span class="st">"same"</span>, kernel_initializer<span class="op">=</span>my_init,</span>
-<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>           input_shape<span class="op">=</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">3</span>))</span>
-<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>conv_strides_valid <span class="op">=</span> Conv2D(filters<span class="op">=</span><span class="dv">3</span>, kernel_size<span class="op">=</span><span class="dv">5</span>, strides<span class="op">=</span><span class="dv">2</span>,</span>
-<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>           padding<span class="op">=</span><span class="st">"valid"</span>, </span>
-<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>           kernel_initializer<span class="op">=</span>my_init)</span>
-<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>img_in <span class="op">=</span> np.expand_dims(sample_image, <span class="dv">0</span>)</span>
-<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>img_out_same <span class="op">=</span> conv_strides_same(img_in)[<span class="dv">0</span>].numpy()</span>
-<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>img_out_valid <span class="op">=</span> conv_strides_valid(img_in)[<span class="dv">0</span>].numpy()</span>
-<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape of original image:"</span>, sample_image.shape)</span>
-<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape of result with SAME padding:"</span>, img_out_same.shape)</span>
-<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Shape of result with VALID padding:"</span>, img_out_valid.shape)</span>
-<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1, ax2) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
-<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>ax0.imshow(img_in[<span class="dv">0</span>].astype(np.uint8))</span>
-<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>ax1.imshow(img_out_same.astype(np.uint8))</span>
-<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>ax2.imshow(img_out_valid.astype(np.uint8))<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-4" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>length_scale <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>sigma_f <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>kernel <span class="op">=</span> ConstantKernel(sigma_f, (<span class="fl">1e-3</span>, <span class="fl">1e3</span>)) <span class="op">\</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">*</span> RBF(length_scale<span class="op">=</span>length_scale, length_scale_bounds<span class="op">=</span>(<span class="fl">1e-2</span>, <span class="fl">1e2</span>)) <span class="op">\</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> WhiteKernel(noise_level<span class="op">=</span><span class="fl">0.0</span>, noise_level_bounds<span class="op">=</span>(<span class="fl">1e-10</span>, <span class="fl">1e0</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>gp <span class="op">=</span> GaussianProcessRegressor(</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>    kernel<span class="op">=</span>kernel,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.0</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    optimizer<span class="op">=</span><span class="va">None</span>,          <span class="co"># &lt;- disables LML optimization / 'fmin_l_bfgs_b'</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    n_restarts_optimizer<span class="op">=</span><span class="dv">5</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    normalize_y<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Prior mean/cov on test grid</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>mu_prior, cov_prior <span class="op">=</span> gp.predict(X_test, return_cov<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>std_prior <span class="op">=</span> np.sqrt(np.diag(cov_prior))</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw prior samples</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>prior_samps <span class="op">=</span> np.random.multivariate_normal(mean<span class="op">=</span>mu_prior.ravel(), cov<span class="op">=</span>cov_prior, size<span class="op">=</span>n_samples)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>), gridspec_kw<span class="op">=</span>{<span class="st">'width_ratios'</span>: [<span class="dv">1</span>, <span class="dv">2</span>]})</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>axs <span class="op">=</span> axs.flatten()</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Left: covariance matrix</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> axs[<span class="dv">0</span>].imshow(cov_prior, origin<span class="op">=</span><span class="st">"lower"</span>, extent<span class="op">=</span>[<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>], vmin<span class="op">=</span><span class="fl">0.0</span>, vmax<span class="op">=</span><span class="fl">2.0</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="vs">r'</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">'</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">^</span><span class="er">\</span><span class="vs">prime</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">False</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>fig.colorbar(im, ax<span class="op">=</span>axs[<span class="dv">0</span>], fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Right: prior samples</span></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples):</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], prior_samps[i], alpha<span class="op">=</span><span class="fl">0.7</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylabel(<span class="st">'f(x)'</span>)</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="ss">f'$</span><span class="er">\</span><span class="ss">ell=</span><span class="sc">{</span>length_scale<span class="sc">}</span><span class="ss">$, $</span><span class="er">\</span><span class="ss">sigma_f=</span><span class="sc">{</span>sigma_f<span class="sc">}</span><span class="ss">$'</span>, fontsize<span class="op">=</span><span class="dv">38</span>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig(os.path.join('.',f'fig-prior-rbf-with-moments.pdf'))</span></span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co"># Right: prior samples</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], mu_prior, <span class="st">'r'</span>, label<span class="op">=</span><span class="st">'GP mean'</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].fill_between(</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    X_test[:, <span class="dv">0</span>],</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a>    mu_prior <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> std_prior,</span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    mu_prior <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> std_prior,</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'r'</span>,</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">'none'</span>,</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">'95% CI'</span>)</span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">"lower left"</span>, ncols<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig(os.path.join('.',f'fig-prior-rbf-with-moments-2.pdf'))</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-5" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>gp.fit(X_train, y_train)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Posterior mean/cov on test grid</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>mu, cov <span class="op">=</span> gp.predict(X_test, return_cov<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw posterior samples</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>post_samps <span class="op">=</span> np.random.multivariate_normal(mean<span class="op">=</span>mu.ravel(), cov<span class="op">=</span>cov, size<span class="op">=</span>n_samples)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>std <span class="op">=</span> np.sqrt(np.diag(cov))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>plt.close(<span class="st">'all'</span>)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>), gridspec_kw<span class="op">=</span>{<span class="st">'width_ratios'</span>: [<span class="dv">1</span>, <span class="dv">2</span>]})</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>axs <span class="op">=</span> axs.flatten()</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Left: covariance matrix</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> axs[<span class="dv">0</span>].imshow(cov, origin<span class="op">=</span><span class="st">"lower"</span>, extent<span class="op">=</span>[<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>], vmin<span class="op">=</span><span class="fl">0.0</span>, vmax<span class="op">=</span><span class="fl">2.0</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="vs">r'</span><span class="dv">$</span><span class="vs">x</span><span class="dv">$</span><span class="vs">'</span>)</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="vs">r"</span><span class="dv">$</span><span class="vs">x</span><span class="dv">^</span><span class="er">\</span><span class="vs">prime</span><span class="dv">$</span><span class="vs">"</span>)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].grid(<span class="va">False</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>fig.colorbar(im, ax<span class="op">=</span>axs[<span class="dv">0</span>], fraction<span class="op">=</span><span class="fl">0.046</span>, pad<span class="op">=</span><span class="fl">0.04</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Right: prior samples</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_samples):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], post_samps[i], alpha<span class="op">=</span><span class="fl">0.7</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">'x'</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylabel(<span class="st">'f(x)'</span>)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], mu, <span class="st">'r'</span>, label<span class="op">=</span><span class="st">'GP mean'</span>, lw<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].fill_between(</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>    X_test[:, <span class="dv">0</span>],</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> std,</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>    mu <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> std,</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>    color<span class="op">=</span><span class="st">'r'</span>,</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>    alpha<span class="op">=</span><span class="fl">0.2</span>,</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="dv">0</span>,</span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">'none'</span>,</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>    label<span class="op">=</span><span class="st">'95% CI'</span>)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].scatter(np.squeeze(X_train), y_train, color<span class="op">=</span><span class="st">"red"</span>, zorder<span class="op">=</span><span class="dv">10</span>, s<span class="op">=</span><span class="dv">60</span>, label<span class="op">=</span><span class="st">"Obs"</span>)</span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">"lower left"</span>, ncols<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>plt.suptitle(<span class="ss">f'$</span><span class="er">\</span><span class="ss">ell=</span><span class="sc">{</span>length_scale<span class="sc">}</span><span class="ss">$, $</span><span class="er">\</span><span class="ss">sigma_f=</span><span class="sc">{</span>sigma_f<span class="sc">}</span><span class="ss">$'</span>, fontsize<span class="op">=</span><span class="dv">38</span>)</span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig(os.path.join('.',f'fig-post-rbf-with-moments.pdf'))</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/Users/aveloz/miniconda3/lib/python3.9/site-packages/keras/src/layers/convolutional/base_conv.py:107: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
-  super().__init__(activity_regularizer=activity_regularizer, **kwargs)</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Shape of original image: (600, 600, 3)
-Shape of result with SAME padding: (300, 300, 3)
-Shape of result with VALID padding: (298, 298, 3)</code></pre>
+<pre><code>/Users/aveloz/miniconda3/lib/python3.9/site-packages/sklearn/gaussian_process/kernels.py:307: RuntimeWarning: divide by zero encountered in log
+  return np.log(np.hstack(theta))</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="gp01-regression_files/figure-html/cell-20-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="gp01-regression_files/figure-html/cell-5-output-2.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>El stride de 2 divide el tamaño de la imagen a la mitad. En el caso de padding ‘VALID’, no agrega padding, por lo tanto el tamaño de la imagen de salida es el mismo que el tamaño original menos 2 debido al tamaño del kernel.</p>
-</section>
-<section id="detección-de-bordes-en-imágenes-en-escala-de-grises" class="level3">
-<h3 class="anchored" data-anchor-id="detección-de-bordes-en-imágenes-en-escala-de-grises">Detección de bordes en imágenes en escala de grises</h3>
-<div id="cell-30" class="cell" data-scrolled="true" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># convert image to greyscale</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>grey_sample_image <span class="op">=</span> sample_image.mean(axis<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="co"># add the channel dimension even if it's only one channel so</span></span>
-<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a><span class="co"># as to be consistent with Keras expectations.</span></span>
-<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a>grey_sample_image <span class="op">=</span> grey_sample_image[:, :, np.newaxis]</span>
-<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># matplotlib does not like the extra dim for the color channel</span></span>
-<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a><span class="co"># when plotting gray-level images. Let's use squeeze:</span></span>
-<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>plt.imshow(np.squeeze(grey_sample_image.astype(np.uint8)),</span>
-<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>           cmap<span class="op">=</span>plt.cm.gray)<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gp01-regression_files/figure-html/cell-21-output-1.png" class="img-fluid figure-img"></p>
-</figure>
+<section id="illustration-of-prior-and-posterior-gaussian-process-for-different-kernels" class="level1">
+<h1>Illustration of prior and posterior Gaussian process for different kernels</h1>
+<div id="cell-7" class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_gpr_samples(gpr_model, n_samples, ax):</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">100</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> x.reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    y_mean, y_std <span class="op">=</span> gpr_model.predict(X, return_std<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    y_samples <span class="op">=</span> gpr_model.sample_y(X, n_samples)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> idx, single_prior <span class="kw">in</span> <span class="bu">enumerate</span>(y_samples.T):</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        ax.plot(x, single_prior, color<span class="op">=</span><span class="st">"black"</span>, alpha<span class="op">=</span><span class="fl">0.7</span>, label<span class="op">=</span><span class="ss">f"Sampled function"</span>) </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    ax.plot(x, y_mean, color<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="st">"Mean"</span>)</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    ax.fill_between(x, y_mean <span class="op">-</span> <span class="dv">2</span><span class="op">*</span>y_std, y_mean <span class="op">+</span> <span class="dv">2</span><span class="op">*</span>y_std, alpha<span class="op">=</span><span class="fl">0.5</span>, color<span class="op">=</span><span class="st">"orange"</span>, label<span class="op">=</span><span class="vs">r"</span><span class="dv">$</span><span class="er">\</span><span class="vs">pm</span><span class="dv">$</span><span class="vs"> 2 std</span><span class="dv">.</span><span class="vs"> dev</span><span class="dv">.</span><span class="vs">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="dataset-and-gaussian-process-generation" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-and-gaussian-process-generation">Dataset and Gaussian process generation</h2>
+<p>We will create a training dataset that we will use in the different sections.</p>
+<div id="cell-9" class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.RandomState(<span class="dv">5</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">10</span>).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> np.sin((X_train[:, <span class="dv">0</span>] <span class="op">-</span> <span class="fl">2.5</span>) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>X_train</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>array([[1.10996586],
+       [4.35366153],
+       [1.03359578],
+       [4.59305454],
+       [2.44205594],
+       [3.05871931],
+       [3.82953928],
+       [2.59208994],
+       [1.48400251],
+       [0.93860614]])</code></pre>
 </div>
 </div>
-</div>
-<div id="cell-31" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_init(shape, dtype<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> np.array([</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.0</span>,  <span class="fl">0.2</span>, <span class="fl">0.0</span>],</span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.0</span>],</span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.0</span>,  <span class="fl">0.0</span>, <span class="fl">0.0</span>],</span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>    ], dtype<span class="op">=</span><span class="st">"float32"</span>)</span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># adds two axis to match the required shape (3,3,1,1)</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.expand_dims(np.expand_dims(array,<span class="op">-</span><span class="dv">1</span>),<span class="op">-</span><span class="dv">1</span>)</span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a>conv_edge <span class="op">=</span> Conv2D(kernel_size<span class="op">=</span>(<span class="dv">3</span>,<span class="dv">3</span>), filters<span class="op">=</span><span class="dv">1</span>,</span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>           padding<span class="op">=</span><span class="st">"same"</span>, kernel_initializer<span class="op">=</span>my_init,</span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a>           input_shape<span class="op">=</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">1</span>))</span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a>img_in <span class="op">=</span> np.expand_dims(grey_sample_image, <span class="dv">0</span>)</span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a>img_out <span class="op">=</span> conv_edge(img_in).numpy()</span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>ax0.imshow(np.squeeze(img_in[<span class="dv">0</span>]).astype(np.uint8),</span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>           cmap<span class="op">=</span>plt.cm.gray)<span class="op">;</span></span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a>ax1.imshow(np.squeeze(img_out[<span class="dv">0</span>]).astype(np.uint8),</span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a>           cmap<span class="op">=</span>plt.cm.gray)<span class="op">;</span></span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="co"># vertical edge detection.</span></span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Many other kernels work, for example differences</span></span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="co"># of centered gaussians</span></span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="co"># You may try with this filter as well</span></span>
-<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a><span class="co"># np.array([</span></span>
-<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="co">#         [ 0.1,  0.2,  0.1],</span></span>
-<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="co">#         [ 0.0,  0.0,  0.0],</span></span>
-<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a><span class="co">#         [-0.1, -0.2, -0.1],</span></span>
-<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a><span class="co">#     ], dtype="float32")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gp01-regression_files/figure-html/cell-22-output-1.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="pooling-y-strides-con-convoluciones" class="level3">
-<h3 class="anchored" data-anchor-id="pooling-y-strides-con-convoluciones">Pooling y <em>strides</em> con convoluciones</h3>
-<ul>
-<li>Usa <code>MaxPool2D</code> para aplicar un max pooling de 2x2 con <em>strides</em> de 2 a la imagen. ¿Cuál es el impacto en el tamaño de la imagen?<br>
-</li>
-<li>Usa <code>AvgPool2D</code> para aplicar un average pooling.</li>
-<li>¿Es posible calcular un max pooling y un average pooling con kernels elegidos a mano?<br>
-</li>
-<li>Implementa un average pooling de 3x3 con una convolución regular <code>Conv2D</code>, con <em>strides</em>, kernel y <em>padding</em> bien elegidos.</li>
-</ul>
-<div id="cell-33" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tensorflow.keras.layers <span class="im">import</span> MaxPool2D, AvgPool2D</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-34" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>max_pool <span class="op">=</span> MaxPool2D(<span class="dv">2</span>, strides<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>img_in <span class="op">=</span> np.expand_dims(sample_image, <span class="dv">0</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>img_out <span class="op">=</span> max_pool(img_in).numpy()</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"input shape:"</span>, img_in.shape)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"output shape:"</span>, img_out.shape)</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>ax0.imshow(img_in[<span class="dv">0</span>].astype(<span class="st">'uint8'</span>))</span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>ax1.imshow(img_out[<span class="dv">0</span>].astype(<span class="st">'uint8'</span>))<span class="op">;</span></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a><span class="co"># no es posible hacer un max pooling con kernels. Sí es posible hacer un average pooling.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>input shape: (1, 600, 600, 3)
-output shape: (1, 300, 300, 3)</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="gp01-regression_files/figure-html/cell-24-output-2.png" class="img-fluid figure-img"></p>
-</figure>
-</div>
-</div>
-</div>
-<div id="cell-35" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>avg_pool <span class="op">=</span> AvgPool2D(<span class="dv">3</span>, strides<span class="op">=</span><span class="dv">3</span>, input_shape<span class="op">=</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">3</span>))</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>img_in <span class="op">=</span> np.expand_dims(sample_image, <span class="dv">0</span>)</span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>img_out_avg_pool <span class="op">=</span> avg_pool(img_in).numpy()</span>
-<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> my_init(shape<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>), dtype<span class="op">=</span><span class="va">None</span>):</span>
-<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    array <span class="op">=</span> np.zeros(shape<span class="op">=</span>shape, dtype<span class="op">=</span><span class="st">"float32"</span>)</span>
-<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>    array[:, :, <span class="dv">0</span>, <span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="fl">9.</span></span>
-<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    array[:, :, <span class="dv">1</span>, <span class="dv">1</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="fl">9.</span></span>
-<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>    array[:, :, <span class="dv">2</span>, <span class="dv">2</span>] <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> <span class="fl">9.</span></span>
-<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> array</span>
-<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>conv_avg <span class="op">=</span> Conv2D(kernel_size<span class="op">=</span><span class="dv">3</span>, filters<span class="op">=</span><span class="dv">3</span>, strides<span class="op">=</span><span class="dv">3</span>,</span>
-<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>           padding<span class="op">=</span><span class="st">"valid"</span>, </span>
-<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>           kernel_initializer<span class="op">=</span>my_init,</span>
-<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>           input_shape<span class="op">=</span>(<span class="va">None</span>, <span class="va">None</span>, <span class="dv">3</span>))</span>
-<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>img_out_conv <span class="op">=</span> conv_avg(np.expand_dims(sample_image, <span class="dv">0</span>)).numpy()</span>
-<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"input shape:"</span>, img_in.shape)</span>
-<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"output avg pool shape:"</span>, img_out_avg_pool.shape)</span>
-<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"output conv shape:"</span>, img_out_conv.shape)</span>
-<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>fig, (ax0, ax1, ax2) <span class="op">=</span> plt.subplots(ncols<span class="op">=</span><span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
-<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>ax0.imshow(img_in[<span class="dv">0</span>].astype(<span class="st">'uint8'</span>))</span>
-<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>ax1.imshow(img_out_avg_pool[<span class="dv">0</span>].astype(<span class="st">'uint8'</span>))</span>
-<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a>ax2.imshow(img_out_conv[<span class="dv">0</span>].astype(<span class="st">'uint8'</span>))<span class="op">;</span></span>
-<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Avg pool is similar to Conv ? -"</span>, np.allclose(img_out_avg_pool, img_out_conv))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>input shape: (1, 600, 600, 3)
-output avg pool shape: (1, 200, 200, 3)
-output conv shape: (1, 200, 200, 3)
-Avg pool is similar to Conv ? - True</code></pre>
-</div>
+<section id="radial-basis-function-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="radial-basis-function-kernel">Radial Basis Function kernel</h3>
+<div id="cell-11" class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process <span class="im">import</span> GaussianProcessRegressor</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process.kernels <span class="im">import</span> RBF</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>kernel <span class="op">=</span> <span class="fl">1.0</span> <span class="op">*</span> RBF(length_scale<span class="op">=</span><span class="fl">0.1</span>, length_scale_bounds<span class="op">=</span>(<span class="fl">1e-1</span>, <span class="fl">10.0</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>gpr <span class="op">=</span> GaussianProcessRegressor(kernel<span class="op">=</span>kernel, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co"># plot prior</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>plot_gpr_samples(gpr, n_samples<span class="op">=</span>n_samples, ax<span class="op">=</span>ax)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>handles, labels <span class="op">=</span> ax.get_legend_handles_labels()</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>by_label <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(labels, handles))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>ax.legend(by_label.values(), by_label.keys(), loc<span class="op">=</span><span class="st">"upper center"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">1.1</span>), ncol<span class="op">=</span><span class="bu">len</span>(by_label), fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>ax.set_xlim([<span class="dv">0</span>, <span class="dv">5</span>])</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>ax.set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"x"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>ax.set_ylabel(<span class="st">"y"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>ax.tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>ax.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig(f'rbf-0.pdf')</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx <span class="kw">in</span> <span class="bu">range</span>(X_train.shape[<span class="dv">0</span>]):</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">1</span>, sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">3</span>))</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    x_train_ <span class="op">=</span> np.array(X_train[:idx<span class="op">+</span><span class="dv">1</span>, <span class="dv">0</span>]).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    y_train_ <span class="op">=</span> np.array(y_train[:idx<span class="op">+</span><span class="dv">1</span>]).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    gpr.fit(x_train_, y_train_)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot posterior</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    plot_gpr_samples(gpr, n_samples<span class="op">=</span>n_samples, ax<span class="op">=</span>ax)</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    ax.scatter(np.squeeze(x_train_), y_train_, color<span class="op">=</span><span class="st">"red"</span>, zorder<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">"Obs"</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>    handles, labels <span class="op">=</span> ax.get_legend_handles_labels()</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>    by_label <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(labels, handles))</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>    ax.legend(by_label.values(), by_label.keys(), loc<span class="op">=</span><span class="st">"upper center"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">1.3</span>), ncol<span class="op">=</span><span class="bu">len</span>(by_label), fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    ax.set_xlim([<span class="dv">0</span>, <span class="dv">5</span>])</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"x"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"y"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    ax.tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>    ax.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plt.savefig(f'rbf-{idx+1}.pdf')</span></span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>plt.close(fig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/Users/aveloz/miniconda3/lib/python3.9/site-packages/keras/src/layers/pooling/base_pooling.py:23: UserWarning: Do not pass an `input_shape`/`input_dim` argument to a layer. When using Sequential models, prefer using an `Input(shape)` object as the first layer in the model instead.
-  super().__init__(name=name, **kwargs)</code></pre>
+<pre><code>/Users/aveloz/miniconda3/lib/python3.9/site-packages/sklearn/gaussian_process/kernels.py:442: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__length_scale is close to the specified lower bound 0.1. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(
+/Users/aveloz/miniconda3/lib/python3.9/site-packages/sklearn/gaussian_process/kernels.py:442: ConvergenceWarning: The optimal value found for dimension 0 of parameter k2__length_scale is close to the specified lower bound 0.1. Decreasing the bound and calling fit again may find a better value.
+  warnings.warn(</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="gp01-regression_files/figure-html/cell-25-output-3.png" class="img-fluid figure-img"></p>
+<p><img src="gp01-regression_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-5.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-6.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-7.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-8.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-9.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-10.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-8-output-11.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-12" class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>X_train.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>(10, 1)</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process <span class="im">import</span> GaussianProcessRegressor</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process.kernels <span class="im">import</span> RBF</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>length_scales <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="dv">10</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="bu">len</span>(length_scales), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, ls <span class="kw">in</span> <span class="bu">enumerate</span>(length_scales):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    kernel <span class="op">=</span> <span class="fl">1.0</span> <span class="op">*</span> RBF(length_scale<span class="op">=</span>ls, length_scale_bounds<span class="op">=</span>(<span class="fl">1e-1</span>, <span class="fl">10.0</span>)) </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    gpr <span class="op">=</span> GaussianProcessRegressor(kernel<span class="op">=</span>kernel, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    plot_gpr_samples(gpr, n_samples<span class="op">=</span>n_samples, ax<span class="op">=</span>ax[i]) <span class="co"># plot prior</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i<span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        handles, labels <span class="op">=</span> ax[i].get_legend_handles_labels()</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>        by_label <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(labels, handles))</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>        ax[i].legend(by_label.values(), by_label.keys(), loc<span class="op">=</span><span class="st">"upper center"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>), ncol<span class="op">=</span><span class="bu">len</span>(by_label), fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    ax[i].set_xlim([<span class="dv">0</span>, <span class="dv">5</span>])</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    ax[i].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    ax[i].tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    ax[i].set_ylabel(<span class="ss">f"$</span><span class="er">\</span><span class="ss">ell = </span><span class="sc">{</span>ls<span class="sc">}</span><span class="ss">$"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    ax[i].spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    ax[i].spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="bu">len</span>(length_scales)<span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>        ax[i].set_xlabel(<span class="st">"x"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig(f'rbf-panel-length-scales.pdf')</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>sigmas <span class="op">=</span> [<span class="fl">0.1</span>, <span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">1.0</span>, <span class="fl">3.0</span>]</span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="bu">len</span>(sigmas), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">7</span>, <span class="dv">7</span>))</span>
+<span id="cb13-28"><a href="#cb13-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, sigma <span class="kw">in</span> <span class="bu">enumerate</span>(sigmas):</span>
+<span id="cb13-29"><a href="#cb13-29" aria-hidden="true" tabindex="-1"></a>    ls <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb13-30"><a href="#cb13-30" aria-hidden="true" tabindex="-1"></a>    kernel <span class="op">=</span> sigma <span class="op">*</span> RBF(length_scale<span class="op">=</span>ls, length_scale_bounds<span class="op">=</span>(<span class="fl">1e-1</span>, <span class="fl">10.0</span>))  <span class="co"># [web:4]</span></span>
+<span id="cb13-31"><a href="#cb13-31" aria-hidden="true" tabindex="-1"></a>    gpr <span class="op">=</span> GaussianProcessRegressor(kernel<span class="op">=</span>kernel, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb13-32"><a href="#cb13-32" aria-hidden="true" tabindex="-1"></a>    plot_gpr_samples(gpr, n_samples<span class="op">=</span>n_samples, ax<span class="op">=</span>ax[i]) <span class="co"># plot prior</span></span>
+<span id="cb13-33"><a href="#cb13-33" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i<span class="op">==</span><span class="dv">0</span>:</span>
+<span id="cb13-34"><a href="#cb13-34" aria-hidden="true" tabindex="-1"></a>        handles, labels <span class="op">=</span> ax[i].get_legend_handles_labels()</span>
+<span id="cb13-35"><a href="#cb13-35" aria-hidden="true" tabindex="-1"></a>        by_label <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(labels, handles))</span>
+<span id="cb13-36"><a href="#cb13-36" aria-hidden="true" tabindex="-1"></a>        ax[i].legend(by_label.values(), by_label.keys(), loc<span class="op">=</span><span class="st">"upper center"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">1.5</span>), ncol<span class="op">=</span><span class="bu">len</span>(by_label), fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb13-37"><a href="#cb13-37" aria-hidden="true" tabindex="-1"></a>    ax[i].set_xlim([<span class="dv">0</span>, <span class="dv">5</span>])</span>
+<span id="cb13-38"><a href="#cb13-38" aria-hidden="true" tabindex="-1"></a>    ax[i].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb13-39"><a href="#cb13-39" aria-hidden="true" tabindex="-1"></a>    ax[i].tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb13-40"><a href="#cb13-40" aria-hidden="true" tabindex="-1"></a>    ax[i].set_ylabel(<span class="ss">f"$</span><span class="er">\</span><span class="ss">sigma = </span><span class="sc">{</span>sigma<span class="sc">}</span><span class="ss">$"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb13-41"><a href="#cb13-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ax[i].set_title(f"$\ell = {ls}$", fontsize=18)</span></span>
+<span id="cb13-42"><a href="#cb13-42" aria-hidden="true" tabindex="-1"></a>    ax[i].spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-43"><a href="#cb13-43" aria-hidden="true" tabindex="-1"></a>    ax[i].spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb13-44"><a href="#cb13-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> i <span class="op">==</span> <span class="bu">len</span>(sigmas)<span class="op">-</span><span class="dv">1</span>:</span>
+<span id="cb13-45"><a href="#cb13-45" aria-hidden="true" tabindex="-1"></a>        ax[i].set_xlabel(<span class="st">"x"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb13-46"><a href="#cb13-46" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb13-47"><a href="#cb13-47" aria-hidden="true" tabindex="-1"></a><span class="co"># plt.savefig(f'rbf-panel-sigmas.pdf')</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-10-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-14" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Rational Quadratic kernel</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process <span class="im">import</span> GaussianProcessRegressor</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.gaussian_process.kernels <span class="im">import</span> RBF, RationalQuadratic, Matern, ExpSineSquared, ConstantKernel, DotProduct</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>kernels <span class="op">=</span> [(<span class="fl">1.0</span> <span class="op">*</span> RBF(length_scale<span class="op">=</span><span class="fl">1.0</span>, length_scale_bounds<span class="op">=</span>(<span class="fl">1e-1</span>, <span class="fl">10.0</span>)), <span class="st">'kernel-rbf.pdf'</span>),</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>            (<span class="fl">1.0</span> <span class="op">*</span> RationalQuadratic(length_scale<span class="op">=</span><span class="fl">1.0</span>, alpha<span class="op">=</span><span class="fl">0.1</span>, alpha_bounds<span class="op">=</span>(<span class="fl">1e-5</span>, <span class="fl">1e15</span>)), <span class="st">'kernel-rationalquadratic.pdf'</span>),</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            (<span class="fl">1.0</span> <span class="op">*</span> Matern(length_scale<span class="op">=</span><span class="fl">1.0</span>, length_scale_bounds<span class="op">=</span>(<span class="fl">1e-1</span>, <span class="fl">10.0</span>), nu<span class="op">=</span><span class="fl">1.5</span>), <span class="st">'kernel-matern.pdf'</span>),</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>            <span class="co"># (1.0 * ExpSineSquared(length_scale=1.0, periodicity=3.0, length_scale_bounds=(0.1, 10.0), periodicity_bounds=(1.0, 10.0)), 'kernel-expsinesquared.pdf'),</span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>            (ConstantKernel(<span class="fl">0.1</span>, (<span class="fl">0.01</span>, <span class="fl">10.0</span>)) <span class="op">*</span> (DotProduct(sigma_0<span class="op">=</span><span class="fl">1.0</span>, sigma_0_bounds<span class="op">=</span>(<span class="fl">0.1</span>, <span class="fl">10.0</span>)) <span class="op">**</span> <span class="dv">2</span>), <span class="st">'kernel-cte-dot.pdf'</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> kernel, filename <span class="kw">in</span> kernels:</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    gpr <span class="op">=</span> GaussianProcessRegressor(kernel<span class="op">=</span>kernel, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    fig, ax <span class="op">=</span> plt.subplots(nrows<span class="op">=</span><span class="dv">2</span>, sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot prior</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    plot_gpr_samples(gpr, n_samples<span class="op">=</span>n_samples, ax<span class="op">=</span>ax[<span class="dv">0</span>])</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    handles, labels <span class="op">=</span> ax[<span class="dv">0</span>].get_legend_handles_labels()</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    by_label <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(labels, handles))</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].legend(by_label.values(), by_label.keys(), loc<span class="op">=</span><span class="st">"upper center"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">0.99</span>), ncol<span class="op">=</span><span class="bu">len</span>(by_label), fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].set_xlim([<span class="dv">0</span>, <span class="dv">5</span>])</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ax[0].set_xlabel("x", fontsize=18)</span></span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].set_ylabel(<span class="st">"y"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>].tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    x_train_ <span class="op">=</span> np.array(X_train[:, <span class="dv">0</span>]).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>    y_train_ <span class="op">=</span> np.array(y_train[:]).reshape(<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>    gpr.fit(x_train_, y_train_)</span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plot posterior</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>    plot_gpr_samples(gpr, n_samples<span class="op">=</span>n_samples, ax<span class="op">=</span>ax[<span class="dv">1</span>])</span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].scatter(np.squeeze(x_train_), y_train_, color<span class="op">=</span><span class="st">"red"</span>, zorder<span class="op">=</span><span class="dv">10</span>, label<span class="op">=</span><span class="st">"Observations"</span>)</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>    handles, labels <span class="op">=</span> ax[<span class="dv">1</span>].get_legend_handles_labels()</span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a>    by_label <span class="op">=</span> <span class="bu">dict</span>(<span class="bu">zip</span>(labels, handles))</span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].legend(by_label.values(), by_label.keys(), loc<span class="op">=</span><span class="st">"upper center"</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="fl">1.1</span>), ncol<span class="op">=</span><span class="bu">len</span>(by_label), fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].set_xlim([<span class="dv">0</span>, <span class="dv">5</span>])</span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].set_ylim([<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].set_xlabel(<span class="st">"x"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].set_ylabel(<span class="st">"y"</span>, fontsize<span class="op">=</span><span class="dv">18</span>)</span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].tick_params(axis<span class="op">=</span><span class="st">'both'</span>, which<span class="op">=</span><span class="st">'major'</span>, labelsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ax.set_title("Samples from posterior distribution (RBF kernel)", fontsize=18)</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>].spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>    <span class="co"># plt.savefig(filename)</span></span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>/Users/aveloz/miniconda3/lib/python3.9/site-packages/sklearn/gaussian_process/_gpr.py:478: UserWarning: Predicted variances smaller than 0. Setting those variances to 0.
+  warnings.warn(
+/Users/aveloz/miniconda3/lib/python3.9/site-packages/sklearn/gaussian_process/_gpr.py:523: RuntimeWarning: covariance is not positive-semidefinite.
+  y_samples = rng.multivariate_normal(y_mean, y_cov, n_samples).T
+/Users/aveloz/miniconda3/lib/python3.9/site-packages/sklearn/gaussian_process/_gpr.py:660: ConvergenceWarning: lbfgs failed to converge (status=2):
+ABNORMAL_TERMINATION_IN_LNSRCH.
+
+Increase the number of iterations (max_iter) or scale the data as shown in:
+    https://scikit-learn.org/stable/modules/preprocessing.html
+  _check_optimize_result("lbfgs", opt_res)</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-11-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-11-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="gp01-regression_files/figure-html/cell-11-output-5.png" class="img-fluid figure-img"></p>
 </figure>
 </div>
 </div>
 </div>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
