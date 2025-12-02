@@ -18,7 +18,7 @@
     "href": "gp/gp-2025.html",
     "title": "Gaussian processes module",
     "section": "",
-    "text": "Slides\nGaussian processes I Gaussian processes II\n\n\nHands-on\nGaussian Process Regression Gaussian Process Regression (Pytorch) Noise estimation example CO2 example, choosing a kernel Multi-output Gaussian Process (sensors network)\n\n\nResources\nRasmussen, Carl Edward. “Gaussian processes in machine learning.” Summer school on machine learning. Springer, Berlin, Heidelberg, 2003. Gaussian processes in Python - scikit-learn. Gaussian processes in Python - GPy. Gaussian processes in Python - Gpytorch. Gaussian process deconvolution"
+    "text": "Slides\nGaussian processes I Gaussian processes II\n\n\nHands-on\nGaussian Process Regression Gaussian Process Regression (Pytorch) Noise estimation example CO2 example, choosing a kernel Multi-output Gaussian Process (sensors network) Deep Gaussian Process\n\n\nResources\nRasmussen, Carl Edward. “Gaussian processes in machine learning.” Summer school on machine learning. Springer, Berlin, Heidelberg, 2003. Gaussian processes in Python - scikit-learn. Gaussian processes in Python - GPy. Gaussian processes in Python - Gpytorch. Gaussian process deconvolution"
   },
   {
     "objectID": "gp/gp02-example-co2-sklearn.html",
