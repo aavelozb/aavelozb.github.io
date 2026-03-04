@@ -21,6 +21,18 @@
     <lastmod>2025-12-01T21:11:48.157Z</lastmod>
   </url>
   <url>
+    <loc>https://aavelozb.github.io/bme513/ejemplos/gp01-regression-pytorch.html</loc>
+    <lastmod>2025-12-02T02:48:30.230Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme513/ejemplos/gp02-example-noiseest-sklearn.html</loc>
+    <lastmod>2025-12-01T21:30:10.243Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme513/ejemplos/gp03-sensors-network.html</loc>
+    <lastmod>2025-12-02T01:20:57.890Z</lastmod>
+  </url>
+  <url>
     <loc>https://aavelozb.github.io/bme513/index.html</loc>
     <lastmod>2026-03-04T12:28:33.273Z</lastmod>
   </url>
@@ -30,7 +42,7 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp-2025.html</loc>
-    <lastmod>2025-12-02T11:20:09.021Z</lastmod>
+    <lastmod>2026-03-04T12:46:20.633Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp02-example-co2-sklearn.html</loc>
@@ -77,12 +89,36 @@
     <lastmod>2025-11-17T20:38:10.366Z</lastmod>
   </url>
   <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression-pytorch.html</loc>
+    <lastmod>2025-12-02T02:48:30.230Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-noiseest-sklearn.html</loc>
+    <lastmod>2025-12-01T21:30:10.243Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp03-sensors-network.html</loc>
+    <lastmod>2025-12-02T01:20:57.890Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression.html</loc>
+    <lastmod>2025-12-02T02:43:18.460Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-co2-sklearn.html</loc>
+    <lastmod>2025-12-01T21:25:37.346Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp04-deep_GPs.html</loc>
+    <lastmod>2025-12-02T02:42:22.771Z</lastmod>
+  </url>
+  <url>
     <loc>https://aavelozb.github.io/bambinos/corazon.html</loc>
     <lastmod>2025-11-23T20:59:54.986Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf358/index.html</loc>
-    <lastmod>2026-03-04T12:33:36.399Z</lastmod>
+    <lastmod>2026-03-04T12:51:10.059Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme423/labs/lab1.html</loc>
@@ -127,6 +163,18 @@
   <url>
     <loc>https://aavelozb.github.io/bme513/evals/proyectos2026.html</loc>
     <lastmod>2026-03-03T20:13:55.825Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme513/ejemplos/gp01-regression.html</loc>
+    <lastmod>2025-12-02T02:43:18.460Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme513/ejemplos/gp02-example-co2-sklearn.html</loc>
+    <lastmod>2025-12-01T21:25:37.346Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme513/ejemplos/gp04-deep_GPs.html</loc>
+    <lastmod>2025-12-02T02:42:22.771Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321-planificacion.html</loc>
