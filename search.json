@@ -1111,5 +1111,82 @@
     "title": "BME321 - Ejercicios",
     "section": "",
     "text": "En el siguiente enlace encontrará una guía de ejercicios 🖥️"
+  },
+  {
+    "objectID": "inf398/index.html",
+    "href": "inf398/index.html",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "",
+    "text": "Descripción. Este curso aborda los fundamentos teóricos y prácticos del aprendizaje automático para el diseño de sistemas capaces de aprender a partir de datos. Los y las estudiantes aplican técnicas modernas de clasificación y regresión a problemas reales en ciencia e ingeniería, seleccionando herramientas adecuadas y siguiendo buenas prácticas en el desarrollo de soluciones basadas en datos."
+  },
+  {
+    "objectID": "inf398/index.html#tareas",
+    "href": "inf398/index.html#tareas",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Tareas",
+    "text": "Tareas\n\nTarea 1. Modelos lineales de regresión.\nTarea 2. Modelos lineales de clasificación.\nTarea 3. Redes neuronales feedforward.\nTarea 4. Modelos lineales de clasificación.\nTarea 5.\nTarea 6. Aprendizaje no supervisado."
+  },
+  {
+    "objectID": "inf398/index.html#fechas-de-las-pruebas",
+    "href": "inf398/index.html#fechas-de-las-pruebas",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Fechas de las pruebas",
+    "text": "Fechas de las pruebas\n02-10. Prueba 1. 13-11. Prueba 2. 11-12. Prueba 3."
+  },
+  {
+    "objectID": "inf398/index.html#integridad-académica",
+    "href": "inf398/index.html#integridad-académica",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Integridad Académica",
+    "text": "Integridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio."
+  },
+  {
+    "objectID": "inf398/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "href": "inf398/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Uso de Herramientas de Inteligencia Artificial (IA)",
+    "text": "Uso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso."
+  },
+  {
+    "objectID": "inf398/index.html#colaboración",
+    "href": "inf398/index.html#colaboración",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Colaboración",
+    "text": "Colaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo."
+  },
+  {
+    "objectID": "inf398/index.html#uso-de-código-y-recursos-online",
+    "href": "inf398/index.html#uso-de-código-y-recursos-online",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Uso de código y recursos online",
+    "text": "Uso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente."
+  },
+  {
+    "objectID": "inf398/index.html#entregas-tardias",
+    "href": "inf398/index.html#entregas-tardias",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Entregas tardías",
+    "text": "Entregas tardías\nDispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera."
+  },
+  {
+    "objectID": "inf398/index.html#recalificaciones",
+    "href": "inf398/index.html#recalificaciones",
+    "title": "INF398 - Introducción al aprendizaje automático",
+    "section": "Recalificaciones",
+    "text": "Recalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
+  },
+  {
+    "objectID": "inf398/evals/proyectos-inf398-2026.html",
+    "href": "inf398/evals/proyectos-inf398-2026.html",
+    "title": "INF398 - Proyectos 2026",
+    "section": "",
+    "text": "Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).\nLos temas son a elección de los estudiantes."
+  },
+  {
+    "objectID": "inf398/evals/proyectos-inf398-2026.html#tema-del-proyecto",
+    "href": "inf398/evals/proyectos-inf398-2026.html#tema-del-proyecto",
+    "title": "INF398 - Proyectos 2026",
+    "section": "Tema del proyecto",
+    "text": "Tema del proyecto\nLa entrega de los temas de proyecto tiene como propósito verificar que el trabajo que será realizado posee la “dificultad apropiada”. Usted recibirá retroalimentación que le permitirá hacer los ajustes necesarios a su proyecto de tal manera de no resolver problemas muy simples o muy complejos.\nEn la fecha indicada debe entregar un documento de no más de dos páginas vía Aula Virtual con lo siguiente:\n\nTítulo del proyecto.\nDescripción. Esto incluye un breve contexto del tema a abordar de manera simple y concreta. Por ejemplo,\n\n“Se quiere detectar de manera automática la variable (…) en base a imágenes de (…). En la literatura se han alcanzado accuracies entre el 60-70% en el problema descrito”.\n\nProblema específico a abordar. Debe explicitar el objetivo del trabajo de manera simple y concreta. Por ejemplo,\n\n“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.\n“Varios artículos que resuelven el problema descrito emplean el modelo X. Mi objetivo es evaluar el modelo Y y comparar los resultados obtenidos al usar el enfoque tradicional”.\n“No existen implementaciones disponibles públicamente del método propuesto en el artículo X. Mi objetivo es implementar el método propuesto en ese artículo y reproducir los resultados obtenidos”.\n\nPunto de partida. Debe indicar si hay implementaciones disponibles de lo que usted propone desarrollar o si lo que propone hacer en este curso es la continuación de un proyecto desarrollado en otra asignatura. Debe establecer de manera clara la diferencia de lo que usted hará con lo hecho por otras personas o en su trabajo previo. Esta diferencia no necesariamente la tendrá clara en este momento, pero es algo que deberá indicar en la entrega parcial o final del proyecto.\nDataset(s). Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos, etc.\nArtículo(s) relacionado(s). Mencione el o los artículos que de una u otra manera se relacionen con el proyecto que abordará.\n\n\nProductos a entregar en los proyectos.\nLa entrega de los proyectos contempla lo siguiente:\n\nPresentación presencial. Tendrán una duración de 10-15 minutos.\nPresentación grabada. Todos los grupos deben grabar su presentación (duración máxima 15 minutos). Para la entrega de esto, no debe subir videos directamente al Aula Virtual, sino copiar un enlace en el informe escrito desde YouTube, Google Drive u otro mecanismo de su preferencia.\nImplementación. La implementación debe incluir todos los códigos fuente con un archivo explicativo sobre su uso. Puede subir los códigos directamente al Aula Virtual o puede copiar un enlace en el informe escrito desde GitHub, Google Drive u otro mecanismo de su preferencia.\n\nNo debe adjuntar los datos utilizados a menos que sea estrictamente necesario, para ejecutar un demo, por ejemplo.\nAsegúrese de configurar los permisos apropiados para acceder a los códigos en caso de usar Google Drive.\n\nInforme escrito. El informe escrito, posee un formato libre y debe incluir:\n\nTítulo del proyecto.\nNombre, apellido y carrera de los integrantes.\nEnlaces a la presentación grabada y al código con la implementación del proyecto (si corresponde).\nLa descripción del problema y datos utilizados.\nLa solución implementada, las métricas de desempeño y los experimentos realizados.\nEl análisis de los resultados y, si corresponde, la comparación con otros métodos.\n\nBibliografía relevante a su trabajo y las citas correspondientes.\n\n\n\nCriterios de evaluación.\nLos criterios de evaluación son los siguientes:\n\nClaridad del informe escrito y presentación (20 %).\n\nEl informe y la presentación son claros, bien redactados y estructurados.\nLas figuras son explicativas y nítidas.\nLos datos/problemas están bien explicados.\nSe presenta la bibliografía relevante y se cita apropiadamente.\n\nDescripción y calidad de la solución (40 %).\n\nLa solución está claramente explicada y se evidencia dominio de los elementos que componen la solución. Se incluyen ejemplos, diagramas o pseudocódigo si es necesario.\nLa justificación de la solución es clara y coherente con el problema descrito.\nLa descripción de la solución es completa.\nEl trabajo realizado refleja dedicación de un semestre.\n\nClaridad y pertinencia de la implementación (25 %).\n\nLa implementación es clara, bien organizada y adecuada al problema.\n\nExperimentación y análisis de los resultados (15 %).\n\nSe definen y reportan métricas de desempeño relevantes.\nEl análisis de resultados es claro, profundo y evidencia aporte propio."
   }
 ]
