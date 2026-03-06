@@ -261,11 +261,13 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#instrucciones-generales" id="toc-instrucciones-generales" class="nav-link active" data-scroll-target="#instrucciones-generales">Instrucciones generales</a></li>
   <li><a href="#entregables" id="toc-entregables" class="nav-link" data-scroll-target="#entregables">Entregables</a>
   <ul class="collapse">
-  <li><a href="#tema-del-proyecto" id="toc-tema-del-proyecto" class="nav-link" data-scroll-target="#tema-del-proyecto">Tema del proyecto</a>
-  <ul class="collapse">
-  <li><a href="#productos-a-entregar-en-los-proyectos." id="toc-productos-a-entregar-en-los-proyectos." class="nav-link" data-scroll-target="#productos-a-entregar-en-los-proyectos.">Productos a entregar en los proyectos.</a></li>
-  <li><a href="#criterios-de-evaluación." id="toc-criterios-de-evaluación." class="nav-link" data-scroll-target="#criterios-de-evaluación.">Criterios de evaluación.</a></li>
+  <li><a href="#definición-del-tema" id="toc-definición-del-tema" class="nav-link" data-scroll-target="#definición-del-tema">1. Definición del tema</a></li>
+  <li><a href="#entrega-parcial" id="toc-entrega-parcial" class="nav-link" data-scroll-target="#entrega-parcial">2. Entrega parcial</a></li>
+  <li><a href="#entrega-final" id="toc-entrega-final" class="nav-link" data-scroll-target="#entrega-final">3. Entrega final</a></li>
   </ul></li>
+  <li><a href="#rúbrica-de-evaluación" id="toc-rúbrica-de-evaluación" class="nav-link" data-scroll-target="#rúbrica-de-evaluación">Rúbrica de evaluación</a>
+  <ul class="collapse">
+  <li><a href="#descuentos-adicionales" id="toc-descuentos-adicionales" class="nav-link" data-scroll-target="#descuentos-adicionales"><span class="my-green">Descuentos adicionales</span></a></li>
   </ul></li>
   </ul>
 </nav>
@@ -296,18 +298,15 @@ ul.task-list li input[type="checkbox"] {
 <section id="instrucciones-generales" class="level1">
 <h1>Instrucciones generales</h1>
 <ul>
-<li><span class="my-green">Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).</span></li>
+<li>Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).</li>
 <li>Los temas son a elección de los estudiantes.</li>
+<li>Se puede trabajar en grupos de uno, dos o tres personas.</li>
 </ul>
 </section>
 <section id="entregables" class="level1">
 <h1>Entregables</h1>
 <p>Los entregables son:</p>
 <table class="caption-top table">
-<colgroup>
-<col style="width: 10%">
-<col style="width: 10%">
-</colgroup>
 <thead>
 <tr class="header">
 <th>Entregable</th>
@@ -316,96 +315,168 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>1. Definición del tema.</td>
-<td></td>
+<td>1. Definición del tema</td>
+<td>27-marzo-2026</td>
 </tr>
 <tr class="even">
-<td>2. Entrega parcial.</td>
-<td></td>
+<td>2. Entrega parcial</td>
+<td>15-mayo-2026</td>
 </tr>
 <tr class="odd">
-<td>3. Entrega final.</td>
-<td></td>
+<td>3. Entrega final</td>
+<td>26-junio-2026<br>3-julio-2026</td>
 </tr>
 </tbody>
 </table>
+<section id="definición-del-tema" class="level2">
+<h2 class="anchored" data-anchor-id="definición-del-tema">1. Definición del tema</h2>
+<p>La entrega del <em>tema de proyecto</em> permite verificar que el trabajo tenga una dificultad adecuada y, si es necesario, ajustar su alcance para evitar proyectos demasiado simples o demasiado ambiciosos.</p>
+<p>En la fecha indicada, debe entregar un documento en formato libre de máximo dos páginas vía <strong>Aula Virtual</strong>, que incluya:</p>
 <ul>
-<li>Al final del semestre deberá hacer una presentación de 15 min, entregar un informe escrito y poner a disposición del curso un video explicativo del proyecto, el informe escrito y la implementación realizada.</li>
-</ul>
-<section id="tema-del-proyecto" class="level2">
-<h2 class="anchored" data-anchor-id="tema-del-proyecto">Tema del proyecto</h2>
-<p>La entrega de los <em>temas de proyecto</em> tiene como propósito verificar que el trabajo que será realizado posee la <em>“dificultad apropiada”</em>. Usted recibirá retroalimentación que le permitirá hacer los ajustes necesarios a su proyecto de tal manera de no resolver problemas muy simples o muy complejos.</p>
-<p>En la fecha indicada debe entregar un documento de no más de dos páginas vía <strong>Aula Virtual</strong> con lo siguiente:</p>
+<li><strong>Título del proyecto.</strong></li>
+<li><strong>Integrantes.</strong></li>
+<li><strong>Descripción del problema.</strong> Breve contexto del tema, explicado de forma simple y concreta. Por ejemplo:
 <ul>
-<li><p><strong>Título del proyecto.</strong></p></li>
-<li><p><strong>Descripción.</strong> Esto incluye un breve contexto del tema a abordar de manera <em>simple y concreta</em>. Por ejemplo,</p>
-<ul>
-<li>“Se quiere detectar de manera automática la variable (…) en base a imágenes de (…). En la literatura se han alcanzado accuracies entre el 60-70% en el problema descrito”.</li>
+<li>“Este trabajo se trata de la detección automática de (…) en base a datos de (…). En la literatura se han alcanzado desempeños de entre el 60–70% en Acc en el problema descrito”.</li>
 </ul></li>
-<li><p><strong>Problema específico a abordar.</strong> Debe explicitar el objetivo del trabajo de manera <em>simple y concreta</em>. Por ejemplo,</p>
+<li><strong>Objetivo del trabajo.</strong> Enunciar claramente qué se busca lograr. Por ejemplo:
 <ul>
-<li>“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.</li>
-<li>“Varios artículos que resuelven el problema descrito emplean el modelo <em>X</em>. Mi objetivo es evaluar el modelo <em>Y</em> y comparar los resultados obtenidos al usar el enfoque tradicional”.</li>
-<li>“No existen implementaciones disponibles públicamente del método propuesto en el artículo <em>X</em>. Mi objetivo es implementar el método propuesto en ese artículo y reproducir los resultados obtenidos”.</li>
+<li>“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.<br>
+</li>
+<li>“Varios artículos que resuelven el problema descrito emplean el modelo <em>X</em>. Mi objetivo es evaluar el modelo <em>Y</em> y comparar los resultados obtenidos al usar el enfoque tradicional”.<br>
+</li>
+<li>“No existen implementaciones disponibles públicamente del método propuesto en el artículo <em>X</em>. Mi objetivo es implementar dicho método y reproducir los resultados reportados”.</li>
 </ul></li>
-<li><p><strong>Punto de partida.</strong> Debe indicar si hay implementaciones disponibles de lo que usted propone desarrollar o si lo que propone hacer en este curso es la continuación de un proyecto desarrollado en otra asignatura. Debe establecer de manera clara la diferencia de lo que usted hará con lo hecho por otras personas o en su trabajo previo. Esta diferencia no necesariamente la tendrá clara en este momento, pero es algo que deberá indicar en la entrega parcial o final del proyecto.</p></li>
-<li><p><strong>Dataset(s).</strong> Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos, etc.</p></li>
-<li><p><strong>Artículo(s) relacionado(s).</strong> Mencione el o los artículos que de una u otra manera se relacionen con el proyecto que abordará.</p></li>
-</ul>
-<section id="productos-a-entregar-en-los-proyectos." class="level3">
-<h3 class="anchored" data-anchor-id="productos-a-entregar-en-los-proyectos.">Productos a entregar en los proyectos.</h3>
-<p>La entrega de los proyectos contempla lo siguiente:</p>
-<ul>
-<li><p><strong>Presentación presencial.</strong> Tendrán una duración de 10-15 minutos.</p></li>
-<li><p><strong>Presentación grabada.</strong> Todos los grupos deben grabar su presentación (duración máxima 15 minutos). Para la entrega de esto, no debe subir videos directamente al Aula Virtual, sino copiar un enlace en el informe escrito desde YouTube, Google Drive u otro mecanismo de su preferencia.</p></li>
-<li><p><strong>Implementación.</strong> La implementación debe incluir todos los códigos fuente con un archivo explicativo sobre su uso. Puede subir los códigos directamente al Aula Virtual o puede copiar un enlace en el informe escrito desde GitHub, Google Drive u otro mecanismo de su preferencia.</p>
-<ul>
-<li>No debe adjuntar los datos utilizados a menos que sea estrictamente necesario, para ejecutar un demo, por ejemplo.</li>
-<li>Asegúrese de configurar los permisos apropiados para acceder a los códigos en caso de usar Google Drive.</li>
-</ul></li>
-<li><p><strong>Informe escrito.</strong> El informe escrito, posee un formato libre y debe incluir:</p>
-<ul>
-<li>Título del proyecto.</li>
-<li>Nombre, apellido y carrera de los integrantes.</li>
-<li>Enlaces a la presentación grabada y al código con la implementación del proyecto (si corresponde).</li>
-<li>La descripción del problema y datos utilizados.</li>
-<li>La solución implementada, las métricas de desempeño y los experimentos realizados.</li>
-<li>El análisis de los resultados y, si corresponde, la comparación con otros métodos.</li>
-</ul></li>
-<li><p>Bibliografía relevante a su trabajo y las citas correspondientes.</p></li>
+<li><strong>Punto de partida.</strong> Indicar si existen implementaciones previas relacionadas o si el proyecto continúa un trabajo anterior (otra asignatura, tesis, etc.), explicando qué se hará de nuevo o diferente en este curso.</li>
+<li><strong>Dataset(s).</strong> Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos.</li>
+<li><strong>Artículo(s) relacionado(s).</strong> Referencia a uno o más artículos directamente relacionados con el proyecto.</li>
 </ul>
 </section>
-<section id="criterios-de-evaluación." class="level3">
-<h3 class="anchored" data-anchor-id="criterios-de-evaluación.">Criterios de evaluación.</h3>
-<p>Los criterios de evaluación son los siguientes:</p>
-<ol type="1">
-<li><p>Claridad del informe escrito y presentación (20 %).</p>
+<section id="entrega-parcial" class="level2">
+<h2 class="anchored" data-anchor-id="entrega-parcial">2. Entrega parcial</h2>
+<p>La entrega parcial tiene como objetivo mostrar el <strong>avance real</strong> del proyecto, comprobar que la dirección elegida es adecuada y permitir ajustes antes de la entrega final.</p>
+<p>En la fecha indicada, cada grupo debe entregar un informe breve (3–5 páginas) vía <strong>Aula Virtual</strong>, que incluya al menos:</p>
 <ul>
-<li>El informe y la presentación son claros, bien redactados y estructurados.</li>
-<li>Las figuras son explicativas y nítidas.</li>
-<li>Los datos/problemas están bien explicados.</li>
-<li>Se presenta la bibliografía relevante y se cita apropiadamente.</li>
-</ul></li>
-<li><p>Descripción y calidad de la solución (40 %).</p>
-<ul>
-<li>La solución está claramente explicada y se evidencia dominio de los elementos que componen la solución. Se incluyen ejemplos, diagramas o pseudocódigo si es necesario.</li>
-<li>La justificación de la solución es clara y coherente con el problema descrito.</li>
-<li>La descripción de la solución es completa.</li>
-<li>El trabajo realizado refleja dedicación de un semestre.</li>
-</ul></li>
-<li><p>Claridad y pertinencia de la implementación (25 %).</p>
-<ul>
-<li>La implementación es clara, bien organizada y adecuada al problema.</li>
-</ul></li>
-<li><p>Experimentación y análisis de los resultados (15 %).</p>
-<ul>
-<li>Se definen y reportan métricas de desempeño relevantes.</li>
-<li>El análisis de resultados es claro, profundo y evidencia aporte propio.</li>
-</ul></li>
-</ol>
-
-
+<li><strong>Versión actualizada del problema y objetivo.</strong> Ajustar, si es necesario, la formulación inicial del problema y los objetivos, a partir de lo aprendido hasta ahora.</li>
+<li><strong>Descripción de la solución propuesta.</strong> Explicar con mayor detalle el enfoque elegido (modelos, algoritmos, arquitectura, procedimientos, etc.), idealmente con diagramas o pseudocódigo donde sea útil.</li>
+<li><strong>Plan de implementación.</strong> Resumen de lo implementado hasta la fecha y de lo que falta por hacer (módulos, componentes, tareas principales).</li>
+<li><strong>Dataset(s) y preprocesamiento.</strong> Describir los datos efectivamente utilizados hasta ahora, cómo se obtuvieron y qué preprocesamientos se han aplicado o se planea aplicar.</li>
+<li><strong>Primeros experimentos (si corresponde).</strong> Reportar experimentos preliminares, aunque sean simples o estén incompletos, junto con las métricas utilizadas.</li>
+<li><strong>Riesgos y ajustes al plan.</strong> Indicar dificultades encontradas, riesgos detectados (por ejemplo, calidad de datos, tiempo, complejidad técnica) y cómo se adaptará el plan de trabajo para llegar a la entrega final.</li>
+<li><strong>Bibliografía actualizada.</strong> Lista de artículos y recursos relevantes que están guiando el proyecto hasta este punto (puede ampliarse luego en la entrega final).</li>
+</ul>
 </section>
+<section id="entrega-final" class="level2">
+<h2 class="anchored" data-anchor-id="entrega-final">3. Entrega final</h2>
+<p>La entrega final reúne todos los productos del proyecto y se evalúa según la rúbrica.</p>
+<p>El trabajo debe demostrar un desarrollo sistemático durante el semestre y un nivel de profundidad acorde a un proyecto INF398.</p>
+<p>Cada grupo debe entregar:</p>
+<ul>
+<li><strong>Repositorio en GitHub.</strong>
+<ul>
+<li>Mantener un repositorio en GitHub (compartido con el equipo docente).</li>
+<li>Incluir todo el <strong>código fuente</strong> del proyecto, archivos de configuración y, cuando corresponda, scripts para descargar y/o preparar los datos.</li>
+<li>Incluir un archivo <code>README.md</code> que contenga:
+<ul>
+<li>Una descripción breve del proyecto.</li>
+<li>Los requisitos de software y las instrucciones para instalar dependencias.</li>
+<li>Instrucciones claras para ejecutar el proyecto y reproducir (al menos parte de) los experimentos.</li>
+</ul></li>
+<li>No subir datasets pesados al repositorio; documentar en su lugar enlaces o instrucciones para obtenerlos.</li>
+</ul></li>
+<li><strong>Informe escrito en LaTeX.</strong>
+<ul>
+<li>El informe debe redactarse en LaTeX y el <strong>código fuente del informe</strong> (<code>.tex</code>, <code>.bib</code>, figuras, etc.) debe almacenarse en una carpeta del repositorio (por ejemplo, <code>report/</code>).</li>
+<li>El informe <strong>no debe incluir listados extensos de código</strong> del proyecto. Solo se permiten fragmentos breves a modo de ejemplo cuando aporten a la explicación.</li>
+<li>El código completo se evaluará directamente en el repositorio de GitHub.</li>
+<li>El <strong>PDF final</strong> del informe debe subirse al repositorio. En enlace al repositorio será entregado vía Aula Virtual.</li>
+<li>El informe debe incluir, al menos:
+<ul>
+<li>Título del proyecto y autores (nombre, apellido y carrera).</li>
+<li>Resumen breve del trabajo.</li>
+<li>Introducción y descripción del problema y de los datos utilizados.</li>
+<li>Descripción detallada de la solución propuesta e implementada.</li>
+<li>Descripción de la implementación (arquitectura, módulos principales, decisiones de diseño relevantes).</li>
+<li>Metodología experimental, métricas de desempeño y resultados obtenidos.</li>
+<li>Análisis crítico de los resultados y, cuando corresponda, comparación con otros métodos.</li>
+<li>Conclusiones y posibles extensiones o trabajo futuro.</li>
+<li>Bibliografía relevante con citas en el texto (se recomienda usar BibTeX).</li>
+</ul></li>
+</ul></li>
+<li><strong>Presentación presencial.</strong>
+<ul>
+<li>Duración de 10–15 minutos.</li>
+<li>Debe explicar de forma clara:
+<ul>
+<li>El problema abordado.</li>
+<li>La solución propuesta.</li>
+<li>La implementación realizada.</li>
+<li>Los resultados y conclusiones principales.</li>
+</ul></li>
+<li>Se recomienda usar figuras y/o demos breves cuando sea posible.</li>
+</ul></li>
+<li><strong>Presentación grabada.</strong>
+<ul>
+<li>Duración máxima de 15 minutos.</li>
+<li>Puede ser una versión similar a la presentación presencial.</li>
+<li>No subir el video directamente a Aula Virtual; incluir en el informe un enlace (por ejemplo, YouTube o Google Drive con permisos de acceso adecuados).</li>
+</ul></li>
+</ul>
+</section>
+</section>
+<section id="rúbrica-de-evaluación" class="level1">
+<h1>Rúbrica de evaluación</h1>
+<table class="caption-top table">
+<caption>Rúbrica del proyecto</caption>
+<colgroup>
+<col style="width: 20%">
+<col style="width: 35%">
+<col style="width: 10%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Descripción</th>
+<th>Puntaje máximo</th>
+<th>Descuentos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Claridad del informe escrito y presentación</td>
+<td>Claridad, redacción y estructura del informe y la presentación; calidad de las figuras; explicación de datos/problemas; uso y citación de bibliografía relevante.</td>
+<td>20</td>
+<td>- Hasta −5 pts si la redacción o estructura dificultan la comprensión.<br>- Hasta −5 pts si las figuras no son claras o no se explican.<br>- Hasta −5 pts si los datos/problemas no quedan bien descritos.<br>- Hasta −5 pts si la bibliografía es insuficiente o está mal citada.</td>
+</tr>
+<tr class="even">
+<td>2. Descripción y calidad de la solución</td>
+<td>Claridad y completitud en la descripción de la solución; evidencia de dominio de los elementos que la componen; justificación coherente con el problema; uso de ejemplos, diagramas o pseudocódigo cuando sea necesario; nivel de trabajo acorde a un semestre.</td>
+<td>40</td>
+<td>- Hasta −10 pts si la solución no está claramente explicada o hay partes importantes sin detallar.<br>- Hasta −10 pts si la justificación es débil o poco coherente con el problema.<br>- Hasta −10 pts si faltan ejemplos/diagramas/pseudocódigo cuando serían útiles.<br>- Hasta −10 pts si el trabajo no refleja dedicación de un semestre (alcance muy limitado).</td>
+</tr>
+<tr class="odd">
+<td>3. Claridad y pertinencia de la implementación</td>
+<td>Organización, legibilidad y adecuación de la implementación al problema planteado. Se evalúa principalmente el código y la estructura del proyecto en el repositorio de GitHub (módulos, funciones, documentación mínima, instrucciones de ejecución).</td>
+<td>25</td>
+<td>- Hasta −10 pts si la organización del código (estructura de carpetas, nombres de archivos, ausencia de modularización, etc.) dificulta su comprensión o ejecución.<br>- Hasta −10 pts si la implementación no se ajusta bien al problema definido o a la solución descrita en el informe.<br>- Hasta −5 pts si el repositorio no incluye instrucciones claras para ejecutar el proyecto o reproducir los experimentos.</td>
+</tr>
+<tr class="even">
+<td>4. Experimentación y análisis de resultados</td>
+<td>Definición y reporte de métricas de desempeño relevantes; claridad y profundidad del análisis; evidencia de aporte propio en el análisis o en los experimentos.</td>
+<td>15</td>
+<td>- Hasta −5 pts si las métricas son poco relevantes o están mal reportadas.<br>- Hasta −5 pts si el análisis de resultados es superficial o poco claro.<br>- Hasta −5 pts si no se evidencia aporte propio (por ejemplo, solo se replican resultados sin reflexión).</td>
+</tr>
+</tbody>
+</table>
+<section id="descuentos-adicionales" class="level3">
+<h3 class="anchored" data-anchor-id="descuentos-adicionales"><span class="my-green">Descuentos adicionales</span></h3>
+<ul>
+<li>La entrega parcial no es consistente con la entrega final: −20 pts.</li>
+<li>La entrega parcial no refleja trabajo sistemático: −10 pts.</li>
+</ul>
+
+
 </section>
 </section>
 

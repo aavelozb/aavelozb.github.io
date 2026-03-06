@@ -264,7 +264,6 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#evaluaciones" id="toc-evaluaciones" class="nav-link" data-scroll-target="#evaluaciones">Evaluaciones</a>
   <ul class="collapse">
   <li><a href="#tareas" id="toc-tareas" class="nav-link" data-scroll-target="#tareas">Tareas</a></li>
-  <li><a href="#fechas-de-las-pruebas" id="toc-fechas-de-las-pruebas" class="nav-link" data-scroll-target="#fechas-de-las-pruebas">Fechas de las pruebas</a></li>
   </ul></li>
   <li><a href="#políticas-del-curso" id="toc-políticas-del-curso" class="nav-link" data-scroll-target="#políticas-del-curso">Políticas del Curso</a>
   <ul class="collapse">
@@ -304,7 +303,7 @@ ul.task-list li input[type="checkbox"] {
 <p><strong>Descripción.</strong> Este curso aborda los fundamentos teóricos y prácticos del aprendizaje automático para el diseño de sistemas capaces de aprender a partir de datos. Los y las estudiantes aplican técnicas modernas de clasificación y regresión a problemas reales en ciencia e ingeniería, seleccionando herramientas adecuadas y siguiendo buenas prácticas en el desarrollo de soluciones basadas en datos.</p>
 <section id="horarios-y-contacto" class="level1">
 <h1>Horarios y contacto</h1>
-<p><strong>Clases:</strong> Viernes 14:40-17:15 (sala P110).<br> <strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@usm.cl">alejandro.veloz@usm.cl</a>)<br> <strong>Ayudante:</strong></p>
+<p><strong>Clases:</strong> Viernes 14:40-17:15 (sala P110).<br> <strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@usm.cl">alejandro.veloz@usm.cl</a>)<br> <strong>Horario atención:</strong> Jueves 3-4 (presencial o virtual)<br> <strong>Ayudante:</strong> Por confirmar.</p>
 </section>
 <section id="clases" class="level1">
 <h1>Clases</h1>
@@ -319,14 +318,14 @@ ul.task-list li input[type="checkbox"] {
 <tr class="header">
 <th>Semana</th>
 <th>Tema</th>
-<th>Material</th>
+<th>Material adicional</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>06-03</td>
-<td>Introducción al aprendizaje automático (<a href="slides/inf358-intro.pdf">slides</a>)<br>Teoría del aprendizaje estadístico (<a href="slides/inf358-intro.pdf">slides</a>)</td>
-<td></td>
+<td>Introducción al aprendizaje automático (<a href="slides/inf398-intro.pdf">slides</a>)<br>Teoría del aprendizaje estadístico (<a href="slides/inf398-intro.pdf">slides</a>)</td>
+<td><a href="material/vapnik99-slt.pdf">Vapnik99</a></td>
 </tr>
 <tr class="even">
 <td></td>
@@ -340,17 +339,27 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td></td>
-<td>Redes neuronales feedforward</td>
+<td>Tarea 1</td>
 <td></td>
 </tr>
 <tr class="odd">
 <td></td>
-<td>Redes neuronales convolucionales</td>
+<td>Redes neuronales feedforward</td>
 <td></td>
 </tr>
 <tr class="even">
 <td></td>
-<td>Physics-informed neural networks</td>
+<td>Redes neuronales convolucionales</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Tarea 2</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Métodos basados en kernels</td>
 <td></td>
 </tr>
 <tr class="odd">
@@ -358,46 +367,91 @@ ul.task-list li input[type="checkbox"] {
 <td>Procesos Gaussianos</td>
 <td></td>
 </tr>
+<tr class="even">
+<td></td>
+<td>Tarea 3</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Métodos basados en árboles</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Métodos de ensamblado</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Tarea 4</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Lógica difusa y modelos neurodifusos</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Modelos en grafos</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Tarea 5</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Aprendizaje no supervisado</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>ML y causalidad</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Physics-informed neural networks</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Tarea 6</td>
+<td></td>
+</tr>
 </tbody>
 </table>
 <!-- | | Procesos Gaussianos | [slides](slides/inf358-gp.pdf)<br>[Gaussian Process Regression](../ejemplos-ml/gp01-regression.html)<br>[Gaussian Process Regression (Pytorch)](../ejemplos-ml/gp01-regression-pytorch.html)<br>[Noise estimation example](../ejemplos-ml/gp02-example-noiseest-sklearn.html)<br>[CO2 example, choosing a kernel](../ejemplos-ml/gp02-example-co2-sklearn.html)<br>[Multi-output Gaussian Process (sensors network)](../ejemplos-ml/gp03-sensors-network.html)<br>[Deep Gaussian Process](../ejemplos-ml/gp04-deep_GPs.html)<br> | -->
-<div class="line-block">| Métodos no parámetricos para regresión y clasificación | |<br>
-| Lógica difusa y modelos neurodifusos | |<br>
-| Modelos en grafos | |<br>
-| Métodos de ensamblado | |<br>
-| Aprendizaje no supervisado | |<br>
-| ML y causalidad | |</div>
 </section>
 <section id="bibliografía-y-otros-recursos" class="level1">
 <h1>Bibliografía y otros recursos</h1>
 <ul>
-<li><a href="https://www.pearson.com/en-us/subject-catalog/p/digital-image-processing/P200000003224/9780137848560?srsltid=AfmBOopbevUva4BjsSzl5WR1Yqui5kgNYtqmZtrPtCEes0f43VrRM3je">Digital image processing</a>, Rafael González, Richard Woods. Ediciones 2, 3 o 4.</li>
-<li><a href="">Handbook of medical image processing and analysis</a> I. Bankman.</li>
 <li><a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Christopher Bishop (2006).</li>
-<li><a href="">Image Processing, Analysis, and Machine Vision</a> M. Sonka, V. Hlavac, R. Boyle (2008, 2015).</li>
+<li><a href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Kevin Patrick Murphy (2022).</li>
+<li><a href="https://link.springer.com/book/10.1007/978-3-031-45468-4?utm_medium=referral&amp;utm_source=sn&amp;utm_content=RM&amp;&amp;utm_campaign=CONR_TBOOK_CON1_GL_PBOK_05YVV_CTB25-COMP">Deep Learning: Foundations and Concepts</a>, Christopher Bishop (2024).</li>
+<li><a href="https://scikit-learn.org/stable/">Scikit-learn</a></li>
 <li><a href="https://scikit-image.org">Scikit-image</a></li>
 <li><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV</a></li>
-<li><a href="https://simpleitk.readthedocs.io/en/master/">SimpleITK</a></li>
-<li><a href="https://examples.vtk.org/site/Python/">VTK</a><br>
-</li>
-<li>Nibabel, pydicom</li>
 </ul>
 </section>
 <section id="evaluaciones" class="level1">
 <h1>Evaluaciones</h1>
 <p>El curso contempla las siguientes evaluaciones:</p>
 <ul>
-<li>6 tareas (60%)</li>
+<li>6 tareas (60%). Una vez publicada una tarea, se dispondrá de dos semanas para resolverla.</li>
 <li>Miniproyecto (40%). Las instrucciones se pueden encontrar en el siguiente enlace <a href="evals/proyectos-inf398-2026.html">Proyectos 2026</a></li>
 </ul>
 <section id="tareas" class="level2">
 <h2 class="anchored" data-anchor-id="tareas">Tareas</h2>
 <ul>
-<li>Tarea 1. Modelos lineales de regresión.</li>
-<li>Tarea 2. Modelos lineales de clasificación.</li>
-<li>Tarea 3. Redes neuronales feedforward.</li>
-<li>Tarea 4. Modelos lineales de clasificación.</li>
-<li>Tarea 5.</li>
+<li>Tarea 1. Modelos lineales, regularización.</li>
+<li>Tarea 2. Redes neuronales.</li>
+<li>Tarea 3. Procesos gaussianos y métodos basados en kernels.</li>
+<li>Tarea 4. Métodos basados en árboles y ensamblados.</li>
+<li>Tarea 5. Modelos en grafos y neurodifusos.</li>
 <li>Tarea 6. Aprendizaje no supervisado.</li>
 </ul>
 <!-- | 2      | Preprocesamiento de imágenes   | [Notas](notas2.pdf)         |
@@ -422,10 +476,6 @@ ul.task-list li input[type="checkbox"] {
 
 \[04-12\]<br> [Reconstrucción](/bme423/bme423_11_recontruccion.pdf "slides"){aria-label="slides reconstrucción"}<br> [Reconstrucción a partir de proyecciones](/bme423/rec_from_proj.pdf "slides"){aria-label="reconstrucción desde proyecciones"}<br> -->
 <!-- [28-08] [**Entrega de temas de proyecto**]{.my-green}  -->
-</section>
-<section id="fechas-de-las-pruebas" class="level2">
-<h2 class="anchored" data-anchor-id="fechas-de-las-pruebas">Fechas de las pruebas</h2>
-<p><span class="my-green"><strong>02-10.</strong> Prueba 1.</span><br> <span class="my-green"><strong>13-11.</strong> Prueba 2.</span><br> <span class="my-green"><strong>11-12.</strong> Prueba 3.</span></p>
 </section>
 </section>
 <section id="políticas-del-curso" class="level1">
