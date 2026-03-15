@@ -441,6 +441,20 @@
     "text": "Producción artesanal y recursos\n\n\n\n\n\nLos mayas produjeron artesanías como tejidos, cerámica y objetos de jade y obsidiana.\nEl control de recursos como minas y sal fue clave para su economía."
   },
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Alejandro Veloz, PhD",
+    "section": "",
+    "text": "Associate professor, Biomedical Engineering, Universidad de Valparaíso.\nMachine Learning | Neuroimaging | Fuzzy modeling\n\n\n\nPhD in Computer Science, Universidad Técnica Federico Santa María.\nMSc in Computer Science, Universidad Técnica Federico Santa María.\nBiomedical Engineer, Universidad de Valparaíso.\n\nGoogle Scholar Profile"
+  },
+  {
+    "objectID": "index.html#projects",
+    "href": "index.html#projects",
+    "title": "Alejandro Veloz, PhD",
+    "section": "Projects",
+    "text": "Projects\n\n2025–2026. FONDEF IT23I0040, “MamAI-dens: Inteligencia Artificial chilena para la categorización automática de la densidad mamaria”.\n2024–2026. FONDEF ID23I10253, “Desarrollo de un modelo de análisis de las conductas de adherencia terapéutica basado en IA para la atención primaria de salud”.\n2023–2026. FONDECYT 1231132, “Novel EEG topography analysis using graph signal processing and network control theory”. (Role: Co-R)\n2023–2026. FONDECYT 1231268, “A physics-informed neural network framework for robust and precise estimation of the brain hemodynamic response function in Functional Magnetic Resonance Imaging at low magnetic field”. (Role: Co-R)\n2020–2023. FONDECYT iniciación 11201046, “Data-driven Fuzzy Hemodynamic Response Model for Functional MRI”. (Role: PI)\n2018–2020. FONDEF ID18I10212, “Seniors Guardian: Plataforma de seguimiento no intrusivo de las actividades básicas e instrumentales de la vida diaria de los adultos mayores”.\n2017–2020, FONIS SA17I0124, “Evaluación del uso de resonancia magnética funcional en el mapeo cerebral cortical en pacientes portadores de gliomas de bajo grado”.\n2014–2016. FONDEF IT13/20060 nImI, “Blood Pressure estimates”.\n2013–2016. DIUV 64/2011, “Identificación de parámetros espacio-temporales en imágenes médicas funcionales”. (Role: PI)\n2011–2013. FONDECYT 1110854, “Ensemble of Machine Learning-based Local Estimators for High Frequency Time Series Forecasting”. (Role: research assistant)\n2010–2012. DIPUV 46/2009, “Detección robusta de la activación cerebral en imágenes de Resonancia Magnética Funcional mediante ensamblado de Redes Neuronales Artificiales”.\n2009–2011. DIPUV 37/2008, “Modelo neuro-difuso con aprendizaje robusto e incremental para la detección de Potenciales Evocados en Interfaces Cerebro-Computador”.\n2008–2010. STIC-AMSUD 09STIC01, “Robust single-trial evoked potential detection for brain-computer interfaces using computational intelligence techniques”. (Role: collaborator)\n2008–2009. FONDECYT 1070220, “Ensemble learning strategies for high-dimensional and non-stationary data”. (Role: research assistant)\n2007–2009. Servicio de Neurocirugía del Hospital Carlos Van Buren de Valparaíso, “Diseño e implementación de un software de fusión de imágenes de TAC, MRI y atlas de Talairach para planificación de cirugías funcionales y estereotáxicas de cerebro”. (Role: research assistant)\n2007–2008. FONDECYT 1061201, “Desarrollo de modelos de Arquitecturas Flexibles de Redes Neuronales Artificiales que aprenden bajo ambientes cambiantes en el tiempo”. (Role: research assistant)."
+  },
+  {
     "objectID": "bme423/index.html",
     "href": "bme423/index.html",
     "title": "BME423 - Procesamiento de imágenes médicas",
