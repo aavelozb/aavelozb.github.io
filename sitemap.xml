@@ -2,198 +2,134 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-ejercicios.html</loc>
-    <lastmod>2026-03-04T16:24:26.221Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.911Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-eval-mcib-dcis.html</loc>
-    <lastmod>2026-03-04T16:24:26.221Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.911Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-planificacion.html</loc>
-    <lastmod>2026-03-04T16:24:26.221Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.911Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/inf398/index.html</loc>
+    <lastmod>2026-03-16T11:20:20.647Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321-evaluacion.html</loc>
-    <lastmod>2026-03-04T16:24:25.080Z</lastmod>
+    <lastmod>2026-03-16T11:20:19.992Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321.html</loc>
-    <lastmod>2026-03-04T16:24:25.080Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme513/ejemplos/gp01-regression-pytorch.html</loc>
-    <lastmod>2026-03-04T16:24:26.015Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme513/ejemplos/gp02-example-noiseest-sklearn.html</loc>
-    <lastmod>2026-03-04T16:24:26.037Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme513/ejemplos/gp03-sensors-network.html</loc>
-    <lastmod>2026-03-04T16:24:26.044Z</lastmod>
+    <lastmod>2026-03-16T11:20:19.993Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme513/index.html</loc>
-    <lastmod>2026-03-04T16:24:26.048Z</lastmod>
+    <lastmod>2026-03-19T21:21:35.104Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp01-regression-pytorch.html</loc>
-    <lastmod>2026-03-04T16:24:26.135Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.618Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp-2025.html</loc>
-    <lastmod>2026-03-04T16:24:26.134Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.617Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp02-example-co2-sklearn.html</loc>
-    <lastmod>2026-03-04T16:24:26.149Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.633Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp01-regression.html</loc>
-    <lastmod>2026-03-04T16:24:26.148Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.632Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/ejemplos/difusion_lineal.html</loc>
-    <lastmod>2026-03-04T16:24:25.233Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/ejemplos/cnn-01-conv.html</loc>
-    <lastmod>2026-03-04T16:24:25.093Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/ejemplos/cnn-02-pretr.html</loc>
-    <lastmod>2026-03-04T16:24:25.216Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/projectos.html</loc>
-    <lastmod>2026-03-04T16:24:25.530Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/labs/lab4.html</loc>
-    <lastmod>2026-03-04T16:24:25.528Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/labs/lab3.html</loc>
-    <lastmod>2026-03-04T16:24:25.528Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/index.html</loc>
-    <lastmod>2026-03-04T16:24:26.157Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/inf358/evals/proyectos-inf358-2026.html</loc>
-    <lastmod>2026-03-04T16:24:26.157Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bambinos/mayas.html</loc>
-    <lastmod>2026-03-04T16:24:24.841Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression-pytorch.html</loc>
-    <lastmod>2026-03-04T16:24:26.049Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-noiseest-sklearn.html</loc>
-    <lastmod>2026-03-04T16:24:26.065Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp03-sensors-network.html</loc>
-    <lastmod>2026-03-04T16:24:26.066Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression.html</loc>
-    <lastmod>2026-03-04T16:24:26.062Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-co2-sklearn.html</loc>
-    <lastmod>2026-03-04T16:24:26.064Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp04-deep_GPs.html</loc>
-    <lastmod>2026-03-04T16:24:26.069Z</lastmod>
+    <loc>https://aavelozb.github.io/bme423/evals/proyectos-bme423-2026.html</loc>
+    <lastmod>2026-03-19T15:29:36.178Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bambinos/corazon.html</loc>
-    <lastmod>2026-03-04T16:24:24.778Z</lastmod>
+    <lastmod>2026-03-16T11:20:19.672Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/inf358/index.html</loc>
-    <lastmod>2026-03-04T16:24:26.158Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression-pytorch.html</loc>
+    <lastmod>2026-03-16T11:20:20.486Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/labs/lab1.html</loc>
-    <lastmod>2026-03-04T16:24:25.528Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-noiseest-sklearn.html</loc>
+    <lastmod>2026-03-16T11:20:20.522Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/labs/lab2.html</loc>
-    <lastmod>2026-03-04T16:24:25.528Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp03-sensors-network.html</loc>
+    <lastmod>2026-03-16T11:20:20.534Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/labs/jp-corazon.html</loc>
-    <lastmod>2026-03-04T16:24:25.528Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression.html</loc>
+    <lastmod>2026-03-16T11:20:20.513Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-co2-sklearn.html</loc>
+    <lastmod>2026-03-16T11:20:20.517Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp04-deep_GPs.html</loc>
+    <lastmod>2026-03-16T11:20:20.541Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/py/index.html</loc>
+    <lastmod>2026-03-19T15:29:36.179Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bambinos/mayas.html</loc>
+    <lastmod>2026-03-16T11:20:19.739Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/index.html</loc>
+    <lastmod>2026-03-16T17:39:57.814Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme423/index.html</loc>
-    <lastmod>2026-03-04T16:24:25.464Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/ejemplos/cnn-04-fullycnn.html</loc>
-    <lastmod>2026-03-04T16:24:25.223Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/ejemplos/cnn-05-cnn-class-loc.html</loc>
-    <lastmod>2026-03-04T16:24:25.229Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/ejemplos/cnn-03-design.html</loc>
-    <lastmod>2026-03-04T16:24:25.222Z</lastmod>
+    <lastmod>2026-03-18T17:08:14.605Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp03-sensors-network.html</loc>
-    <lastmod>2026-03-04T16:24:26.152Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.635Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp02-example-noiseest-sklearn.html</loc>
-    <lastmod>2026-03-04T16:24:26.151Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.635Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/gp/gp04-deep_GPs.html</loc>
-    <lastmod>2026-03-04T16:24:26.155Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.639Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme513/evals/proyectos2026.html</loc>
-    <lastmod>2026-03-04T16:24:26.048Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme513/ejemplos/gp01-regression.html</loc>
-    <lastmod>2026-03-04T16:24:26.032Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme513/ejemplos/gp02-example-co2-sklearn.html</loc>
-    <lastmod>2026-03-04T16:24:26.034Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme513/ejemplos/gp04-deep_GPs.html</loc>
-    <lastmod>2026-03-04T16:24:26.048Z</lastmod>
+    <loc>https://aavelozb.github.io/bme513/evals/proyectos-bme513-2026.html</loc>
+    <lastmod>2026-03-16T11:20:20.082Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321-planificacion.html</loc>
-    <lastmod>2026-03-04T16:24:25.080Z</lastmod>
+    <lastmod>2026-03-16T11:20:19.992Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321-ejercicios.html</loc>
-    <lastmod>2026-03-04T16:24:25.080Z</lastmod>
+    <lastmod>2026-03-16T11:20:19.992Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/inf398/evals/proyectos-inf398-2026.html</loc>
+    <lastmod>2026-03-16T11:20:20.647Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/mcib/index.html</loc>
-    <lastmod>2026-03-04T16:24:26.220Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.907Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-eval-dcis.html</loc>
-    <lastmod>2026-03-04T16:24:26.221Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.911Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-eval-bme.html</loc>
-    <lastmod>2026-03-04T16:24:26.221Z</lastmod>
+    <lastmod>2026-03-16T11:20:20.911Z</lastmod>
   </url>
 </urlset>

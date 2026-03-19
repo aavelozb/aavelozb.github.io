@@ -25,6 +25,10 @@ ul.task-list li input[type="checkbox"] {
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
@@ -40,6 +44,18 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/bootstrap/bootstrap-dark-42a7f9c2375842409b634896d48c404b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <link href="../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -55,20 +71,32 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 <style>
-.bme423-info {
-  background-color: rgba(0,0,0,0.03);
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  font-size: 0.85rem;
-}
-.bme423-info p {
-  margin-bottom: 0.25rem;
-}
+  .cv-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .cv-photo-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D9E3E4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .cv-info {
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    .cv-container { flex-direction: column-reverse; text-align: center; }
+  }
 </style>
 
 
 <meta property="og:title" content="BME423 - Procesamiento de imágenes médicas">
-<meta property="og:description" content="aavelozb">
+<meta property="og:description" content="Alejandro Veloz - Academic Profile">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -254,8 +282,9 @@ ul.task-list li input[type="checkbox"] {
       <a href="#" class="sidebar-logo-link">
       <img src="../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
-      <div class="sidebar-tools-main">
-    <a href="https://github.com/aavelozb" title="GitHub organization" class="quarto-navigation-tool px-1" aria-label="GitHub organization"><i class="bi bi-github"></i></a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=eq254vUAAAAJ" title="Google Scholar" class="quarto-navigation-tool px-1" aria-label="Google Scholar"><i class="bi bi-mortarboard-fill"></i></a>
   <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div>
@@ -268,27 +297,15 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#horarios-y-contacto" id="toc-horarios-y-contacto" class="nav-link active" data-scroll-target="#horarios-y-contacto">Horarios y contacto</a></li>
-  <li><a href="#objetivos" id="toc-objetivos" class="nav-link" data-scroll-target="#objetivos">Objetivos</a></li>
   <li><a href="#clases" id="toc-clases" class="nav-link" data-scroll-target="#clases">Clases</a></li>
-  <li><a href="#laboratorios" id="toc-laboratorios" class="nav-link" data-scroll-target="#laboratorios">Laboratorios</a></li>
   <li><a href="#guía-de-ejercicios" id="toc-guía-de-ejercicios" class="nav-link" data-scroll-target="#guía-de-ejercicios">Guía de ejercicios</a></li>
   <li><a href="#bibliografía-y-otros-recursos" id="toc-bibliografía-y-otros-recursos" class="nav-link" data-scroll-target="#bibliografía-y-otros-recursos">Bibliografía y otros recursos</a></li>
   <li><a href="#evaluaciones-para-pregrado" id="toc-evaluaciones-para-pregrado" class="nav-link" data-scroll-target="#evaluaciones-para-pregrado">Evaluaciones para pregrado</a>
   <ul class="collapse">
-  <li><a href="#fechas-de-las-pruebas" id="toc-fechas-de-las-pruebas" class="nav-link" data-scroll-target="#fechas-de-las-pruebas">Fechas de las pruebas</a></li>
-  <li><a href="#laboratorios-1" id="toc-laboratorios-1" class="nav-link" data-scroll-target="#laboratorios-1">Laboratorios</a></li>
+  <li><a href="#pruebas" id="toc-pruebas" class="nav-link" data-scroll-target="#pruebas">Pruebas</a></li>
+  <li><a href="#laboratorios" id="toc-laboratorios" class="nav-link" data-scroll-target="#laboratorios">Laboratorios</a></li>
   </ul></li>
-  <li><a href="#evaluaciones-para-postgrado" id="toc-evaluaciones-para-postgrado" class="nav-link" data-scroll-target="#evaluaciones-para-postgrado">Evaluaciones para postgrado</a>
-  <ul class="collapse">
-  <li><a href="#fechas-importantes" id="toc-fechas-importantes" class="nav-link" data-scroll-target="#fechas-importantes">Fechas importantes</a></li>
-  <li><a href="#laboratorios-2" id="toc-laboratorios-2" class="nav-link" data-scroll-target="#laboratorios-2">Laboratorios</a></li>
-  <li><a href="#proyectos" id="toc-proyectos" class="nav-link" data-scroll-target="#proyectos">Proyectos</a>
-  <ul class="collapse">
-  <li><a href="#definición-de-los-temas-de-proyecto." id="toc-definición-de-los-temas-de-proyecto." class="nav-link" data-scroll-target="#definición-de-los-temas-de-proyecto.">Definición de los temas de proyecto.</a></li>
-  <li><a href="#productos-a-entregar-en-los-proyectos." id="toc-productos-a-entregar-en-los-proyectos." class="nav-link" data-scroll-target="#productos-a-entregar-en-los-proyectos.">Productos a entregar en los proyectos.</a></li>
-  <li><a href="#criterios-de-evaluación." id="toc-criterios-de-evaluación." class="nav-link" data-scroll-target="#criterios-de-evaluación.">Criterios de evaluación.</a></li>
-  </ul></li>
-  </ul></li>
+  <li><a href="#evaluaciones-para-postgrado" id="toc-evaluaciones-para-postgrado" class="nav-link" data-scroll-target="#evaluaciones-para-postgrado">Evaluaciones para postgrado</a></li>
   <li><a href="#políticas-del-curso" id="toc-políticas-del-curso" class="nav-link" data-scroll-target="#políticas-del-curso">Políticas del Curso</a>
   <ul class="collapse">
   <li><a href="#integridad-académica" id="toc-integridad-académica" class="nav-link" data-scroll-target="#integridad-académica">Integridad Académica</a></li>
@@ -324,18 +341,7 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<!-- ::: {.column-margin .bme423-info}
-**Cátedra:** Viernes 10:15–13:30, sala 202.
-<br>
-**Laboratorio:** Miércoles 14:30–17:45, Lab 302.
-<br>
-**Profesor:** Dr. Alejandro Veloz
-<br>
-**Email:**
-[alejandro.veloz@uv.cl](mailto:alejandro.veloz@uv.cl)
-<br>
-**Fechas:**
-::: -->
+<p><strong>Descripción.</strong> Este curso introduce los fundamentos del procesamiento y análisis de imágenes médicas desde una perspectiva teórica y aplicada. Se abordan las etapas clave del análisis de imágenes, incluyendo adquisición y representación, técnicas de mejora y preprocesamiento, filtrado espacial y en el dominio de la frecuencia, así como métodos para manejar ruido y degradación. El curso también cubre algoritmos de segmentación, análisis cuantitativo y reconstrucción de imágenes, junto con métodos de reconocimiento de patrones y aprendizaje automático aplicados a la detección y clasificación en imágenes médicas. Además, se analizan especificaciones técnicas de sistemas de imagen y se desarrollan proyectos prácticos que integran herramientas computacionales y metodologías de análisis para aplicaciones en ingeniería biomédica y entornos clínicos.</p>
 <section id="horarios-y-contacto" class="level1">
 <h1>Horarios y contacto</h1>
 <table class="caption-top table">
@@ -343,11 +349,9 @@ ul.task-list li input[type="checkbox"] {
 <col style="width: 5%">
 <col style="width: 20%">
 <col style="width: 10%">
-<col style="width: 10%">
 </colgroup>
 <thead>
 <tr class="header">
-<th></th>
 <th>Día</th>
 <th>Hora</th>
 <th>Lugar</th>
@@ -355,35 +359,22 @@ ul.task-list li input[type="checkbox"] {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Cátedra</td>
-<td>Viernes</td>
-<td>10:15 - 13:30</td>
-<td>202 (Hucke)</td>
-</tr>
-<tr class="even">
-<td>Lab</td>
 <td>Miércoles</td>
 <td>14:30 - 17:45</td>
-<td>Lab. 302 (Hucke)</td>
+<td>211 (Hucke)</td>
+</tr>
+<tr class="even">
+<td>Viernes</td>
+<td>08:30 - 10:00</td>
+<td>208 (Hucke)</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@uv.cl">alejandro.veloz@uv.cl</a>)<br> <strong>Ayudante:</strong></p>
-</section>
-<section id="objetivos" class="level1">
-<h1>Objetivos</h1>
-<p>Al finalizar el semestre, será capaz de:</p>
-<ul>
-<li><strong>Comprender y aplicar los fundamentos teóricos y prácticos del procesamiento de imágenes médicas:</strong> Abordar desde la adquisición y representación de imágenes hasta el uso de técnicas de mejora y preprocesamiento, incluyendo operaciones puntuales y sobre histogramas, filtrado espacial, transformada de Fourier, filtrado mediante ecuaciones diferenciales y análisis del impacto del ruido y degradación en imágenes médicas.</li>
-<li><strong>Diseñar, implementar y evaluar algoritmos de segmentación y análisis cuantitativo:</strong> Desarrollar métodos para aislar, identificar y medir estructuras anatómicas o patológicas en imágenes médicas, utilizando enfoques clásicos y avanzados que garanticen precisión y reproducibilidad.</li>
-<li><strong>Desarrollar y evaluar algoritmos de reconocimiento de patrones y aprendizaje automático:</strong> Aplicar métodos de inteligencia artificial, aprendizaje supervisado (ANN, CNN), y diseño de pipelines automatizados para la clasificación y detección en imágenes médicas.</li>
-<li><strong>Analizar y ejecutar métodos de reconstrucción:</strong>: Implementar algoritmos para la reconstrucción volumétrica y bidimensional a partir de proyecciones, comprendiendo su aplicación en modalidades como tomografía.</li>
-<li><strong>Interpretar especificaciones técnicas y parámetros:</strong> Analizar especificaciones críticas de equipos y softwares de procesamiento de imágenes médicas para seleccionar estrategias y herramientas apropiadas en aplicaciones clínicas.</li>
-<li><strong>Integrar conocimientos en proyectos aplicados:</strong> Planificar y ejecutar proyectos prácticos/laboratorios, documentando metódicamente los procedimientos, resultados y conclusiones, en concordancia con estándares académicos y éticos.</li>
-</ul>
+<p><strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@uv.cl">alejandro.veloz@uv.cl</a>)<br> <strong>Horario atención:</strong> Jueves 10:00-12:00 (presencial o virtual)<br> <strong>Ayudante:</strong> Por confirmar.</p>
 </section>
 <section id="clases" class="level1">
 <h1>Clases</h1>
+<p>(Esta planificación puede cambiar)</p>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 5%">
@@ -394,47 +385,73 @@ ul.task-list li input[type="checkbox"] {
 <tr class="header">
 <th>Semana</th>
 <th>Tema</th>
-<th>Material</th>
+<th>Material adicional</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>1</td>
-<td>Introducción</td>
-<td><a href="../bme423/bme423_00_intro.pdf" aria-label="slides intro" title="slides">Introducción</a><br> <a href="../bme423/bme423_01_def.pdf" aria-label="slides definiciones" title="slides">Definiciones</a><br></td>
+<td>Introducción (<a href="slides/01-introduccion.pdf">slides</a>)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Definiciones (<a href="slides/02-01-definiciones.pdf">slides</a>)<br> Ruido/degradación (<a href="slides/02-02-ruido-deg.pdf">slides</a>)</td>
+<td><a href="https://innolitics.com/articles/dicom-i-facilitating-interoperability/">Why Does the DICOM Standard Exist?</a> <br> <a href="http://dicom.nema.org/medical/dicom/current/output/html/part01.html">Parte 1 “Introduction and Overview” del estándar DICOM.</a><br> <a href="https://pydicom.github.io/pydicom/stable/">Documentación de la biblioteca PyDicom.</a></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Mejora de contraste</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Filtrado espacial</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Filtrado en frecuencia</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Morfología matemática</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Transformaciones espaciales</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>Segmentación</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Reconstrucción de CT</td>
+<td></td>
+</tr>
+<tr class="even">
+<td></td>
+<td>IA en imágenes</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Compresión</td>
+<td></td>
 </tr>
 </tbody>
 </table>
-<!-- | 2      | Preprocesamiento de imágenes   | [Notas](notas2.pdf)         |
-| 3      | Modelos estadísticos básicos   | -                           |
-
-
-\[14-08\]<br> 
-
-\[21-08\]<br> [Operaciones puntuales y en histogramas](/bme423/bme423_02_oppuntuales.pdf "slides"){aria-label="slides operaciones puntuales"}<br> [Ruido / degradación](/bme423/bme423_03_degradacion.pdf "slides"){aria-label="slides degradación"}<br> [Filtros espaciales](/bme423/bme423_04_filtradoespacial.pdf "slides"){aria-label="slides filtrado espacial"}<br>[Ejemplo convolución](/bme423/bme423_04_convolución%20ejemplo.pdf "slides"){aria-label="slides convolución"}<br>
-
-\[28-08\]<br> [Filtros mediante PDE](/bme423/bme423_05_diff.pdf)<br> [🖥️ - difusión lineal](/bme423/ejemplos/difusion_lineal.html)<br>
-
-\[11-09\]<br> [Fourier](/bme423/bme423_08_fourier.pdf)<br>
-
-\[09-10\]<br> [Transformaciones geométricas](/bme423/bme423_07_transf_geom.pdf "slides"){aria-label="slides transformaciones geométricas"}<br>
-
-\[23-10\]<br> [Segmentación](/bme423/bme423_09_segmentación.pdf "slides"){aria-label="slides segmentación"}<br>
-
-\[06-11\]<br> [Morfología matemática](/bme423/bme423_06_morfología%20imagen%20binaria.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo](/bme423/bme423_06_morfología%20binaria%20ejemplo.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo RG](/bme423/bme423_06_morfología%20ejemplo%20region%20growing.pdf "slides"){aria-label="slides morfología binaria"}<br>
-
-\[20-11\]<br> [FANN](/bme423/bme423_10_rec-patrones_1-ANN.pdf "slides"){aria-label="slides IA patrones"}<br> [IA en proc. de imágenes, CNN-1](/bme423/bme423_10_rec-patrones_2-CNN-1.pdf "slides"){aria-label="slides IA patrones"}<br> [CNN-2](/bme423/bme423_10_rec-patrones_2-CNN-2.pdf "slides"){aria-label="slides IA patrones"}<br> [slides repr](/bme423/bme423_10_rec-patrones_2-representacion.pdf "slides"){aria-label="slides IA patrones"}<br> [🖥️ - conv](/bme423/ejemplos/cnn-01-conv.html)<br> [🖥️ - modelos preentrenados](/bme423/ejemplos/cnn-02-pretr.html)<br> [🖥️ - arquitecturas](/bme423/ejemplos/cnn-03-design.html)<br> [🖥️ - fully convolutional](/bme423/ejemplos/cnn-04-fullycnn.html)<br> [🖥️ - object localization](/bme423/ejemplos/cnn-05-cnn-class-loc.html)<br>
-
-\[04-12\]<br> [Reconstrucción](/bme423/bme423_11_recontruccion.pdf "slides"){aria-label="slides reconstrucción"}<br> [Reconstrucción a partir de proyecciones](/bme423/rec_from_proj.pdf "slides"){aria-label="reconstrucción desde proyecciones"}<br> -->
-<!-- [28-08] [**Entrega de temas de proyecto**]{.my-green}  -->
-</section>
-<section id="laboratorios" class="level1">
-<h1>Laboratorios</h1>
-<p><a href="../bme423/labs/lab1.html">Lab 1</a>, <a href="../bme423/labs/RGCh03.pdf">📖 Chap3 - Rafael Gonzalez</a>, <span class="my-red">entrega: 10-09</span> <br> <a href="../bme423/labs/lab2.html">Lab 2</a>, <span class="my-red">entrega: 01-10</span> <br> <a href="../bme423/labs/lab3.html">Lab 3</a>, <span class="my-red">entrega: 29-10</span> <br> <a href="../bme423/labs/lab4.html">Lab 4</a>, <span class="my-red">entrega: 20-11</span></p>
 </section>
 <section id="guía-de-ejercicios" class="level1">
 <h1>Guía de ejercicios</h1>
-<p><a href="../bme423/guia.pdf" aria-label="guía de ejercicios" title="slides">Guía de ejercicios y pruebas de años anteriores</a></p>
+<ul>
+<li><a href="guia.pdf">Guía de ejercicios y pruebas de años anteriores</a></li>
+</ul>
 </section>
 <section id="bibliografía-y-otros-recursos" class="level1">
 <h1>Bibliografía y otros recursos</h1>
@@ -453,128 +470,26 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="evaluaciones-para-pregrado" class="level1">
 <h1>Evaluaciones para pregrado</h1>
-<p>El curso contempla las siguientes evaluaciones:</p>
+<p>La asignatura se evaluará mediantes pruebas (75%) y laboratorios (25%).</p>
+<section id="pruebas" class="level2">
+<h2 class="anchored" data-anchor-id="pruebas">Pruebas</h2>
 <ul>
-<li>3 pruebas escritas (70%)</li>
-<li>4 laboratorios (30%)</li>
+<li>Prueba 1 (25%). <span class="my-red">15 de abril.</span></li>
+<li>Prueba 2 (25%). <span class="my-red">13 de mayo.</span></li>
+<li>Prueba 3 (25%). <span class="my-red">10 de julio.</span></li>
 </ul>
-<section id="fechas-de-las-pruebas" class="level2">
-<h2 class="anchored" data-anchor-id="fechas-de-las-pruebas">Fechas de las pruebas</h2>
-<p><span class="my-green"><strong>02-10.</strong> Prueba 1.</span><br> <span class="my-green"><strong>13-11.</strong> Prueba 2.</span><br> <span class="my-green"><strong>11-12.</strong> Prueba 3.</span><br></p>
 </section>
-<section id="laboratorios-1" class="level2">
-<h2 class="anchored" data-anchor-id="laboratorios-1">Laboratorios</h2>
-<p><span class="my-red"><strong>La asistencia a laboratorio es obligatoria.</strong></span> Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio <span class="my-green"><strong>sin necesidad de presentar justificación.</strong></span> Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio.</p>
-<p>Las notas de los laboratorios contemplarán los siguientes aspectos:</p>
-<ol type="1">
-<li>Seguimiento de instrucciones de entrega.</li>
-<li>Entrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).</li>
-<li>Contenido de las respuestas a las preguntas formuladas.</li>
-</ol>
+<section id="laboratorios" class="level2">
+<h2 class="anchored" data-anchor-id="laboratorios">Laboratorios</h2>
+<p>Se realizarán 5 laboratorios. Las guías de laboratorio se publicarán en esta página.</p>
 </section>
 </section>
 <section id="evaluaciones-para-postgrado" class="level1">
 <h1>Evaluaciones para postgrado</h1>
-<p>El curso contempla las siguientes evaluaciones:</p>
 <ul>
-<li>1 prueba escrita (30%)</li>
-<li>4 laboratorios (30%)</li>
-<li>1 proyecto (40%)</li>
+<li>6 tareas (60%). Una vez publicada una tarea, se dispondrá de dos semanas para resolverla.</li>
+<li>Miniproyecto (40%). Las instrucciones se pueden encontrar en el siguiente enlace <a href="evals/proyectos-bme423-2026.html">Proyectos 2026</a></li>
 </ul>
-<section id="fechas-importantes" class="level2">
-<h2 class="anchored" data-anchor-id="fechas-importantes">Fechas importantes</h2>
-<p><span class="my-green"><strong>28-08.</strong> Entrega de temas de proyecto.</span><br> <span class="my-green"><strong>13-11.</strong> Presentación avance.</span><br> <span class="my-green"><strong>04-12.</strong> Prueba.</span><br> <span class="my-green"><strong>11-12.</strong> Entrega proyectos.</span><br></p>
-</section>
-<section id="laboratorios-2" class="level2">
-<h2 class="anchored" data-anchor-id="laboratorios-2">Laboratorios</h2>
-<p><span class="my-red"><strong>La asistencia a laboratorio es obligatoria.</strong></span> Sin perjuicio de lo anterior, en el transcurso del semestre podrá ausentarse a 3 sesiones de laboratorio <span class="my-green"><strong>sin necesidad de presentar justificación.</strong></span> Esto no incluye a las sesiones que dan inicio a una nueva actividad del laboratorio.</p>
-<p>Las notas de los laboratorios contemplarán los siguientes aspectos:</p>
-<ol type="1">
-<li>Seguimiento de instrucciones de entrega.</li>
-<li>Entrega de parte del trabajo solicitado al finalizar los laboratorios (cada laboratorio indicará qué es lo que debe entregarse).</li>
-<li>Contenido de las respuestas a las preguntas formuladas.</li>
-</ol>
-</section>
-<section id="proyectos" class="level2">
-<h2 class="anchored" data-anchor-id="proyectos">Proyectos</h2>
-<p>Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).</p>
-<p>Al final del semestre deberá hacer una presentación de 15 min, entregar un informe escrito y poner a disposición del curso un video explicativo del proyecto, el informe escrito y la implementación realizada.</p>
-<p><strong>Los temas son a elección de los estudiantes.</strong></p>
-<section id="definición-de-los-temas-de-proyecto." class="level3">
-<h3 class="anchored" data-anchor-id="definición-de-los-temas-de-proyecto.">Definición de los temas de proyecto.</h3>
-<p>La entrega de los <em>temas de proyecto</em> tiene como propósito verificar que el trabajo que será realizado posee la <em>“dificultad apropiada”</em>. Usted recibirá retroalimentación que le permitirá hacer los ajustes necesarios a su proyecto de tal manera de no resolver problemas muy simples o muy complejos.</p>
-<p>En la fecha indicada debe entregar un documento de no más de dos páginas vía <strong>Aula Virtual</strong> con lo siguiente:</p>
-<ul>
-<li><p><strong>Título del proyecto.</strong></p></li>
-<li><p><strong>Descripción.</strong> Esto incluye un breve contexto del tema a abordar de manera <em>simple y concreta</em>. Por ejemplo,</p>
-<ul>
-<li>“Se quiere detectar de manera automática la variable (…) en base a imágenes de (…). En la literatura se han alcanzado accuracies entre el 60-70% en el problema descrito”.</li>
-</ul></li>
-<li><p><strong>Problema específico a abordar.</strong> Debe explicitar el objetivo del trabajo de manera <em>simple y concreta</em>. Por ejemplo,</p>
-<ul>
-<li>“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.</li>
-<li>“Varios artículos que resuelven el problema descrito emplean el modelo <em>X</em>. Mi objetivo es evaluar el modelo <em>Y</em> y comparar los resultados obtenidos al usar el enfoque tradicional”.</li>
-<li>“No existen implementaciones disponibles públicamente del método propuesto en el artículo <em>X</em>. Mi objetivo es implementar el método propuesto en ese artículo y reproducir los resultados obtenidos”.</li>
-</ul></li>
-<li><p><strong>Punto de partida.</strong> Debe indicar si hay implementaciones disponibles de lo que usted propone desarrollar o si lo que propone hacer en este curso es la continuación de un proyecto desarrollado en otra asignatura. Debe establecer de manera clara la diferencia de lo que usted hará con lo hecho por otras personas o en su trabajo previo. Esta diferencia no necesariamente la tendrá clara en este momento, pero es algo que deberá indicar en la entrega parcial o final del proyecto.</p></li>
-<li><p><strong>Dataset(s).</strong> Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos, etc.</p></li>
-<li><p><strong>Artículo(s) relacionado(s).</strong> Mencione el o los artículos que de una u otra manera se relacionen con el proyecto que abordará.</p></li>
-</ul>
-<p><span class="my-green"><strong>Si tiene más de una idea a desarrollar, debe hacer un documento por idea (no mezclar ideas de proyecto).</strong></span></p>
-</section>
-<section id="productos-a-entregar-en-los-proyectos." class="level3">
-<h3 class="anchored" data-anchor-id="productos-a-entregar-en-los-proyectos.">Productos a entregar en los proyectos.</h3>
-<p>La entrega de los proyectos contempla lo siguiente:</p>
-<ul>
-<li><p><strong>Presentación presencial.</strong> Tendrán una duración de 10-15 minutos.</p></li>
-<li><p><strong>Presentación grabada.</strong> Todos los grupos deben grabar su presentación (duración máxima 15 minutos). Para la entrega de esto, no debe subir videos directamente al Aula Virtual, sino copiar un enlace en el informe escrito desde YouTube, Google Drive u otro mecanismo de su preferencia.</p></li>
-<li><p><strong>Implementación.</strong> La implementación debe incluir todos los códigos fuente con un archivo explicativo sobre su uso. Puede subir los códigos directamente al Aula Virtual o puede copiar un enlace en el informe escrito desde GitHub, Google Drive u otro mecanismo de su preferencia.</p>
-<ul>
-<li>No debe adjuntar los datos utilizados a menos que sea estrictamente necesario, para ejecutar un demo, por ejemplo.</li>
-<li>Asegúrese de configurar los permisos apropiados para acceder a los códigos en caso de usar Google Drive.</li>
-</ul></li>
-<li><p><strong>Informe escrito.</strong> El informe escrito, posee un formato libre y debe incluir:</p>
-<ul>
-<li>Título del proyecto.</li>
-<li>Nombre, apellido y carrera de los integrantes.</li>
-<li>Enlaces a la presentación grabada y al código con la implementación del proyecto (si corresponde).</li>
-<li>La descripción del problema y datos utilizados.</li>
-<li>La solución implementada, las métricas de desempeño y los experimentos realizados.</li>
-<li>El análisis de los resultados y, si corresponde, la comparación con otros métodos.</li>
-</ul></li>
-<li><p>Bibliografía relevante a su trabajo y las citas correspondientes.</p></li>
-</ul>
-</section>
-<section id="criterios-de-evaluación." class="level3">
-<h3 class="anchored" data-anchor-id="criterios-de-evaluación.">Criterios de evaluación.</h3>
-<p>Los criterios de evaluación son los siguientes:</p>
-<ol type="1">
-<li><p>Claridad del informe escrito y presentación (20 %).</p>
-<ul>
-<li>El informe y la presentación son claros, bien redactados y estructurados.</li>
-<li>Las figuras son explicativas y nítidas.</li>
-<li>Los datos/problemas están bien explicados.</li>
-<li>Se presenta la bibliografía relevante y se cita apropiadamente.</li>
-</ul></li>
-<li><p>Descripción y calidad de la solución (40 %).</p>
-<ul>
-<li>La solución está claramente explicada y se evidencia dominio de los elementos que componen la solución. Se incluyen ejemplos, diagramas o pseudocódigo si es necesario.</li>
-<li>La justificación de la solución es clara y coherente con el problema descrito.</li>
-<li>La descripción de la solución es completa.</li>
-<li>El trabajo realizado refleja dedicación de un semestre.</li>
-</ul></li>
-<li><p>Claridad y pertinencia de la implementación (25 %).</p>
-<ul>
-<li>La implementación es clara, bien organizada y adecuada al problema.</li>
-</ul></li>
-<li><p>Experimentación y análisis de los resultados (15 %).</p>
-<ul>
-<li>Se definen y reportan métricas de desempeño relevantes.</li>
-<li>El análisis de resultados es claro, profundo y evidencia aporte propio.</li>
-</ul></li>
-</ol>
-</section>
-</section>
 </section>
 <section id="políticas-del-curso" class="level1">
 <h1>Políticas del Curso</h1>
@@ -584,7 +499,7 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="uso-de-herramientas-de-inteligencia-artificial-ia" class="level2">
 <h2 class="anchored" data-anchor-id="uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</h2>
-<p>El uso de herramientas y recursos de IA está permitido y se fomenta. Sin embargo, se debe explicitar cuándo y cómo se usan estas herramientas en las tareas y trabajos relacionados con el curso. Debe especificar qué contenidos y/o códigos son generados con IA. Se espera total transparencia para mantener la integridad académica: no revelar el uso de IA puede considerarse una violación de las políticas del curso.</p>
+<p>El uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso.</p>
 </section>
 <section id="colaboración" class="level2">
 <h2 class="anchored" data-anchor-id="colaboración">Colaboración</h2>
