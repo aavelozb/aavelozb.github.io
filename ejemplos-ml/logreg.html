@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>INF398 - Introducción al aprendizaje automático</title>
+<title>Regresión logística from scratch</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -94,9 +129,41 @@ ul.task-list li input[type="checkbox"] {
   }
 </style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="INF398 - Introducción al aprendizaje automático">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Regresión logística from scratch">
 <meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<meta property="og:image" content="https://aavelozb.github.io/ejemplos-ml/logreg_files/figure-html/cell-2-output-1.png">
+<meta property="og:image:height" content="455">
+<meta property="og:image:width" content="565">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -270,7 +337,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">INF398 - Introducción al aprendizaje automático</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Regresión logística from scratch</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -298,21 +365,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#horarios-y-contacto" id="toc-horarios-y-contacto" class="nav-link active" data-scroll-target="#horarios-y-contacto">Horarios y contacto</a></li>
-  <li><a href="#clases" id="toc-clases" class="nav-link" data-scroll-target="#clases">Clases</a></li>
-  <li><a href="#bibliografía-y-otros-recursos" id="toc-bibliografía-y-otros-recursos" class="nav-link" data-scroll-target="#bibliografía-y-otros-recursos">Bibliografía y otros recursos</a></li>
-  <li><a href="#evaluaciones" id="toc-evaluaciones" class="nav-link" data-scroll-target="#evaluaciones">Evaluaciones</a>
+  <li><a href="#regresión-logística" id="toc-regresión-logística" class="nav-link active" data-scroll-target="#regresión-logística">Regresión logística</a>
   <ul class="collapse">
-  <li><a href="#tareas" id="toc-tareas" class="nav-link" data-scroll-target="#tareas">Tareas</a></li>
-  </ul></li>
-  <li><a href="#políticas-del-curso" id="toc-políticas-del-curso" class="nav-link" data-scroll-target="#políticas-del-curso">Políticas del Curso</a>
-  <ul class="collapse">
-  <li><a href="#integridad-académica" id="toc-integridad-académica" class="nav-link" data-scroll-target="#integridad-académica">Integridad Académica</a></li>
-  <li><a href="#uso-de-herramientas-de-inteligencia-artificial-ia" id="toc-uso-de-herramientas-de-inteligencia-artificial-ia" class="nav-link" data-scroll-target="#uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</a></li>
-  <li><a href="#colaboración" id="toc-colaboración" class="nav-link" data-scroll-target="#colaboración">Colaboración</a></li>
-  <li><a href="#uso-de-código-y-recursos-online" id="toc-uso-de-código-y-recursos-online" class="nav-link" data-scroll-target="#uso-de-código-y-recursos-online">Uso de código y recursos online</a></li>
-  <li><a href="#entregas-tardias" id="toc-entregas-tardias" class="nav-link" data-scroll-target="#entregas-tardias">Entregas tardías</a></li>
-  <li><a href="#recalificaciones" id="toc-recalificaciones" class="nav-link" data-scroll-target="#recalificaciones">Recalificaciones</a></li>
+  <li><a href="#modelo-sin-bias." id="toc-modelo-sin-bias." class="nav-link" data-scroll-target="#modelo-sin-bias.">Modelo SIN Bias.</a></li>
+  <li><a href="#modelo-con-bias." id="toc-modelo-con-bias." class="nav-link" data-scroll-target="#modelo-con-bias.">Modelo CON Bias.</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -323,7 +379,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">INF398 - Introducción al aprendizaje automático</h1>
+<h1 class="title">Regresión logística from scratch</h1>
 </div>
 
 
@@ -340,209 +396,173 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>Descripción.</strong> Este curso aborda los fundamentos teóricos y prácticos del aprendizaje automático para el diseño de sistemas capaces de aprender a partir de datos. Los y las estudiantes aplican técnicas modernas de clasificación y regresión a problemas reales en ciencia e ingeniería, seleccionando herramientas adecuadas y siguiendo buenas prácticas en el desarrollo de soluciones basadas en datos.</p>
-<section id="horarios-y-contacto" class="level1">
-<h1>Horarios y contacto</h1>
-<p><strong>Clases:</strong> Viernes 14:40-17:15 (sala P110).<br> <strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@usm.cl">alejandro.veloz@usm.cl</a>)<br> <strong>Horario atención:</strong> Jueves 3-4 (presencial o virtual)<br> <strong>Ayudante:</strong> Eva Wang (email: <a href="mailto:eva.wang@usm.cl">eva.wang@usm.cl</a>).</p>
-</section>
-<section id="clases" class="level1">
-<h1>Clases</h1>
-<p>(Esta planificación puede cambiar)</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 20%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Semana</th>
-<th>Tema</th>
-<th>Material adicional</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>06-03</td>
-<td>Introducción al aprendizaje automático (<a href="slides/01-inf398-introML.pdf">slides</a>)<br>Teoría del aprendizaje estadístico (<a href="slides/01-inf398-slt.pdf">slides</a>)</td>
-<td><a href="material/vapnik99-slt.pdf">Vapnik99</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Modelos lineales para regresión (<a href="slides/021-inf398-linreg.pdf">slides</a>)</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Modelos lineales para clasificación</td>
-<td><a href="../ejemplos-ml/logreg.html">Ejemplo regresión logística</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 1</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Redes neuronales feedforward</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Redes neuronales convolucionales</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Tarea 2</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Métodos basados en kernels</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Procesos Gaussianos</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 3</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Métodos basados en árboles</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Métodos de ensamblado</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Tarea 4</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Lógica difusa y modelos neurodifusos</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Modelos en grafos</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 5</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Aprendizaje no supervisado</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>ML y causalidad</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Physics-informed neural networks</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 6</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<!-- | | Procesos Gaussianos | [slides](slides/inf358-gp.pdf)<br>[Gaussian Process Regression](../ejemplos-ml/gp01-regression.html)<br>[Gaussian Process Regression (Pytorch)](../ejemplos-ml/gp01-regression-pytorch.html)<br>[Noise estimation example](../ejemplos-ml/gp02-example-noiseest-sklearn.html)<br>[CO2 example, choosing a kernel](../ejemplos-ml/gp02-example-co2-sklearn.html)<br>[Multi-output Gaussian Process (sensors network)](../ejemplos-ml/gp03-sensors-network.html)<br>[Deep Gaussian Process](../ejemplos-ml/gp04-deep_GPs.html)<br> | -->
-</section>
-<section id="bibliografía-y-otros-recursos" class="level1">
-<h1>Bibliografía y otros recursos</h1>
+<p><a href="https://colab.research.google.com/github/aavelozb/aavelozb.github.io/blob/main/ejemplos-ml/logreg.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid"></a></p>
+<p>Ejemplo con un dataset sencillo de dos dimensiones y dos clases. La idea es tener dos “nubes” de puntos que el modelo deba separar.</p>
+<div id="7af5e7fb" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>n_samples <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># clase 0: Normal centrada en (1, 1)</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>X0 <span class="op">=</span> np.random.randn(n_samples <span class="op">//</span> <span class="dv">2</span>, <span class="dv">2</span>) <span class="op">+</span> np.array([<span class="dv">1</span>, <span class="dv">1</span>])</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>y0 <span class="op">=</span> np.zeros(n_samples <span class="op">//</span> <span class="dv">2</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># clase 1: Normal centrada en (4, 4)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>X1 <span class="op">=</span> np.random.randn(n_samples <span class="op">//</span> <span class="dv">2</span>, <span class="dv">2</span>) <span class="op">+</span> np.array([<span class="dv">4</span>, <span class="dv">4</span>])</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>y1 <span class="op">=</span> np.ones(n_samples <span class="op">//</span> <span class="dv">2</span>)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.vstack([X0, X1])</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.concatenate([y0, y1])</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>y, cmap<span class="op">=</span><span class="st">'bwr'</span>, edgecolors<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Dataset de dos clases"</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Característica 1"</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Característica 2"</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg_files/figure-html/cell-2-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="regresión-logística" class="level2">
+<h2 class="anchored" data-anchor-id="regresión-logística">Regresión logística</h2>
+<p>Implementación de la clase <code>LogisticRegression</code> desde cero utilizando Descenso de Gradiente.</p>
+<p>Conceptos clave vistos en clases:</p>
 <ul>
-<li><a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Christopher Bishop (2006).</li>
-<li><a href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Kevin Patrick Murphy (2022).</li>
-<li><a href="https://link.springer.com/book/10.1007/978-3-031-45468-4?utm_medium=referral&amp;utm_source=sn&amp;utm_content=RM&amp;&amp;utm_campaign=CONR_TBOOK_CON1_GL_PBOK_05YVV_CTB25-COMP">Deep Learning: Foundations and Concepts</a>, Christopher Bishop (2024).</li>
-<li><a href="https://scikit-learn.org/stable/">Scikit-learn</a></li>
-<li><a href="https://scikit-image.org">Scikit-image</a></li>
-<li><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV</a></li>
+<li>Logit (<span class="math inline">\(t\)</span>): La combinación lineal <span class="math inline">\(t = \boldsymbol{X} \boldsymbol{\theta}\)</span>.</li>
+<li>Activación Sigmoide: Transforma <span class="math inline">\(t\)</span> en una probabilidad</li>
+<li>Actualización de parámetros: <span class="math inline">\(\boldsymbol{\theta} = \boldsymbol{\theta} - \alpha \nabla J(\boldsymbol{\theta})\)</span>, donde <span class="math inline">\(\nabla J\)</span> es el gradiente.</li>
+<li>Función de pérdida, binary cross-entropy: <span class="math inline">\(\ell_{\text{logistic}}(t, y) = - [y \log(h(t)) + (1-y) \log(1-h(t))]\)</span>.</li>
 </ul>
+<div id="d232d3d0" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LogisticRegression:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, learning_rate<span class="op">=</span><span class="fl">0.1</span>, n_iterations<span class="op">=</span><span class="dv">1000</span>, add_bias<span class="op">=</span><span class="va">True</span>):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.lr <span class="op">=</span> learning_rate</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_iter <span class="op">=</span> n_iterations</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.add_bias <span class="op">=</span> add_bias</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.theta <span class="op">=</span> <span class="va">None</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.losses <span class="op">=</span> []</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _sigmoid(<span class="va">self</span>, z):</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>z))</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, y):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.add_bias:</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>            X <span class="op">=</span> np.hstack([np.ones((X.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X])</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        n_samples, n_features <span class="op">=</span> X.shape</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.theta <span class="op">=</span> np.zeros(n_features)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Descenso de gradiente</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.n_iter):</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>            t <span class="op">=</span> np.dot(X, <span class="va">self</span>.theta) <span class="co"># logit: X @ theta</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            h <span class="op">=</span> <span class="va">self</span>._sigmoid(t) <span class="co"># hipótesis: h = g(z)</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>            gradient <span class="op">=</span> np.dot(X.T, (h <span class="op">-</span> y)) <span class="op">/</span> n_samples <span class="co"># gradiente: (1/n) * X^T @ (h - y)</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Nota: Usamos promedio del gradiente para estabilidad</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>            <span class="co"># actualización: theta = theta - alpha * gradiente</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.theta <span class="op">-=</span> <span class="va">self</span>.lr <span class="op">*</span> gradient</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>            <span class="co"># pérdida: Binary Cross-Entropy</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> <span class="op">-</span>np.mean(y <span class="op">*</span> np.log(h <span class="op">+</span> <span class="fl">1e-15</span>) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> y) <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">-</span> h <span class="op">+</span> <span class="fl">1e-15</span>))</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.losses.append(loss)</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict_prob(<span class="va">self</span>, X):</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="va">self</span>.add_bias:</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            X <span class="op">=</span> np.hstack([np.ones((X.shape[<span class="dv">0</span>], <span class="dv">1</span>)), X])</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>._sigmoid(np.dot(X, <span class="va">self</span>.theta))</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X, threshold<span class="op">=</span><span class="fl">0.5</span>):</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.predict_prob(X) <span class="op">&gt;=</span> threshold</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="modelo-sin-bias." class="level3">
+<h3 class="anchored" data-anchor-id="modelo-sin-bias.">Modelo SIN Bias.</h3>
+<p>El bias permite que la frontera de decisión se desplace. Sin este término, la frontera de desición siempre debe pasar por el origen <span class="math inline">\((0,0)\)</span>, lo cual limita la capacidad del modelo si los datos están desplazados.</p>
+<div id="13dfd642" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model_no_bias <span class="op">=</span> LogisticRegression(add_bias<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model_no_bias.fit(X, y)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># curvas de aprendizaje</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>plt.plot(model_no_bias.losses, label<span class="op">=</span><span class="st">"Sin Bias"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Evolución de la Pérdida (Loss)"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Iteración"</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cross-Entropy"</span>)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>La fontera de decisión es la línea donde <span class="math inline">\(h_{\theta}(x) = 0.5\)</span>.</p>
+<div id="550bf9eb" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_decision_boundary(X, y, model, title):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    plt.scatter(X[:, <span class="dv">0</span>], X[:, <span class="dv">1</span>], c<span class="op">=</span>y, cmap<span class="op">=</span><span class="st">'bwr'</span>, edgecolors<span class="op">=</span><span class="st">'k'</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    ax <span class="op">=</span> plt.gca()</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    x_vals <span class="op">=</span> np.array(ax.get_xlim())</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> model.add_bias:</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># theta0 + theta1*x1 + theta2*x2 = 0  =&gt; x2 = -(theta0 + theta1*x1) / theta2</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        y_vals <span class="op">=</span> <span class="op">-</span>(model.theta[<span class="dv">0</span>] <span class="op">+</span> model.theta[<span class="dv">1</span>] <span class="op">*</span> x_vals) <span class="op">/</span> model.theta[<span class="dv">2</span>]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># theta0*x1 + theta1*x2 = 0 =&gt; x2 = -(theta0*x1) / theta1</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        y_vals <span class="op">=</span> <span class="op">-</span>(model.theta[<span class="dv">0</span>] <span class="op">*</span> x_vals) <span class="op">/</span> model.theta[<span class="dv">1</span>]</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>    plt.plot(x_vals, y_vals, <span class="st">'--k'</span>, label<span class="op">=</span><span class="st">"Frontera de decisión"</span>)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    plt.title(title)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    plt.legend()</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>plot_decision_boundary(X, y, model_no_bias, <span class="st">"Modelo SIN Bias (pasa por el origen)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="evaluaciones" class="level1">
-<h1>Evaluaciones</h1>
-<p>El curso contempla las siguientes evaluaciones:</p>
-<ul>
-<li>6 tareas (60%). Una vez publicada una tarea, se dispondrá de dos semanas para resolverla.</li>
-<li>Miniproyecto (40%). Las instrucciones se pueden encontrar en el siguiente enlace <a href="evals/proyectos-inf398-2026.html">Proyectos 2026</a></li>
-</ul>
-<section id="tareas" class="level2">
-<h2 class="anchored" data-anchor-id="tareas">Tareas</h2>
-<ul>
-<li>Tarea 1. Modelos lineales, regularización.</li>
-<li>Tarea 2. Redes neuronales.</li>
-<li>Tarea 3. Procesos gaussianos y métodos basados en kernels.</li>
-<li>Tarea 4. Métodos basados en árboles y ensamblados.</li>
-<li>Tarea 5. Modelos en grafos y neurodifusos.</li>
-<li>Tarea 6. Aprendizaje no supervisado.</li>
-</ul>
-<!-- | 2      | Preprocesamiento de imágenes   | [Notas](notas2.pdf)         |
-| 3      | Modelos estadísticos básicos   | -                           |
-
-
-\[14-08\]<br> 
-
-\[21-08\]<br> [Operaciones puntuales y en histogramas](/bme423/bme423_02_oppuntuales.pdf "slides"){aria-label="slides operaciones puntuales"}<br> [Ruido / degradación](/bme423/bme423_03_degradacion.pdf "slides"){aria-label="slides degradación"}<br> [Filtros espaciales](/bme423/bme423_04_filtradoespacial.pdf "slides"){aria-label="slides filtrado espacial"}<br>[Ejemplo convolución](/bme423/bme423_04_convolución%20ejemplo.pdf "slides"){aria-label="slides convolución"}<br>
-
-\[28-08\]<br> [Filtros mediante PDE](/bme423/bme423_05_diff.pdf)<br> [🖥️ - difusión lineal](/bme423/ejemplos/difusion_lineal.html)<br>
-
-\[11-09\]<br> [Fourier](/bme423/bme423_08_fourier.pdf)<br>
-
-\[09-10\]<br> [Transformaciones geométricas](/bme423/bme423_07_transf_geom.pdf "slides"){aria-label="slides transformaciones geométricas"}<br>
-
-\[23-10\]<br> [Segmentación](/bme423/bme423_09_segmentación.pdf "slides"){aria-label="slides segmentación"}<br>
-
-\[06-11\]<br> [Morfología matemática](/bme423/bme423_06_morfología%20imagen%20binaria.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo](/bme423/bme423_06_morfología%20binaria%20ejemplo.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo RG](/bme423/bme423_06_morfología%20ejemplo%20region%20growing.pdf "slides"){aria-label="slides morfología binaria"}<br>
-
-\[20-11\]<br> [FANN](/bme423/bme423_10_rec-patrones_1-ANN.pdf "slides"){aria-label="slides IA patrones"}<br> [IA en proc. de imágenes, CNN-1](/bme423/bme423_10_rec-patrones_2-CNN-1.pdf "slides"){aria-label="slides IA patrones"}<br> [CNN-2](/bme423/bme423_10_rec-patrones_2-CNN-2.pdf "slides"){aria-label="slides IA patrones"}<br> [slides repr](/bme423/bme423_10_rec-patrones_2-representacion.pdf "slides"){aria-label="slides IA patrones"}<br> [🖥️ - conv](/bme423/ejemplos/cnn-01-conv.html)<br> [🖥️ - modelos preentrenados](/bme423/ejemplos/cnn-02-pretr.html)<br> [🖥️ - arquitecturas](/bme423/ejemplos/cnn-03-design.html)<br> [🖥️ - fully convolutional](/bme423/ejemplos/cnn-04-fullycnn.html)<br> [🖥️ - object localization](/bme423/ejemplos/cnn-05-cnn-class-loc.html)<br>
-
-\[04-12\]<br> [Reconstrucción](/bme423/bme423_11_recontruccion.pdf "slides"){aria-label="slides reconstrucción"}<br> [Reconstrucción a partir de proyecciones](/bme423/rec_from_proj.pdf "slides"){aria-label="reconstrucción desde proyecciones"}<br> -->
-<!-- [28-08] [**Entrega de temas de proyecto**]{.my-green}  -->
-</section>
-</section>
-<section id="políticas-del-curso" class="level1">
-<h1>Políticas del Curso</h1>
-<section id="integridad-académica" class="level2">
-<h2 class="anchored" data-anchor-id="integridad-académica">Integridad Académica</h2>
-<p>Se espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado <strong>puede considerarse plagio</strong>.</p>
-</section>
-<section id="uso-de-herramientas-de-inteligencia-artificial-ia" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</h2>
-<p>El uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso.</p>
-</section>
-<section id="colaboración" class="level2">
-<h2 class="anchored" data-anchor-id="colaboración">Colaboración</h2>
-<p>Salvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.</p>
-</section>
-<section id="uso-de-código-y-recursos-online" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-código-y-recursos-online">Uso de código y recursos online</h2>
-<p>Puede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.</p>
-</section>
-<section id="entregas-tardias" class="level2">
-<h2 class="anchored" data-anchor-id="entregas-tardias">Entregas tardías</h2>
-<p>Dispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas <strong>sin penalización</strong>. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este <em>beneficio</em> en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.</p>
-</section>
-<section id="recalificaciones" class="level2">
-<h2 class="anchored" data-anchor-id="recalificaciones">Recalificaciones</h2>
-<p>Las solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.</p>
+<section id="modelo-con-bias." class="level3">
+<h3 class="anchored" data-anchor-id="modelo-con-bias.">Modelo CON Bias.</h3>
+<div id="af1a0c77" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model_with_bias <span class="op">=</span> LogisticRegression(add_bias<span class="op">=</span><span class="va">True</span>, n_iterations<span class="op">=</span><span class="dv">2000</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>model_with_bias.fit(X, y)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># curvas de aprendizaje</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>plt.plot(model_with_bias.losses, label<span class="op">=</span><span class="st">"Con Bias"</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Evolución de la Pérdida (Loss)"</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Iteración"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Cross-Entropy"</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="4788a92b" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>plot_decision_boundary(X, y, model_with_bias, <span class="st">"Modelo CON Bias"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
 </section>
