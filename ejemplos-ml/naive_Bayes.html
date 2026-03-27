@@ -336,8 +336,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#importing-packages" id="toc-importing-packages" class="nav-link active" data-scroll-target="#importing-packages">Importing packages</a></li>
-  <li><a href="#loading-the-dataset" id="toc-loading-the-dataset" class="nav-link" data-scroll-target="#loading-the-dataset">Loading the dataset</a></li>
+  <li><a href="#loading-the-dataset" id="toc-loading-the-dataset" class="nav-link active" data-scroll-target="#loading-the-dataset">Loading the dataset</a></li>
   <li><a href="#training-a-naive-bayes-model" id="toc-training-a-naive-bayes-model" class="nav-link" data-scroll-target="#training-a-naive-bayes-model">Training a naive Bayes model</a></li>
   <li><a href="#using-the-model-to-make-predictions" id="toc-using-the-model-to-make-predictions" class="nav-link" data-scroll-target="#using-the-model-to-make-predictions">Using the model to make predictions</a></li>
   </ul>
@@ -366,21 +365,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<section id="importing-packages" class="level3">
-<h3 class="anchored" data-anchor-id="importing-packages">Importing packages</h3>
-<div id="cell-3" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
+<p><a href="https://colab.research.google.com/github/aavelozb/aavelozb.github.io/blob/main/ejemplos-ml/naive_Bayes-gc.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid"></a></p>
 <section id="loading-the-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="loading-the-dataset">Loading the dataset</h3>
-<p>For the next two cells, please run only one of them. - Run the first cell if you cloned the Github Repo - Run the second cell if you opened this as a Google Colab</p>
-<div id="cell-5" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: ONLY RUN THIS CELL IF YOU HAVE CLONED THE REPO</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>emails <span class="op">=</span> pd.read_csv(<span class="st">'emails.csv'</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>emails[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div id="cell-3" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl <span class="op">-</span>O https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>aavelozb<span class="op">/</span>aavelozb.github.io<span class="op">/</span>main<span class="op">/</span>data<span class="op">/</span>emails.csv</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>emails <span class="op">=</span> pd.read_csv(<span class="st">'emails.csv'</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>emails[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 8744k  100 8744k    0     0  13.3M      0 --:--:-- --:--:-- --:--:-- 13.3M</code></pre>
+</div>
+<div class="cell-output cell-output-display" data-execution_count="3">
 <div>
 
 
@@ -449,23 +450,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-6" class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: ONLY RUN THIS CELL IF YOU ARE WORKING ON A COLAB </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/luisguiserrano/manning/master/Chapter_08_Naive_Bayes/emails.csv"</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(url)</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div id="cell-7" class="cell" data-execution_count="3">
+<div id="cell-5" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_email(text):</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> text.lower()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">list</span>(<span class="bu">set</span>(text.split()))</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>emails[<span class="st">'words'</span>] <span class="op">=</span> emails[<span class="st">'text'</span>].<span class="bu">apply</span>(process_email)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-8" class="cell" data-execution_count="4">
+<div id="cell-6" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>emails[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <div>
 
 
@@ -483,61 +477,61 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td data-quarto-table-cell-role="th">0</td>
 <td>Subject: naturally irresistible your corporate...</td>
 <td>1</td>
-<td>[., clear, original, our, :, distinctive, busi...</td>
+<td>[made, corporate, ,, its, business, hotat, rea...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">1</td>
 <td>Subject: the stock trading gunslinger fanny i...</td>
 <td>1</td>
-<td>[perspicuous, huzzah, inflexible, continuant, ...</td>
+<td>[perspicuous, attainder, is, clothesman, deoxy...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">2</td>
 <td>Subject: unbelievable new homes made easy im ...</td>
 <td>1</td>
-<td>[454, ., to, 3, wanting, we, you, loan, our, p...</td>
+<td>[new, your, you, foward, made, ,, way, is, adv...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">3</td>
 <td>Subject: 4 color printing special request add...</td>
 <td>1</td>
-<td>[., an, printing, goldengraphix, our, e, irwin...</td>
+<td>[com, request, goldengraphix, ,, is, special, ...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">4</td>
 <td>Subject: do not have money , get software cds ...</td>
 <td>1</td>
-<td>[., it, cds, ?, to, compatibility, along, ', d...</td>
+<td>[?, old, t, be, ,, death, is, get, compatibili...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">5</td>
 <td>Subject: great nnews hello , welcome to medzo...</td>
 <td>1</td>
-<td>[introduce, ., 75, worldwide, total, op, v, to...</td>
+<td>[shakedown, ,, va, blister, sh, ourselves, wel...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">6</td>
 <td>Subject: here ' s a hot play in motion homela...</td>
 <td>1</td>
-<td>[transportation, innovative, *, adverse, excha...</td>
+<td>[whiie, assumptions, made, security, historica...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">7</td>
 <td>Subject: save your money buy getting this thin...</td>
 <td>1</td>
-<td>[imagine, it, ., has, viagra, iasts, ?, buy, t...</td>
+<td>[your, you, buy, ?, be, man, cialis, is, get, ...</td>
 </tr>
 <tr class="odd">
 <td data-quarto-table-cell-role="th">8</td>
 <td>Subject: undeliverable : home based business f...</td>
 <td>1</td>
-<td>[75, ., original, :, business, undeliverable, ...</td>
+<td>[70590202251232, ,, reach, business, d, 13, kp...</td>
 </tr>
 <tr class="even">
 <td data-quarto-table-cell-role="th">9</td>
 <td>Subject: save your money buy getting this thin...</td>
 <td>1</td>
-<td>[imagine, it, ., has, viagra, ?, buy, to, 10, ...</td>
+<td>[your, you, buy, ?, be, man, cialis, is, aicoh...</td>
 </tr>
 </tbody>
 </table>
@@ -545,7 +539,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cell-9" class="cell" data-execution_count="5">
+<div id="cell-7" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>num_emails <span class="op">=</span> <span class="bu">len</span>(emails)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>num_spam <span class="op">=</span> <span class="bu">sum</span>(emails[<span class="st">'spam'</span>])</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -566,7 +560,7 @@ Probability of spam: 0.2388268156424581</code></pre>
 <section id="training-a-naive-bayes-model" class="level3">
 <h3 class="anchored" data-anchor-id="training-a-naive-bayes-model">Training a naive Bayes model</h3>
 <p>Our plan is to write a dictionary, and in this dictionary record every word, and its pair of occurrences in spam and ham</p>
-<div id="cell-11" class="cell" data-execution_count="6">
+<div id="cell-9" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> {}</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Training process</span></span>
@@ -580,41 +574,41 @@ Probability of spam: 0.2388268156424581</code></pre>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                model[word][<span class="st">'ham'</span>] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-12" class="cell" data-execution_count="7">
+<div id="cell-10" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model[<span class="st">'lottery'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="8">
 <pre><code>{'spam': 9, 'ham': 1}</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-execution_count="8">
+<div id="cell-11" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model[<span class="st">'sale'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>{'spam': 39, 'ham': 42}</code></pre>
 </div>
 </div>
 </section>
 <section id="using-the-model-to-make-predictions" class="level3">
 <h3 class="anchored" data-anchor-id="using-the-model-to-make-predictions">Using the model to make predictions</h3>
-<div id="cell-15" class="cell" data-execution_count="9">
+<div id="cell-13" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_bayes(word):</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    word <span class="op">=</span> word.lower()</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    num_spam_with_word <span class="op">=</span> model[word][<span class="st">'spam'</span>]</span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    num_ham_with_word <span class="op">=</span> model[word][<span class="st">'ham'</span>]</span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">1.0</span><span class="op">*</span>num_spam_with_word<span class="op">/</span>(num_spam_with_word <span class="op">+</span> num_ham_with_word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-16" class="cell" data-execution_count="10">
+<div id="cell-14" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>predict_bayes(<span class="st">'lottery'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>0.9</code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-execution_count="11">
+<div id="cell-15" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>predict_bayes(<span class="st">'sale'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>0.48148148148148145</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-execution_count="16">
+<div id="cell-16" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_naive_bayes(email):</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">len</span>(emails)</span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    num_spam <span class="op">=</span> <span class="bu">sum</span>(emails[<span class="st">'spam'</span>])</span>
@@ -631,51 +625,51 @@ Probability of spam: 0.2388268156424581</code></pre>
 <span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    prod_hams <span class="op">=</span> np.compat.<span class="bu">long</span>(np.prod(hams)<span class="op">*</span>num_ham)</span>
 <span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prod_spams<span class="op">/</span>(prod_spams <span class="op">+</span> prod_hams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-19" class="cell" data-execution_count="17">
+<div id="cell-17" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'lottery sale'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>0.9638144992048691</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-execution_count="18">
+<div id="cell-18" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'Hi mom how are you'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>0.12554358867164464</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>0.12554358867164467</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-execution_count="19">
+<div id="cell-19" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'Hi MOM how aRe yoU afdjsaklfsdhgjasdhfjklsd'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
-<pre><code>0.12554358867164464</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>0.12554358867164467</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-execution_count="20">
+<div id="cell-20" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'meet me at the lobby of the hotel at nine am'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<pre><code>6.964603508395961e-05</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>6.964603508395965e-05</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-execution_count="21">
+<div id="cell-21" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'enter the lottery to win three million dollars'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
+<div class="cell-output cell-output-display" data-execution_count="18">
 <pre><code>0.9995234218677428</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-execution_count="22">
+<div id="cell-22" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'buy cheap lottery easy money now'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>0.999973472265966</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-execution_count="23">
+<div id="cell-23" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'Grokking Machine Learning by Luis Serrano'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>0.4197107645488719</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-execution_count="24">
+<div id="cell-24" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'asdfgh'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>0.2388268156424581</code></pre>
 </div>
 </div>
