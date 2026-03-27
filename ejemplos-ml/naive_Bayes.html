@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>INF398 - Introducción al aprendizaje automático</title>
+<title>Coding a spam classifier with naive Bayes</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,10 +20,45 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
 <script src="../site_libs/clipboard/clipboard.min.js"></script>
 <script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
@@ -70,6 +105,9 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 <style>
   .cv-container {
     display: flex;
@@ -95,7 +133,7 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<meta property="og:title" content="INF398 - Introducción al aprendizaje automático">
+<meta property="og:title" content="Coding a spam classifier with naive Bayes">
 <meta property="og:description" content="Alejandro Veloz - Academic Profile">
 </head>
 
@@ -270,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">INF398 - Introducción al aprendizaje automático</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Coding a spam classifier with naive Bayes</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -298,22 +336,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#horarios-y-contacto" id="toc-horarios-y-contacto" class="nav-link active" data-scroll-target="#horarios-y-contacto">Horarios y contacto</a></li>
-  <li><a href="#clases" id="toc-clases" class="nav-link" data-scroll-target="#clases">Clases</a></li>
-  <li><a href="#bibliografía-y-otros-recursos" id="toc-bibliografía-y-otros-recursos" class="nav-link" data-scroll-target="#bibliografía-y-otros-recursos">Bibliografía y otros recursos</a></li>
-  <li><a href="#evaluaciones" id="toc-evaluaciones" class="nav-link" data-scroll-target="#evaluaciones">Evaluaciones</a>
-  <ul class="collapse">
-  <li><a href="#tareas" id="toc-tareas" class="nav-link" data-scroll-target="#tareas">Tareas</a></li>
-  </ul></li>
-  <li><a href="#políticas-del-curso" id="toc-políticas-del-curso" class="nav-link" data-scroll-target="#políticas-del-curso">Políticas del Curso</a>
-  <ul class="collapse">
-  <li><a href="#integridad-académica" id="toc-integridad-académica" class="nav-link" data-scroll-target="#integridad-académica">Integridad Académica</a></li>
-  <li><a href="#uso-de-herramientas-de-inteligencia-artificial-ia" id="toc-uso-de-herramientas-de-inteligencia-artificial-ia" class="nav-link" data-scroll-target="#uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</a></li>
-  <li><a href="#colaboración" id="toc-colaboración" class="nav-link" data-scroll-target="#colaboración">Colaboración</a></li>
-  <li><a href="#uso-de-código-y-recursos-online" id="toc-uso-de-código-y-recursos-online" class="nav-link" data-scroll-target="#uso-de-código-y-recursos-online">Uso de código y recursos online</a></li>
-  <li><a href="#entregas-tardias" id="toc-entregas-tardias" class="nav-link" data-scroll-target="#entregas-tardias">Entregas tardías</a></li>
-  <li><a href="#recalificaciones" id="toc-recalificaciones" class="nav-link" data-scroll-target="#recalificaciones">Recalificaciones</a></li>
-  </ul></li>
+  <li><a href="#importing-packages" id="toc-importing-packages" class="nav-link active" data-scroll-target="#importing-packages">Importing packages</a></li>
+  <li><a href="#loading-the-dataset" id="toc-loading-the-dataset" class="nav-link" data-scroll-target="#loading-the-dataset">Loading the dataset</a></li>
+  <li><a href="#training-a-naive-bayes-model" id="toc-training-a-naive-bayes-model" class="nav-link" data-scroll-target="#training-a-naive-bayes-model">Training a naive Bayes model</a></li>
+  <li><a href="#using-the-model-to-make-predictions" id="toc-using-the-model-to-make-predictions" class="nav-link" data-scroll-target="#using-the-model-to-make-predictions">Using the model to make predictions</a></li>
   </ul>
 </nav>
     </div>
@@ -323,7 +349,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">INF398 - Introducción al aprendizaje automático</h1>
+<h1 class="title">Coding a spam classifier with naive Bayes</h1>
 </div>
 
 
@@ -340,212 +366,321 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>Descripción.</strong> Este curso aborda los fundamentos teóricos y prácticos del aprendizaje automático para el diseño de sistemas capaces de aprender a partir de datos. Los y las estudiantes aplican técnicas modernas de clasificación y regresión a problemas reales en ciencia e ingeniería, seleccionando herramientas adecuadas y siguiendo buenas prácticas en el desarrollo de soluciones basadas en datos.</p>
-<section id="horarios-y-contacto" class="level1">
-<h1>Horarios y contacto</h1>
-<p><strong>Clases:</strong> Viernes 14:40-17:15 (sala P110).<br> <strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@usm.cl">alejandro.veloz@usm.cl</a>)<br> <strong>Horario atención:</strong> Jueves 3-4 (presencial o virtual)<br> <strong>Ayudante:</strong> Eva Wang (email: <a href="mailto:eva.wang@usm.cl">eva.wang@usm.cl</a>).</p>
+<section id="importing-packages" class="level3">
+<h3 class="anchored" data-anchor-id="importing-packages">Importing packages</h3>
+<div id="cell-3" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </section>
-<section id="clases" class="level1">
-<h1>Clases</h1>
-<p>(Esta planificación puede cambiar)</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 20%">
-<col style="width: 10%">
-</colgroup>
+<section id="loading-the-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="loading-the-dataset">Loading the dataset</h3>
+<p>For the next two cells, please run only one of them. - Run the first cell if you cloned the Github Repo - Run the second cell if you opened this as a Google Colab</p>
+<div id="cell-5" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: ONLY RUN THIS CELL IF YOU HAVE CLONED THE REPO</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>emails <span class="op">=</span> pd.read_csv(<span class="st">'emails.csv'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>emails[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
 <thead>
 <tr class="header">
-<th>Semana</th>
-<th>Tema</th>
-<th>Material adicional</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">text</th>
+<th data-quarto-table-cell-role="th">spam</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>06-03</td>
-<td>Introducción al aprendizaje automático (<a href="slides/01-inf398-introML.pdf">slides</a>)<br>Teoría del aprendizaje estadístico (<a href="slides/01-inf398-slt.pdf">slides</a>)</td>
-<td><a href="material/vapnik99-slt.pdf">Vapnik99</a></td>
+<td data-quarto-table-cell-role="th">0</td>
+<td>Subject: naturally irresistible your corporate...</td>
+<td>1</td>
 </tr>
 <tr class="even">
-<td></td>
-<td>Modelos lineales para regresión (<a href="slides/021-inf398-linreg.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/passenger-data.html">Ejemplo regresión</a><br><a href="../ejemplos-ml/varejemplo.ipynb.html">Ejemplo VAR</a></td>
+<td data-quarto-table-cell-role="th">1</td>
+<td>Subject: the stock trading gunslinger fanny i...</td>
+<td>1</td>
 </tr>
 <tr class="odd">
-<td></td>
-<td>Modelos lineales para clasificación</td>
-<td><a href="../ejemplos-ml/logreg.html">Ejemplo regresión logística</a><br><a href="../ejemplos-ml/sentiment_analysis_IMDB.html">Ejemplo IMDB</a></td>
+<td data-quarto-table-cell-role="th">2</td>
+<td>Subject: unbelievable new homes made easy im ...</td>
+<td>1</td>
 </tr>
 <tr class="even">
-<td></td>
-<td>Tarea 1</td>
-<td></td>
+<td data-quarto-table-cell-role="th">3</td>
+<td>Subject: 4 color printing special request add...</td>
+<td>1</td>
 </tr>
 <tr class="odd">
-<td></td>
-<td>Redes neuronales feedforward</td>
-<td></td>
+<td data-quarto-table-cell-role="th">4</td>
+<td>Subject: do not have money , get software cds ...</td>
+<td>1</td>
 </tr>
 <tr class="even">
-<td></td>
-<td>Redes neuronales convolucionales</td>
-<td></td>
+<td data-quarto-table-cell-role="th">5</td>
+<td>Subject: great nnews hello , welcome to medzo...</td>
+<td>1</td>
 </tr>
 <tr class="odd">
-<td></td>
-<td>Tarea 2</td>
-<td></td>
+<td data-quarto-table-cell-role="th">6</td>
+<td>Subject: here ' s a hot play in motion homela...</td>
+<td>1</td>
 </tr>
 <tr class="even">
-<td></td>
-<td>Métodos basados en kernels</td>
-<td></td>
+<td data-quarto-table-cell-role="th">7</td>
+<td>Subject: save your money buy getting this thin...</td>
+<td>1</td>
 </tr>
 <tr class="odd">
-<td></td>
-<td>Procesos Gaussianos</td>
-<td></td>
+<td data-quarto-table-cell-role="th">8</td>
+<td>Subject: undeliverable : home based business f...</td>
+<td>1</td>
 </tr>
 <tr class="even">
-<td></td>
-<td>Tarea 3</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Métodos basados en árboles</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Métodos de ensamblado</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Tarea 4</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Lógica difusa y modelos neurodifusos</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Modelos en grafos</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 5</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Aprendizaje no supervisado</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>ML y causalidad</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Physics-informed neural networks</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 6</td>
-<td></td>
+<td data-quarto-table-cell-role="th">9</td>
+<td>Subject: save your money buy getting this thin...</td>
+<td>1</td>
 </tr>
 </tbody>
 </table>
-<!-- | | Procesos Gaussianos | [slides](slides/inf358-gp.pdf)<br>[Gaussian Process Regression](../ejemplos-ml/gp01-regression.html)<br>[Gaussian Process Regression (Pytorch)](../ejemplos-ml/gp01-regression-pytorch.html)<br>[Noise estimation example](../ejemplos-ml/gp02-example-noiseest-sklearn.html)<br>[CO2 example, choosing a kernel](../ejemplos-ml/gp02-example-co2-sklearn.html)<br>[Multi-output Gaussian Process (sensors network)](../ejemplos-ml/gp03-sensors-network.html)<br>[Deep Gaussian Process](../ejemplos-ml/gp04-deep_GPs.html)<br> | -->
+
+</div>
+</div>
+</div>
+<div id="cell-6" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IMPORTANT: ONLY RUN THIS CELL IF YOU ARE WORKING ON A COLAB </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> <span class="st">"https://raw.githubusercontent.com/luisguiserrano/manning/master/Chapter_08_Naive_Bayes/emails.csv"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> pd.read_csv(url)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-7" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> process_email(text):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> text.lower()</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">list</span>(<span class="bu">set</span>(text.split()))</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>emails[<span class="st">'words'</span>] <span class="op">=</span> emails[<span class="st">'text'</span>].<span class="bu">apply</span>(process_email)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-8" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>emails[:<span class="dv">10</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">text</th>
+<th data-quarto-table-cell-role="th">spam</th>
+<th data-quarto-table-cell-role="th">words</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Subject: naturally irresistible your corporate...</td>
+<td>1</td>
+<td>[., clear, original, our, :, distinctive, busi...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Subject: the stock trading gunslinger fanny i...</td>
+<td>1</td>
+<td>[perspicuous, huzzah, inflexible, continuant, ...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Subject: unbelievable new homes made easy im ...</td>
+<td>1</td>
+<td>[454, ., to, 3, wanting, we, you, loan, our, p...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Subject: 4 color printing special request add...</td>
+<td>1</td>
+<td>[., an, printing, goldengraphix, our, e, irwin...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Subject: do not have money , get software cds ...</td>
+<td>1</td>
+<td>[., it, cds, ?, to, compatibility, along, ', d...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Subject: great nnews hello , welcome to medzo...</td>
+<td>1</td>
+<td>[introduce, ., 75, worldwide, total, op, v, to...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Subject: here ' s a hot play in motion homela...</td>
+<td>1</td>
+<td>[transportation, innovative, *, adverse, excha...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Subject: save your money buy getting this thin...</td>
+<td>1</td>
+<td>[imagine, it, ., has, viagra, iasts, ?, buy, t...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Subject: undeliverable : home based business f...</td>
+<td>1</td>
+<td>[75, ., original, :, business, undeliverable, ...</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">9</td>
+<td>Subject: save your money buy getting this thin...</td>
+<td>1</td>
+<td>[imagine, it, ., has, viagra, ?, buy, to, 10, ...</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-9" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>num_emails <span class="op">=</span> <span class="bu">len</span>(emails)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>num_spam <span class="op">=</span> <span class="bu">sum</span>(emails[<span class="st">'spam'</span>])</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of emails:"</span>, num_emails)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Number of spam emails:"</span>, num_spam)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculating the prior probability that an email is spam</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Probability of spam:"</span>, num_spam<span class="op">/</span>num_emails)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of emails: 5728
+Number of spam emails: 1368
+
+Probability of spam: 0.2388268156424581</code></pre>
+</div>
+</div>
 </section>
-<section id="bibliografía-y-otros-recursos" class="level1">
-<h1>Bibliografía y otros recursos</h1>
-<ul>
-<li><a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Christopher Bishop (2006).</li>
-<li><a href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Kevin Patrick Murphy (2022).</li>
-<li><a href="https://link.springer.com/book/10.1007/978-3-031-45468-4?utm_medium=referral&amp;utm_source=sn&amp;utm_content=RM&amp;&amp;utm_campaign=CONR_TBOOK_CON1_GL_PBOK_05YVV_CTB25-COMP">Deep Learning: Foundations and Concepts</a>, Christopher Bishop (2024).</li>
-<li><a href="https://scikit-learn.org/stable/">Scikit-learn</a></li>
-<li><a href="https://scikit-image.org">Scikit-image</a></li>
-<li><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV</a></li>
-</ul>
+<section id="training-a-naive-bayes-model" class="level3">
+<h3 class="anchored" data-anchor-id="training-a-naive-bayes-model">Training a naive Bayes model</h3>
+<p>Our plan is to write a dictionary, and in this dictionary record every word, and its pair of occurrences in spam and ham</p>
+<div id="cell-11" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> {}</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Training process</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> index, email <span class="kw">in</span> emails.iterrows():</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> word <span class="kw">in</span> email[<span class="st">'words'</span>]:</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> word <span class="kw">not</span> <span class="kw">in</span> model:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>            model[word] <span class="op">=</span> {<span class="st">'spam'</span>: <span class="dv">1</span>, <span class="st">'ham'</span>: <span class="dv">1</span>}</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> word <span class="kw">in</span> model:</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> email[<span class="st">'spam'</span>]:</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                model[word][<span class="st">'spam'</span>] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                model[word][<span class="st">'ham'</span>] <span class="op">+=</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-12" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>model[<span class="st">'lottery'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>{'spam': 9, 'ham': 1}</code></pre>
+</div>
+</div>
+<div id="cell-13" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>model[<span class="st">'sale'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>{'spam': 39, 'ham': 42}</code></pre>
+</div>
+</div>
 </section>
-<section id="evaluaciones" class="level1">
-<h1>Evaluaciones</h1>
-<p>El curso contempla las siguientes evaluaciones:</p>
-<ul>
-<li>6 tareas (60%). Una vez publicada una tarea, se dispondrá de dos semanas para resolverla.</li>
-<li>Miniproyecto (40%). Las instrucciones se pueden encontrar en el siguiente enlace <a href="evals/proyectos-inf398-2026.html">Proyectos 2026</a></li>
-</ul>
-<section id="tareas" class="level2">
-<h2 class="anchored" data-anchor-id="tareas">Tareas</h2>
-<ul>
-<li>Tarea 1. Modelos lineales, regularización.</li>
-<li>Tarea 2. Redes neuronales.</li>
-<li>Tarea 3. Procesos gaussianos y métodos basados en kernels.</li>
-<li>Tarea 4. Métodos basados en árboles y ensamblados.</li>
-<li>Tarea 5. Modelos en grafos y neurodifusos.</li>
-<li>Tarea 6. Aprendizaje no supervisado.</li>
-</ul>
-<!-- | 2      | Preprocesamiento de imágenes   | [Notas](notas2.pdf)         |
-| 3      | Modelos estadísticos básicos   | -                           |
+<section id="using-the-model-to-make-predictions" class="level3">
+<h3 class="anchored" data-anchor-id="using-the-model-to-make-predictions">Using the model to make predictions</h3>
+<div id="cell-15" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_bayes(word):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    word <span class="op">=</span> word.lower()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    num_spam_with_word <span class="op">=</span> model[word][<span class="st">'spam'</span>]</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    num_ham_with_word <span class="op">=</span> model[word][<span class="st">'ham'</span>]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="fl">1.0</span><span class="op">*</span>num_spam_with_word<span class="op">/</span>(num_spam_with_word <span class="op">+</span> num_ham_with_word)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-16" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>predict_bayes(<span class="st">'lottery'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>0.9</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>predict_bayes(<span class="st">'sale'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>0.48148148148148145</code></pre>
+</div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> predict_naive_bayes(email):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    total <span class="op">=</span> <span class="bu">len</span>(emails)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    num_spam <span class="op">=</span> <span class="bu">sum</span>(emails[<span class="st">'spam'</span>])</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    num_ham <span class="op">=</span> total <span class="op">-</span> num_spam</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    email <span class="op">=</span> email.lower()</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    words <span class="op">=</span> <span class="bu">set</span>(email.split())</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    spams <span class="op">=</span> [<span class="fl">1.0</span>]</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    hams <span class="op">=</span> [<span class="fl">1.0</span>]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> word <span class="kw">in</span> words:</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> word <span class="kw">in</span> model:</span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>            spams.append(model[word][<span class="st">'spam'</span>]<span class="op">/</span>num_spam<span class="op">*</span>total)</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>            hams.append(model[word][<span class="st">'ham'</span>]<span class="op">/</span>num_ham<span class="op">*</span>total)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    prod_spams <span class="op">=</span> np.compat.<span class="bu">long</span>(np.prod(spams)<span class="op">*</span>num_spam)</span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    prod_hams <span class="op">=</span> np.compat.<span class="bu">long</span>(np.prod(hams)<span class="op">*</span>num_ham)</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> prod_spams<span class="op">/</span>(prod_spams <span class="op">+</span> prod_hams)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="cell-19" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'lottery sale'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>0.9638144992048691</code></pre>
+</div>
+</div>
+<div id="cell-20" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'Hi mom how are you'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>0.12554358867164464</code></pre>
+</div>
+</div>
+<div id="cell-21" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'Hi MOM how aRe yoU afdjsaklfsdhgjasdhfjklsd'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>0.12554358867164464</code></pre>
+</div>
+</div>
+<div id="cell-22" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'meet me at the lobby of the hotel at nine am'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>6.964603508395961e-05</code></pre>
+</div>
+</div>
+<div id="cell-23" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'enter the lottery to win three million dollars'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+<pre><code>0.9995234218677428</code></pre>
+</div>
+</div>
+<div id="cell-24" class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'buy cheap lottery easy money now'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>0.999973472265966</code></pre>
+</div>
+</div>
+<div id="cell-25" class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'Grokking Machine Learning by Luis Serrano'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>0.4197107645488719</code></pre>
+</div>
+</div>
+<div id="cell-26" class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>predict_naive_bayes(<span class="st">'asdfgh'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>0.2388268156424581</code></pre>
+</div>
+</div>
 
 
-\[14-08\]<br> 
-
-\[21-08\]<br> [Operaciones puntuales y en histogramas](/bme423/bme423_02_oppuntuales.pdf "slides"){aria-label="slides operaciones puntuales"}<br> [Ruido / degradación](/bme423/bme423_03_degradacion.pdf "slides"){aria-label="slides degradación"}<br> [Filtros espaciales](/bme423/bme423_04_filtradoespacial.pdf "slides"){aria-label="slides filtrado espacial"}<br>[Ejemplo convolución](/bme423/bme423_04_convolución%20ejemplo.pdf "slides"){aria-label="slides convolución"}<br>
-
-\[28-08\]<br> [Filtros mediante PDE](/bme423/bme423_05_diff.pdf)<br> [🖥️ - difusión lineal](/bme423/ejemplos/difusion_lineal.html)<br>
-
-\[11-09\]<br> [Fourier](/bme423/bme423_08_fourier.pdf)<br>
-
-\[09-10\]<br> [Transformaciones geométricas](/bme423/bme423_07_transf_geom.pdf "slides"){aria-label="slides transformaciones geométricas"}<br>
-
-\[23-10\]<br> [Segmentación](/bme423/bme423_09_segmentación.pdf "slides"){aria-label="slides segmentación"}<br>
-
-\[06-11\]<br> [Morfología matemática](/bme423/bme423_06_morfología%20imagen%20binaria.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo](/bme423/bme423_06_morfología%20binaria%20ejemplo.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo RG](/bme423/bme423_06_morfología%20ejemplo%20region%20growing.pdf "slides"){aria-label="slides morfología binaria"}<br>
-
-\[20-11\]<br> [FANN](/bme423/bme423_10_rec-patrones_1-ANN.pdf "slides"){aria-label="slides IA patrones"}<br> [IA en proc. de imágenes, CNN-1](/bme423/bme423_10_rec-patrones_2-CNN-1.pdf "slides"){aria-label="slides IA patrones"}<br> [CNN-2](/bme423/bme423_10_rec-patrones_2-CNN-2.pdf "slides"){aria-label="slides IA patrones"}<br> [slides repr](/bme423/bme423_10_rec-patrones_2-representacion.pdf "slides"){aria-label="slides IA patrones"}<br> [🖥️ - conv](/bme423/ejemplos/cnn-01-conv.html)<br> [🖥️ - modelos preentrenados](/bme423/ejemplos/cnn-02-pretr.html)<br> [🖥️ - arquitecturas](/bme423/ejemplos/cnn-03-design.html)<br> [🖥️ - fully convolutional](/bme423/ejemplos/cnn-04-fullycnn.html)<br> [🖥️ - object localization](/bme423/ejemplos/cnn-05-cnn-class-loc.html)<br>
-
-\[04-12\]<br> [Reconstrucción](/bme423/bme423_11_recontruccion.pdf "slides"){aria-label="slides reconstrucción"}<br> [Reconstrucción a partir de proyecciones](/bme423/rec_from_proj.pdf "slides"){aria-label="reconstrucción desde proyecciones"}<br> -->
-<!-- [28-08] [**Entrega de temas de proyecto**]{.my-green}  -->
-</section>
-</section>
-<section id="políticas-del-curso" class="level1">
-<h1>Políticas del Curso</h1>
-<section id="integridad-académica" class="level2">
-<h2 class="anchored" data-anchor-id="integridad-académica">Integridad Académica</h2>
-<p>Se espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado <strong>puede considerarse plagio</strong>.</p>
-</section>
-<section id="uso-de-herramientas-de-inteligencia-artificial-ia" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</h2>
-<p>El uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso.</p>
-</section>
-<section id="colaboración" class="level2">
-<h2 class="anchored" data-anchor-id="colaboración">Colaboración</h2>
-<p>Salvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.</p>
-</section>
-<section id="uso-de-código-y-recursos-online" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-código-y-recursos-online">Uso de código y recursos online</h2>
-<p>Puede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.</p>
-</section>
-<section id="entregas-tardias" class="level2">
-<h2 class="anchored" data-anchor-id="entregas-tardias">Entregas tardías</h2>
-<p>Dispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas <strong>sin penalización</strong>. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este <em>beneficio</em> en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.</p>
-</section>
-<section id="recalificaciones" class="level2">
-<h2 class="anchored" data-anchor-id="recalificaciones">Recalificaciones</h2>
-<p>Las solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.</p>
-
-
-</section>
 </section>
 
 </main> <!-- /main -->
