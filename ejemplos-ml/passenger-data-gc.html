@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>INF398 - Introducción al aprendizaje automático</title>
+<title>Regresión lineal</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -95,8 +130,11 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<meta property="og:title" content="INF398 - Introducción al aprendizaje automático">
+<meta property="og:title" content="Regresión lineal">
 <meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<meta property="og:image" content="https://aavelozb.github.io/ejemplos-ml/passenger-data-gc_files/figure-html/cell-3-output-1.png">
+<meta property="og:image:height" content="413">
+<meta property="og:image:width" content="552">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -270,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">INF398 - Introducción al aprendizaje automático</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Regresión lineal</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -298,22 +336,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#horarios-y-contacto" id="toc-horarios-y-contacto" class="nav-link active" data-scroll-target="#horarios-y-contacto">Horarios y contacto</a></li>
-  <li><a href="#clases" id="toc-clases" class="nav-link" data-scroll-target="#clases">Clases</a></li>
-  <li><a href="#bibliografía-y-otros-recursos" id="toc-bibliografía-y-otros-recursos" class="nav-link" data-scroll-target="#bibliografía-y-otros-recursos">Bibliografía y otros recursos</a></li>
-  <li><a href="#evaluaciones" id="toc-evaluaciones" class="nav-link" data-scroll-target="#evaluaciones">Evaluaciones</a>
-  <ul class="collapse">
-  <li><a href="#tareas" id="toc-tareas" class="nav-link" data-scroll-target="#tareas">Tareas</a></li>
-  </ul></li>
-  <li><a href="#políticas-del-curso" id="toc-políticas-del-curso" class="nav-link" data-scroll-target="#políticas-del-curso">Políticas del Curso</a>
-  <ul class="collapse">
-  <li><a href="#integridad-académica" id="toc-integridad-académica" class="nav-link" data-scroll-target="#integridad-académica">Integridad Académica</a></li>
-  <li><a href="#uso-de-herramientas-de-inteligencia-artificial-ia" id="toc-uso-de-herramientas-de-inteligencia-artificial-ia" class="nav-link" data-scroll-target="#uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</a></li>
-  <li><a href="#colaboración" id="toc-colaboración" class="nav-link" data-scroll-target="#colaboración">Colaboración</a></li>
-  <li><a href="#uso-de-código-y-recursos-online" id="toc-uso-de-código-y-recursos-online" class="nav-link" data-scroll-target="#uso-de-código-y-recursos-online">Uso de código y recursos online</a></li>
-  <li><a href="#entregas-tardias" id="toc-entregas-tardias" class="nav-link" data-scroll-target="#entregas-tardias">Entregas tardías</a></li>
-  <li><a href="#recalificaciones" id="toc-recalificaciones" class="nav-link" data-scroll-target="#recalificaciones">Recalificaciones</a></li>
-  </ul></li>
+  <li><a href="#descarga-de-los-datos" id="toc-descarga-de-los-datos" class="nav-link active" data-scroll-target="#descarga-de-los-datos">Descarga de los datos</a></li>
   </ul>
 </nav>
     </div>
@@ -323,7 +346,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">INF398 - Introducción al aprendizaje automático</h1>
+<h1 class="title">Regresión lineal</h1>
 </div>
 
 
@@ -340,212 +363,98 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>Descripción.</strong> Este curso aborda los fundamentos teóricos y prácticos del aprendizaje automático para el diseño de sistemas capaces de aprender a partir de datos. Los y las estudiantes aplican técnicas modernas de clasificación y regresión a problemas reales en ciencia e ingeniería, seleccionando herramientas adecuadas y siguiendo buenas prácticas en el desarrollo de soluciones basadas en datos.</p>
-<section id="horarios-y-contacto" class="level1">
-<h1>Horarios y contacto</h1>
-<p><strong>Clases:</strong> Viernes 14:40-17:15 (sala P110).<br> <strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@usm.cl">alejandro.veloz@usm.cl</a>)<br> <strong>Horario atención:</strong> Jueves 3-4 (presencial o virtual)<br> <strong>Ayudante:</strong> Eva Wang (email: <a href="mailto:eva.wang@usm.cl">eva.wang@usm.cl</a>).</p>
-</section>
-<section id="clases" class="level1">
-<h1>Clases</h1>
-<p>(Esta planificación puede cambiar)</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 20%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Semana</th>
-<th>Tema</th>
-<th>Material adicional</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>06-03</td>
-<td>Introducción al aprendizaje automático (<a href="slides/01-inf398-introML.pdf">slides</a>)<br>Teoría del aprendizaje estadístico (<a href="slides/01-inf398-slt.pdf">slides</a>)</td>
-<td><a href="material/vapnik99-slt.pdf">Vapnik99</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Modelos lineales para regresión (<a href="slides/021-inf398-linreg.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/passenger-data.html">Ejemplo regresión</a><br><a href="../ejemplos-ml/varejemplo.ipynb.html">Ejemplo VAR</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Modelos lineales para clasificación</td>
-<td><a href="../ejemplos-ml/logreg.html">Ejemplo regresión logística</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 1</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Redes neuronales feedforward</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Redes neuronales convolucionales</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Tarea 2</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Métodos basados en kernels</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Procesos Gaussianos</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 3</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Métodos basados en árboles</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Métodos de ensamblado</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Tarea 4</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Lógica difusa y modelos neurodifusos</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Modelos en grafos</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 5</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Aprendizaje no supervisado</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>ML y causalidad</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Physics-informed neural networks</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Tarea 6</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<!-- | | Procesos Gaussianos | [slides](slides/inf358-gp.pdf)<br>[Gaussian Process Regression](../ejemplos-ml/gp01-regression.html)<br>[Gaussian Process Regression (Pytorch)](../ejemplos-ml/gp01-regression-pytorch.html)<br>[Noise estimation example](../ejemplos-ml/gp02-example-noiseest-sklearn.html)<br>[CO2 example, choosing a kernel](../ejemplos-ml/gp02-example-co2-sklearn.html)<br>[Multi-output Gaussian Process (sensors network)](../ejemplos-ml/gp03-sensors-network.html)<br>[Deep Gaussian Process](../ejemplos-ml/gp04-deep_GPs.html)<br> | -->
-</section>
-<section id="bibliografía-y-otros-recursos" class="level1">
-<h1>Bibliografía y otros recursos</h1>
-<ul>
-<li><a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Christopher Bishop (2006).</li>
-<li><a href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Kevin Patrick Murphy (2022).</li>
-<li><a href="https://link.springer.com/book/10.1007/978-3-031-45468-4?utm_medium=referral&amp;utm_source=sn&amp;utm_content=RM&amp;&amp;utm_campaign=CONR_TBOOK_CON1_GL_PBOK_05YVV_CTB25-COMP">Deep Learning: Foundations and Concepts</a>, Christopher Bishop (2024).</li>
-<li><a href="https://scikit-learn.org/stable/">Scikit-learn</a></li>
-<li><a href="https://scikit-image.org">Scikit-image</a></li>
-<li><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV</a></li>
-</ul>
-</section>
-<section id="evaluaciones" class="level1">
-<h1>Evaluaciones</h1>
-<p>El curso contempla las siguientes evaluaciones:</p>
-<ul>
-<li>6 tareas (60%). Una vez publicada una tarea, se dispondrá de dos semanas para resolverla.</li>
-<li>Miniproyecto (40%). Las instrucciones se pueden encontrar en el siguiente enlace <a href="evals/proyectos-inf398-2026.html">Proyectos 2026</a></li>
-</ul>
-<section id="tareas" class="level2">
-<h2 class="anchored" data-anchor-id="tareas">Tareas</h2>
-<ul>
-<li>Tarea 1. Modelos lineales, regularización.</li>
-<li>Tarea 2. Redes neuronales.</li>
-<li>Tarea 3. Procesos gaussianos y métodos basados en kernels.</li>
-<li>Tarea 4. Métodos basados en árboles y ensamblados.</li>
-<li>Tarea 5. Modelos en grafos y neurodifusos.</li>
-<li>Tarea 6. Aprendizaje no supervisado.</li>
-</ul>
-<!-- | 2      | Preprocesamiento de imágenes   | [Notas](notas2.pdf)         |
-| 3      | Modelos estadísticos básicos   | -                           |
+<section id="descarga-de-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="descarga-de-los-datos">Descarga de los datos</h2>
+<div id="a3bf4788" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>curl <span class="op">-</span>O https:<span class="op">//</span>raw.githubusercontent.com<span class="op">/</span>aavelozb<span class="op">/</span>aavelozb.github.io<span class="op">/</span>main<span class="op">/</span>data<span class="op">/</span>passenger_data.txt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100  7200  100  7200    0     0   160k      0 --:--:-- --:--:-- --:--:--  163k</code></pre>
+</div>
+</div>
+<div id="14c94577" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> numpy.linalg <span class="im">import</span> inv</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> np.loadtxt(<span class="st">'passenger_data.txt'</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> data.shape[<span class="dv">0</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.zeros((N,<span class="dv">2</span>))</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X[:,<span class="dv">0</span>] <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>X[:,<span class="dv">1</span>] <span class="op">=</span> data[:,<span class="dv">0</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> data[:,<span class="dv">1</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co"># división de los datos train/test</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> X[:<span class="bu">int</span>(N<span class="op">*</span>r),:]</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> y[:<span class="bu">int</span>(N<span class="op">*</span>r)]</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> X[<span class="bu">int</span>(N<span class="op">*</span>r):,:]</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> y[<span class="bu">int</span>(N<span class="op">*</span>r):]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> inv(X_train.T <span class="op">@</span> X_train) <span class="op">@</span> X_train.T <span class="op">@</span> y_train </span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>y_train_est <span class="op">=</span> X_train <span class="op">@</span> theta</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>y_test_est <span class="op">=</span> X_test <span class="op">@</span> theta</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>plt.plot(X_train[:,<span class="dv">1</span>], y_train)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>plt.plot(X_train[:,<span class="dv">1</span>], y_train_est)</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>plt.plot(X_test[:,<span class="dv">1</span>], y_test)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.plot(X_test[:,<span class="dv">1</span>], y_test_est)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="passenger-data-gc_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Usando un modelo AR</p>
+<div id="5341534a" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> y2ar(y, time <span class="op">=</span> [], p<span class="op">=</span><span class="dv">2</span>):</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    N <span class="op">=</span> <span class="bu">len</span>(y)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    Yar <span class="op">=</span> y[p:]</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    time <span class="op">=</span> time[p:]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    Xar <span class="op">=</span> np.zeros( (N<span class="op">-</span>p,p) )</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(p):</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        Xar[:,i] <span class="op">=</span> y[p<span class="op">-</span>i<span class="op">-</span><span class="dv">1</span>:N<span class="op">-</span>i<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> Xar, Yar, time</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>r <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>time_train <span class="op">=</span> data[:<span class="bu">int</span>(<span class="bu">len</span>(data)<span class="op">*</span>r),<span class="dv">0</span>]</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>data_train <span class="op">=</span> data[:<span class="bu">int</span>(<span class="bu">len</span>(data)<span class="op">*</span>r),<span class="dv">1</span>]</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>time_test <span class="op">=</span> data[<span class="bu">int</span>(<span class="bu">len</span>(data)<span class="op">*</span>r):,<span class="dv">0</span>]</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>data_test <span class="op">=</span> data[<span class="bu">int</span>(<span class="bu">len</span>(data)<span class="op">*</span>r):,<span class="dv">1</span>]</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>X_train, y_train, time_train <span class="op">=</span> y2ar(data_train, time_train, p<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>X_test, y_test, time_test <span class="op">=</span> y2ar(data_test, time_test, p<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>theta <span class="op">=</span> inv(X_train.T <span class="op">@</span> X_train) <span class="op">@</span> X_train.T <span class="op">@</span> y_train </span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>y_train_est <span class="op">=</span> X_train <span class="op">@</span> theta</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>y_test_est <span class="op">=</span> X_test <span class="op">@</span> theta</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a>plt.figure(<span class="dv">1</span>)</span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>plt.plot(time_train, y_train)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.plot(time_train, y_train_est)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>plt.plot(time_test, y_test)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>plt.plot(time_test, y_test_est)</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="passenger-data-gc_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-\[14-08\]<br> 
-
-\[21-08\]<br> [Operaciones puntuales y en histogramas](/bme423/bme423_02_oppuntuales.pdf "slides"){aria-label="slides operaciones puntuales"}<br> [Ruido / degradación](/bme423/bme423_03_degradacion.pdf "slides"){aria-label="slides degradación"}<br> [Filtros espaciales](/bme423/bme423_04_filtradoespacial.pdf "slides"){aria-label="slides filtrado espacial"}<br>[Ejemplo convolución](/bme423/bme423_04_convolución%20ejemplo.pdf "slides"){aria-label="slides convolución"}<br>
-
-\[28-08\]<br> [Filtros mediante PDE](/bme423/bme423_05_diff.pdf)<br> [🖥️ - difusión lineal](/bme423/ejemplos/difusion_lineal.html)<br>
-
-\[11-09\]<br> [Fourier](/bme423/bme423_08_fourier.pdf)<br>
-
-\[09-10\]<br> [Transformaciones geométricas](/bme423/bme423_07_transf_geom.pdf "slides"){aria-label="slides transformaciones geométricas"}<br>
-
-\[23-10\]<br> [Segmentación](/bme423/bme423_09_segmentación.pdf "slides"){aria-label="slides segmentación"}<br>
-
-\[06-11\]<br> [Morfología matemática](/bme423/bme423_06_morfología%20imagen%20binaria.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo](/bme423/bme423_06_morfología%20binaria%20ejemplo.pdf "slides"){aria-label="slides morfología binaria"}<br> [Morfología matemática - ejemplo RG](/bme423/bme423_06_morfología%20ejemplo%20region%20growing.pdf "slides"){aria-label="slides morfología binaria"}<br>
-
-\[20-11\]<br> [FANN](/bme423/bme423_10_rec-patrones_1-ANN.pdf "slides"){aria-label="slides IA patrones"}<br> [IA en proc. de imágenes, CNN-1](/bme423/bme423_10_rec-patrones_2-CNN-1.pdf "slides"){aria-label="slides IA patrones"}<br> [CNN-2](/bme423/bme423_10_rec-patrones_2-CNN-2.pdf "slides"){aria-label="slides IA patrones"}<br> [slides repr](/bme423/bme423_10_rec-patrones_2-representacion.pdf "slides"){aria-label="slides IA patrones"}<br> [🖥️ - conv](/bme423/ejemplos/cnn-01-conv.html)<br> [🖥️ - modelos preentrenados](/bme423/ejemplos/cnn-02-pretr.html)<br> [🖥️ - arquitecturas](/bme423/ejemplos/cnn-03-design.html)<br> [🖥️ - fully convolutional](/bme423/ejemplos/cnn-04-fullycnn.html)<br> [🖥️ - object localization](/bme423/ejemplos/cnn-05-cnn-class-loc.html)<br>
-
-\[04-12\]<br> [Reconstrucción](/bme423/bme423_11_recontruccion.pdf "slides"){aria-label="slides reconstrucción"}<br> [Reconstrucción a partir de proyecciones](/bme423/rec_from_proj.pdf "slides"){aria-label="reconstrucción desde proyecciones"}<br> -->
-<!-- [28-08] [**Entrega de temas de proyecto**]{.my-green}  -->
-</section>
-</section>
-<section id="políticas-del-curso" class="level1">
-<h1>Políticas del Curso</h1>
-<section id="integridad-académica" class="level2">
-<h2 class="anchored" data-anchor-id="integridad-académica">Integridad Académica</h2>
-<p>Se espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado <strong>puede considerarse plagio</strong>.</p>
-</section>
-<section id="uso-de-herramientas-de-inteligencia-artificial-ia" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</h2>
-<p>El uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso.</p>
-</section>
-<section id="colaboración" class="level2">
-<h2 class="anchored" data-anchor-id="colaboración">Colaboración</h2>
-<p>Salvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.</p>
-</section>
-<section id="uso-de-código-y-recursos-online" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-código-y-recursos-online">Uso de código y recursos online</h2>
-<p>Puede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.</p>
-</section>
-<section id="entregas-tardias" class="level2">
-<h2 class="anchored" data-anchor-id="entregas-tardias">Entregas tardías</h2>
-<p>Dispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas <strong>sin penalización</strong>. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este <em>beneficio</em> en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.</p>
-</section>
-<section id="recalificaciones" class="level2">
-<h2 class="anchored" data-anchor-id="recalificaciones">Recalificaciones</h2>
-<p>Las solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.</p>
-
-
-</section>
 </section>
 
 </main> <!-- /main -->
