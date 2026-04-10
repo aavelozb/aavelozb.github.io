@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.33">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Tarea 1</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-42a7f9c2375842409b634896d48c404b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  .cv-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .cv-photo-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D9E3E4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .cv-info {
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    .cv-container { flex-direction: column-reverse; text-align: center; }
+  }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Tarea 1">
+<meta property="og:description" content="Modelos lineales para regresión y clasificación">
+<meta property="og:image" content="https://aavelozb.github.io/inf398/evals/tarea1_files/figure-html/cell-2-output-1.png">
+<meta property="og:image:height" content="1205">
+<meta property="og:image:width" content="1516">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Tarea 1</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="#" class="sidebar-logo-link">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=eq254vUAAAAJ" title="Google Scholar" class="quarto-navigation-tool px-1" aria-label="Google Scholar"><i class="bi bi-mortarboard-fill"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenido de la página</h2>
+   
+  <ul>
+  <li><a href="#ejercicio-1" id="toc-ejercicio-1" class="nav-link active" data-scroll-target="#ejercicio-1">Ejercicio 1</a>
+  <ul class="collapse">
+  <li><a href="#impacto-de-los-atributos-en-el-modelo" id="toc-impacto-de-los-atributos-en-el-modelo" class="nav-link" data-scroll-target="#impacto-de-los-atributos-en-el-modelo">Impacto de los Atributos en el Modelo</a></li>
+  <li><a href="#consideración-sobre-las-pérdidas-asimétricas" id="toc-consideración-sobre-las-pérdidas-asimétricas" class="nav-link" data-scroll-target="#consideración-sobre-las-pérdidas-asimétricas">Consideración sobre las Pérdidas Asimétricas</a></li>
+  <li><a href="#tarea-3-modelo-para-pérdidas-asimétricas-y-desbalance" id="toc-tarea-3-modelo-para-pérdidas-asimétricas-y-desbalance" class="nav-link" data-scroll-target="#tarea-3-modelo-para-pérdidas-asimétricas-y-desbalance">Tarea 3: Modelo para Pérdidas Asimétricas y Desbalance</a></li>
+  </ul></li>
+  <li><a href="#ejercicio-2" id="toc-ejercicio-2" class="nav-link" data-scroll-target="#ejercicio-2">Ejercicio 2</a></li>
+  <li><a href="#ejercicio-3" id="toc-ejercicio-3" class="nav-link" data-scroll-target="#ejercicio-3">Ejercicio 3</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Tarea 1</h1>
+<p class="subtitle lead">Modelos lineales para regresión y clasificación</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<!-- 1. Implementar e **evaluar** el desempeño de una red neuronal U-net en el problema de segmentación de esclerosis múltiple.
+2. Implementar un programa que permita hacer la detección de objetos en imágenes usando modelos preentrenados. Ejemplo:
+
+![](lorenzo-cat.png){width="50%" fig-align="center" fig-pos="h" fig-alt="Alternative text"} -->
+<section id="ejercicio-1" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-1">Ejercicio 1</h2>
+<!-- Necesito redactar un ejercicio donde se evalue: 
+
+resolver un problema de clasificacion multiclase con datos simulados donde se pida implementar 
+
+- simulacion de datos con distinta dificultad por ejemplo desbalance de clases y overlap entre clases
+
+- implementacion de regresion logistica con regularizacion l1 y l2 
+
+- diseñar, implementar y explicar un modelo capaz de lidiar con el desbalance de clases y con perdidas asimetricas.
+
+Escribir un contexto breve para el problema en el dominio médico donde el hecho de no detectar la enfermendad cuando sí se tiene es más grave que no detectar cuando no se tiene (falsos negativo) pero el algoritmo dice que sí (falsos positivo) -->
+<p>Este problema se contextualiza en la detección temprana de patologías isquémicas.</p>
+<p>En el ámbito de la medicina de urgencias, la clasificación precisa del estado de un paciente es vital. Se busca, entonces, clasificar a los pacientes en tres categorías: <span style="color: #2ecc71;"><strong>sano</strong></span>, <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span> e <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span>.</p>
+<p>En este escenario clínico, el costo de los errores es asimétrico. Un <strong>falso negativo</strong> (clasificar a un paciente con <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span> como <span style="color: #2ecc71;"><strong>sano</strong></span>) es extremadamente grave, ya que priva al paciente de una intervención inmediata que podría salvarle la vida. Por el contrario, un <strong>falso positivo</strong> (clasificar a un paciente <span style="color: #2ecc71;"><strong>sano</strong></span> como de <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span>) conlleva un costo menor, asociado principalmente a pruebas diagnósticas adicionales y estrés innecesario, pero sin poner en riesgo su vida. Además, la prevalencia de la enfermedad en la población es baja, lo que genera un dataset desbalanceado donde la clase de mayor interés es la menos frecuente.</p>
+<p>En este ejercicio, resolveremos un problema de clasificación que posee desbalance de clases y costo asimétrico. Trabajaremos con datos simulados y compararemos variantes de los algoritmos vistos en clases. El siguiente ejemplo genera datos 2D:</p>
+<div id="a5fe7012" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_blobs</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generar_datos_realistas(n_samples<span class="op">=</span><span class="dv">1000</span>):</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Definimos centros en un espacio normalizado (0 a 1)</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Para luego escalarlos a rangos médicos reales</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    centros_norm <span class="op">=</span> [</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.1</span>, <span class="fl">0.3</span>],   <span class="co"># Clase 0: Sano (Troponina baja, Presión estable)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.25</span>, <span class="fl">0.6</span>],  <span class="co"># Clase 1: Riesgo (Troponina subiendo, Presión alta)</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        [<span class="fl">0.8</span>, <span class="fl">0.8</span>]    <span class="co"># Clase 2: Isquemia (Troponina muy alta, Presión crítica)</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    ]</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>    stds <span class="op">=</span> [<span class="fl">0.05</span>, <span class="fl">0.1</span>, <span class="fl">0.15</span>] </span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    X, _ <span class="op">=</span> make_blobs(n_samples<span class="op">=</span>n_samples, centers<span class="op">=</span>centros_norm, cluster_std<span class="op">=</span>stds, n_features<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Desbalance de clases: 80% Sano, 15% Riesgo, 5% Isquemia</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> np.arange(n_samples)</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    np.random.shuffle(indices)   </span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.zeros(n_samples, dtype<span class="op">=</span><span class="bu">int</span>)</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    y[indices[:<span class="dv">800</span>]] <span class="op">=</span> <span class="dv">0</span>  </span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    y[indices[<span class="dv">800</span>:<span class="dv">950</span>]] <span class="op">=</span> <span class="dv">1</span> </span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    y[indices[<span class="dv">950</span>:]] <span class="op">=</span> <span class="dv">2</span> </span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Regenerar puntos para aplicar el desbalance real</span></span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    X_final <span class="op">=</span> np.zeros_like(X)</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> clase, centro, std, n <span class="kw">in</span> <span class="bu">zip</span>([<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>], centros_norm, stds, [<span class="dv">800</span>, <span class="dv">150</span>, <span class="dv">50</span>]):</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>        idx_clase <span class="op">=</span> np.where(y <span class="op">==</span> clase)[<span class="dv">0</span>]</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        X_final[idx_clase] <span class="op">=</span> centro <span class="op">+</span> np.random.randn(<span class="bu">len</span>(idx_clase), <span class="dv">2</span>) <span class="op">*</span> std</span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># --- ESCALAMIENTO A RANGOS REALISTAS ---</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Troponina T: de 0 a 500 ng/L (Valores &gt; 14 son sospechosos)</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    X_final[:, <span class="dv">0</span>] <span class="op">=</span> np.clip(X_final[:, <span class="dv">0</span>] <span class="op">*</span> <span class="dv">400</span>, <span class="dv">2</span>, <span class="dv">1000</span>) </span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Presión Arterial Sistólica: de 90 a 200 mmHg</span></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    X_final[:, <span class="dv">1</span>] <span class="op">=</span> np.clip(X_final[:, <span class="dv">1</span>] <span class="op">*</span> <span class="dv">100</span> <span class="op">+</span> <span class="dv">100</span>, <span class="dv">80</span>, <span class="dv">220</span>)</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X_final, y</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>X_med, y_med <span class="op">=</span> generar_datos_realistas()</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">7</span>))</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [<span class="st">'#2ecc71'</span>, <span class="st">'#f1c40f'</span>, <span class="st">'#e74c3c'</span>] </span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'Sano (Estable)'</span>, <span class="st">'Riesgo Moderado (Observación)'</span>, <span class="st">'Isquemia Crítica (Urgencia)'</span>]</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    plt.scatter(X_med[y_med<span class="op">==</span>i, <span class="dv">0</span>], X_med[y_med<span class="op">==</span>i, <span class="dv">1</span>], </span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>colors[i], label<span class="op">=</span>labels[i], edgecolors<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">40</span>)</span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Añadimos líneas de referencia clínica</span></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">14</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Límite Normal Troponina'</span>)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">140</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Umbral Hipertensión'</span>)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Simulación Clínica: Biomarcadores en Urgencias"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Troponina T (ng/L)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Presión Arterial Sistólica (mmHg)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar límites para que se vea realista</span></span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">10</span>, <span class="dv">600</span>)</span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">80</span>, <span class="dv">220</span>)</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tarea1_files/figure-html/cell-2-output-1.png" width="758" height="603" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Para este ejercicio, debe generar un dataset sintético como el anterior que replique las características del entorno médico real. En el código de ejemplo, note que se generan datos 2D; en la práctica real se usan atributos elegidos “a mano” de acuerdo al conocimiento de expertos y la experiencia. Para este ejercicio, nos restringiremos a un conjunto de biomarcadores y factores de riesgo que permiten diferenciar los niveles de gravedad. Estos atributos han sido seleccionados para que el modelo tenga que lidiar con diferentes escalas, distribuciones y tipos de datos. Los atributos a considerar son:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Nombre del atributo</th>
+<th style="text-align: left;">Significado</th>
+<th style="text-align: left;">Tipo de variable</th>
+<th style="text-align: left;">Naturaleza de los datos</th>
+<th style="text-align: left;">Rangos típicos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Troponina_T</strong></td>
+<td style="text-align: left;">Proteína liberada por daño miocárdico. Clave para detectar <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span>.</td>
+<td style="text-align: left;"><strong>Continua</strong></td>
+<td style="text-align: left;">Valores positivos con alto solapamiento.</td>
+<td style="text-align: left;"><strong>Normal:</strong> &lt; 14 ng/L<br><strong>Riesgo:</strong> 14 - 50 ng/L<br><strong>Isquemia:</strong> &gt; 50 ng/L</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Presion_Arterial</strong></td>
+<td style="text-align: left;">Presión sistólica medida en mmHg.</td>
+<td style="text-align: left;"><strong>Continua</strong></td>
+<td style="text-align: left;">Distribución normal. Ayuda a distinguir crisis.</td>
+<td style="text-align: left;"><strong>Baja:</strong> &lt; 90<br><strong>Normal:</strong> 120<br><strong>Crisis:</strong> &gt; 180</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Fibrilación_V</strong></td>
+<td style="text-align: left;">Arritmias graves detectadas por el ECG al ingreso.</td>
+<td style="text-align: left;"><strong>Binaria</strong></td>
+<td style="text-align: left;">Crucial para la clase <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span>.</td>
+<td style="text-align: left;"><strong>0:</strong> Ausente<br><strong>1:</strong> Presente</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Diabetes</strong></td>
+<td style="text-align: left;">Antecedentes previos de diabetes mellitus.</td>
+<td style="text-align: left;"><strong>Binaria</strong></td>
+<td style="text-align: left;">Factor de riesgo que aumenta la probabilidad de enfermedad.</td>
+<td style="text-align: left;"><strong>0:</strong> No tiene<br><strong>1:</strong> Tiene</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Tipo_Dolor</strong></td>
+<td style="text-align: left;">Clasificación del dolor torácico (Angina típica, atípica, etc.).</td>
+<td style="text-align: left;"><strong>Categórica</strong></td>
+<td style="text-align: left;">Requiere One-Hot Encoding para el modelo.</td>
+<td style="text-align: left;"><strong>1:</strong> No anginoso<br><strong>2:</strong> Dolor atípico<br><strong>3:</strong> Angina inestable<br><strong>4:</strong> Angina típica</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Edad</strong></td>
+<td style="text-align: left;">Edad cronológica del paciente.</td>
+<td style="text-align: left;"><strong>Continua</strong></td>
+<td style="text-align: left;">Correlacionada con la severidad del desbalance.</td>
+<td style="text-align: left;"><strong>Rango:</strong> 18 - 95 años</td>
+</tr>
+</tbody>
+</table>
+<section id="modelos-a-implementar" class="level4">
+<h4 class="anchored" data-anchor-id="modelos-a-implementar">Modelos a implementar</h4>
+<p>Para esta actividad, deberá implementar y comparar los siguientes modelos de regresión logística:</p>
+<ol type="1">
+<li><strong>RegLog:</strong> Sin regularización.</li>
+<li><strong>RegLog-L1:</strong> Con regularización Lasso (<span class="math inline">\(\ell_1\)</span>).</li>
+<li><strong>RegLog-L2:</strong> Con regularización Ridge (<span class="math inline">\(\ell_2\)</span>).</li>
+<li><strong>RegLog-L1-L2:</strong> Con regularización Elastic Net (<span class="math inline">\(\ell_1\)</span>-<span class="math inline">\(\ell_2\)</span>).</li>
+</ol>
+<p>Los modelos <strong>1 al 4</strong> deben desarrollarse “desde cero” (<em>from scratch</em>), evitando el uso de librerías de alto nivel para Machine Learning. Se permite el empleo de librerías base como <code>numpy</code>, <code>matplotlib</code> y los optimizadores de <code>scipy</code>. Como referencia, siga la estructura técnica presentada en este <a href="../../ejemplos-ml/logreg.html">ejemplo</a>.</p>
+<p>Adicionalmente, deberá contrastar sus resultados con las implementaciones de referencia de <code>scikit-learn</code> (u otra librería de su elección), identificadas como:</p>
+<ul>
+<li><strong>5-8:</strong> <code>RegLog-sk</code>, <code>RegLog-L1-sk</code>, <code>RegLog-L2-sk</code> y <code>RegLog-L1-L2-sk</code>.</li>
+</ul>
+<p><em>(Nota: El sufijo “-sk” hace referencia a sklearn; si utiliza otra biblioteca, ajuste la nomenclatura de forma coherente).</em></p>
+<ul>
+<li><p>Elegir métricas de validación apropiadas para el problema de clasificación y, en base a estas, compara el desempeño de los algoritmos 1-8. Considere realizar un proceso exhaustivo de ajuste de hiperparámetros para los modelos. Reporte la metodología empleada y una tabla que resuma los resultados obtenidos.</p></li>
+<li><p>Para el algoritmo 4, modifique la implementación de manera que, dentro del proceso de aprendizaje, se incorpore algún mecanismo que haga que los modelos no posean sesgos en el aprendizaje. Ejemplos de mecanismos: active learning?, modificar la funciòn de costo de manera de favorecer la clases minoritarias (dar algunos ejemplis)</p></li>
+<li><p>Para el algoritmo 4, modifique la implementación de manera que, dentro del proceso de aprendizaje, se incorpore algún mecanismo que permita incorporar la asimetría de los costos haga que los modelos no posean sesgos en el aprendizaje. Ejemplos de mecanismos: active learning (dar algunos ejemplis)?</p></li>
+<li><p>Se quiere responder la pregunta, ¿Cuáles variables son las más importantes para clasificar a una persona en la clase <span style="color: #2ecc71;"><strong>sano</strong></span>,<span style="color: #f1c40f;"><strong>riesgo moderado</strong></span> e <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span>? De lo que tiene implementado,</p></li>
+</ul>
+<hr>
+</section>
+<section id="impacto-de-los-atributos-en-el-modelo" class="level3">
+<h3 class="anchored" data-anchor-id="impacto-de-los-atributos-en-el-modelo">Impacto de los Atributos en el Modelo</h3>
+<p>Al diseñar el ejercicio, es importante explicar cómo cada tipo de variable desafía a la <strong>Regresión Logística</strong>:</p>
+<ul>
+<li><p><strong>Variables Continuas (Troponina, Presión):</strong> Son las que generan el <strong>overlap</strong> (solapamiento). Un valor de Troponina ligeramente elevado puede estar presente tanto en un paciente con estrés físico (Riesgo Moderado) como en uno iniciando un evento isquémico. Aquí es donde la frontera de decisión se vuelve “difusa”.</p></li>
+<li><p><strong>Variables Binarias (Fibrilación, Diabetes):</strong> Estas variables suelen actuar como “interruptores”. Si un paciente tiene Fibrilación (1), la probabilidad de Isquemia Crítica aumenta drásticamente. En el modelo, estas variables suelen tener los coeficientes más altos tras la regularización.</p></li>
+<li><p><strong>Variables Categóricas (Tipo_Dolor):</strong> Representan el mayor reto de implementación. El estudiante deberá decidir si las trata como ordinales (si hay un orden lógico de gravedad) o si crea variables <em>dummy</em> para cada categoría. El uso de <strong>Regularización L1 (Lasso)</strong> en estas variables es muy interesante, ya que el modelo podría decidir que solo “un tipo” de dolor es realmente informativo para detectar la enfermedad.</p></li>
+</ul>
+<hr>
+</section>
+<section id="consideración-sobre-las-pérdidas-asimétricas" class="level3">
+<h3 class="anchored" data-anchor-id="consideración-sobre-las-pérdidas-asimétricas">Consideración sobre las Pérdidas Asimétricas</h3>
+<p>Para el atributo <strong>Troponina_T</strong>, podrías sugerir en el ejercicio que el modelo sea especialmente sensible. Si el valor está en una “zona gris”, la <strong>Matriz de Costos</strong> debe forzar al algoritmo a clasificar al paciente como “Isquemia Crítica” preventivamente, prefiriendo un falso positivo (un susto innecesario) antes que un falso negativo (un paciente enviado a casa con un infarto en curso).</p>
+<p>Implemente una función de simulación que permita controlar los siguientes parámetros:</p>
+<ol type="1">
+<li><strong>Desbalance de Clases</strong></li>
+<li><strong>Overlap (Solapamiento) de Clases:</strong> Ajuste la distribución de las características para que exista una intersección significativa entre las nubes de puntos de las clases. Esto simulará biomarcadores que no son 100% específicos y que pueden presentar valores similares en pacientes con distintas condiciones.</li>
+</ol>
+<p><em>Se pide: Visualizar los datos mediante un gráfico de dispersión (PCA o t-SNE si usa más de dos dimensiones) y reportar la distribución final de las etiquetas.</em></p>
+<hr>
+</section>
+<section id="tarea-3-modelo-para-pérdidas-asimétricas-y-desbalance" class="level3">
+<h3 class="anchored" data-anchor-id="tarea-3-modelo-para-pérdidas-asimétricas-y-desbalance">Tarea 3: Modelo para Pérdidas Asimétricas y Desbalance</h3>
+<p>Diseñe una estrategia integral para abordar los dos problemas críticos identificados en el contexto médico: la escasez de casos críticos y la gravedad de los falsos negativos. Para ello, debe implementar y explicar:</p>
+<ol type="1">
+<li><strong>Manejo del Desbalance:</strong> Utilice técnicas de ponderación de clases (<em>Class Weighting</em>) dentro del algoritmo, asignando un peso inversamente proporcional a la frecuencia de cada clase.</li>
+<li><strong>Optimización de Pérdidas Asimétricas:</strong> Modifique el umbral de decisión del modelo o defina una <strong>Matriz de Costos</strong> donde el error de clasificar “Isquemia” como “Sano” sea significativamente más costoso que el error inverso.</li>
+</ol>
+<p><em>Se pide: Presentar el modelo final y evaluarlo no solo con Accuracy, sino utilizando una Función de Costo Total y métricas segmentadas como Recall (Sensibilidad) por clase y F1-Score pesado. Justifique por qué, en este contexto, un modelo con menor Accuracy global pero mayor Recall en la clase crítica es preferible desde el punto de vista médico.</em></p>
+</section>
+</section>
+<section id="ejercicio-2" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-2">Ejercicio 2</h2>
+<p>sistema de recomendacion en base a reg logistica</p>
+</section>
+<section id="ejercicio-3" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicio-3">Ejercicio 3</h2>
+<p>Este problema busca utilizar la regularización para resolver el problema de descubrimiento causal</p>
+<p>El problema consiste en realizar el descubrimiento de la estructura de un grafo dirigido a partir de un sistema multivariante compuesto por diez nodos que presentan dinámicas heterogéneas. En este escenario, nos enfrentamos a un conjunto de datos donde coexisten variables continuas, binarias y categóricas, cada una representando distintos tipos de procesos físicos o lógicos. El objetivo fundamental es identificar las dependencias funcionales entre estas variables sin contar con un conocimiento previo de su arquitectura, asumiendo que el sistema se comporta como un Grafo Acíclico Dirigido donde cada nodo es generado a partir de una combinación de sus nodos “padres” y un componente de ruido aleatorio.</p>
+<p>Para abordar este problema, se propone utilizar la técnica de selección de vecindad, la cual descompone la búsqueda del grafo global en una serie de problemas de regresión locales e independientes. En esta metodología, cada variable del sistema se posiciona alternadamente como el objetivo o variable dependiente, mientras que el resto de los nodos actúan como predictores candidatos. Debido a la naturaleza mixta de los datos, el tratamiento matemático debe adaptarse al tipo de variable objetivo: se emplean modelos de regresión lineal para los nodos continuos y modelos de regresión logística (binaria o multinomial) para los nodos discretos. Para lograr un descubrimiento efectivo que ignore las correlaciones espurias, es imperativo aplicar regularización Lasso, la cual impone una penalización que fuerza a cero los coeficientes de aquellas variables que no poseen una influencia directa y necesaria sobre el objetivo.</p>
+<p>Una vez calculadas todas las regresiones, los coeficientes distintos de cero se consolidan en una matriz de adyacencia que define la topología del grafo recuperado. La evaluación del éxito en este descubrimiento no se centra en la precisión predictiva tradicional, sino en la fidelidad estructural. Para ello, se utilizan métricas especializadas como la Distancia de Hamming Estructural, que contabiliza las discrepancias totales entre el grafo real y el inferido, así como el análisis de precisión y exhaustividad estructural. Estas métricas permiten determinar si el modelo es capaz de distinguir entre conexiones causales genuinas y meras coincidencias estadísticas, proporcionando una visión clara de la robustez del método ante la complejidad de señales que operan en diferentes escalas y formatos.</p>
+<div id="fd887618" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> plot_nodos(df):</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">    Grafica cada nodo según su tipo: binaria, continua, categorica</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    n_vars <span class="op">=</span> <span class="bu">len</span>(df.columns)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    fig, axes <span class="op">=</span> plt.subplots(nrows<span class="op">=</span>n_vars, ncols<span class="op">=</span><span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">2</span> <span class="op">*</span> n_vars), sharex<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    fig.suptitle(<span class="st">"Datos generados"</span>, fontsize<span class="op">=</span><span class="dv">18</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, y<span class="op">=</span><span class="fl">0.99</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i, col <span class="kw">in</span> <span class="bu">enumerate</span>(df.columns):</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>        ax <span class="op">=</span> axes[i]</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        n_unique <span class="op">=</span> df[col].nunique()        </span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> n_unique <span class="op">==</span> <span class="dv">2</span>: <span class="co"># variables binarias</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>            marker, stem, base <span class="op">=</span> ax.stem(df.index, df[col], linefmt<span class="op">=</span><span class="st">'C1-'</span>, markerfmt<span class="op">=</span><span class="st">'C1o'</span>, basefmt<span class="op">=</span><span class="st">" "</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>            plt.setp(stem, <span class="st">'linewidth'</span>, <span class="fl">0.5</span>, <span class="st">'alpha'</span>, <span class="fl">0.6</span>)</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>            plt.setp(marker, <span class="st">'markersize'</span>, <span class="dv">2</span>)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>            ax.set_yticks([<span class="dv">0</span>, <span class="dv">1</span>])</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>        <span class="cf">elif</span> <span class="dv">2</span> <span class="op">&lt;</span> n_unique <span class="op">&lt;=</span> <span class="dv">6</span>: <span class="co"># variables categoricas</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>            ax.step(df.index, df[col], where<span class="op">=</span><span class="st">'post'</span>, color<span class="op">=</span><span class="st">'C2'</span>, lw<span class="op">=</span><span class="fl">1.5</span>)</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>            ax.set_yticks(<span class="bu">sorted</span>(df[col].unique()))        </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>: <span class="co"># variable continua</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>            ax.plot(df[col], color<span class="op">=</span><span class="st">'C0'</span>, lw<span class="op">=</span><span class="dv">1</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        ax.set_ylabel(<span class="ss">f"$y_</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">$"</span>, rotation<span class="op">=</span><span class="dv">0</span>, labelpad<span class="op">=</span><span class="dv">45</span>, fontweight<span class="op">=</span><span class="st">'bold'</span>, verticalalignment<span class="op">=</span><span class="st">'center'</span>)</span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        ax.spines[<span class="st">'top'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        ax.spines[<span class="st">'right'</span>].set_visible(<span class="va">False</span>)</span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>    axes[<span class="op">-</span><span class="dv">1</span>].set_xlabel(<span class="st">"Número de Muestra"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>    plt.tight_layout()</span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    plt.show()</span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> to_binary(x, threshold<span class="op">=</span><span class="dv">0</span>):</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    prob <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>(x <span class="op">-</span> threshold)))</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.random.binomial(<span class="dv">1</span>, prob)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generar_datos_red(n_samples<span class="op">=</span><span class="dv">500</span>, seed<span class="op">=</span><span class="dv">42</span>):</span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>    <span class="co">"""</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a><span class="co">    Genera un sistema de 10 variables (continuas, binarias y categóricas) </span></span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a><span class="co">    con dependencias ocultas.</span></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="co">    """</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>    np.random.seed(seed) </span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y1: continua (raíz)</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>    y1 <span class="op">=</span> np.random.normal(<span class="dv">0</span>, <span class="dv">1</span>, n_samples) </span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y2: continua (hijo de y1) -&gt; y1 -&gt; y2</span></span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>    y2 <span class="op">=</span> <span class="fl">0.8</span> <span class="op">*</span> y1 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.2</span>, n_samples)</span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y3: Continua (Independiente / Ruido)</span></span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a>    y3 <span class="op">=</span> np.random.normal(<span class="dv">5</span>, <span class="fl">1.5</span>, n_samples)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y4: Binaria (Hijo de y2) -&gt; y2 -&gt; y4</span></span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    y4 <span class="op">=</span> to_binary(y2, threshold<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y5: Categórica 3 niveles (Hijo de y3) -&gt; y3 -&gt; y5</span></span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Niveles: 0, 1, 2 dependiendo de la intensidad de y3</span></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>    y5 <span class="op">=</span> np.where(y3 <span class="op">&lt;</span> <span class="dv">4</span>, <span class="dv">0</span>, np.where(y3 <span class="op">&lt;</span> <span class="dv">6</span>, <span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y6: Binaria (Independiente)</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>    y6 <span class="op">=</span> np.random.binomial(<span class="dv">1</span>, <span class="fl">0.5</span>, n_samples)</span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y7: Continua (Hijo de y4 e y6 - Interacción binaria)</span></span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    y7 <span class="op">=</span> <span class="fl">2.0</span> <span class="op">*</span> y4 <span class="op">-</span> <span class="fl">1.5</span> <span class="op">*</span> y6 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.5</span>, n_samples)</span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y8: Categórica 4 niveles (Hijo de y1)</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Simulamos estados discretos basados en la raíz</span></span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    y8 <span class="op">=</span> np.digitize(y1, bins<span class="op">=</span>[<span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">1</span>]) <span class="co"># Resulta en 0, 1, 2, 3</span></span>
+<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y9: Binaria (Hijo de y7) -&gt; y7 -&gt; y9</span></span>
+<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a>    y9 <span class="op">=</span> to_binary(y7, threshold<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>    <span class="co"># y10: Continua (Hijo de y5 e y9 - Influencia mixta)</span></span>
+<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a>    y10 <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> y5 <span class="op">+</span> <span class="fl">1.2</span> <span class="op">*</span> y9 <span class="op">+</span> np.random.normal(<span class="dv">0</span>, <span class="fl">0.3</span>, n_samples)</span>
+<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Empaquetar en DataFrame</span></span>
+<span id="cb2-68"><a href="#cb2-68" aria-hidden="true" tabindex="-1"></a>    cols <span class="op">=</span> [<span class="ss">f'y</span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span> <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
+<span id="cb2-69"><a href="#cb2-69" aria-hidden="true" tabindex="-1"></a>    data <span class="op">=</span> [y1, y2, y3, y4, y5, y6, y7, y8, y9, y10]</span>
+<span id="cb2-70"><a href="#cb2-70" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(<span class="bu">dict</span>(<span class="bu">zip</span>(cols, data)))</span>
+<span id="cb2-71"><a href="#cb2-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-72"><a href="#cb2-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-73"><a href="#cb2-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-74"><a href="#cb2-74" aria-hidden="true" tabindex="-1"></a>df_red <span class="op">=</span> generar_datos_red(n_samples<span class="op">=</span><span class="dv">500</span>)</span>
+<span id="cb2-75"><a href="#cb2-75" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb2-76"><a href="#cb2-76" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Primeras 5 observaciones del dataset:"</span>)</span>
+<span id="cb2-77"><a href="#cb2-77" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_red.head())</span>
+<span id="cb2-78"><a href="#cb2-78" aria-hidden="true" tabindex="-1"></a>plot_nodos(df_red)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Primeras 5 observaciones del dataset:
+         y1        y2        y3  y4  y5  y6        y7  y8  y9       y10
+0  0.496714  0.582607  7.099033   1   2   0  2.209199   2   1  2.088304
+1 -0.138264  0.271272  6.386951   0   2   0  0.700799   1   0  1.131194
+2  0.647689  0.238437  5.089446   1   1   1  0.825225   2   0  0.555553
+3  1.523030  1.331018  4.029595   1   1   0  1.248460   3   1  1.827633
+4 -0.234153 -0.317451  6.047335   0   2   1 -0.974026   1   0  1.066687</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tarea1_files/figure-html/cell-3-output-2.png" width="756" height="1906" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/aavelozb\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Alejandro Veloz</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
