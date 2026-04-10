@@ -402,7 +402,7 @@ window.Quarto = {
 <p>En el ámbito de la medicina de urgencias, la clasificación precisa del estado de un paciente es vital. Se busca, entonces, clasificar a los pacientes en tres categorías: <span style="color: #2ecc71;"><strong>sano</strong></span>, <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span> e <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span>.</p>
 <p>En este escenario clínico, el costo de los errores es asimétrico. Un <strong>falso negativo</strong> (clasificar a un paciente con <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span> como <span style="color: #2ecc71;"><strong>sano</strong></span>) es extremadamente grave, ya que priva al paciente de una intervención inmediata que podría salvarle la vida. Por el contrario, un <strong>falso positivo</strong> (clasificar a un paciente <span style="color: #2ecc71;"><strong>sano</strong></span> como de <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span>) conlleva un costo menor, asociado principalmente a pruebas diagnósticas adicionales y estrés innecesario, pero sin poner en riesgo su vida. Además, la prevalencia de la enfermedad en la población es baja, lo que genera un dataset desbalanceado donde la clase de mayor interés es la menos frecuente.</p>
 <p>En este ejercicio, resolveremos un problema de clasificación que posee desbalance de clases y costo asimétrico. Trabajaremos con datos simulados y compararemos variantes de los algoritmos vistos en clases. El siguiente ejemplo genera datos 2D:</p>
-<div id="83a990bf" class="cell" data-execution_count="1">
+<div id="a10f035d" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -456,21 +456,19 @@ window.Quarto = {
 <span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    plt.scatter(X_med[y_med<span class="op">==</span>i, <span class="dv">0</span>], X_med[y_med<span class="op">==</span>i, <span class="dv">1</span>], </span>
 <span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>                c<span class="op">=</span>colors[i], label<span class="op">=</span>labels[i], edgecolors<span class="op">=</span><span class="st">'k'</span>, alpha<span class="op">=</span><span class="fl">0.6</span>, s<span class="op">=</span><span class="dv">40</span>)</span>
 <span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Añadimos líneas de referencia clínica</span></span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">14</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Límite Normal Troponina'</span>)</span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">140</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Umbral Hipertensión'</span>)</span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Simulación Clínica: Biomarcadores en Urgencias"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Troponina T (ng/L)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Presión Arterial Sistólica (mmHg)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
-<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
-<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a><span class="co"># Ajustar límites para que se vea realista</span></span>
-<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">10</span>, <span class="dv">600</span>)</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">80</span>, <span class="dv">220</span>)</span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>plt.axvline(x<span class="op">=</span><span class="dv">14</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Límite Normal Troponina'</span>)</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>plt.axhline(y<span class="op">=</span><span class="dv">140</span>, color<span class="op">=</span><span class="st">'gray'</span>, linestyle<span class="op">=</span><span class="st">':'</span>, alpha<span class="op">=</span><span class="fl">0.5</span>, label<span class="op">=</span><span class="st">'Umbral Hipertensión'</span>)</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Simulación Clínica: Biomarcadores en Urgencias"</span>, fontsize<span class="op">=</span><span class="dv">14</span>)</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Troponina T (ng/L)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Presión Arterial Sistólica (mmHg)"</span>, fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>, linestyle<span class="op">=</span><span class="st">'--'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="dv">10</span>, <span class="dv">600</span>)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>plt.ylim(<span class="dv">80</span>, <span class="dv">220</span>)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -546,10 +544,10 @@ window.Quarto = {
 <h3 class="anchored" data-anchor-id="implementación-de-modelos">1. Implementación de modelos</h3>
 <p>En esta actividad, deberá implementar y comparar los siguientes modelos de regresión logística:</p>
 <ol type="1">
-<li><strong>RegLog:</strong> Sin regularización.</li>
-<li><strong>RegLog-L1:</strong> Con regularización Lasso (<span class="math inline">\(\ell_1\)</span>).</li>
-<li><strong>RegLog-L2:</strong> Con regularización Ridge (<span class="math inline">\(\ell_2\)</span>).</li>
-<li><strong>RegLog-L1-L2:</strong> Con regularización Elastic Net (<span class="math inline">\(\ell_1\)</span>-<span class="math inline">\(\ell_2\)</span>).</li>
+<li><code>RegLog</code>: Sin regularización.</li>
+<li><code>RegLog-L1</code>: Con regularización Lasso (<span class="math inline">\(\ell_1\)</span>).</li>
+<li><code>RegLog-L2</code>: Con regularización Ridge (<span class="math inline">\(\ell_2\)</span>).</li>
+<li><code>RegLog-L1-L2</code>: Con regularización Elastic Net (<span class="math inline">\(\ell_1\)</span>-<span class="math inline">\(\ell_2\)</span>).</li>
 </ol>
 <p>Los modelos <strong>1 al 4</strong> deben desarrollarse “desde cero” (<em>from scratch</em>), evitando el uso de librerías de alto nivel para Machine Learning. Se permite el empleo de librerías base como <code>numpy</code>, <code>matplotlib</code> y los optimizadores de <code>scipy</code>. Como referencia, siga la estructura técnica presentada en este <a href="../../ejemplos-ml/logreg.html">ejemplo</a>.</p>
 <p>Adicionalmente, deberá contrastar sus resultados con las implementaciones de referencia de <code>scikit-learn</code> (u otra librería de su elección), identificadas como:</p>
@@ -577,11 +575,19 @@ window.Quarto = {
 </section>
 <section id="compensación-del-sesgo-por-clase-mayoritaria" class="level3">
 <h3 class="anchored" data-anchor-id="compensación-del-sesgo-por-clase-mayoritaria">3. Compensación del sesgo por clase mayoritaria</h3>
-<p>Modifique la formulación e implementación del <strong>Algoritmo 4 (RegLog-L1-L2)</strong> para incorporar un mecanismo de aprendizaje que mitigue el sesgo hacia la clase mayoritaria <span style="color: #2ecc71;"><strong>sano</strong></span>. * <strong>Mecanismo sugerido:</strong> Implemente técnicas de <strong>ponderación de clases (class weighting)</strong> dentro de la función de optimización, asignando un peso inversamente proporcional a la frecuencia de cada clase en el dataset. * Reflexione sobre lo siguiente: ¿Cómo cambia la magnitud de los gradientes durante el entrenamiento al introducir estos pesos? Explique si este mecanismo es suficiente para resolver el problema del desbalance por sí solo.</p>
+<p>Modifique la formulación e implementación del <strong>Algoritmo 4 (RegLog-L1-L2)</strong> para incorporar un mecanismo de aprendizaje que mitigue el sesgo hacia la clase mayoritaria <span style="color: #2ecc71;"><strong>sano</strong></span>.</p>
+<ul>
+<li><strong>Mecanismo sugerido:</strong> Implemente técnicas de <strong>ponderación de clases (class weighting)</strong> dentro de la función de optimización, asignando un peso inversamente proporcional a la frecuencia de cada clase en el dataset.</li>
+<li>Reflexione sobre lo siguiente: ¿Cómo cambia la magnitud de los gradientes durante el entrenamiento al introducir estos pesos? Explique si este mecanismo es suficiente para resolver el problema del desbalance por sí solo.</li>
+</ul>
 </section>
 <section id="optimización-de-costos-y-minimización-de-errores-críticos" class="level3">
 <h3 class="anchored" data-anchor-id="optimización-de-costos-y-minimización-de-errores-críticos">4. Optimización de costos y minimización de errores críticos</h3>
-<p>Modifique nuevamente la formulación del <strong>Algoritmo 4</strong> para integrar la <strong>asimetría de costos</strong> directamente en el proceso de decisión o aprendizaje, asegurando que el modelo sea menos propenso a errores críticos. * <strong>Mecanismo sugerido:</strong> Defina una <strong>Matriz de Costos</strong> explícita o ajuste los umbrales de decisión (<em>thresholding</em>) de manera que el error de clasificar una <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span> como <span style="color: #2ecc71;"><strong>sano</strong></span> posea una penalización significativamente mayor (por ejemplo, una relación 50:1) que el error inverso. * Justifique técnica y éticamente por qué un modelo con un <strong>Accuracy global inferior</strong> pero un <strong>Recall superior</strong> en la clase crítica constituye una herramienta diagnóstica más segura y preferible en este contexto médico.</p>
+<p>Modifique nuevamente la formulación del <strong>Algoritmo 4</strong> para integrar la <strong>asimetría de costos</strong> directamente en el proceso de decisión o aprendizaje, asegurando que el modelo sea menos propenso a errores críticos.</p>
+<ul>
+<li><strong>Mecanismo sugerido:</strong> Defina una <strong>Matriz de Costos</strong> explícita o ajuste los umbrales de decisión (<em>thresholding</em>) de manera que el error de clasificar una <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span> como <span style="color: #2ecc71;"><strong>sano</strong></span> posea una penalización significativamente mayor (por ejemplo, una relación 50:1) que el error inverso.</li>
+<li>Justifique técnica y éticamente por qué un modelo con un <strong>Accuracy global inferior</strong> pero un <strong>Recall superior</strong> en la clase crítica constituye una herramienta diagnóstica más segura y preferible en este contexto médico.</li>
+</ul>
 </section>
 <section id="análisis-de-importancia-de-atributos-e-interpretabilidad" class="level3">
 <h3 class="anchored" data-anchor-id="análisis-de-importancia-de-atributos-e-interpretabilidad">5. Análisis de importancia de atributos e interpretabilidad</h3>
