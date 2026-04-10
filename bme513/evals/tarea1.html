@@ -161,7 +161,7 @@ window.Quarto = {
 
 <meta property="og:title" content="Tarea 1">
 <meta property="og:description" content="Modelos lineales para regresión y clasificación">
-<meta property="og:image" content="https://aavelozb.github.io/inf398/evals/tarea1_files/figure-html/cell-2-output-1.png">
+<meta property="og:image" content="https://aavelozb.github.io/bme513/evals/tarea1_files/figure-html/cell-2-output-1.png">
 <meta property="og:image:height" content="1205">
 <meta property="og:image:width" content="1516">
 </head>
@@ -402,7 +402,7 @@ window.Quarto = {
 <p>En el ámbito de la medicina de urgencias, la clasificación precisa del estado de un paciente es vital. Se busca, entonces, clasificar a los pacientes en tres categorías: <span style="color: #2ecc71;"><strong>sano</strong></span>, <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span> e <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span>.</p>
 <p>En este escenario clínico, el costo de los errores es asimétrico. Un <strong>falso negativo</strong> (clasificar a un paciente con <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span> como <span style="color: #2ecc71;"><strong>sano</strong></span>) es extremadamente grave, ya que priva al paciente de una intervención inmediata que podría salvarle la vida. Por el contrario, un <strong>falso positivo</strong> (clasificar a un paciente <span style="color: #2ecc71;"><strong>sano</strong></span> como de <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span>) conlleva un costo menor, asociado principalmente a pruebas diagnósticas adicionales y estrés innecesario, pero sin poner en riesgo su vida. Además, la prevalencia de la enfermedad en la población es baja, lo que genera un dataset desbalanceado donde la clase de mayor interés es la menos frecuente.</p>
 <p>En este ejercicio, resolveremos un problema de clasificación que posee desbalance de clases y costo asimétrico. Trabajaremos con datos simulados y compararemos variantes de los algoritmos vistos en clases. El siguiente ejemplo genera datos 2D:</p>
-<div id="83a990bf" class="cell" data-execution_count="1">
+<div id="4c1aa7ad" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
