@@ -102,11 +102,15 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist.html</loc>
-    <lastmod>2026-04-21T20:49:13.364Z</lastmod>
+    <lastmod>2026-04-21T21:01:58.585Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB-gc.html</loc>
     <lastmod>2026-03-30T11:53:18.516Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist-gc.html</loc>
+    <lastmod>2026-04-21T20:56:09.734Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB.html</loc>
@@ -114,7 +118,7 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/ExpRecSys.html</loc>
-    <lastmod>2025-10-03T02:18:36.000Z</lastmod>
+    <lastmod>2026-04-21T21:00:09.682Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/gp03-sensors-network.html</loc>
