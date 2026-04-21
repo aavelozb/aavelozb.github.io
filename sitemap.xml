@@ -50,7 +50,7 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/est744/index.html</loc>
-    <lastmod>2026-04-21T20:05:37.033Z</lastmod>
+    <lastmod>2026-04-21T20:46:27.627Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme423/index.html</loc>
@@ -97,16 +97,24 @@
     <lastmod>2026-03-30T11:53:18.518Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB.html</loc>
-    <lastmod>2026-03-30T11:53:18.516Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression.html</loc>
+    <lastmod>2026-03-16T11:20:20.513Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist.html</loc>
+    <lastmod>2026-04-21T20:41:03.848Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB-gc.html</loc>
     <lastmod>2026-03-30T11:53:18.516Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression.html</loc>
-    <lastmod>2026-03-16T11:20:20.513Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB.html</loc>
+    <lastmod>2026-03-30T11:53:18.516Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ExpRecSys.html</loc>
+    <lastmod>2025-10-03T02:18:36.000Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/gp03-sensors-network.html</loc>
