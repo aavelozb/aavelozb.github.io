@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>5 - funciones</title>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css" href="files/slides.css">
+</head>
+<body>
+<textarea id="source">
+class: center, middle
+
+# 5 - Funciones
+
+Alejandro Veloz 
+
+ 
+<!-- .small[<a href=mailto:"alejandro.veloz@uv.cl">alejandro.veloz@uv.cl</a>]
+<p>.small[Biomedical Engineering, UV]</p> 
+.affiliations[![UV](images/uv.png)] 
+.center[<img src="images/linreg_y_yhat.png" style="width: 400px;" />]
+-->
+
+---
+Para definir una función utilizamos la palabra reservada .red2[`def`:]
+
+```python 
+def nombre_funcion(parametro1, parametro2, ...):
+    # Cuerpo de la función
+    return
+```
+
+--
+
+Los parámetros/argumentos tienen nombres que elegimos al definir la función. 
+
+Los parámetros son .red2[variables] que asumen los .red2[valores] dados a la función cuando es .red2[llamada.] 
+
+Una instrucción especial es .red2[`return`]. Tiene dos propósitos:
+
+- Termina la ejecución de la función, volviendo al punto donde fue llamada.
+- Especifica el resultado que será entregado al punto de llamado.
+    
+---
+### Llamado de una función
+
+```python 
+def sumar(a, b):
+   suma = a + b
+   return suma
+
+num1 = 2
+num2 = 3
+s = sumar(num1, num2)
+print(s)
+```
+
+---
+### Retorno de una función
+
+```python 
+def mifuncion(x):
+   y = 2*x+3
+   return y
+
+a = 5
+print(a, mifuncion(a))
+```
+
+---
+### Retorno de una función
+
+```python 
+def mifuncion(x):
+   y = 2*x+3
+   print(y)
+
+a = 5
+print(a, mifuncion(a))
+```
+
+---
+
+### Retorna el MCD de a y b mediante el algoritmo de Euclides
+
+Determinar el(los) error(es)
+
+```python 
+def euclides(a, b):
+   a = input('a: ')
+   b = input('b: ')
+   while b != 0:
+      resto = a%b
+      a = b
+      b = resto
+   print(a)
+``` 
+
+---
+### Completar
+
+```python 
+from math import sqrt
+
+def distancia(x1, y1, x2, y2):
+   t1 = (_____)**2
+   t2 = (_____)**2
+   d = sqrt(t1+t2)
+   ____________
+
+a = float(input('Coordenada x del primer punto: '))
+b = float(input('Coordenada y del primer punto: '))
+c = float(input('Coordenada x del segundo punto: '))
+d = float(input('Coordenada y del segundo punto: '))
+____ = distancia(___________)
+print('La distancia es: ', dist)
+```
+
+---
+### Variables globales versus variables locales
+
+```python
+def es_divisible(a, b):
+   if a%b==0:
+      return True
+   else:
+      return False
+
+a = 5
+b = 10
+if es_divisible(b, a):
+   print(b, "es divisible por", a)
+else:
+   print(b, "no es divisible por", a)
+```
+
+---
+
+### ¿Hay errores?
+
+```python
+def es_divisible(a, b):
+   if a%b==0:
+      return True
+   return False
+```
+
+---
+
+### Dividir problemas complejos en funciones
+
+```python 
+alumnos = 'juan,perez,25,40,30;roberto,veliz,10,50;alejandro,perez,70,50'
+p = imprimir_promedios(alumnos)
+print(p)
+```
+
+
+---
+```python 
+def promedio_alumno(s):    
+    s += ',' 
+    nota = ''
+    cont = 0
+    suma_notas = 0
+    for c in s:
+        if c == ',':
+            cont += 1
+            if cont>1:
+                suma_notas += int(nota)
+            nota = ''
+        else:
+            nota+=c            
+    return round(suma_notas / (cont-1))
+```
+
+--
+```python 
+def imprimir_promedios(alumnos):
+    persona = ''
+    alumnos += ';'
+    suma_promedios = 0
+    contador_alumnos = 0
+    for c in alumnos:
+        if c == ';':
+            suma_promedios += promedio_alumno(persona)
+            contador_alumnos += 1
+            persona = ''
+        else:
+            persona += c
+    promedio_curso = round(suma_promedios / contador_alumnos)
+    print('El promedio del curso es:', promedio_curso)
+```
+
+---
+### Ejemplo 1
+
+Hacer un programa usando funciones que calcule el valor del coeficiente binomial.
+
+$$
+\left(\begin{array}{l}
+n \\\\
+k
+\end{array}\right)=\frac{n !}{k !(n-k) !}
+$$
+
+---
+### Solución
+
+(Hacer ruteo)
+
+```python
+def factorial(n):
+   f = 1
+   i = 2
+   while i<=n:
+      f *= i
+      i += 1
+   return f
+
+def coeficiente_binomial(n, k):
+   a = factorial(n)
+   b = factorial(k)
+   c = factorial(n-k)
+   return a/(b*c)
+
+coef = coeficiente_binomial(3, 2)
+print(coef)
+```
+
+---
+### Ejemplo 2
+
+Escriba una función que determine el número de dígitos que tiene un número entero.
+
+--
+```python 
+def num_digitos(n):
+    nd = 0
+    while n>0:
+        n //= 10
+        nd += 1
+    return nd
+```
+
+</textarea>
+<style TYPE="text/css">
+  code.has-jax {font: inherit; font-size: 100%; background: inherit; border: inherit;}
+</style>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [['$','$'], ['\\(','\\)']],
+  skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'] // removed 'code' entry
+  }
+  });
+  MathJax.Hub.Queue(function() {
+  var all = MathJax.Hub.getAllJax(), i;
+  for(i = 0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+      });
+</script>
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script src="files/remark.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+  var slideshow = remark.create({
+    highlightStyle: 'github',
+    highlightSpans: true,
+    highlightLines: true,
+    countIncrementalSlides: false
+  });
+</script>
+</body>
+</html>
