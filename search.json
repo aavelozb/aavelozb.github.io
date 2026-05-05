@@ -221,14 +221,14 @@
     "href": "est744/evals/tarea1.html",
     "title": "Tarea Módulo 1",
     "section": "",
-    "text": "Para este ejercicio, debe usar el dataset MNIST para el problema de clasificación. El modelo a usar es una red neuronal feedforward de tres capas, una de entrada, una oculta y una de salida. Implemente un experimento que permita seleccionar el mejor modelo cambiando los hiperparámetros (cantidad de neuronas de la capa oculta, algoritmo de aprendizaje, tasa de aprendizaje, etc.). Analice, para distintos valores de hiperparámetros, las curvas de entrenamiento, validación y test para distintos casos el desempeño de la arquitectura planteada (elija casos representativos).\nIntroduzca regularización L2 y analice el efecto en los parámetros de la red neuronal."
+    "text": "Para este ejercicio, debe usar el dataset MNIST para el problema de clasificación. El modelo a usar es una red neuronal feedforward de tres capas, una de entrada, una oculta y una de salida. Implemente un experimento que permita seleccionar el mejor modelo cambiando los hiperparámetros (cantidad de neuronas de la capa oculta, algoritmo de aprendizaje, tasa de aprendizaje, etc.). Analice el desempeño mediante las curvas de entrenamiento, validación y test para distintos casos representativos con distintos valores de hiperparámetros.\nIntroduzca regularización L2 y analice el efecto en los parámetros de la red neuronal."
   },
   {
     "objectID": "est744/evals/tarea1.html#ejercicio-1",
     "href": "est744/evals/tarea1.html#ejercicio-1",
     "title": "Tarea Módulo 1",
     "section": "",
-    "text": "Para este ejercicio, debe usar el dataset MNIST para el problema de clasificación. El modelo a usar es una red neuronal feedforward de tres capas, una de entrada, una oculta y una de salida. Implemente un experimento que permita seleccionar el mejor modelo cambiando los hiperparámetros (cantidad de neuronas de la capa oculta, algoritmo de aprendizaje, tasa de aprendizaje, etc.). Analice, para distintos valores de hiperparámetros, las curvas de entrenamiento, validación y test para distintos casos el desempeño de la arquitectura planteada (elija casos representativos).\nIntroduzca regularización L2 y analice el efecto en los parámetros de la red neuronal."
+    "text": "Para este ejercicio, debe usar el dataset MNIST para el problema de clasificación. El modelo a usar es una red neuronal feedforward de tres capas, una de entrada, una oculta y una de salida. Implemente un experimento que permita seleccionar el mejor modelo cambiando los hiperparámetros (cantidad de neuronas de la capa oculta, algoritmo de aprendizaje, tasa de aprendizaje, etc.). Analice el desempeño mediante las curvas de entrenamiento, validación y test para distintos casos representativos con distintos valores de hiperparámetros.\nIntroduzca regularización L2 y analice el efecto en los parámetros de la red neuronal."
   },
   {
     "objectID": "est744/evals/tarea1.html#ejercicio-2",
@@ -256,7 +256,7 @@
     "href": "est744/evals/tarea1.html#ejercicio-5",
     "title": "Tarea Módulo 1",
     "section": "Ejercicio 5",
-    "text": "Ejercicio 5\nGenere un dataset sencillo para el problema de regresión con target positivo. Utilizando una función de pérdida apropiada, entrene una red neuronal que considere esta restricción.\nConsideración:\nDebe implementar la FANN y la CNN en usando el framework Keras o PyTorch."
+    "text": "Ejercicio 5\nGenere un dataset sencillo para el problema de regresión con target positivo. Utilizando una función de pérdida apropiada, entrene una red neuronal que considere esta restricción.\nConsideración:\nDebe implementar la FANN y la CNN usando el framework Keras."
   },
   {
     "objectID": "bme423/evals/proyectos-bme423-2026.html",
