@@ -2,16 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<<<<<<< HEAD
 <meta name="generator" content="quarto-1.7.33">
-=======
-<meta name="generator" content="quarto-1.7.27">
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>syn_registration_3d</title>
+<title>Symmetric Diffeomorphic Registration in 3D</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -74,15 +70,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<<<<<<< HEAD
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-=======
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6c49c5477b92c77c9eb341f9299c235f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -169,6 +159,11 @@ window.Quarto = {
 };
 </script>
 
+<meta property="og:title" content="Symmetric Diffeomorphic Registration in 3D">
+<meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<meta property="og:image" content="https://aavelozb.github.io/bme423/ejemplos/syn_registration_3d_files/figure-html/cell-9-output-2.png">
+<meta property="og:image:height" content="179">
+<meta property="og:image:width" content="515">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -189,11 +184,7 @@ window.Quarto = {
         toggleBodyColorMode(bsSheetEl);
       }
     }
-<<<<<<< HEAD
     const setColorSchemeToggle = (alternate) => {
-=======
-    window.setColorSchemeToggle = (alternate) => {
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
       const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
       for (let i=0; i < toggles.length; i++) {
         const toggle = toggles[i];
@@ -226,11 +217,7 @@ window.Quarto = {
       }
       manageTransitions('#quarto-margin-sidebar .nav-link', true);
       // Switch the toggles
-<<<<<<< HEAD
       setColorSchemeToggle(alternate)
-=======
-      window.setColorSchemeToggle(alternate)
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
       // Hack to workaround the fact that safari doesn't
       // properly recolor the scrollbar when toggling (#1455)
       if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
@@ -270,11 +257,7 @@ window.Quarto = {
     const isFileUrl = () => {
       return window.location.protocol === 'file:';
     }
-<<<<<<< HEAD
     const hasAlternateSentinel = () => {
-=======
-    window.hasAlternateSentinel = () => {
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
       let styleSentinel = getColorSchemeSentinel();
       if (styleSentinel !== null) {
         return styleSentinel === "alternate";
@@ -302,11 +285,7 @@ window.Quarto = {
       const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
       const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
       let newTheme = '';
-<<<<<<< HEAD
       if(authorPrefersDark) {
-=======
-      if(darkModeDefault) {
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
         newTheme = isAlternate ? baseTheme : alternateTheme;
       } else {
         newTheme = isAlternate ? alternateTheme : baseTheme;
@@ -329,19 +308,14 @@ window.Quarto = {
         changeGiscusTheme();
       }
     };
-<<<<<<< HEAD
     const authorPrefersDark = false;
     const darkModeDefault = authorPrefersDark;
-=======
-    const darkModeDefault = false;
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
     // Dark / light mode switch
     window.quartoToggleColorScheme = () => {
       // Read the current dark / light value
-<<<<<<< HEAD
       let toAlternate = !hasAlternateSentinel();
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
@@ -350,15 +324,6 @@ window.Quarto = {
     };
     // Switch to dark mode if need be
     if (hasAlternateSentinel()) {
-=======
-      let toAlternate = !window.hasAlternateSentinel();
-      toggleColorMode(toAlternate);
-      setStyleSentinel(toAlternate);
-      toggleGiscusIfUsed(toAlternate, darkModeDefault);
-    };
-    // Switch to dark mode if need be
-    if (window.hasAlternateSentinel()) {
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
       toggleColorMode(true);
     } else {
       toggleColorMode(false);
@@ -372,7 +337,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Symmetric Diffeomorphic Registration in 3D</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -400,293 +365,109 @@ window.Quarto = {
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul>
-  <li><a href="#symmetric-diffeomorphic-registration-in-3d" id="toc-symmetric-diffeomorphic-registration-in-3d" class="nav-link active" data-scroll-target="#symmetric-diffeomorphic-registration-in-3d">Symmetric Diffeomorphic Registration in 3D</a>
-  <ul class="collapse">
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
-  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link active" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"></header>
+<main class="content" id="quarto-document-content">
 
 
-
-
-
-<div id="cell-0" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install dipy</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>U fury</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<div class="ansi-escaped-output">
-<pre>Defaulting to user installation because normal site-packages is not writeable
-
-Requirement already satisfied: dipy in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (1.10.0)
-
-Requirement already satisfied: numpy&gt;=1.22.4 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from dipy) (1.26.4)
-
-Requirement already satisfied: scipy&gt;=1.8 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from dipy) (1.13.1)
-
-Requirement already satisfied: nibabel&gt;=3.0.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from dipy) (5.3.3)
-
-Requirement already satisfied: h5py&gt;=3.1.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from dipy) (3.14.0)
-
-Requirement already satisfied: packaging&gt;=21 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from dipy) (26.1)
-
-Requirement already satisfied: tqdm&gt;=4.30.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from dipy) (4.67.3)
-
-Requirement already satisfied: trx-python&gt;=0.2.9 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from dipy) (0.3)
-
-Requirement already satisfied: importlib-resources&gt;=5.12 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from nibabel&gt;=3.0.0-&gt;dipy) (6.5.2)
-
-Requirement already satisfied: typing-extensions&gt;=4.6 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from nibabel&gt;=3.0.0-&gt;dipy) (4.15.0)
-
-Requirement already satisfied: setuptools-scm in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from trx-python&gt;=0.2.9-&gt;dipy) (9.2.2)
-
-Requirement already satisfied: deepdiff in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from trx-python&gt;=0.2.9-&gt;dipy) (8.6.2)
-
-Requirement already satisfied: zipp&gt;=3.1.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=5.12-&gt;nibabel&gt;=3.0.0-&gt;dipy) (3.23.1)
-
-Requirement already satisfied: orderly-set&lt;6,&gt;=5.4.1 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from deepdiff-&gt;trx-python&gt;=0.2.9-&gt;dipy) (5.5.0)
-
-Requirement already satisfied: setuptools in /Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages (from setuptools-scm-&gt;trx-python&gt;=0.2.9-&gt;dipy) (58.0.4)
-
-Requirement already satisfied: tomli&gt;=1 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from setuptools-scm-&gt;trx-python&gt;=0.2.9-&gt;dipy) (2.4.1)
-
-
-
-<span class="ansi-bold">[</span><span class="ansi-blue-fg">notice</span><span class="ansi-bold">]</span> A new release of pip is available: <span class="ansi-red-fg">25.0.1</span> -&gt; <span class="ansi-green-fg">26.0.1</span>
-
-<span class="ansi-bold">[</span><span class="ansi-blue-fg">notice</span><span class="ansi-bold">]</span> To update, run: <span class="ansi-green-fg">/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip</span>
-
-Defaulting to user installation because normal site-packages is not writeable
-
-Collecting fury
-
-  Downloading fury-0.12.0-py3-none-any.whl.metadata (12 kB)
-
-Collecting aiohttp&gt;=3.8.4 (from fury)
-
-  Downloading aiohttp-3.13.5-cp39-cp39-macosx_11_0_arm64.whl.metadata (8.1 kB)
-
-Requirement already satisfied: lazy-loader&gt;=0.4 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from fury) (0.5)
-
-Requirement already satisfied: numpy&gt;=1.15 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from fury) (1.26.4)
-
-Requirement already satisfied: packaging&gt;=17.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from fury) (26.1)
-
-Requirement already satisfied: pillow&gt;=5.4.1 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from fury) (11.1.0)
-
-Collecting pygltflib&gt;=1.15.3 (from fury)
-
-  Downloading pygltflib-1.16.5-py3-none-any.whl.metadata (33 kB)
-
-Requirement already satisfied: scipy&gt;=1.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from fury) (1.13.1)
-
-Collecting vtk&lt;9.4.0,&gt;=9.1.0 (from fury)
-
-  Downloading vtk-9.3.1-cp39-cp39-macosx_11_0_arm64.whl.metadata (5.2 kB)
-
-Collecting aiohappyeyeballs&gt;=2.5.0 (from aiohttp&gt;=3.8.4-&gt;fury)
-
-  Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl.metadata (5.9 kB)
-
-Collecting aiosignal&gt;=1.4.0 (from aiohttp&gt;=3.8.4-&gt;fury)
-
-  Downloading aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
-
-Collecting async-timeout&lt;6.0,&gt;=4.0 (from aiohttp&gt;=3.8.4-&gt;fury)
-
-  Downloading async_timeout-5.0.1-py3-none-any.whl.metadata (5.1 kB)
-
-Requirement already satisfied: attrs&gt;=17.3.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from aiohttp&gt;=3.8.4-&gt;fury) (25.1.0)
-
-Collecting frozenlist&gt;=1.1.1 (from aiohttp&gt;=3.8.4-&gt;fury)
-
-  Downloading frozenlist-1.8.0-cp39-cp39-macosx_11_0_arm64.whl.metadata (20 kB)
-
-Collecting multidict&lt;7.0,&gt;=4.5 (from aiohttp&gt;=3.8.4-&gt;fury)
-
-  Downloading multidict-6.7.1-cp39-cp39-macosx_11_0_arm64.whl.metadata (5.3 kB)
-
-Collecting propcache&gt;=0.2.0 (from aiohttp&gt;=3.8.4-&gt;fury)
-
-  Downloading propcache-0.4.1-cp39-cp39-macosx_11_0_arm64.whl.metadata (13 kB)
-
-Collecting yarl&lt;2.0,&gt;=1.17.0 (from aiohttp&gt;=3.8.4-&gt;fury)
-
-  Downloading yarl-1.22.0-cp39-cp39-macosx_11_0_arm64.whl.metadata (75 kB)
-
-Collecting dataclasses-json&gt;=0.0.25 (from pygltflib&gt;=1.15.3-&gt;fury)
-
-  Downloading dataclasses_json-0.6.7-py3-none-any.whl.metadata (25 kB)
-
-Collecting deprecated (from pygltflib&gt;=1.15.3-&gt;fury)
-
-  Using cached deprecated-1.3.1-py2.py3-none-any.whl.metadata (5.9 kB)
-
-Requirement already satisfied: matplotlib&gt;=2.0.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (3.9.4)
-
-Requirement already satisfied: typing-extensions&gt;=4.2 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from aiosignal&gt;=1.4.0-&gt;aiohttp&gt;=3.8.4-&gt;fury) (4.15.0)
-
-Collecting marshmallow&lt;4.0.0,&gt;=3.18.0 (from dataclasses-json&gt;=0.0.25-&gt;pygltflib&gt;=1.15.3-&gt;fury)
-
-  Downloading marshmallow-3.26.2-py3-none-any.whl.metadata (7.3 kB)
-
-Collecting typing-inspect&lt;1,&gt;=0.4.0 (from dataclasses-json&gt;=0.0.25-&gt;pygltflib&gt;=1.15.3-&gt;fury)
-
-  Downloading typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
-
-Requirement already satisfied: contourpy&gt;=1.0.1 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (1.3.0)
-
-Requirement already satisfied: cycler&gt;=0.10 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (0.12.1)
-
-Requirement already satisfied: fonttools&gt;=4.22.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (4.56.0)
-
-Requirement already satisfied: kiwisolver&gt;=1.3.1 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (1.4.7)
-
-Requirement already satisfied: pyparsing&gt;=2.3.1 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (3.2.1)
-
-Requirement already satisfied: python-dateutil&gt;=2.7 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (2.9.0.post0)
-
-Requirement already satisfied: importlib-resources&gt;=3.2.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (6.5.2)
-
-Requirement already satisfied: idna&gt;=2.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from yarl&lt;2.0,&gt;=1.17.0-&gt;aiohttp&gt;=3.8.4-&gt;fury) (3.12)
-
-Requirement already satisfied: wrapt&lt;3,&gt;=1.10 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from deprecated-&gt;pygltflib&gt;=1.15.3-&gt;fury) (2.1.2)
-
-Requirement already satisfied: zipp&gt;=3.1.0 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from importlib-resources&gt;=3.2.0-&gt;matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (3.23.1)
-
-Requirement already satisfied: six&gt;=1.5 in /Users/aveloz/Library/Python/3.9/lib/python/site-packages (from python-dateutil&gt;=2.7-&gt;matplotlib&gt;=2.0.0-&gt;vtk&lt;9.4.0,&gt;=9.1.0-&gt;fury) (1.17.0)
-
-Collecting mypy-extensions&gt;=0.3.0 (from typing-inspect&lt;1,&gt;=0.4.0-&gt;dataclasses-json&gt;=0.0.25-&gt;pygltflib&gt;=1.15.3-&gt;fury)
-
-  Downloading mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
-
-Downloading fury-0.12.0-py3-none-any.whl (595 kB)
-
-   <span class="ansi-bright-black-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">596.0/596.0 kB</span> <span class="ansi-red-fg">10.3 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
-
-Downloading aiohttp-3.13.5-cp39-cp39-macosx_11_0_arm64.whl (499 kB)
-
-Downloading pygltflib-1.16.5-py3-none-any.whl (27 kB)
-
-Downloading vtk-9.3.1-cp39-cp39-macosx_11_0_arm64.whl (70.3 MB)
-
-   <span class="ansi-bright-black-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">70.3/70.3 MB</span> <span class="ansi-red-fg">5.6 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>00:0100:01
-
-Downloading aiohappyeyeballs-2.6.1-py3-none-any.whl (15 kB)
-
-Downloading aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
-
-Downloading async_timeout-5.0.1-py3-none-any.whl (6.2 kB)
-
-Downloading dataclasses_json-0.6.7-py3-none-any.whl (28 kB)
-
-Downloading frozenlist-1.8.0-cp39-cp39-macosx_11_0_arm64.whl (50 kB)
-
-Downloading multidict-6.7.1-cp39-cp39-macosx_11_0_arm64.whl (44 kB)
-
-Downloading propcache-0.4.1-cp39-cp39-macosx_11_0_arm64.whl (47 kB)
-
-Downloading yarl-1.22.0-cp39-cp39-macosx_11_0_arm64.whl (94 kB)
-
-Using cached deprecated-1.3.1-py2.py3-none-any.whl (11 kB)
-
-Downloading marshmallow-3.26.2-py3-none-any.whl (50 kB)
-
-Downloading typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
-
-Downloading mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
-
-Installing collected packages: propcache, mypy-extensions, multidict, marshmallow, frozenlist, deprecated, async-timeout, aiohappyeyeballs, yarl, typing-inspect, aiosignal, vtk, dataclasses-json, aiohttp, pygltflib, fury
-
-Successfully installed aiohappyeyeballs-2.6.1 aiohttp-3.13.5 aiosignal-1.4.0 async-timeout-5.0.1 dataclasses-json-0.6.7 deprecated-1.3.1 frozenlist-1.8.0 fury-0.12.0 marshmallow-3.26.2 multidict-6.7.1 mypy-extensions-1.1.0 propcache-0.4.1 pygltflib-1.16.5 typing-inspect-0.9.0 vtk-9.3.1 yarl-1.22.0
-
-
-
-<span class="ansi-bold">[</span><span class="ansi-blue-fg">notice</span><span class="ansi-bold">]</span> A new release of pip is available: <span class="ansi-red-fg">25.0.1</span> -&gt; <span class="ansi-green-fg">26.0.1</span>
-
-<span class="ansi-bold">[</span><span class="ansi-blue-fg">notice</span><span class="ansi-bold">]</span> To update, run: <span class="ansi-green-fg">/Library/Developer/CommandLineTools/usr/bin/python3 -m pip install --upgrade pip</span>
-</pre>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Symmetric Diffeomorphic Registration in 3D</h1>
 </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<pre><code>!pip install dipy
+!pip install -U fury</code></pre>
+<div id="cell-2" class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">%</span>matplotlib inline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<section id="symmetric-diffeomorphic-registration-in-3d" class="level1">
-<h1>Symmetric Diffeomorphic Registration in 3D</h1>
 <p>This example explains how to register 3D volumes using the Symmetric Normalization (SyN) algorithm proposed by Avants et al.&nbsp;[Avants09]<em> (also implemented in the ANTs software [Avants11]</em>)</p>
 <p>We will register two 3D volumes from the same modality using SyN with the Cross -Correlation (CC) metric.</p>
-<div id="cell-2" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.align.imwarp <span class="im">import</span> SymmetricDiffeomorphicRegistration</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.align.metrics <span class="im">import</span> CCMetric</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.data <span class="im">import</span> get_fnames</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.io.image <span class="im">import</span> load_nifti</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.viz <span class="im">import</span> regtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-4" class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.align.imwarp <span class="im">import</span> SymmetricDiffeomorphicRegistration</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.align.metrics <span class="im">import</span> CCMetric</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.data <span class="im">import</span> get_fnames</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.io.image <span class="im">import</span> load_nifti</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.viz <span class="im">import</span> regtools</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Let’s fetch two b0 volumes, the first one will be the b0 from the Stanford HARDI dataset</p>
-<div id="cell-4" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>hardi_fname, hardi_bval_fname, hardi_bvec_fname <span class="op">=</span> get_fnames(<span class="st">'stanford_hardi'</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>stanford_b0, stanford_b0_affine <span class="op">=</span> load_nifti(hardi_fname)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>stanford_b0 <span class="op">=</span> np.squeeze(stanford_b0)[..., <span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-6" class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>hardi_fname, hardi_bval_fname, hardi_bvec_fname <span class="op">=</span> get_fnames(<span class="st">'stanford_hardi'</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>stanford_b0, stanford_b0_affine <span class="op">=</span> load_nifti(hardi_fname)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>stanford_b0 <span class="op">=</span> np.squeeze(stanford_b0)[..., <span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/3519930129.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3519930129.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
   hardi_fname, hardi_bval_fname, hardi_bvec_fname = get_fnames('stanford_hardi')</code></pre>
 </div>
 </div>
 <p>The second one will be the same b0 we used for the 2D registration tutorial</p>
-<div id="cell-6" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>t1_fname, b0_fname <span class="op">=</span> get_fnames(<span class="st">'syn_data'</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>syn_b0, syn_b0_affine <span class="op">=</span> load_nifti(b0_fname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-8" class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>t1_fname, b0_fname <span class="op">=</span> get_fnames(<span class="st">'syn_data'</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>syn_b0, syn_b0_affine <span class="op">=</span> load_nifti(b0_fname)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/3656412170.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3656412170.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
   t1_fname, b0_fname = get_fnames('syn_data')</code></pre>
 </div>
 </div>
 <p>We first remove the skull from the b0’s</p>
-<div id="cell-8" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.segment.mask <span class="im">import</span> median_otsu</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>stanford_b0_masked, stanford_b0_mask <span class="op">=</span> median_otsu(stanford_b0,</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                                                   median_radius<span class="op">=</span><span class="dv">4</span>,</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>                                                   numpass<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>syn_b0_masked, syn_b0_mask <span class="op">=</span> median_otsu(syn_b0, median_radius<span class="op">=</span><span class="dv">4</span>, numpass<span class="op">=</span><span class="dv">4</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> stanford_b0_masked</span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>static_affine <span class="op">=</span> stanford_b0_affine</span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>moving <span class="op">=</span> syn_b0_masked</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>moving_affine <span class="op">=</span> syn_b0_affine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-10" class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.segment.mask <span class="im">import</span> median_otsu</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>stanford_b0_masked, stanford_b0_mask <span class="op">=</span> median_otsu(stanford_b0,</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                                   median_radius<span class="op">=</span><span class="dv">4</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                                   numpass<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>syn_b0_masked, syn_b0_mask <span class="op">=</span> median_otsu(syn_b0, median_radius<span class="op">=</span><span class="dv">4</span>, numpass<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>static <span class="op">=</span> stanford_b0_masked</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>static_affine <span class="op">=</span> stanford_b0_affine</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>moving <span class="op">=</span> syn_b0_masked</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>moving_affine <span class="op">=</span> syn_b0_affine</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Suppose we have already done a linear registration to roughly align the two images</p>
-<div id="cell-10" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>pre_align <span class="op">=</span> np.array([[<span class="fl">1.02783543e+00</span>, <span class="op">-</span><span class="fl">4.83019053e-02</span>, <span class="op">-</span><span class="fl">6.07735639e-02</span>, <span class="op">-</span><span class="fl">2.57654118e+00</span>],</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                      [<span class="fl">4.34051706e-03</span>, <span class="fl">9.41918267e-01</span>, <span class="op">-</span><span class="fl">2.66525861e-01</span>, <span class="fl">3.23579799e+01</span>],</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                      [<span class="fl">5.34288908e-02</span>, <span class="fl">2.90262026e-01</span>, <span class="fl">9.80820307e-01</span>, <span class="op">-</span><span class="fl">1.46216651e+01</span>],</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                      [<span class="fl">0.00000000e+00</span>, <span class="fl">0.00000000e+00</span>, <span class="fl">0.00000000e+00</span>, <span class="fl">1.00000000e+00</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-12" class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>pre_align <span class="op">=</span> np.array([[<span class="fl">1.02783543e+00</span>, <span class="op">-</span><span class="fl">4.83019053e-02</span>, <span class="op">-</span><span class="fl">6.07735639e-02</span>, <span class="op">-</span><span class="fl">2.57654118e+00</span>],</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>                      [<span class="fl">4.34051706e-03</span>, <span class="fl">9.41918267e-01</span>, <span class="op">-</span><span class="fl">2.66525861e-01</span>, <span class="fl">3.23579799e+01</span>],</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                      [<span class="fl">5.34288908e-02</span>, <span class="fl">2.90262026e-01</span>, <span class="fl">9.80820307e-01</span>, <span class="op">-</span><span class="fl">1.46216651e+01</span>],</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                      [<span class="fl">0.00000000e+00</span>, <span class="fl">0.00000000e+00</span>, <span class="fl">0.00000000e+00</span>, <span class="fl">1.00000000e+00</span>]])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>As we did in the 2D example, we would like to visualize (some slices of) the two volumes by overlapping them over two channels of a color image. To do that we need them to be sampled on the same grid, so let’s first re-sample the moving image on the static grid. We create an AffineMap to transform the moving image towards the static image</p>
-<div id="cell-12" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.align.imaffine <span class="im">import</span> AffineMap</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>affine_map <span class="op">=</span> AffineMap(pre_align,</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                       static.shape, static_affine,</span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                       moving.shape, moving_affine)</span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>resampled <span class="op">=</span> affine_map.transform(moving)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-14" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> dipy.align.imaffine <span class="im">import</span> AffineMap</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>affine_map <span class="op">=</span> AffineMap(pre_align,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                       static.shape, static_affine,</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                       moving.shape, moving_affine)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>resampled <span class="op">=</span> affine_map.transform(moving)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/2104462567.py:2: UserWarning: Pass ['domain_grid_shape', 'domain_grid2world', 'codomain_grid_shape', 'codomain_grid2world'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/2104462567.py:2: UserWarning: Pass ['domain_grid_shape', 'domain_grid2world', 'codomain_grid_shape', 'codomain_grid2world'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
   affine_map = AffineMap(pre_align,</code></pre>
 </div>
 </div>
 <p>plot the overlapped middle slices of the volumes</p>
-<div id="cell-14" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>regtools.overlay_slices(static, resampled, <span class="va">None</span>, <span class="dv">1</span>, <span class="st">'Static'</span>, <span class="st">'Moving'</span>,</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'input_3d.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-16" class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>regtools.overlay_slices(static, resampled, <span class="va">None</span>, <span class="dv">1</span>, <span class="st">'Static'</span>, <span class="st">'Moving'</span>, <span class="st">'input_3d.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/2072433761.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
-  regtools.overlay_slices(static, resampled, None, 1, 'Static', 'Moving',</code></pre>
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/1323121033.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+  regtools.overlay_slices(static, resampled, None, 1, 'Static', 'Moving', 'input_3d.png')</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <div>
 <figure class="figure">
 <p><img src="syn_registration_3d_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
@@ -701,42 +482,41 @@ Successfully installed aiohappyeyeballs-2.6.1 aiohttp-3.13.5 aiosignal-1.4.0 asy
 </div>
 </div>
 </div>
-<p>.. figure:: input_3d.png :align: center</p>
 <p>Static image in red on top of the pre-aligned moving image (in green).</p>
 <p>We want to find an invertible map that transforms the moving image into the static image. We will use the Cross-Correlation metric</p>
-<div id="cell-17" class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>metric <span class="op">=</span> CCMetric(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-19" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>metric <span class="op">=</span> CCMetric(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now we define an instance of the registration class. The SyN algorithm uses a multi-resolution approach by building a Gaussian Pyramid. We instruct the registration object to perform at most <span class="math inline">\([n_0, n_1, ..., n_k]\)</span> iterations at each level of the pyramid. The 0-th level corresponds to the finest resolution.</p>
-<div id="cell-19" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>level_iters <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">5</span>]</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sdr <span class="op">=</span> SymmetricDiffeomorphicRegistration(metric, level_iters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-21" class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>level_iters <span class="op">=</span> [<span class="dv">10</span>, <span class="dv">10</span>, <span class="dv">5</span>]</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>sdr <span class="op">=</span> SymmetricDiffeomorphicRegistration(metric, level_iters)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/3938536297.py:2: UserWarning: Pass ['level_iters'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3938536297.py:2: UserWarning: Pass ['level_iters'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
   sdr = SymmetricDiffeomorphicRegistration(metric, level_iters)</code></pre>
 </div>
 </div>
 <p>Execute the optimization, which returns a DiffeomorphicMap object, that can be used to register images back and forth between the static and moving domains. We provide the pre-aligning matrix that brings the moving image closer to the static image</p>
-<div id="cell-21" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> sdr.optimize(static, moving, static_affine, moving_affine, pre_align)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-23" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>mapping <span class="op">=</span> sdr.optimize(static, moving, static_affine, moving_affine, pre_align)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/3163846727.py:1: UserWarning: Pass ['static_grid2world', 'moving_grid2world', 'prealign'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3163846727.py:1: UserWarning: Pass ['static_grid2world', 'moving_grid2world', 'prealign'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
   mapping = sdr.optimize(static, moving, static_affine, moving_affine, pre_align)</code></pre>
 </div>
 </div>
 <p>Now let’s warp the moving image and see if it gets similar to the static image</p>
-<div id="cell-23" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>warped_moving <span class="op">=</span> mapping.transform(moving)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-25" class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>warped_moving <span class="op">=</span> mapping.transform(moving)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We plot the overlapped middle slices</p>
-<div id="cell-25" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>regtools.overlay_slices(static, warped_moving, <span class="va">None</span>, <span class="dv">1</span>, <span class="st">'Static'</span>,</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Warped moving'</span>, <span class="st">'warped_moving.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-27" class="cell" data-execution_count="41">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>regtools.overlay_slices(static, warped_moving, <span class="va">None</span>, <span class="dv">1</span>, <span class="st">'Static'</span>,</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Warped moving'</span>, <span class="st">'warped_moving.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/3710543132.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3710543132.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
   regtools.overlay_slices(static, warped_moving, None, 1, 'Static',</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="41">
 <div>
 <figure class="figure">
 <p><img src="syn_registration_3d_files/figure-html/cell-14-output-2.png" class="img-fluid figure-img"></p>
@@ -751,18 +531,17 @@ Successfully installed aiohappyeyeballs-2.6.1 aiohttp-3.13.5 aiosignal-1.4.0 asy
 </div>
 </div>
 </div>
-<p>.. figure:: warped_moving.png :align: center</p>
 <p>Moving image transformed under the (direct) transformation in green on top of the static image (in red).</p>
 <p>And we can also apply the inverse mapping to verify that the warped static image is similar to the moving image</p>
-<div id="cell-28" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>warped_static <span class="op">=</span> mapping.transform_inverse(static)</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>regtools.overlay_slices(warped_static, moving, <span class="va">None</span>, <span class="dv">1</span>, <span class="st">'Warped static'</span>,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Moving'</span>, <span class="st">'warped_static.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-30" class="cell" data-execution_count="42">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>warped_static <span class="op">=</span> mapping.transform_inverse(static)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>regtools.overlay_slices(warped_static, moving, <span class="va">None</span>, <span class="dv">1</span>, <span class="st">'Warped static'</span>,</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>                        <span class="st">'Moving'</span>, <span class="st">'warped_static.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>/var/folders/mf/vqrgf1295ps9hnbyyvv6vtbm0000gn/T/ipykernel_46287/992749723.py:2: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
+<pre><code>/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/992749723.py:2: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. 
   regtools.overlay_slices(warped_static, moving, None, 1, 'Warped static',</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="42">
 <div>
 <figure class="figure">
 <p><img src="syn_registration_3d_files/figure-html/cell-15-output-2.png" class="img-fluid figure-img"></p>
@@ -777,16 +556,13 @@ Successfully installed aiohappyeyeballs-2.6.1 aiohttp-3.13.5 aiosignal-1.4.0 asy
 </div>
 </div>
 </div>
-<p>.. figure:: warped_static.png :align: center</p>
 <p>Static image transformed under the (inverse) transformation in red on top of the moving image (in green). Note that the moving image has a lower resolution.</p>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
 <p>.. [Avants09] Avants, B. B., Epstein, C. L., Grossman, M., &amp; Gee, J. C. (2009). Symmetric Diffeomorphic Image Registration with Cross-Correlation: Evaluating Automated Labeling of Elderly and Neurodegenerative Brain, 12(1), 26-41.</p>
 <p>.. [Avants11] Avants, B. B., Tustison, N., &amp; Song, G. (2011). Advanced Normalization Tools (ANTS), 1-35.</p>
-<p>.. include:: ../links_names.inc</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -804,11 +580,7 @@ Successfully installed aiohappyeyeballs-2.6.1 aiohttp-3.13.5 aiosignal-1.4.0 asy
       a.appendChild(i);
       window.document.body.appendChild(a);
     }
-<<<<<<< HEAD
     setColorSchemeToggle(hasAlternateSentinel())
-=======
-    window.setColorSchemeToggle(window.hasAlternateSentinel())
->>>>>>> b75c55aada0314a7e04fd925fc0e39657e688422
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
