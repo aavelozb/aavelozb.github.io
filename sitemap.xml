@@ -58,7 +58,6 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme423/index.html</loc>
-    <lastmod>2026-05-06T20:46:19.249Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme423/evals/lab1.html</loc>
@@ -190,7 +189,11 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme423/ejemplos/syn_registration_3d.html</loc>
+<<<<<<< HEAD
     <lastmod>2026-05-06T20:11:31.834Z</lastmod>
+=======
+    <lastmod>2026-05-07T18:28:17.335Z</lastmod>
+>>>>>>> 408a75a (update files)
   </url>
   <url>
     <loc>https://aavelozb.github.io/est744/evals/proyectos-inf398-2026.html</loc>
@@ -218,7 +221,11 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme513/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2026-04-24T14:24:41.778Z</lastmod>
+=======
+    <lastmod>2026-05-07T18:37:30.086Z</lastmod>
+>>>>>>> 408a75a (update files)
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321.html</loc>
@@ -234,7 +241,11 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/mcib/index.html</loc>
+<<<<<<< HEAD
     <lastmod>2026-01-09T17:32:52.679Z</lastmod>
+=======
+    <lastmod>2026-05-07T18:38:34.231Z</lastmod>
+>>>>>>> 408a75a (update files)
   </url>
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-eval-dcis.html</loc>
