@@ -14,6 +14,7 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf398/index.html</loc>
+    <lastmod>2026-05-11T12:21:29.283Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf398/evals/tarea1.html</loc>
@@ -56,12 +57,20 @@
     <lastmod>2026-05-05T22:34:49.214Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/index.html</loc>
-    <lastmod>2026-05-07T18:28:17.336Z</lastmod>
+    <loc>https://aavelozb.github.io/bme423/ejemplos/syn_registration_3d.html</loc>
+    <lastmod>2026-05-07T18:28:17.335Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/evals/lab1.html</loc>
-    <lastmod>2026-03-26T16:49:16.237Z</lastmod>
+    <loc>https://aavelozb.github.io/bme423/evals/proyectos-bme423-2026.html</loc>
+    <lastmod>2026-03-19T15:29:36.178Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423/evals/lab2.html</loc>
+    <lastmod>2026-05-13T17:31:08.022Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423/evals/lab4-old.html</loc>
+    <lastmod>2025-11-06T11:48:31.000Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bambinos/corazon.html</loc>
@@ -184,12 +193,20 @@
     <lastmod>2026-03-16T17:39:57.814Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/evals/proyectos-bme423-2026.html</loc>
-    <lastmod>2026-03-19T15:29:36.178Z</lastmod>
+    <loc>https://aavelozb.github.io/bme423/evals/lab1.html</loc>
+    <lastmod>2026-03-26T16:49:16.237Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme423/ejemplos/syn_registration_3d.html</loc>
-    <lastmod>2026-05-07T18:28:17.335Z</lastmod>
+    <loc>https://aavelozb.github.io/bme423/evals/lab3-old.html</loc>
+    <lastmod>2026-05-13T17:28:55.700Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423/index.html</loc>
+    <lastmod>2026-05-13T17:38:33.780Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme423/ejemplos/math-morpho.html</loc>
+    <lastmod>2026-05-13T17:37:59.048Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/est744/evals/proyectos-inf398-2026.html</loc>
@@ -217,6 +234,7 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme513/index.html</loc>
+    <lastmod>2026-05-07T18:37:30.086Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321.html</loc>
@@ -232,6 +250,7 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/mcib/index.html</loc>
+    <lastmod>2026-05-07T18:38:34.231Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-eval-dcis.html</loc>
@@ -240,9 +259,5 @@
   <url>
     <loc>https://aavelozb.github.io/tempfiles/bme423-eval-bme.html</loc>
     <lastmod>2026-03-16T11:20:20.911Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bme423/evals/lab2.html</loc>
-    <lastmod>2026-05-13T17:31:08.022Z</lastmod>
   </url>
 </urlset>

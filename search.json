@@ -259,179 +259,102 @@
     "text": "Ejercicio 5\nGenere un dataset sencillo para el problema de regresión con target positivo. Utilizando una función de pérdida apropiada, entrene una red neuronal que considere esta restricción.\nConsideración:\nDebe implementar la FANN y la CNN usando el framework Keras."
   },
   {
-    "objectID": "bme423/index.html",
-    "href": "bme423/index.html",
-    "title": "BME423 - Procesamiento de imágenes médicas",
+    "objectID": "bme423/ejemplos/syn_registration_3d.html",
+    "href": "bme423/ejemplos/syn_registration_3d.html",
+    "title": "Symmetric Diffeomorphic Registration in 3D",
     "section": "",
-    "text": "Descripción. Este curso introduce los fundamentos del procesamiento y análisis de imágenes médicas desde una perspectiva teórica y aplicada. Se abordan las etapas clave del análisis de imágenes, incluyendo adquisición y representación, técnicas de mejora y preprocesamiento, filtrado espacial y en el dominio de la frecuencia, así como métodos para manejar ruido y degradación. El curso también cubre algoritmos de segmentación, análisis cuantitativo y reconstrucción de imágenes, junto con métodos de reconocimiento de patrones y aprendizaje automático aplicados a la detección y clasificación en imágenes médicas. Además, se analizan especificaciones técnicas de sistemas de imagen y se desarrollan proyectos prácticos que integran herramientas computacionales y metodologías de análisis para aplicaciones en ingeniería biomédica y entornos clínicos."
+    "text": "!pip install dipy\n!pip install -U fury\n%matplotlib inline\nThis example explains how to register 3D volumes using the Symmetric Normalization (SyN) algorithm proposed by Avants et al. [Avants09] (also implemented in the ANTs software [Avants11])\nWe will register two 3D volumes from the same modality using SyN with the Cross -Correlation (CC) metric.\nimport numpy as np\nfrom dipy.align.imwarp import SymmetricDiffeomorphicRegistration\nfrom dipy.align.metrics import CCMetric\nfrom dipy.data import get_fnames\nfrom dipy.io.image import load_nifti\nfrom dipy.viz import regtools\nLet’s fetch two b0 volumes, the first one will be the b0 from the Stanford HARDI dataset\nhardi_fname, hardi_bval_fname, hardi_bvec_fname = get_fnames('stanford_hardi')\n\nstanford_b0, stanford_b0_affine = load_nifti(hardi_fname)\nstanford_b0 = np.squeeze(stanford_b0)[..., 0]\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3519930129.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  hardi_fname, hardi_bval_fname, hardi_bvec_fname = get_fnames('stanford_hardi')\nThe second one will be the same b0 we used for the 2D registration tutorial\nt1_fname, b0_fname = get_fnames('syn_data')\nsyn_b0, syn_b0_affine = load_nifti(b0_fname)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3656412170.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  t1_fname, b0_fname = get_fnames('syn_data')\nWe first remove the skull from the b0’s\nfrom dipy.segment.mask import median_otsu\nstanford_b0_masked, stanford_b0_mask = median_otsu(stanford_b0,\n                                                   median_radius=4,\n                                                   numpass=4)\nsyn_b0_masked, syn_b0_mask = median_otsu(syn_b0, median_radius=4, numpass=4)\n\nstatic = stanford_b0_masked\nstatic_affine = stanford_b0_affine\nmoving = syn_b0_masked\nmoving_affine = syn_b0_affine\nSuppose we have already done a linear registration to roughly align the two images\npre_align = np.array([[1.02783543e+00, -4.83019053e-02, -6.07735639e-02, -2.57654118e+00],\n                      [4.34051706e-03, 9.41918267e-01, -2.66525861e-01, 3.23579799e+01],\n                      [5.34288908e-02, 2.90262026e-01, 9.80820307e-01, -1.46216651e+01],\n                      [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])\nAs we did in the 2D example, we would like to visualize (some slices of) the two volumes by overlapping them over two channels of a color image. To do that we need them to be sampled on the same grid, so let’s first re-sample the moving image on the static grid. We create an AffineMap to transform the moving image towards the static image\nfrom dipy.align.imaffine import AffineMap\naffine_map = AffineMap(pre_align,\n                       static.shape, static_affine,\n                       moving.shape, moving_affine)\n\nresampled = affine_map.transform(moving)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/2104462567.py:2: UserWarning: Pass ['domain_grid_shape', 'domain_grid2world', 'codomain_grid_shape', 'codomain_grid2world'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  affine_map = AffineMap(pre_align,\nplot the overlapped middle slices of the volumes\nregtools.overlay_slices(static, resampled, None, 1, 'Static', 'Moving', 'input_3d.png')\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/1323121033.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  regtools.overlay_slices(static, resampled, None, 1, 'Static', 'Moving', 'input_3d.png')\nStatic image in red on top of the pre-aligned moving image (in green).\nWe want to find an invertible map that transforms the moving image into the static image. We will use the Cross-Correlation metric\nmetric = CCMetric(3)\nNow we define an instance of the registration class. The SyN algorithm uses a multi-resolution approach by building a Gaussian Pyramid. We instruct the registration object to perform at most \\([n_0, n_1, ..., n_k]\\) iterations at each level of the pyramid. The 0-th level corresponds to the finest resolution.\nlevel_iters = [10, 10, 5]\nsdr = SymmetricDiffeomorphicRegistration(metric, level_iters)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3938536297.py:2: UserWarning: Pass ['level_iters'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  sdr = SymmetricDiffeomorphicRegistration(metric, level_iters)\nExecute the optimization, which returns a DiffeomorphicMap object, that can be used to register images back and forth between the static and moving domains. We provide the pre-aligning matrix that brings the moving image closer to the static image\nmapping = sdr.optimize(static, moving, static_affine, moving_affine, pre_align)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3163846727.py:1: UserWarning: Pass ['static_grid2world', 'moving_grid2world', 'prealign'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  mapping = sdr.optimize(static, moving, static_affine, moving_affine, pre_align)\nNow let’s warp the moving image and see if it gets similar to the static image\nwarped_moving = mapping.transform(moving)\nWe plot the overlapped middle slices\nregtools.overlay_slices(static, warped_moving, None, 1, 'Static',\n                        'Warped moving', 'warped_moving.png')\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3710543132.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  regtools.overlay_slices(static, warped_moving, None, 1, 'Static',\nMoving image transformed under the (direct) transformation in green on top of the static image (in red).\nAnd we can also apply the inverse mapping to verify that the warped static image is similar to the moving image\nwarped_static = mapping.transform_inverse(static)\nregtools.overlay_slices(warped_static, moving, None, 1, 'Warped static',\n                        'Moving', 'warped_static.png')\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/992749723.py:2: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  regtools.overlay_slices(warped_static, moving, None, 1, 'Warped static',\nStatic image transformed under the (inverse) transformation in red on top of the moving image (in green). Note that the moving image has a lower resolution."
   },
   {
-    "objectID": "bme423/index.html#pruebas",
-    "href": "bme423/index.html#pruebas",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Pruebas",
-    "text": "Pruebas\n\nPrueba 1 (25%). 17 de abril.\nPrueba 2 (25%). 27 de mayo.\nPrueba 3 (25%). 10 de julio."
+    "objectID": "bme423/ejemplos/syn_registration_3d.html#references",
+    "href": "bme423/ejemplos/syn_registration_3d.html#references",
+    "title": "Symmetric Diffeomorphic Registration in 3D",
+    "section": "References",
+    "text": "References\n.. [Avants09] Avants, B. B., Epstein, C. L., Grossman, M., & Gee, J. C. (2009). Symmetric Diffeomorphic Image Registration with Cross-Correlation: Evaluating Automated Labeling of Elderly and Neurodegenerative Brain, 12(1), 26-41.\n.. [Avants11] Avants, B. B., Tustison, N., & Song, G. (2011). Advanced Normalization Tools (ANTS), 1-35."
   },
   {
-    "objectID": "bme423/index.html#laboratorios",
-    "href": "bme423/index.html#laboratorios",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Laboratorios",
-    "text": "Laboratorios\nSe realizarán 5 laboratorios. Las guías de laboratorio se publicarán en esta página."
+    "objectID": "bme423/evals/proyectos-bme423-2026.html",
+    "href": "bme423/evals/proyectos-bme423-2026.html",
+    "title": "BME423 - Proyectos 2026",
+    "section": "",
+    "text": "Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).\nLos temas son a elección de los estudiantes.\nSe puede trabajar en grupos de uno, dos o tres personas."
   },
   {
-    "objectID": "bme423/index.html#integridad-académica",
-    "href": "bme423/index.html#integridad-académica",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Integridad Académica",
-    "text": "Integridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio."
+    "objectID": "bme423/evals/proyectos-bme423-2026.html#definición-del-tema",
+    "href": "bme423/evals/proyectos-bme423-2026.html#definición-del-tema",
+    "title": "BME423 - Proyectos 2026",
+    "section": "1. Definición del tema",
+    "text": "1. Definición del tema\nLa entrega del tema de proyecto permite verificar que el trabajo tenga una dificultad adecuada y, si es necesario, ajustar su alcance para evitar proyectos demasiado simples o demasiado ambiciosos.\nEn la fecha indicada, debe entregar un documento en formato libre de máximo dos páginas vía Aula Virtual, que incluya:\n\nTítulo del proyecto.\nIntegrantes.\nDescripción del problema. Breve contexto del tema, explicado de forma simple y concreta. Por ejemplo:\n\n“Este trabajo se trata de la detección automática de (…) en base a datos de (…). En la literatura se han alcanzado desempeños de entre el 60–70% en Acc en el problema descrito”.\n\nObjetivo del trabajo. Enunciar claramente qué se busca lograr. Por ejemplo:\n\n“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.\n\n“Varios artículos que resuelven el problema descrito emplean el modelo X. Mi objetivo es evaluar el modelo Y y comparar los resultados obtenidos al usar el enfoque tradicional”.\n\n“No existen implementaciones disponibles públicamente del método propuesto en el artículo X. Mi objetivo es implementar dicho método y reproducir los resultados reportados”.\n\nPunto de partida. Indicar si existen implementaciones previas relacionadas o si el proyecto continúa un trabajo anterior (otra asignatura, tesis, etc.), explicando qué se hará de nuevo o diferente en este curso.\nDataset(s). Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos.\nArtículo(s) relacionado(s). Referencia a uno o más artículos directamente relacionados con el proyecto."
   },
   {
-    "objectID": "bme423/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
-    "href": "bme423/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Uso de Herramientas de Inteligencia Artificial (IA)",
-    "text": "Uso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso."
+    "objectID": "bme423/evals/proyectos-bme423-2026.html#entrega-parcial",
+    "href": "bme423/evals/proyectos-bme423-2026.html#entrega-parcial",
+    "title": "BME423 - Proyectos 2026",
+    "section": "2. Entrega parcial",
+    "text": "2. Entrega parcial\nLa entrega parcial tiene como objetivo mostrar el avance real del proyecto, comprobar que la dirección elegida es adecuada y permitir ajustes antes de la entrega final.\nEn la fecha indicada, cada grupo debe entregar un informe breve (3–5 páginas) vía Aula Virtual, que incluya al menos:\n\nVersión actualizada del problema y objetivo. Ajustar, si es necesario, la formulación inicial del problema y los objetivos, a partir de lo aprendido hasta ahora.\nDescripción de la solución propuesta. Explicar con mayor detalle el enfoque elegido (modelos, algoritmos, arquitectura, procedimientos, etc.), idealmente con diagramas o pseudocódigo donde sea útil.\nPlan de implementación. Resumen de lo implementado hasta la fecha y de lo que falta por hacer (módulos, componentes, tareas principales).\nDataset(s) y preprocesamiento. Describir los datos efectivamente utilizados hasta ahora, cómo se obtuvieron y qué preprocesamientos se han aplicado o se planea aplicar.\nPrimeros experimentos (si corresponde). Reportar experimentos preliminares, aunque sean simples o estén incompletos, junto con las métricas utilizadas.\nRiesgos y ajustes al plan. Indicar dificultades encontradas, riesgos detectados (por ejemplo, calidad de datos, tiempo, complejidad técnica) y cómo se adaptará el plan de trabajo para llegar a la entrega final.\nBibliografía actualizada. Lista de artículos y recursos relevantes que están guiando el proyecto hasta este punto (puede ampliarse luego en la entrega final)."
   },
   {
-    "objectID": "bme423/index.html#colaboración",
-    "href": "bme423/index.html#colaboración",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Colaboración",
-    "text": "Colaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo."
+    "objectID": "bme423/evals/proyectos-bme423-2026.html#entrega-final",
+    "href": "bme423/evals/proyectos-bme423-2026.html#entrega-final",
+    "title": "BME423 - Proyectos 2026",
+    "section": "3. Entrega final",
+    "text": "3. Entrega final\nLa entrega final reúne todos los productos del proyecto y se evalúa según la rúbrica.\nEl trabajo debe demostrar un desarrollo sistemático durante el semestre y un nivel de profundidad acorde a un proyecto BME423.\nCada grupo debe entregar:\n\nRepositorio en GitHub.\n\nMantener un repositorio en GitHub (compartido con el equipo docente).\nIncluir todo el código fuente del proyecto, archivos de configuración y, cuando corresponda, scripts para descargar y/o preparar los datos.\nIncluir un archivo README.md que contenga:\n\nUna descripción breve del proyecto.\nLos requisitos de software y las instrucciones para instalar dependencias.\nInstrucciones claras para ejecutar el proyecto y reproducir (al menos parte de) los experimentos.\n\nNo subir datasets pesados al repositorio; documentar en su lugar enlaces o instrucciones para obtenerlos.\n\nInforme escrito en LaTeX.\n\nEl informe debe redactarse en LaTeX y el código fuente del informe (.tex, .bib, figuras, etc.) debe almacenarse en una carpeta del repositorio (por ejemplo, report/).\nEl informe no debe incluir listados extensos de código del proyecto. Solo se permiten fragmentos breves a modo de ejemplo cuando aporten a la explicación.\nEl código completo se evaluará directamente en el repositorio de GitHub.\nEl PDF final del informe debe subirse al repositorio. En enlace al repositorio será entregado vía Aula Virtual.\nEl informe debe incluir, al menos:\n\nTítulo del proyecto y autores (nombre, apellido y carrera).\nResumen breve del trabajo.\nIntroducción y descripción del problema y de los datos utilizados.\nDescripción detallada de la solución propuesta e implementada.\nDescripción de la implementación (arquitectura, módulos principales, decisiones de diseño relevantes).\nMetodología experimental, métricas de desempeño y resultados obtenidos.\nAnálisis crítico de los resultados y, cuando corresponda, comparación con otros métodos.\nConclusiones y posibles extensiones o trabajo futuro.\nBibliografía relevante con citas en el texto (se recomienda usar BibTeX).\n\n\nPresentación presencial.\n\nDuración de 10–15 minutos.\nDebe explicar de forma clara:\n\nEl problema abordado.\nLa solución propuesta.\nLa implementación realizada.\nLos resultados y conclusiones principales.\n\nSe recomienda usar figuras y/o demos breves cuando sea posible.\n\nPresentación grabada.\n\nDuración máxima de 15 minutos.\nPuede ser una versión similar a la presentación presencial.\nNo subir el video directamente a Aula Virtual; incluir en el informe un enlace (por ejemplo, YouTube o Google Drive con permisos de acceso adecuados)."
   },
   {
-    "objectID": "bme423/index.html#uso-de-código-y-recursos-online",
-    "href": "bme423/index.html#uso-de-código-y-recursos-online",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Uso de código y recursos online",
-    "text": "Uso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente."
-  },
-  {
-    "objectID": "bme423/index.html#entregas-tardias",
-    "href": "bme423/index.html#entregas-tardias",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Entregas tardías",
-    "text": "Entregas tardías\nDispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera."
-  },
-  {
-    "objectID": "bme423/index.html#recalificaciones",
-    "href": "bme423/index.html#recalificaciones",
-    "title": "BME423 - Procesamiento de imágenes médicas",
-    "section": "Recalificaciones",
-    "text": "Recalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#objetivos",
-    "href": "bme423/evals/lab1.html#objetivos",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "objectID": "bme423/evals/lab2.html#objetivos",
+    "href": "bme423/evals/lab2.html#objetivos",
+    "title": "Mejora de imágenes y transformaciones geométricas",
     "section": "Objetivos",
-    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nFamiliarizarse con las bibliotecas NumPy, SciPy, y Matplotlib.\nFamiliarizarse con el manejo básico de imágenes digitales.\nFamiliarizarse con el estándar DICOM, utilizado para transmitir, almacenar, recuperar, imprimir, procesar y mostrar información relativa a las imágenes médicas.\nAprender a utilizar la biblioteca pydicom."
+    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nDiseñar, implementar y evaluar distintas opciones de mejora de la calidad de imágenes médicas mediante métricas cuantitativas.\nSeleccionar estrategias de procesamiento de imágenes producto del análisis de varios sujetos.\nComprender transformaciones geométricas y registro de imágenes."
   },
   {
-    "objectID": "bme423/evals/lab1.html#actividades",
-    "href": "bme423/evals/lab1.html#actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "Actividades",
-    "text": "Actividades\n\nTrabajo complementario (opcional)\nDICOM\nMejora de contraste\nFiltrado espacial\nVisualización de mapas de activación\nInstrucciones para la entrega"
+    "objectID": "bme423/evals/lab2.html#datos",
+    "href": "bme423/evals/lab2.html#datos",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Datos",
+    "text": "Datos\nSe trabajará con datos de pacientes que sufren esclerosis múltiple: Open MS data\n\n\n\n\n\nPaciente 4 - Anatomía, slice 312\n\n\n\n\n\n\nPaciente 4 - Anatomía + Gold Standard, slice 312"
   },
   {
-    "objectID": "bme423/evals/lab1.html#trabajo-complementario-1",
-    "href": "bme423/evals/lab1.html#trabajo-complementario-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "1. Trabajo complementario",
-    "text": "1. Trabajo complementario\n\nInstale la plataforma de desarrollo Anaconda, disponible de forma gratuita en LINK. También puede usar Google Colab o Visual Studio Code.\nEstudie y haga los ejercicios de las siguientes secciones del documento “Scipy Lecture Notes”:\n\nSección 1.4. NumPy: creating and manipulating numerical data.\nSección 1.5. Matplotlib: plotting.\nSecciones 1.6.1, 1.6.3, 1.6.5, 1.6.6 y 1.6.10. Scipy : high-level scientific computing."
+    "objectID": "bme423/evals/lab2.html#actividad-1",
+    "href": "bme423/evals/lab2.html#actividad-1",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Actividad 1",
+    "text": "Actividad 1\nImplementar y comparar el filtro de difusión anisotrópica en 2D y 3D y aplicarlo a uno de los pacientes (sin el uso de librerías)."
   },
   {
-    "objectID": "bme423/evals/lab1.html#trabajo-complementario-2",
-    "href": "bme423/evals/lab1.html#trabajo-complementario-2",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "1. Trabajo complementario",
-    "text": "1. Trabajo complementario\n\nLeer el siguiente material de referencia:\n\nWhy Does the DICOM Standard Exist?\nParte 1 “Introduction and Overview” del estándar DICOM.\nDocumentación de la biblioteca PyDicom."
+    "objectID": "bme423/evals/lab2.html#actividad-2",
+    "href": "bme423/evals/lab2.html#actividad-2",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Actividad 2",
+    "text": "Actividad 2\n\nImplemente las transformaciones geométricas vistas en clases para hacer el registro entre dos pacientes. Elija los mejores parámetros de las transformaciones usando una función de costos apropiada. Nota: no se permite el uso de librerías específicas de proc. de imágenes.\nHaga el registro mediante el uso de librerías. Explique."
   },
   {
-    "objectID": "bme423/evals/lab1.html#dicom-1",
-    "href": "bme423/evals/lab1.html#dicom-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "2. DICOM",
-    "text": "2. DICOM\n\nSe trabajará con dos conjunto de datos.\n\ndata1: imágenes de CT de distintos pacientes.\ndata2: Imágenes de CT de cortes de un mismo paciente.\n\nLos datos están disponibles en Github.\n\n!git clone https://github.com/aavelozb/bme423-data.git\n!unzip bme423-data/data1.zip -d bme423-data/\n!unzip bme423-data/data2.zip -d bme423-data/"
+    "objectID": "bme423/evals/lab2.html#actividad-3",
+    "href": "bme423/evals/lab2.html#actividad-3",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Actividad 3",
+    "text": "Actividad 3\n\nDiseñar e implementar tres pipelines combinando operaciones vistas en clases con el propósito de mejorar la calidad de las imágenes disponibles. Incluir en alguno FFT, difusión.\nComparar cuantitativamente estos pipelines.\n\nSe puede usar librerías, como scikit-image, simpleITK, etc., para la convolución, FFT 2D y difusión anisotrópica.\nDebe considerar la adecuada selección de parámetros de las diferentes técnicas de filtrado.\nDebe considerar las particularidades propias de la esclerosis múltiple."
   },
   {
-    "objectID": "bme423/evals/lab1.html#dicom---actividades",
-    "href": "bme423/evals/lab1.html#dicom---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "2. DICOM - actividades",
-    "text": "2. DICOM - actividades\n\nDesarrolle un programa que genere un archivo CSV con los nombres y fechas de nacimiento de los pacientes de las imágenes contenidas en el directorio data1.\nDesarrolle un programa que muestre en una sola figura todas las imágenes del directorio data1. Cada imagen debe estar identificada por el nombre del paciente.\nDesarrolle un programa que anonimice todas las imágenes del directorio data1.\nImplemente un programa que permita visualizar un corte coronal y sagital de las imágenes del directorio data2."
+    "objectID": "bme423/evals/lab2.html#instrucciones-para-la-entrega",
+    "href": "bme423/evals/lab2.html#instrucciones-para-la-entrega",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Instrucciones para la entrega",
+    "text": "Instrucciones para la entrega\n\napellido_nombre_l2.ipynb y apellido_nombre_l2.pdf\nMedio: Aula virtual\nLas versiones .pdf en las entregas corresponden a los archivos .ipynb con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
   },
   {
-    "objectID": "bme423/evals/lab1.html#dicom---actividades-1",
-    "href": "bme423/evals/lab1.html#dicom---actividades-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "2. DICOM - actividades",
-    "text": "2. DICOM - actividades\n\nImplemente un programa que permita visualizar un corte oblicuo coronal-sagital de las imágenes del directorio data2.\nEl proceso de downsampling consiste en re-muestrear una imagen. La forma más simple de realizar este proceso es conservar uno de cada \\(n \\in \\mathbb{N}\\) píxeles de la imagen.\n\n\nRealice el proceso de downsampling de la imagen p5.dcm, conservando uno de cada 2, 3 y 4 píxeles.\nMuestre la imagen original y las de tamaño reducido. Analice las diferencias entre éstas."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#dicom---actividades-2",
-    "href": "bme423/evals/lab1.html#dicom---actividades-2",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "2. DICOM - actividades",
-    "text": "2. DICOM - actividades\n\nVisualice las imágenes del directorio data2 usando widgets de Matplotlib, o ipywidgets."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#contraste---actividades",
-    "href": "bme423/evals/lab1.html#contraste---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "3. Contraste - actividades",
-    "text": "3. Contraste - actividades\n\nAgregue opciones a un widget para aplicar operaciones de mejora de contraste, en base a la transformación \\(\\gamma\\) (Ec. 3.2-3, sección 3.2.3, página 110) y usando una función de transformación definida por tramos (Figura 3.10(a), página 116).\nGenere situaciones que permitan apreciar en qué situaciones el contraste mejora, versus cuándo empeora. Se recomienda usar los histogramas de las imágenes resultantes, junto a los histogramas de las imágenes de entrada para su explicación."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#contraste---actividades-1",
-    "href": "bme423/evals/lab1.html#contraste---actividades-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "3. Contraste - actividades",
-    "text": "3. Contraste - actividades\n\nImplemente la ecualización (Ec. 3.3-8, página 126) y especificación de histogramas (Ec. 3.3-12, página 130). Explique los resultados (no es necesario usar widgets)."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades",
-    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "4. Filtrado espacial - actividades",
-    "text": "4. Filtrado espacial - actividades\n\nImplemente la operación de convolución (sección 3.4.2, página 148, ecuación 3.4-1).\nUsando su implementación de la convolución:\n\n\nImplemente los filtros de suavizado, incluyendo el filtro Gaussiano, (sección 3.5.1, página 152) y agudizado (sección 3.6, página 157).\nAplique estos filtros al volumen de CT de una misma persona (data2). Aplique la convolución en 2D y luego en 3D.\nCompare con el resultado obtenido usando la función \\(\\texttt{scipy.ndimage.convolve}\\) (para un filtro)."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#section",
-    "href": "bme423/evals/lab1.html#section",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "objectID": "bme423/evals/lab4-old.html",
+    "href": "bme423/evals/lab4-old.html",
+    "title": "Laboratorio 4",
     "section": "",
-    "text": "Ayuda: La siguiente sentencia permite construir la versión rellenada con ceros de la imagen:\npad_len = (mask.shape[0] - 1) // 2\nimg_padded = np.pad(img, ((pad_len, pad_len), (pad_len, pad_len)),\n                    'constant', constant_values=0)\ndonde \\(\\texttt{mask}\\) contiene la máscara del filtro (se asume que es cuadrada, con largo impar), e \\(\\texttt{img}\\) es la imagen original."
+    "text": "Implementar e evaluar el desempeño de una red neuronal U-net en el problema de segmentación de esclerosis múltiple.\nImplementar un programa que permita hacer la detección de objetos en imágenes usando modelos preentrenados. Ejemplo:"
   },
   {
-    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-1",
-    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "4. Filtrado espacial - actividades",
-    "text": "4. Filtrado espacial - actividades\n\nAplique los filtros de suavizado, filtros de agudizado y operaciones de mejora de contraste de manera combinada en la imagen xray.dcm.\n\n\nExplique la pertinencia de los pasos aplicados y cuantifique la mejora en la calidad de la imagen a medida que aplica los pasos considerados.\nUse el ejemplo de la sección 3.7 (pág. 169) como inspiración.\n\n\nResuelva el mismo problema de la pregunta anterior para el caso 3D con el volumen data2."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-2",
-    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-2",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "4. Filtrado espacial - actividades",
-    "text": "4. Filtrado espacial - actividades\nNota: La operación de convolución, los filtros, y los métodos de mejora de contraste debe implementarlos Ud., sin utilizar librerías específicas de procesamiento de imágenes."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#visualización-de-mapas-de-activación---actividades",
-    "href": "bme423/evals/lab1.html#visualización-de-mapas-de-activación---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "5. Visualización de mapas de activación - actividades",
-    "text": "5. Visualización de mapas de activación - actividades\n\nDesarrolle un programa que permita visualizar un mapa como el siguiente:\n\n\n\n\n\n\nDispone de los archivos anat.nii, zmap_voice.nii.gz y zmap_nonvoice.nii.gz.\nNote que los archivos están en formato .nii, los cuales pueden ser leídos usando la librería \\(\\texttt{nibabel}\\)."
-  },
-  {
-    "objectID": "bme423/evals/lab1.html#entrega",
-    "href": "bme423/evals/lab1.html#entrega",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "Entrega",
-    "text": "Entrega\napellido_nombre_l1.ipynb y apellido_nombre_l1.pdf\nLas versiones \\(\\texttt{.pdf}\\) en las entregas corresponden a los archivos \\(\\texttt{.ipynb}\\) con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
+    "objectID": "bme423/evals/lab4-old.html#instrucciones-para-la-entrega.",
+    "href": "bme423/evals/lab4-old.html#instrucciones-para-la-entrega.",
+    "title": "Laboratorio 4",
+    "section": "Instrucciones para la entrega.",
+    "text": "Instrucciones para la entrega.\n\nSe puede trabajar en grupos de 2 personas máximo.\nEn la fecha correspondiente debe un jupyter por cada pregunta con las soluciones de los ejercicios propuestos. Exporte los jupyter notebooks al formato pdf con las salidas de las celdas visibles.\nLos archivos debe tener nombres con la estructura apellido1_apellido2_ej1_lab4.ipynb y apellido1_apellido2_ej1_lab4.pdf. Dentro del jupyter debe indicar nombre y apellido de los integrantes del grupo.\nNo respetar estas instrucciones significarán una penalización en su nota de 10 puntos."
   },
   {
     "objectID": "bambinos/corazon.html#posizione-e-dimensione-del-cuore",
@@ -854,46 +777,312 @@
     "text": "Projects\n\n2025–2026. FONDEF IT23I0040, “MamAI-dens: Inteligencia Artificial chilena para la categorización automática de la densidad mamaria”.\n2024–2026. FONDEF ID23I10253, “Desarrollo de un modelo de análisis de las conductas de adherencia terapéutica basado en IA para la atención primaria de salud”.\n2023–2026. FONDECYT 1231132, “Novel EEG topography analysis using graph signal processing and network control theory”. (Role: Co-R)\n2023–2026. FONDECYT 1231268, “A physics-informed neural network framework for robust and precise estimation of the brain hemodynamic response function in Functional Magnetic Resonance Imaging at low magnetic field”. (Role: Co-R)\n2020–2023. FONDECYT iniciación 11201046, “Data-driven Fuzzy Hemodynamic Response Model for Functional MRI”. (Role: PI)\n2018–2020. FONDEF ID18I10212, “Seniors Guardian: Plataforma de seguimiento no intrusivo de las actividades básicas e instrumentales de la vida diaria de los adultos mayores”.\n2017–2020, FONIS SA17I0124, “Evaluación del uso de resonancia magnética funcional en el mapeo cerebral cortical en pacientes portadores de gliomas de bajo grado”.\n2014–2016. FONDEF IT13/20060 nImI, “Blood Pressure estimates”.\n2013–2016. DIUV 64/2011, “Identificación de parámetros espacio-temporales en imágenes médicas funcionales”. (Role: PI)\n2011–2013. FONDECYT 1110854, “Ensemble of Machine Learning-based Local Estimators for High Frequency Time Series Forecasting”. (Role: research assistant)\n2010–2012. DIPUV 46/2009, “Detección robusta de la activación cerebral en imágenes de Resonancia Magnética Funcional mediante ensamblado de Redes Neuronales Artificiales”.\n2009–2011. DIPUV 37/2008, “Modelo neuro-difuso con aprendizaje robusto e incremental para la detección de Potenciales Evocados en Interfaces Cerebro-Computador”.\n2008–2010. STIC-AMSUD 09STIC01, “Robust single-trial evoked potential detection for brain-computer interfaces using computational intelligence techniques”. (Role: collaborator)\n2008–2009. FONDECYT 1070220, “Ensemble learning strategies for high-dimensional and non-stationary data”. (Role: research assistant)\n2007–2009. Servicio de Neurocirugía del Hospital Carlos Van Buren de Valparaíso, “Diseño e implementación de un software de fusión de imágenes de TAC, MRI y atlas de Talairach para planificación de cirugías funcionales y estereotáxicas de cerebro”. (Role: research assistant)\n2007–2008. FONDECYT 1061201, “Desarrollo de modelos de Arquitecturas Flexibles de Redes Neuronales Artificiales que aprenden bajo ambientes cambiantes en el tiempo”. (Role: research assistant)."
   },
   {
-    "objectID": "bme423/evals/proyectos-bme423-2026.html",
-    "href": "bme423/evals/proyectos-bme423-2026.html",
-    "title": "BME423 - Proyectos 2026",
+    "objectID": "bme423/evals/lab1.html#objetivos",
+    "href": "bme423/evals/lab1.html#objetivos",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Objetivos",
+    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nFamiliarizarse con las bibliotecas NumPy, SciPy, y Matplotlib.\nFamiliarizarse con el manejo básico de imágenes digitales.\nFamiliarizarse con el estándar DICOM, utilizado para transmitir, almacenar, recuperar, imprimir, procesar y mostrar información relativa a las imágenes médicas.\nAprender a utilizar la biblioteca pydicom."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#actividades",
+    "href": "bme423/evals/lab1.html#actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Actividades",
+    "text": "Actividades\n\nTrabajo complementario (opcional)\nDICOM\nMejora de contraste\nFiltrado espacial\nVisualización de mapas de activación\nInstrucciones para la entrega"
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#trabajo-complementario-1",
+    "href": "bme423/evals/lab1.html#trabajo-complementario-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "1. Trabajo complementario",
+    "text": "1. Trabajo complementario\n\nInstale la plataforma de desarrollo Anaconda, disponible de forma gratuita en LINK. También puede usar Google Colab o Visual Studio Code.\nEstudie y haga los ejercicios de las siguientes secciones del documento “Scipy Lecture Notes”:\n\nSección 1.4. NumPy: creating and manipulating numerical data.\nSección 1.5. Matplotlib: plotting.\nSecciones 1.6.1, 1.6.3, 1.6.5, 1.6.6 y 1.6.10. Scipy : high-level scientific computing."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#trabajo-complementario-2",
+    "href": "bme423/evals/lab1.html#trabajo-complementario-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "1. Trabajo complementario",
+    "text": "1. Trabajo complementario\n\nLeer el siguiente material de referencia:\n\nWhy Does the DICOM Standard Exist?\nParte 1 “Introduction and Overview” del estándar DICOM.\nDocumentación de la biblioteca PyDicom."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom-1",
+    "href": "bme423/evals/lab1.html#dicom-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM",
+    "text": "2. DICOM\n\nSe trabajará con dos conjunto de datos.\n\ndata1: imágenes de CT de distintos pacientes.\ndata2: Imágenes de CT de cortes de un mismo paciente.\n\nLos datos están disponibles en Github.\n\n!git clone https://github.com/aavelozb/bme423-data.git\n!unzip bme423-data/data1.zip -d bme423-data/\n!unzip bme423-data/data2.zip -d bme423-data/"
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades",
+    "href": "bme423/evals/lab1.html#dicom---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nDesarrolle un programa que genere un archivo CSV con los nombres y fechas de nacimiento de los pacientes de las imágenes contenidas en el directorio data1.\nDesarrolle un programa que muestre en una sola figura todas las imágenes del directorio data1. Cada imagen debe estar identificada por el nombre del paciente.\nDesarrolle un programa que anonimice todas las imágenes del directorio data1.\nImplemente un programa que permita visualizar un corte coronal y sagital de las imágenes del directorio data2."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-1",
+    "href": "bme423/evals/lab1.html#dicom---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nImplemente un programa que permita visualizar un corte oblicuo coronal-sagital de las imágenes del directorio data2.\nEl proceso de downsampling consiste en re-muestrear una imagen. La forma más simple de realizar este proceso es conservar uno de cada \\(n \\in \\mathbb{N}\\) píxeles de la imagen.\n\n\nRealice el proceso de downsampling de la imagen p5.dcm, conservando uno de cada 2, 3 y 4 píxeles.\nMuestre la imagen original y las de tamaño reducido. Analice las diferencias entre éstas."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-2",
+    "href": "bme423/evals/lab1.html#dicom---actividades-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nVisualice las imágenes del directorio data2 usando widgets de Matplotlib, o ipywidgets."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#contraste---actividades",
+    "href": "bme423/evals/lab1.html#contraste---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "3. Contraste - actividades",
+    "text": "3. Contraste - actividades\n\nAgregue opciones a un widget para aplicar operaciones de mejora de contraste, en base a la transformación \\(\\gamma\\) (Ec. 3.2-3, sección 3.2.3, página 110) y usando una función de transformación definida por tramos (Figura 3.10(a), página 116).\nGenere situaciones que permitan apreciar en qué situaciones el contraste mejora, versus cuándo empeora. Se recomienda usar los histogramas de las imágenes resultantes, junto a los histogramas de las imágenes de entrada para su explicación."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#contraste---actividades-1",
+    "href": "bme423/evals/lab1.html#contraste---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "3. Contraste - actividades",
+    "text": "3. Contraste - actividades\n\nImplemente la ecualización (Ec. 3.3-8, página 126) y especificación de histogramas (Ec. 3.3-12, página 130). Explique los resultados (no es necesario usar widgets)."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\n\nImplemente la operación de convolución (sección 3.4.2, página 148, ecuación 3.4-1).\nUsando su implementación de la convolución:\n\n\nImplemente los filtros de suavizado, incluyendo el filtro Gaussiano, (sección 3.5.1, página 152) y agudizado (sección 3.6, página 157).\nAplique estos filtros al volumen de CT de una misma persona (data2). Aplique la convolución en 2D y luego en 3D.\nCompare con el resultado obtenido usando la función \\(\\texttt{scipy.ndimage.convolve}\\) (para un filtro)."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#section",
+    "href": "bme423/evals/lab1.html#section",
+    "title": "Manipulación de imágenes, DICOM y color",
     "section": "",
-    "text": "Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).\nLos temas son a elección de los estudiantes.\nSe puede trabajar en grupos de uno, dos o tres personas."
+    "text": "Ayuda: La siguiente sentencia permite construir la versión rellenada con ceros de la imagen:\npad_len = (mask.shape[0] - 1) // 2\nimg_padded = np.pad(img, ((pad_len, pad_len), (pad_len, pad_len)),\n                    'constant', constant_values=0)\ndonde \\(\\texttt{mask}\\) contiene la máscara del filtro (se asume que es cuadrada, con largo impar), e \\(\\texttt{img}\\) es la imagen original."
   },
   {
-    "objectID": "bme423/evals/proyectos-bme423-2026.html#definición-del-tema",
-    "href": "bme423/evals/proyectos-bme423-2026.html#definición-del-tema",
-    "title": "BME423 - Proyectos 2026",
-    "section": "1. Definición del tema",
-    "text": "1. Definición del tema\nLa entrega del tema de proyecto permite verificar que el trabajo tenga una dificultad adecuada y, si es necesario, ajustar su alcance para evitar proyectos demasiado simples o demasiado ambiciosos.\nEn la fecha indicada, debe entregar un documento en formato libre de máximo dos páginas vía Aula Virtual, que incluya:\n\nTítulo del proyecto.\nIntegrantes.\nDescripción del problema. Breve contexto del tema, explicado de forma simple y concreta. Por ejemplo:\n\n“Este trabajo se trata de la detección automática de (…) en base a datos de (…). En la literatura se han alcanzado desempeños de entre el 60–70% en Acc en el problema descrito”.\n\nObjetivo del trabajo. Enunciar claramente qué se busca lograr. Por ejemplo:\n\n“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.\n\n“Varios artículos que resuelven el problema descrito emplean el modelo X. Mi objetivo es evaluar el modelo Y y comparar los resultados obtenidos al usar el enfoque tradicional”.\n\n“No existen implementaciones disponibles públicamente del método propuesto en el artículo X. Mi objetivo es implementar dicho método y reproducir los resultados reportados”.\n\nPunto de partida. Indicar si existen implementaciones previas relacionadas o si el proyecto continúa un trabajo anterior (otra asignatura, tesis, etc.), explicando qué se hará de nuevo o diferente en este curso.\nDataset(s). Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos.\nArtículo(s) relacionado(s). Referencia a uno o más artículos directamente relacionados con el proyecto."
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-1",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\n\nAplique los filtros de suavizado, filtros de agudizado y operaciones de mejora de contraste de manera combinada en la imagen xray.dcm.\n\n\nExplique la pertinencia de los pasos aplicados y cuantifique la mejora en la calidad de la imagen a medida que aplica los pasos considerados.\nUse el ejemplo de la sección 3.7 (pág. 169) como inspiración.\n\n\nResuelva el mismo problema de la pregunta anterior para el caso 3D con el volumen data2."
   },
   {
-    "objectID": "bme423/evals/proyectos-bme423-2026.html#entrega-parcial",
-    "href": "bme423/evals/proyectos-bme423-2026.html#entrega-parcial",
-    "title": "BME423 - Proyectos 2026",
-    "section": "2. Entrega parcial",
-    "text": "2. Entrega parcial\nLa entrega parcial tiene como objetivo mostrar el avance real del proyecto, comprobar que la dirección elegida es adecuada y permitir ajustes antes de la entrega final.\nEn la fecha indicada, cada grupo debe entregar un informe breve (3–5 páginas) vía Aula Virtual, que incluya al menos:\n\nVersión actualizada del problema y objetivo. Ajustar, si es necesario, la formulación inicial del problema y los objetivos, a partir de lo aprendido hasta ahora.\nDescripción de la solución propuesta. Explicar con mayor detalle el enfoque elegido (modelos, algoritmos, arquitectura, procedimientos, etc.), idealmente con diagramas o pseudocódigo donde sea útil.\nPlan de implementación. Resumen de lo implementado hasta la fecha y de lo que falta por hacer (módulos, componentes, tareas principales).\nDataset(s) y preprocesamiento. Describir los datos efectivamente utilizados hasta ahora, cómo se obtuvieron y qué preprocesamientos se han aplicado o se planea aplicar.\nPrimeros experimentos (si corresponde). Reportar experimentos preliminares, aunque sean simples o estén incompletos, junto con las métricas utilizadas.\nRiesgos y ajustes al plan. Indicar dificultades encontradas, riesgos detectados (por ejemplo, calidad de datos, tiempo, complejidad técnica) y cómo se adaptará el plan de trabajo para llegar a la entrega final.\nBibliografía actualizada. Lista de artículos y recursos relevantes que están guiando el proyecto hasta este punto (puede ampliarse luego en la entrega final)."
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-2",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\nNota: La operación de convolución, los filtros, y los métodos de mejora de contraste debe implementarlos Ud., sin utilizar librerías específicas de procesamiento de imágenes."
   },
   {
-    "objectID": "bme423/evals/proyectos-bme423-2026.html#entrega-final",
-    "href": "bme423/evals/proyectos-bme423-2026.html#entrega-final",
-    "title": "BME423 - Proyectos 2026",
-    "section": "3. Entrega final",
-    "text": "3. Entrega final\nLa entrega final reúne todos los productos del proyecto y se evalúa según la rúbrica.\nEl trabajo debe demostrar un desarrollo sistemático durante el semestre y un nivel de profundidad acorde a un proyecto BME423.\nCada grupo debe entregar:\n\nRepositorio en GitHub.\n\nMantener un repositorio en GitHub (compartido con el equipo docente).\nIncluir todo el código fuente del proyecto, archivos de configuración y, cuando corresponda, scripts para descargar y/o preparar los datos.\nIncluir un archivo README.md que contenga:\n\nUna descripción breve del proyecto.\nLos requisitos de software y las instrucciones para instalar dependencias.\nInstrucciones claras para ejecutar el proyecto y reproducir (al menos parte de) los experimentos.\n\nNo subir datasets pesados al repositorio; documentar en su lugar enlaces o instrucciones para obtenerlos.\n\nInforme escrito en LaTeX.\n\nEl informe debe redactarse en LaTeX y el código fuente del informe (.tex, .bib, figuras, etc.) debe almacenarse en una carpeta del repositorio (por ejemplo, report/).\nEl informe no debe incluir listados extensos de código del proyecto. Solo se permiten fragmentos breves a modo de ejemplo cuando aporten a la explicación.\nEl código completo se evaluará directamente en el repositorio de GitHub.\nEl PDF final del informe debe subirse al repositorio. En enlace al repositorio será entregado vía Aula Virtual.\nEl informe debe incluir, al menos:\n\nTítulo del proyecto y autores (nombre, apellido y carrera).\nResumen breve del trabajo.\nIntroducción y descripción del problema y de los datos utilizados.\nDescripción detallada de la solución propuesta e implementada.\nDescripción de la implementación (arquitectura, módulos principales, decisiones de diseño relevantes).\nMetodología experimental, métricas de desempeño y resultados obtenidos.\nAnálisis crítico de los resultados y, cuando corresponda, comparación con otros métodos.\nConclusiones y posibles extensiones o trabajo futuro.\nBibliografía relevante con citas en el texto (se recomienda usar BibTeX).\n\n\nPresentación presencial.\n\nDuración de 10–15 minutos.\nDebe explicar de forma clara:\n\nEl problema abordado.\nLa solución propuesta.\nLa implementación realizada.\nLos resultados y conclusiones principales.\n\nSe recomienda usar figuras y/o demos breves cuando sea posible.\n\nPresentación grabada.\n\nDuración máxima de 15 minutos.\nPuede ser una versión similar a la presentación presencial.\nNo subir el video directamente a Aula Virtual; incluir en el informe un enlace (por ejemplo, YouTube o Google Drive con permisos de acceso adecuados)."
+    "objectID": "bme423/evals/lab1.html#visualización-de-mapas-de-activación---actividades",
+    "href": "bme423/evals/lab1.html#visualización-de-mapas-de-activación---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "5. Visualización de mapas de activación - actividades",
+    "text": "5. Visualización de mapas de activación - actividades\n\nDesarrolle un programa que permita visualizar un mapa como el siguiente:\n\n\n\n\n\n\nDispone de los archivos anat.nii, zmap_voice.nii.gz y zmap_nonvoice.nii.gz.\nNote que los archivos están en formato .nii, los cuales pueden ser leídos usando la librería \\(\\texttt{nibabel}\\)."
   },
   {
-    "objectID": "bme423/ejemplos/syn_registration_3d.html",
-    "href": "bme423/ejemplos/syn_registration_3d.html",
-    "title": "Symmetric Diffeomorphic Registration in 3D",
+    "objectID": "bme423/evals/lab1.html#entrega",
+    "href": "bme423/evals/lab1.html#entrega",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Entrega",
+    "text": "Entrega\napellido_nombre_l1.ipynb y apellido_nombre_l1.pdf\nLas versiones \\(\\texttt{.pdf}\\) en las entregas corresponden a los archivos \\(\\texttt{.ipynb}\\) con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
+  },
+  {
+    "objectID": "bme423/evals/lab3-old.html#objetivos",
+    "href": "bme423/evals/lab3-old.html#objetivos",
+    "title": "Segmentación de imágenes",
+    "section": "Objetivos",
+    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nImplementar workflows que permitan segmentar estructuras de interés en imágenes médicas usando diferentes algoritmos.\nComparar distintas segmentaciones mediante métricas cuantitativas.\nAnalizar resultados en varios sujetos."
+  },
+  {
+    "objectID": "bme423/evals/lab3-old.html#datos",
+    "href": "bme423/evals/lab3-old.html#datos",
+    "title": "Segmentación de imágenes",
+    "section": "Datos",
+    "text": "Datos\nSe trabajará con datos de pacientes que sufren esclerosis múltiple: Open MS data"
+  },
+  {
+    "objectID": "bme423/evals/lab3-old.html#datos-1",
+    "href": "bme423/evals/lab3-old.html#datos-1",
+    "title": "Segmentación de imágenes",
+    "section": "Datos",
+    "text": "Datos\n\n\nPaciente 4 - Anatomía, slice 312\n\n\nPaciente 4 - Anatomía + Gold Standard, slice 312"
+  },
+  {
+    "objectID": "bme423/evals/lab3-old.html#actividad",
+    "href": "bme423/evals/lab3-old.html#actividad",
+    "title": "Segmentación de imágenes",
+    "section": "Actividad",
+    "text": "Actividad\n\nDesarrolle workflows para la segmentación de esclerosis múltiple usando los algoritmos: k-means, fuzzy k-means, mezclas gaussianas mediante EM y crecimiento de regiones (region growing).\nTodos los workflows deben considerar mejoras de contraste y filtros adecuados. Esta etapa puede ser común para todos los workflows.\nMejore los resultados obtenidos usando un MRF.\nCompare cuantitativamente los distintos workflows implementados. Analice los resultados."
+  },
+  {
+    "objectID": "bme423/evals/lab3-old.html#section",
+    "href": "bme423/evals/lab3-old.html#section",
+    "title": "Segmentación de imágenes",
     "section": "",
-    "text": "!pip install dipy\n!pip install -U fury\n%matplotlib inline\nThis example explains how to register 3D volumes using the Symmetric Normalization (SyN) algorithm proposed by Avants et al. [Avants09] (also implemented in the ANTs software [Avants11])\nWe will register two 3D volumes from the same modality using SyN with the Cross -Correlation (CC) metric.\nimport numpy as np\nfrom dipy.align.imwarp import SymmetricDiffeomorphicRegistration\nfrom dipy.align.metrics import CCMetric\nfrom dipy.data import get_fnames\nfrom dipy.io.image import load_nifti\nfrom dipy.viz import regtools\nLet’s fetch two b0 volumes, the first one will be the b0 from the Stanford HARDI dataset\nhardi_fname, hardi_bval_fname, hardi_bvec_fname = get_fnames('stanford_hardi')\n\nstanford_b0, stanford_b0_affine = load_nifti(hardi_fname)\nstanford_b0 = np.squeeze(stanford_b0)[..., 0]\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3519930129.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  hardi_fname, hardi_bval_fname, hardi_bvec_fname = get_fnames('stanford_hardi')\nThe second one will be the same b0 we used for the 2D registration tutorial\nt1_fname, b0_fname = get_fnames('syn_data')\nsyn_b0, syn_b0_affine = load_nifti(b0_fname)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3656412170.py:1: UserWarning: Pass ['name'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  t1_fname, b0_fname = get_fnames('syn_data')\nWe first remove the skull from the b0’s\nfrom dipy.segment.mask import median_otsu\nstanford_b0_masked, stanford_b0_mask = median_otsu(stanford_b0,\n                                                   median_radius=4,\n                                                   numpass=4)\nsyn_b0_masked, syn_b0_mask = median_otsu(syn_b0, median_radius=4, numpass=4)\n\nstatic = stanford_b0_masked\nstatic_affine = stanford_b0_affine\nmoving = syn_b0_masked\nmoving_affine = syn_b0_affine\nSuppose we have already done a linear registration to roughly align the two images\npre_align = np.array([[1.02783543e+00, -4.83019053e-02, -6.07735639e-02, -2.57654118e+00],\n                      [4.34051706e-03, 9.41918267e-01, -2.66525861e-01, 3.23579799e+01],\n                      [5.34288908e-02, 2.90262026e-01, 9.80820307e-01, -1.46216651e+01],\n                      [0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 1.00000000e+00]])\nAs we did in the 2D example, we would like to visualize (some slices of) the two volumes by overlapping them over two channels of a color image. To do that we need them to be sampled on the same grid, so let’s first re-sample the moving image on the static grid. We create an AffineMap to transform the moving image towards the static image\nfrom dipy.align.imaffine import AffineMap\naffine_map = AffineMap(pre_align,\n                       static.shape, static_affine,\n                       moving.shape, moving_affine)\n\nresampled = affine_map.transform(moving)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/2104462567.py:2: UserWarning: Pass ['domain_grid_shape', 'domain_grid2world', 'codomain_grid_shape', 'codomain_grid2world'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  affine_map = AffineMap(pre_align,\nplot the overlapped middle slices of the volumes\nregtools.overlay_slices(static, resampled, None, 1, 'Static', 'Moving', 'input_3d.png')\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/1323121033.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  regtools.overlay_slices(static, resampled, None, 1, 'Static', 'Moving', 'input_3d.png')\nStatic image in red on top of the pre-aligned moving image (in green).\nWe want to find an invertible map that transforms the moving image into the static image. We will use the Cross-Correlation metric\nmetric = CCMetric(3)\nNow we define an instance of the registration class. The SyN algorithm uses a multi-resolution approach by building a Gaussian Pyramid. We instruct the registration object to perform at most \\([n_0, n_1, ..., n_k]\\) iterations at each level of the pyramid. The 0-th level corresponds to the finest resolution.\nlevel_iters = [10, 10, 5]\nsdr = SymmetricDiffeomorphicRegistration(metric, level_iters)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3938536297.py:2: UserWarning: Pass ['level_iters'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  sdr = SymmetricDiffeomorphicRegistration(metric, level_iters)\nExecute the optimization, which returns a DiffeomorphicMap object, that can be used to register images back and forth between the static and moving domains. We provide the pre-aligning matrix that brings the moving image closer to the static image\nmapping = sdr.optimize(static, moving, static_affine, moving_affine, pre_align)\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3163846727.py:1: UserWarning: Pass ['static_grid2world', 'moving_grid2world', 'prealign'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  mapping = sdr.optimize(static, moving, static_affine, moving_affine, pre_align)\nNow let’s warp the moving image and see if it gets similar to the static image\nwarped_moving = mapping.transform(moving)\nWe plot the overlapped middle slices\nregtools.overlay_slices(static, warped_moving, None, 1, 'Static',\n                        'Warped moving', 'warped_moving.png')\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/3710543132.py:1: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  regtools.overlay_slices(static, warped_moving, None, 1, 'Static',\nMoving image transformed under the (direct) transformation in green on top of the static image (in red).\nAnd we can also apply the inverse mapping to verify that the warped static image is similar to the moving image\nwarped_static = mapping.transform_inverse(static)\nregtools.overlay_slices(warped_static, moving, None, 1, 'Warped static',\n                        'Moving', 'warped_static.png')\n\n/var/folders/rk/r2pzgyrs5131skw99t_c531c0000gn/T/ipykernel_7229/992749723.py:2: UserWarning: Pass ['slice_index', 'slice_type', 'ltitle', 'rtitle', 'fname'] as keyword args. From version 2.0.0 passing these as positional arguments will result in an error. \n  regtools.overlay_slices(warped_static, moving, None, 1, 'Warped static',\nStatic image transformed under the (inverse) transformation in red on top of the moving image (in green). Note that the moving image has a lower resolution."
+    "text": "Nota:\n\nPuede emplear las librerías que considere pertinentes para el desarrollo de los workflows. Explique el funcionamiento de todas las funciones utilizadas.\nEs necesario analizar el efecto de los principales parámetros de cada técnica de segmentación para una correcta comparación cuantitativa."
   },
   {
-    "objectID": "bme423/ejemplos/syn_registration_3d.html#references",
-    "href": "bme423/ejemplos/syn_registration_3d.html#references",
-    "title": "Symmetric Diffeomorphic Registration in 3D",
-    "section": "References",
-    "text": "References\n.. [Avants09] Avants, B. B., Epstein, C. L., Grossman, M., & Gee, J. C. (2009). Symmetric Diffeomorphic Image Registration with Cross-Correlation: Evaluating Automated Labeling of Elderly and Neurodegenerative Brain, 12(1), 26-41.\n.. [Avants11] Avants, B. B., Tustison, N., & Song, G. (2011). Advanced Normalization Tools (ANTS), 1-35."
+    "objectID": "bme423/evals/lab3-old.html#instrucciones-para-la-entrega",
+    "href": "bme423/evals/lab3-old.html#instrucciones-para-la-entrega",
+    "title": "Segmentación de imágenes",
+    "section": "Instrucciones para la entrega",
+    "text": "Instrucciones para la entrega\n\napellido_nombre_l3.ipynb y apellido_nombre_l3.pdf\nMedio: Aula virtual\nLas versiones .pdf en las entregas corresponden a los archivos .ipynb con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
+  },
+  {
+    "objectID": "bme423/index.html",
+    "href": "bme423/index.html",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "",
+    "text": "Descripción. Este curso introduce los fundamentos del procesamiento y análisis de imágenes médicas desde una perspectiva teórica y aplicada. Se abordan las etapas clave del análisis de imágenes, incluyendo adquisición y representación, técnicas de mejora y preprocesamiento, filtrado espacial y en el dominio de la frecuencia, así como métodos para manejar ruido y degradación. El curso también cubre algoritmos de segmentación, análisis cuantitativo y reconstrucción de imágenes, junto con métodos de reconocimiento de patrones y aprendizaje automático aplicados a la detección y clasificación en imágenes médicas. Además, se analizan especificaciones técnicas de sistemas de imagen y se desarrollan proyectos prácticos que integran herramientas computacionales y metodologías de análisis para aplicaciones en ingeniería biomédica y entornos clínicos."
+  },
+  {
+    "objectID": "bme423/index.html#pruebas",
+    "href": "bme423/index.html#pruebas",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Pruebas",
+    "text": "Pruebas\n\nPrueba 1 (25%). 17 de abril.\nPrueba 2 (25%). 27 de mayo.\nPrueba 3 (25%). 10 de julio."
+  },
+  {
+    "objectID": "bme423/index.html#laboratorios",
+    "href": "bme423/index.html#laboratorios",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Laboratorios",
+    "text": "Laboratorios\nSe realizarán 5 laboratorios. Las guías de laboratorio se publicarán en esta página."
+  },
+  {
+    "objectID": "bme423/index.html#integridad-académica",
+    "href": "bme423/index.html#integridad-académica",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Integridad Académica",
+    "text": "Integridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio."
+  },
+  {
+    "objectID": "bme423/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "href": "bme423/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Uso de Herramientas de Inteligencia Artificial (IA)",
+    "text": "Uso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso."
+  },
+  {
+    "objectID": "bme423/index.html#colaboración",
+    "href": "bme423/index.html#colaboración",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Colaboración",
+    "text": "Colaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo."
+  },
+  {
+    "objectID": "bme423/index.html#uso-de-código-y-recursos-online",
+    "href": "bme423/index.html#uso-de-código-y-recursos-online",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Uso de código y recursos online",
+    "text": "Uso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente."
+  },
+  {
+    "objectID": "bme423/index.html#entregas-tardias",
+    "href": "bme423/index.html#entregas-tardias",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Entregas tardías",
+    "text": "Entregas tardías\nDispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera."
+  },
+  {
+    "objectID": "bme423/index.html#recalificaciones",
+    "href": "bme423/index.html#recalificaciones",
+    "title": "BME423 - Procesamiento de imágenes médicas",
+    "section": "Recalificaciones",
+    "text": "Recalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html",
+    "href": "bme423/ejemplos/math-morpho.html",
+    "title": "Morfología matemática",
+    "section": "",
+    "text": "Este notebook ilustra:\nUna imagen binaria se interpreta como un conjunto de pixeles. El elemento estructurante es una pequeña máscara que se desplaza sobre la imagen para preguntar por vecindades y formas locales.\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nplt.rcParams.update({\n    \"figure.figsize\": (7, 4),\n    \"font.size\": 11,\n    \"axes.titlesize\": 12,\n})\n\ndef disk(radius):\n    r = int(radius)\n    y, x = np.ogrid[-r:r+1, -r:r+1]\n    return x*x + y*y &lt;= radius*radius\n\ndef square(size):\n    return np.ones((size, size), dtype=bool)\n\ndef cross(size):\n    b = np.zeros((size, size), dtype=bool)\n    c = size // 2\n    b[c, :] = True\n    b[:, c] = True\n    return b\n\ndef offsets(se):\n    cy, cx = np.array(se.shape) // 2\n    ys, xs = np.where(se)\n    return list(zip(ys - cy, xs - cx))\n\ndef binary_dilation(img, se):\n    img = img.astype(bool)\n    py, px = np.array(se.shape) // 2\n    padded = np.pad(img, ((py, py), (px, px)), mode=\"constant\", constant_values=False)\n    out = np.zeros_like(img, dtype=bool)\n    h, w = img.shape\n    for dy, dx in offsets(se):\n        out |= padded[py + dy:py + dy + h, px + dx:px + dx + w]\n    return out\n\ndef binary_erosion(img, se):\n    img = img.astype(bool)\n    py, px = np.array(se.shape) // 2\n    padded = np.pad(img, ((py, py), (px, px)), mode=\"constant\", constant_values=False)\n    out = np.ones_like(img, dtype=bool)\n    h, w = img.shape\n    for dy, dx in offsets(se):\n        out &= padded[py + dy:py + dy + h, px + dx:px + dx + w]\n    return out\n\ndef opening(img, se):\n    return binary_dilation(binary_erosion(img, se), se)\n\ndef closing(img, se):\n    return binary_erosion(binary_dilation(img, se), se)\n\ndef show_binary(ax, img, title=\"\", grid=True):\n    ax.imshow(img, cmap=\"gray_r\", vmin=0, vmax=1, interpolation=\"nearest\")\n    ax.set_title(title)\n    ax.set_xticks([])\n    ax.set_yticks([])\n    if grid:\n        ax.set_xticks(np.arange(-.5, img.shape[1], 1), minor=True)\n        ax.set_yticks(np.arange(-.5, img.shape[0], 1), minor=True)\n        ax.grid(which=\"minor\", color=\"0.75\", linewidth=0.5)\n\ndef show_row(images, titles, figsize=(10, 3), grid=True):\n    fig, axs = plt.subplots(1, len(images), figsize=figsize)\n    if len(images) == 1:\n        axs = [axs]\n    for ax, im, title in zip(axs, images, titles):\n        show_binary(ax, im, title, grid=grid)\n    plt.tight_layout()\n    plt.show()"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#elemento-estructurante",
+    "href": "bme423/ejemplos/math-morpho.html#elemento-estructurante",
+    "title": "Morfología matemática",
+    "section": "1. Elemento estructurante",
+    "text": "1. Elemento estructurante\nEl elemento estructurante \\(B\\) define la vecindad usada por el operador morfológico.\nUna buena forma de pensarlo es como una sonda geométrica:\n\nUna cruz usa vecindad de 4 vecinos.\nUn cuadrado usa una vecindad más amplia, incluyendo diagonales.\nUn disco es útil cuando queremos tratar formas aproximadamente redondas.\n\nCambiar el tamaño o la forma de \\(B\\) cambia completamente el resultado.\n\nshow_row(\n    [square(3), cross(5), disk(3)],\n    [\"Cuadrado 3x3\", \"Cruz 5x5\", \"Disco r=3\"],\n    figsize=(8, 2.8)\n)"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#dilatación-y-erosión-binarias",
+    "href": "bme423/ejemplos/math-morpho.html#dilatación-y-erosión-binarias",
+    "title": "Morfología matemática",
+    "section": "2. Dilatación y erosión binarias",
+    "text": "2. Dilatación y erosión binarias\nPara una imagen binaria \\(A\\):\n\\[\nA\\oplus B = \\{z:\\ (\\hat B)_z\\cap A\\neq \\emptyset\\}\n\\]\n\\[\nA\\ominus B = \\{z:\\ (B)_z\\subseteq A\\}\n\\]\nDilatación: pregunta si \\(B\\) toca al objeto. Por eso agranda regiones y puede unir componentes cercanas.\nErosión: pregunta si \\(B\\) cabe completamente dentro del objeto. Por eso contrae regiones y puede eliminar estructuras pequeñas.\n\nA = np.zeros((23, 23), dtype=bool)\nA[6:17, 7:16] = True\nA[10:13, 16:19] = True\nA[4:7, 10:13] = True\n\nB = cross(5)\n\nshow_row(\n    [A, binary_dilation(A, B), binary_erosion(A, B)],\n    [r\"$A$\", r\"$A\\oplus B$\", r\"$A\\ominus B$\"],\n    figsize=(9, 3)\n)"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#apertura-y-cierre",
+    "href": "bme423/ejemplos/math-morpho.html#apertura-y-cierre",
+    "title": "Morfología matemática",
+    "section": "3. Apertura y cierre",
+    "text": "3. Apertura y cierre\nLa apertura y el cierre combinan erosión y dilatación:\n\\[\nA\\circ B = (A\\ominus B)\\oplus B\n\\]\n\\[\nA\\bullet B = (A\\oplus B)\\ominus B\n\\]\nApertura: elimina objetos claros pequeños o salientes delgados. Lo que desaparece durante la erosión no vuelve.\nCierre: rellena huecos oscuros pequeños y une quiebres angostos. Lo que se conectó durante la dilatación tiende a permanecer conectado.\n\nA = np.zeros((36, 52), dtype=bool)\nA[9:27, 8:32] = True\nA[14:21, 32:44] = True\nA[6:10, 14:18] = True\nA[24:30, 4:10] = True\nA[12:15, 20:23] = False\nA[18:22, 25:30] = False\nA[16:18, 37:39] = False\n\nB = disk(3)\n\nshow_row(\n    [A, opening(A, B), closing(A, B)],\n    [\"Original\", r\"Apertura $A\\circ B$\", r\"Cierre $A\\bullet B$\"],\n    figsize=(10, 3),\n    grid=False\n)"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#hit-or-miss",
+    "href": "bme423/ejemplos/math-morpho.html#hit-or-miss",
+    "title": "Morfología matemática",
+    "section": "4. Hit-or-miss",
+    "text": "4. Hit-or-miss\nEsta transformación suele costar al principio porque no busca solo objeto, sino una configuración específica de objeto y fondo.\nSe usan dos elementos estructurantes:\n\n\\(B_1\\): pixeles que deben pertenecer al objeto (hit);\n\\(B_2\\): pixeles que deben pertenecer al fondo (miss).\n\n\\[\nA\\otimes B = (A\\ominus B_1)\\cap(A^c\\ominus B_2)\n\\]\nTraducción práctica:\n\nAquí debe haber objeto, aquí debe haber fondo, y si ambas condiciones se cumplen, marco una detección.\n\nEsto sirve para detectar esquinas, extremos, patrones locales o puntos que pueden eliminarse durante adelgazamiento.\n\ndef hit_or_miss(img, b1, b2):\n    return binary_erosion(img, b1) & binary_erosion(~img, b2)\n\nA = np.zeros((18, 28), dtype=bool)\nA[3:9, 3:9] = True\nA[10:15, 5:13] = True\nA[5:14, 17:25] = True\n\n# B1 exige objeto en la esquina superior izquierda de una ventana 3x3.\nB1 = np.array([\n    [1, 1, 0],\n    [1, 1, 0],\n    [0, 0, 0]\n], dtype=bool)\n\n# B2 exige fondo alrededor de esa esquina.\nB2 = np.array([\n    [0, 0, 1],\n    [0, 0, 1],\n    [1, 1, 1]\n], dtype=bool)\n\nH = hit_or_miss(A, B1, B2)\n\nshow_row(\n    [A, B1, B2, H],\n    [r\"Imagen $A$\", r\"$B_1$: objeto\", r\"$B_2$: fondo\", r\"Detecciones\"],\n    figsize=(11, 3)\n)\n\n\nCómo leer el ejemplo de hit-or-miss\nEn cada posición de la imagen:\n\nse verifica si \\(B_1\\) cabe dentro del objeto \\(A\\);\nse verifica si \\(B_2\\) cabe dentro del fondo \\(A^c\\);\nsolo si ambas cosas ocurren, aparece un punto en el resultado.\n\nPor eso hit-or-miss es más selectivo que una erosión común: incorpora condiciones sobre objeto y fondo."
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#extracción-de-frontera",
+    "href": "bme423/ejemplos/math-morpho.html#extracción-de-frontera",
+    "title": "Morfología matemática",
+    "section": "5. Extracción de frontera",
+    "text": "5. Extracción de frontera\nLa frontera puede obtenerse restando una versión erosionada del objeto:\n\\[\n\\beta(A) = A - (A\\ominus B)\n\\]\nLa erosión quita una capa externa. Al restarla del objeto original, queda precisamente esa capa.\n\nblob = np.zeros((70, 70), dtype=bool)\nyy, xx = np.mgrid[:70, :70]\nblob[((xx - 32) / 20)**2 + ((yy - 35) / 25)**2 &lt; 1] = True\nblob[(yy &lt; 20) & (xx &gt; 34) & (xx &lt; 50)] = True\n\nB = square(3)\neroded = binary_erosion(blob, B)\nboundary = blob & ~eroded\n\nshow_row(\n    [blob, eroded, boundary],\n    [r\"$A$\", r\"$A\\ominus B$\", r\"$\\beta(A)$\"],\n    figsize=(9, 3),\n    grid=False\n)"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#llenado-de-regiones",
+    "href": "bme423/ejemplos/math-morpho.html#llenado-de-regiones",
+    "title": "Morfología matemática",
+    "section": "6. Llenado de regiones",
+    "text": "6. Llenado de regiones\nEl llenado de regiones parte desde una semilla \\(p\\) dentro de una frontera cerrada.\n\\[\nX_0 = \\{p\\}\n\\]\n\\[\nX_k = (X_{k-1}\\oplus B)\\cap A^c\n\\]\nLa dilatación hace crecer la semilla, y la intersección con \\(A^c\\) impide que el crecimiento atraviese la frontera. El algoritmo termina cuando \\(X_k=X_{k-1}\\).\n\nboundary = np.zeros((42, 42), dtype=bool)\nboundary[8, 8:34] = True\nboundary[33, 8:34] = True\nboundary[8:34, 8] = True\nboundary[8:34, 33] = True\nboundary[15:20, 18] = True\nboundary[22:29, 25] = True\n\nallowed = ~boundary\nX = np.zeros_like(boundary)\nX[20, 20] = True\n\nsnapshots = {0: X.copy()}\nfor k in range(1, 80):\n    X_next = binary_dilation(X, cross(3)) & allowed\n    X = X_next\n    if k in [4, 8, 12, 18]:\n        snapshots[k] = X.copy()\n    if np.array_equal(X_next, binary_dilation(X_next, cross(3)) & allowed):\n        break\n\nfilled = boundary | X\n\nshow_row(\n    [boundary, snapshots[0], snapshots[4], snapshots[8], snapshots[12], filled],\n    [\"Frontera\", r\"$X_0$\", r\"$X_4$\", r\"$X_8$\", r\"$X_{12}$\", \"Resultado\"],\n    figsize=(12, 3)\n)"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#labeling-y-componentes-conectadas",
+    "href": "bme423/ejemplos/math-morpho.html#labeling-y-componentes-conectadas",
+    "title": "Morfología matemática",
+    "section": "7. Labeling y componentes conectadas",
+    "text": "7. Labeling y componentes conectadas\nEl labeling asigna un número distinto a cada componente conectada.\nUna componente conectada es un conjunto maximal de pixeles del objeto que pueden alcanzarse entre sí usando una vecindad dada.\n\nCon 4-conectividad usamos una cruz.\nCon 8-conectividad usamos un cuadrado.\n\nEsto permite contar objetos y medir propiedades por componente.\n\ndef label_components(img):\n    img = img.astype(bool)\n    labels = np.zeros(img.shape, dtype=int)\n    current = 0\n    h, w = img.shape\n    for y0 in range(h):\n        for x0 in range(w):\n            if not img[y0, x0] or labels[y0, x0] != 0:\n                continue\n            current += 1\n            stack = [(y0, x0)]\n            labels[y0, x0] = current\n            while stack:\n                y, x = stack.pop()\n                for dy, dx in [(-1, 0), (1, 0), (0, -1), (0, 1)]:\n                    yy, xx = y + dy, x + dx\n                    if 0 &lt;= yy &lt; h and 0 &lt;= xx &lt; w and img[yy, xx] and labels[yy, xx] == 0:\n                        labels[yy, xx] = current\n                        stack.append((yy, xx))\n    return labels, current\n\nimg = np.zeros((54, 72), dtype=bool)\nyy, xx = np.mgrid[:54, :72]\nfor cy, cx, ry, rx in [(14, 14, 8, 10), (13, 45, 7, 12), (34, 24, 9, 13), (38, 54, 8, 9)]:\n    img |= ((yy - cy) / ry)**2 + ((xx - cx) / rx)**2 &lt; 1\nimg[25:30, 46:62] = True\n\nlabels, n = label_components(img)\n\nfig, axs = plt.subplots(1, 2, figsize=(9, 3.5))\nshow_binary(axs[0], img, \"Imagen binaria\", grid=False)\naxs[1].imshow(labels, cmap=\"tab20\", interpolation=\"nearest\", vmin=0, vmax=max(n, 1))\naxs[1].set_title(f\"{n} componentes etiquetadas\")\naxs[1].set_xticks([])\naxs[1].set_yticks([])\nfor k in range(1, n + 1):\n    ys, xs = np.where(labels == k)\n    axs[1].text(xs.mean(), ys.mean(), str(k), color=\"white\", ha=\"center\", va=\"center\", fontsize=14, weight=\"bold\")\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#thinning-thickening-y-pruning",
+    "href": "bme423/ejemplos/math-morpho.html#thinning-thickening-y-pruning",
+    "title": "Morfología matemática",
+    "section": "8. Thinning, thickening y pruning",
+    "text": "8. Thinning, thickening y pruning\nThinning adelgaza una figura removiendo pixeles de borde, intentando preservar conectividad. No es una erosión común: una erosión puede romper el objeto.\nThickening es el dual conceptual: agrega pixeles siguiendo reglas locales.\nPruning elimina ramas cortas o espolones producidos por ruido después de esqueletizar.\nMuchos algoritmos de thinning y pruning usan patrones locales del tipo hit-or-miss.\n\ndef zhang_suen_thinning(img, max_iter=100):\n    img = img.astype(np.uint8).copy()\n    h, w = img.shape\n    for _ in range(max_iter):\n        changed = False\n        for step in [0, 1]:\n            remove = []\n            for y in range(1, h - 1):\n                for x in range(1, w - 1):\n                    if img[y, x] == 0:\n                        continue\n                    p2, p3, p4 = img[y-1, x], img[y-1, x+1], img[y, x+1]\n                    p5, p6, p7 = img[y+1, x+1], img[y+1, x], img[y+1, x-1]\n                    p8, p9 = img[y, x-1], img[y-1, x-1]\n                    nbrs = [p2, p3, p4, p5, p6, p7, p8, p9]\n                    nsum = sum(nbrs)\n                    transitions = sum((nbrs[i] == 0 and nbrs[(i + 1) % 8] == 1) for i in range(8))\n                    if not (2 &lt;= nsum &lt;= 6 and transitions == 1):\n                        continue\n                    if step == 0:\n                        c1 = p2 * p4 * p6 == 0\n                        c2 = p4 * p6 * p8 == 0\n                    else:\n                        c1 = p2 * p4 * p8 == 0\n                        c2 = p2 * p6 * p8 == 0\n                    if c1 and c2:\n                        remove.append((y, x))\n            if remove:\n                changed = True\n                for y, x in remove:\n                    img[y, x] = 0\n        if not changed:\n            break\n    return img.astype(bool)\n\nA = np.zeros((80, 80), dtype=bool)\nA[14:63, 34:47] = True\nA[24:37, 18:62] = True\nA[48:61, 20:35] = True\nA[47:66, 52:64] = True\n\nthin = zhang_suen_thinning(A)\nthick = binary_dilation(thin, disk(4))\n\n# Poda simple: eliminar puntos finales durante algunas iteraciones.\nendpoint_kernels = [\n    (np.array([[0,0,0],[0,1,0],[0,1,0]], dtype=bool), np.array([[1,1,1],[1,0,1],[1,0,1]], dtype=bool)),\n    (np.array([[0,0,0],[0,1,1],[0,0,0]], dtype=bool), np.array([[1,1,1],[1,0,0],[1,1,1]], dtype=bool)),\n    (np.array([[0,1,0],[0,1,0],[0,0,0]], dtype=bool), np.array([[1,0,1],[1,0,1],[1,1,1]], dtype=bool)),\n    (np.array([[0,0,0],[1,1,0],[0,0,0]], dtype=bool), np.array([[1,1,1],[0,0,1],[1,1,1]], dtype=bool)),\n]\n\npruned = thin.copy()\nfor _ in range(6):\n    endpoints = np.zeros_like(pruned)\n    for k1, k2 in endpoint_kernels:\n        endpoints |= hit_or_miss(pruned, k1, k2)\n    pruned &= ~endpoints\n\nshow_row(\n    [A, thin, thick, pruned],\n    [\"Original\", \"Thinning\", \"Thickening\", \"Pruning\"],\n    figsize=(11, 3),\n    grid=False\n)"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#morfología-en-escala-de-grises",
+    "href": "bme423/ejemplos/math-morpho.html#morfología-en-escala-de-grises",
+    "title": "Morfología matemática",
+    "section": "9. Morfología en escala de grises",
+    "text": "9. Morfología en escala de grises\nEn escala de grises, la imagen ya no es solo un conjunto. Es una función:\n\\[\nf:\\mathbb{Z}^2\\rightarrow\\mathbb{R}\n\\]\nSi el elemento estructurante es plano, las operaciones se vuelven muy intuitivas:\n\ndilatación gris: reemplaza cada pixel por el máximo local;\nerosión gris: reemplaza cada pixel por el mínimo local.\n\nPor eso la dilatación expande regiones brillantes y la erosión expande regiones oscuras.\n\ndef gray_dilation(f, se):\n    f = np.asarray(f, dtype=float)\n    py, px = np.array(se.shape) // 2\n    padded = np.pad(f, ((py, py), (px, px)), mode=\"edge\")\n    h, w = f.shape\n    stack = []\n    for dy, dx in offsets(se):\n        stack.append(padded[py + dy:py + dy + h, px + dx:px + dx + w])\n    return np.max(np.stack(stack), axis=0)\n\ndef gray_erosion(f, se):\n    f = np.asarray(f, dtype=float)\n    py, px = np.array(se.shape) // 2\n    padded = np.pad(f, ((py, py), (px, px)), mode=\"edge\")\n    h, w = f.shape\n    stack = []\n    for dy, dx in offsets(se):\n        stack.append(padded[py + dy:py + dy + h, px + dx:px + dx + w])\n    return np.min(np.stack(stack), axis=0)\n\ndef gray_opening(f, se):\n    return gray_dilation(gray_erosion(f, se), se)\n\ndef gray_closing(f, se):\n    return gray_erosion(gray_dilation(f, se), se)\n\nn = 220\ny, x = np.mgrid[0:n, 0:n]\nf = 0.35 + 0.35 * (x / n)\nf += 0.35 * np.exp(-((x - 70)**2 + (y - 100)**2) / (2 * 18**2))\nf -= 0.28 * np.exp(-((x - 145)**2 + (y - 125)**2) / (2 * 22**2))\nf += 0.08 * np.sin(x / 12) * np.sin(y / 18)\nf = np.clip(f, 0, 1)\n\nB = disk(5)\nfd = gray_dilation(f, B)\nfe = gray_erosion(f, B)\n\nfig, axs = plt.subplots(1, 3, figsize=(10, 3.2))\nfor ax, im, title in zip(axs, [f, fd, fe], [r\"$f$\", r\"$f\\oplus B$\", r\"$f\\ominus B$\"]):\n    ax.imshow(im, cmap=\"gray\", vmin=0, vmax=1)\n    ax.set_title(title)\n    ax.set_xticks([])\n    ax.set_yticks([])\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#gradiente-top-hat-y-bottom-hat",
+    "href": "bme423/ejemplos/math-morpho.html#gradiente-top-hat-y-bottom-hat",
+    "title": "Morfología matemática",
+    "section": "10. Gradiente, top-hat y bottom-hat",
+    "text": "10. Gradiente, top-hat y bottom-hat\nEl gradiente morfológico mide contraste local:\n\\[\ng = (f\\oplus B) - (f\\ominus B)\n\\]\nSi una zona es plana, máximo y mínimo local son parecidos. Si hay un borde, la diferencia aumenta.\nTop-hat y bottom-hat extraen detalles pequeños:\n\\[\nT_{hat}(f)=f-(f\\circ B)\n\\]\n\\[\nB_{hat}(f)=(f\\bullet B)-f\n\\]\nTop-hat: lo que la apertura eliminó, típicamente detalles brillantes pequeños.\nBottom-hat: lo que el cierre rellenó, típicamente detalles oscuros pequeños.\n\nB = disk(7)\nopened = gray_opening(f, B)\nclosed = gray_closing(f, B)\ngradient = gray_dilation(f, B) - gray_erosion(f, B)\ntophat = f - opened\nbothat = closed - f\n\nfig, axs = plt.subplots(1, 4, figsize=(12, 3))\nfor ax, im, title in zip(axs, [f, gradient, tophat, bothat], [r\"$f$\", \"Gradiente\", \"Top-hat\", \"Bottom-hat\"]):\n    vmax = 1 if title == r\"$f$\" else max(float(im.max()), 1e-6)\n    ax.imshow(im, cmap=\"gray\", vmin=0, vmax=vmax)\n    ax.set_title(title)\n    ax.set_xticks([])\n    ax.set_yticks([])\nplt.tight_layout()\nplt.show()"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#ejemplos-con-scikit-image",
+    "href": "bme423/ejemplos/math-morpho.html#ejemplos-con-scikit-image",
+    "title": "Morfología matemática",
+    "section": "11. Ejemplos con scikit-image",
+    "text": "11. Ejemplos con scikit-image\nHasta ahora implementamos las operaciones principales desde cero para entender la mecánica. En trabajo práctico conviene usar librerías probadas.\nscikit-image tiene implementaciones listas para:\n\nmorfología binaria: binary_dilation, binary_erosion, binary_opening, binary_closing;\nlimpieza de máscaras: remove_small_objects, remove_small_holes;\nlabeling: measure.label;\nesqueletos: skeletonize, thin;\nmorfología en escala de grises: dilation, erosion, opening, closing, white_tophat, black_tophat.\n\nLa ventaja es que estas funciones son más rápidas, están testeadas y manejan muchos detalles de borde.\n\nfrom skimage import data, filters, measure, morphology, util\nfrom skimage.color import rgb2gray\n\nprint(\"scikit-image cargado correctamente\")\n\n\n11.1 Operadores binarios con skimage.morphology\nPrimero repetimos la idea de apertura y cierre, pero usando funciones de skimage.\nEn skimage, el elemento estructurante se pasa como footprint. Por ejemplo:\nfootprint = morphology.disk(3)\nopened = morphology.binary_opening(mask, footprint=footprint)\nEsto hace lo mismo conceptualmente que nuestras funciones, pero con implementación optimizada.\n\nmask = np.zeros((90, 130), dtype=bool)\nyy, xx = np.mgrid[:90, :130]\nmask |= ((yy - 42) / 22)**2 + ((xx - 45) / 28)**2 &lt; 1\nmask |= ((yy - 45) / 15)**2 + ((xx - 88) / 18)**2 &lt; 1\nmask[38:44, 63:72] = True     # puente delgado\nmask[25:31, 35:41] = False    # hueco pequeño\nmask[52:59, 86:94] = False    # otro hueco\n\nrng = np.random.default_rng(12)\nnoisy_mask = mask.copy()\nnoisy_mask[rng.random(mask.shape) &lt; 0.012] = True\nnoisy_mask[rng.random(mask.shape) &lt; 0.006] = False\n\nfootprint = morphology.disk(3)\nopened = morphology.binary_opening(noisy_mask, footprint=footprint)\nclosed = morphology.binary_closing(noisy_mask, footprint=footprint)\nclean = morphology.binary_closing(opened, footprint=footprint)\n\nshow_row(\n    [noisy_mask, opened, closed, clean],\n    [\"Máscara con ruido\", \"Apertura\", \"Cierre\", \"Apertura + cierre\"],\n    figsize=(12, 3),\n    grid=False\n)\n\n\n\n11.2 Limpieza de máscaras: objetos pequeños y huecos\nremove_small_objects elimina componentes conectadas con área menor que un umbral.\nremove_small_holes rellena huecos oscuros menores que un umbral.\nEstas funciones son muy usadas después de segmentar una imagen, porque una segmentación real suele traer puntos aislados, huecos pequeños o regiones espurias.\n\nclean_objects = morphology.remove_small_objects(noisy_mask, min_size=80)\nclean_holes = morphology.remove_small_holes(clean_objects, area_threshold=120)\n\nshow_row(\n    [noisy_mask, clean_objects, clean_holes],\n    [\"Original ruidosa\", \"Sin objetos pequeños\", \"Huecos pequeños rellenados\"],\n    figsize=(10, 3),\n    grid=False\n)\n\n\n\n11.3 Labeling con measure.label\nmeasure.label etiqueta componentes conectadas.\nDespués, measure.regionprops permite medir propiedades por objeto: área, centroide, bounding box, excentricidad, etc. Esto es una rutina típica para pasar desde segmentación a cuantificación.\n\nlabels = measure.label(clean_holes, connectivity=2)\nprops = measure.regionprops(labels)\n\nfig, axs = plt.subplots(1, 2, figsize=(10, 4))\naxs[0].imshow(clean_holes, cmap=\"gray\")\naxs[0].set_title(\"Máscara limpia\")\naxs[0].set_xticks([])\naxs[0].set_yticks([])\n\naxs[1].imshow(labels, cmap=\"tab20\")\naxs[1].set_title(f\"Labeling: {len(props)} componentes\")\naxs[1].set_xticks([])\naxs[1].set_yticks([])\n\nfor region in props:\n    y, x = region.centroid\n    axs[1].text(x, y, str(region.label), color=\"white\", ha=\"center\", va=\"center\", weight=\"bold\")\n\nplt.tight_layout()\nplt.show()\n\nfor region in props:\n    print(f\"label={region.label:2d}  area={region.area:5.0f}  centroid=({region.centroid[0]:.1f}, {region.centroid[1]:.1f})\")\n\n\n\n11.4 Skeletonize y thin\nskeletonize calcula una representación medial del objeto.\nthin adelgaza iterativamente la máscara. Si se le entrega max_num_iter, podemos detener el proceso antes de llegar al esqueleto final.\nLa diferencia práctica es útil: a veces queremos adelgazar un poco, no necesariamente llegar a una línea de un pixel.\n\nshape = np.zeros((100, 120), dtype=bool)\nshape[18:82, 50:68] = True\nshape[38:56, 22:98] = True\nshape[62:80, 28:52] = True\nshape[60:88, 80:99] = True\n\nthin_8 = morphology.thin(shape, max_num_iter=8)\nthin_full = morphology.thin(shape)\nskel = morphology.skeletonize(shape)\n\nshow_row(\n    [shape, thin_8, thin_full, skel],\n    [\"Original\", \"thin: 8 iteraciones\", \"thin completo\", \"skeletonize\"],\n    figsize=(12, 3),\n    grid=False\n)\n\n\n\n11.5 Escala de grises con una imagen real de ejemplo\nAhora usamos data.coins() de scikit-image.\nLa apertura gris atenúa detalles brillantes pequeños. El top-hat blanco extrae justamente esos detalles brillantes que la apertura removió.\nEsto conecta con una idea práctica: si el fondo cambia lentamente y los objetos son pequeños, top-hat puede ayudar a resaltarlos.\n\ncoins = util.img_as_float(data.coins())\nfootprint = morphology.disk(12)\n\ncoins_open = morphology.opening(coins, footprint=footprint)\ncoins_close = morphology.closing(coins, footprint=footprint)\ncoins_tophat = morphology.white_tophat(coins, footprint=footprint)\ncoins_bothat = morphology.black_tophat(coins, footprint=footprint)\ncoins_grad = morphology.dilation(coins, footprint=footprint) - morphology.erosion(coins, footprint=footprint)\n\nfig, axs = plt.subplots(2, 3, figsize=(12, 7))\nfor ax, im, title in zip(\n    axs.ravel(),\n    [coins, coins_open, coins_close, coins_grad, coins_tophat, coins_bothat],\n    [\"Imagen original\", \"Apertura gris\", \"Cierre gris\", \"Gradiente\", \"White top-hat\", \"Black top-hat\"]\n):\n    vmax = 1 if title in [\"Imagen original\", \"Apertura gris\", \"Cierre gris\"] else max(float(im.max()), 1e-6)\n    ax.imshow(im, cmap=\"gray\", vmin=0, vmax=vmax)\n    ax.set_title(title)\n    ax.set_xticks([])\n    ax.set_yticks([])\nplt.tight_layout()\nplt.show()\n\n\n\n11.6 Segmentación simple: threshold + morfología\nUn flujo muy común es:\n\numbralizar una imagen;\nlimpiar la máscara con morfología;\netiquetar componentes;\nmedir propiedades.\n\nEste ejemplo no busca ser una segmentación perfecta de monedas; busca mostrar el rol de la morfología en un pipeline real.\n\nthreshold = filters.threshold_otsu(coins)\nmask = coins &gt; threshold\n\n# Limpieza morfológica: cerrar huecos, remover objetos pequeños y rellenar cavidades.\nmask2 = morphology.binary_closing(mask, footprint=morphology.disk(3))\nmask2 = morphology.remove_small_objects(mask2, min_size=120)\nmask2 = morphology.remove_small_holes(mask2, area_threshold=120)\n\nlabels = measure.label(mask2)\nprops = measure.regionprops(labels)\n\nfig, axs = plt.subplots(1, 3, figsize=(13, 4))\naxs[0].imshow(coins, cmap=\"gray\")\naxs[0].set_title(\"Imagen\")\naxs[1].imshow(mask, cmap=\"gray\")\naxs[1].set_title(\"Umbral Otsu\")\naxs[2].imshow(labels, cmap=\"tab20\")\naxs[2].set_title(f\"Máscara limpia + labels ({len(props)})\")\nfor ax in axs:\n    ax.set_xticks([])\n    ax.set_yticks([])\nplt.tight_layout()\nplt.show()\n\nareas = [r.area for r in props]\nprint(f\"Componentes detectadas: {len(props)}\")\nprint(f\"Área promedio: {np.mean(areas):.1f} pixeles\")"
+  },
+  {
+    "objectID": "bme423/ejemplos/math-morpho.html#ideas-para-experimentar",
+    "href": "bme423/ejemplos/math-morpho.html#ideas-para-experimentar",
+    "title": "Morfología matemática",
+    "section": "Ideas para experimentar",
+    "text": "Ideas para experimentar\nPrueba modificar:\n\nel tamaño del elemento estructurante, por ejemplo disk(1), disk(5), disk(12);\nla forma: cross(3), square(5), disk(4);\nla imagen binaria inicial;\nel número de iteraciones en el llenado o la poda.\n\nPreguntas para profundizar:\n\n¿Qué estructuras desaparecen cuando aumento el tamaño de \\(B\\)?\n¿Qué cambia al usar cruz en vez de cuadrado?\n¿Cuándo la apertura destruye información relevante?\n¿Por qué hit-or-miss necesita condiciones sobre objeto y fondo?\nEn escala de grises, ¿qué estructuras resaltan top-hat y bottom-hat?"
   },
   {
     "objectID": "est744/evals/proyectos-inf398-2026.html",
@@ -1139,47 +1328,5 @@
     "title": "Magíster en Ciencias de Ingeniería, mención Ingeniería Biomédica",
     "section": "Actas de consejo",
     "text": "Actas de consejo\nacta 1 acta 2 acta 3 acta 4 acta 5 acta 6 acta 7 acta 8 acta 9 acta 10 acta 11 acta 12 acta 13 acta 14 acta 15 acta 16 acta 17"
-  },
-  {
-    "objectID": "bme423/evals/lab2.html#objetivos",
-    "href": "bme423/evals/lab2.html#objetivos",
-    "title": "Mejora de imágenes y transformaciones geométricas",
-    "section": "Objetivos",
-    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nDiseñar, implementar y evaluar distintas opciones de mejora de la calidad de imágenes médicas mediante métricas cuantitativas.\nSeleccionar estrategias de procesamiento de imágenes producto del análisis de varios sujetos.\nComprender transformaciones geométricas y registro de imágenes."
-  },
-  {
-    "objectID": "bme423/evals/lab2.html#datos",
-    "href": "bme423/evals/lab2.html#datos",
-    "title": "Mejora de imágenes y transformaciones geométricas",
-    "section": "Datos",
-    "text": "Datos\nSe trabajará con datos de pacientes que sufren esclerosis múltiple: Open MS data\n\n\n\n\n\nPaciente 4 - Anatomía, slice 312\n\n\n\n\n\n\nPaciente 4 - Anatomía + Gold Standard, slice 312"
-  },
-  {
-    "objectID": "bme423/evals/lab2.html#actividad-1",
-    "href": "bme423/evals/lab2.html#actividad-1",
-    "title": "Mejora de imágenes y transformaciones geométricas",
-    "section": "Actividad 1",
-    "text": "Actividad 1\nImplementar y comparar el filtro de difusión anisotrópica en 2D y 3D y aplicarlo a uno de los pacientes (sin el uso de librerías)."
-  },
-  {
-    "objectID": "bme423/evals/lab2.html#actividad-2",
-    "href": "bme423/evals/lab2.html#actividad-2",
-    "title": "Mejora de imágenes y transformaciones geométricas",
-    "section": "Actividad 2",
-    "text": "Actividad 2\n\nImplemente las transformaciones geométricas vistas en clases para hacer el registro entre dos pacientes. Elija los mejores parámetros de las transformaciones usando una función de costos apropiada. Nota: no se permite el uso de librerías específicas de proc. de imágenes.\nHaga el registro mediante el uso de librerías. Explique."
-  },
-  {
-    "objectID": "bme423/evals/lab2.html#instrucciones-para-la-entrega",
-    "href": "bme423/evals/lab2.html#instrucciones-para-la-entrega",
-    "title": "Mejora de imágenes y transformaciones geométricas",
-    "section": "Instrucciones para la entrega",
-    "text": "Instrucciones para la entrega\n\napellido_nombre_l2.ipynb y apellido_nombre_l2.pdf\nMedio: Aula virtual\nLas versiones .pdf en las entregas corresponden a los archivos .ipynb con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
-  },
-  {
-    "objectID": "bme423/evals/lab2.html#actividad-3",
-    "href": "bme423/evals/lab2.html#actividad-3",
-    "title": "Mejora de imágenes y transformaciones geométricas",
-    "section": "Actividad 3",
-    "text": "Actividad 3\n\nDiseñar e implementar tres pipelines combinando operaciones vistas en clases con el propósito de mejorar la calidad de las imágenes disponibles. Incluir en alguno FFT, difusión.\nComparar cuantitativamente estos pipelines.\n\nSe puede usar librerías, como scikit-image, simpleITK, etc., para la convolución, FFT 2D y difusión anisotrópica.\nDebe considerar la adecuada selección de parámetros de las diferentes técnicas de filtrado.\nDebe considerar las particularidades propias de la esclerosis múltiple."
   }
 ]
