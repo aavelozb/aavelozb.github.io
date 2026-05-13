@@ -1139,5 +1139,47 @@
     "title": "Magíster en Ciencias de Ingeniería, mención Ingeniería Biomédica",
     "section": "Actas de consejo",
     "text": "Actas de consejo\nacta 1 acta 2 acta 3 acta 4 acta 5 acta 6 acta 7 acta 8 acta 9 acta 10 acta 11 acta 12 acta 13 acta 14 acta 15 acta 16 acta 17"
+  },
+  {
+    "objectID": "bme423/evals/lab2.html#objetivos",
+    "href": "bme423/evals/lab2.html#objetivos",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Objetivos",
+    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nDiseñar, implementar y evaluar distintas opciones de mejora de la calidad de imágenes médicas mediante métricas cuantitativas.\nSeleccionar estrategias de procesamiento de imágenes producto del análisis de varios sujetos.\nComprender transformaciones geométricas y registro de imágenes."
+  },
+  {
+    "objectID": "bme423/evals/lab2.html#datos",
+    "href": "bme423/evals/lab2.html#datos",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Datos",
+    "text": "Datos\nSe trabajará con datos de pacientes que sufren esclerosis múltiple: Open MS data\n\n\n\n\n\nPaciente 4 - Anatomía, slice 312\n\n\n\n\n\n\nPaciente 4 - Anatomía + Gold Standard, slice 312"
+  },
+  {
+    "objectID": "bme423/evals/lab2.html#actividad-1",
+    "href": "bme423/evals/lab2.html#actividad-1",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Actividad 1",
+    "text": "Actividad 1\nImplementar y comparar el filtro de difusión anisotrópica en 2D y 3D y aplicarlo a uno de los pacientes (sin el uso de librerías)."
+  },
+  {
+    "objectID": "bme423/evals/lab2.html#actividad-2",
+    "href": "bme423/evals/lab2.html#actividad-2",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Actividad 2",
+    "text": "Actividad 2\n\nImplemente las transformaciones geométricas vistas en clases para hacer el registro entre dos pacientes. Elija los mejores parámetros de las transformaciones usando una función de costos apropiada. Nota: no se permite el uso de librerías específicas de proc. de imágenes.\nHaga el registro mediante el uso de librerías. Explique."
+  },
+  {
+    "objectID": "bme423/evals/lab2.html#instrucciones-para-la-entrega",
+    "href": "bme423/evals/lab2.html#instrucciones-para-la-entrega",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Instrucciones para la entrega",
+    "text": "Instrucciones para la entrega\n\napellido_nombre_l2.ipynb y apellido_nombre_l2.pdf\nMedio: Aula virtual\nLas versiones .pdf en las entregas corresponden a los archivos .ipynb con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
+  },
+  {
+    "objectID": "bme423/evals/lab2.html#actividad-3",
+    "href": "bme423/evals/lab2.html#actividad-3",
+    "title": "Mejora de imágenes y transformaciones geométricas",
+    "section": "Actividad 3",
+    "text": "Actividad 3\n\nDiseñar e implementar tres pipelines combinando operaciones vistas en clases con el propósito de mejorar la calidad de las imágenes disponibles. Incluir en alguno FFT, difusión.\nComparar cuantitativamente estos pipelines.\n\nSe puede usar librerías, como scikit-image, simpleITK, etc., para la convolución, FFT 2D y difusión anisotrópica.\nDebe considerar la adecuada selección de parámetros de las diferentes técnicas de filtrado.\nDebe considerar las particularidades propias de la esclerosis múltiple."
   }
 ]
