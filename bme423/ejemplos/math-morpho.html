@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.27">
+<meta name="generator" content="quarto-1.7.33">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -70,9 +70,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6c49c5477b92c77c9eb341f9299c235f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -161,6 +161,9 @@ window.Quarto = {
 
 <meta property="og:title" content="Morfología matemática">
 <meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<meta property="og:image" content="https://aavelozb.github.io/bme423/ejemplos/math-morpho_files/figure-html/cell-3-output-1.png">
+<meta property="og:image:height" content="286">
+<meta property="og:image:width" content="786">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -181,7 +184,7 @@ window.Quarto = {
         toggleBodyColorMode(bsSheetEl);
       }
     }
-    window.setColorSchemeToggle = (alternate) => {
+    const setColorSchemeToggle = (alternate) => {
       const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
       for (let i=0; i < toggles.length; i++) {
         const toggle = toggles[i];
@@ -214,7 +217,7 @@ window.Quarto = {
       }
       manageTransitions('#quarto-margin-sidebar .nav-link', true);
       // Switch the toggles
-      window.setColorSchemeToggle(alternate)
+      setColorSchemeToggle(alternate)
       // Hack to workaround the fact that safari doesn't
       // properly recolor the scrollbar when toggling (#1455)
       if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
@@ -254,7 +257,7 @@ window.Quarto = {
     const isFileUrl = () => {
       return window.location.protocol === 'file:';
     }
-    window.hasAlternateSentinel = () => {
+    const hasAlternateSentinel = () => {
       let styleSentinel = getColorSchemeSentinel();
       if (styleSentinel !== null) {
         return styleSentinel === "alternate";
@@ -282,7 +285,7 @@ window.Quarto = {
       const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
       const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
       let newTheme = '';
-      if(darkModeDefault) {
+      if(authorPrefersDark) {
         newTheme = isAlternate ? baseTheme : alternateTheme;
       } else {
         newTheme = isAlternate ? alternateTheme : baseTheme;
@@ -305,20 +308,22 @@ window.Quarto = {
         changeGiscusTheme();
       }
     };
-    const darkModeDefault = false;
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
     // Dark / light mode switch
     window.quartoToggleColorScheme = () => {
       // Read the current dark / light value
-      let toAlternate = !window.hasAlternateSentinel();
+      let toAlternate = !hasAlternateSentinel();
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
     };
     // Switch to dark mode if need be
-    if (window.hasAlternateSentinel()) {
+    if (hasAlternateSentinel()) {
       toggleColorMode(true);
     } else {
       toggleColorMode(false);
@@ -418,7 +423,7 @@ window.Quarto = {
 <li>Morfología en escala de grises como máximos y mínimos locales.</li>
 </ul>
 <p>Una imagen binaria se interpreta como un conjunto de pixeles. El elemento estructurante es una pequeña máscara que se desplaza sobre la imagen para preguntar por vecindades y formas locales.</p>
-<div id="cell-001" class="cell">
+<div id="cell-001" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -503,12 +508,19 @@ window.Quarto = {
 <li>Un disco es útil cuando queremos tratar formas aproximadamente redondas.</li>
 </ul>
 <p>Cambiar el tamaño o la forma de <span class="math inline">\(B\)</span> cambia completamente el resultado.</p>
-<div id="cell-003" class="cell">
+<div id="cell-003" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>show_row(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    [square(<span class="dv">3</span>), cross(<span class="dv">5</span>), disk(<span class="dv">3</span>)],</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Cuadrado 3x3"</span>, <span class="st">"Cruz 5x5"</span>, <span class="st">"Disco r=3"</span>],</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="fl">2.8</span>)</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="dilatación-y-erosión-binarias" class="level2">
@@ -522,7 +534,7 @@ A\ominus B = \{z:\ (B)_z\subseteq A\}
 \]</span></p>
 <p><strong>Dilatación:</strong> pregunta si <span class="math inline">\(B\)</span> toca al objeto. Por eso agranda regiones y puede unir componentes cercanas.</p>
 <p><strong>Erosión:</strong> pregunta si <span class="math inline">\(B\)</span> cabe completamente dentro del objeto. Por eso contrae regiones y puede eliminar estructuras pequeñas.</p>
-<div id="cell-005" class="cell">
+<div id="cell-005" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.zeros((<span class="dv">23</span>, <span class="dv">23</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">6</span>:<span class="dv">17</span>, <span class="dv">7</span>:<span class="dv">16</span>] <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">10</span>:<span class="dv">13</span>, <span class="dv">16</span>:<span class="dv">19</span>] <span class="op">=</span> <span class="va">True</span></span>
@@ -535,6 +547,13 @@ A\ominus B = \{z:\ (B)_z\subseteq A\}
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    [<span class="vs">r"</span><span class="dv">$</span><span class="vs">A</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">A</span><span class="er">\</span><span class="vs">oplus B</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">A</span><span class="er">\</span><span class="vs">ominus B</span><span class="dv">$</span><span class="vs">"</span>],</span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">3</span>)</span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-4-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="apertura-y-cierre" class="level2">
@@ -548,7 +567,7 @@ A\bullet B = (A\oplus B)\ominus B
 \]</span></p>
 <p><strong>Apertura:</strong> elimina objetos claros pequeños o salientes delgados. Lo que desaparece durante la erosión no vuelve.</p>
 <p><strong>Cierre:</strong> rellena huecos oscuros pequeños y une quiebres angostos. Lo que se conectó durante la dilatación tiende a permanecer conectado.</p>
-<div id="cell-007" class="cell">
+<div id="cell-007" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> np.zeros((<span class="dv">36</span>, <span class="dv">52</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">9</span>:<span class="dv">27</span>, <span class="dv">8</span>:<span class="dv">32</span>] <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>A[<span class="dv">14</span>:<span class="dv">21</span>, <span class="dv">32</span>:<span class="dv">44</span>] <span class="op">=</span> <span class="va">True</span></span>
@@ -566,6 +585,13 @@ A\bullet B = (A\oplus B)\ominus B
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>),</span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
 <span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="hit-or-miss" class="level2">
@@ -584,7 +610,7 @@ A\otimes B = (A\ominus B_1)\cap(A^c\ominus B_2)
 <p>Aquí debe haber objeto, aquí debe haber fondo, y si ambas condiciones se cumplen, marco una detección.</p>
 </blockquote>
 <p>Esto sirve para detectar esquinas, extremos, patrones locales o puntos que pueden eliminarse durante adelgazamiento.</p>
-<div id="cell-009" class="cell">
+<div id="cell-009" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hit_or_miss(img, b1, b2):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> binary_erosion(img, b1) <span class="op">&amp;</span> binary_erosion(<span class="op">~</span>img, b2)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -614,6 +640,13 @@ A\otimes B = (A\ominus B_1)\cap(A^c\ominus B_2)
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>    [<span class="vs">r"Imagen </span><span class="dv">$</span><span class="vs">A</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">B_1</span><span class="dv">$</span><span class="vs">: objeto"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">B_2</span><span class="dv">$</span><span class="vs">: fondo"</span>, <span class="vs">r"Detecciones"</span>],</span>
 <span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">3</span>)</span>
 <span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 <section id="cómo-leer-el-ejemplo-de-hit-or-miss" class="level3">
 <h3 class="anchored" data-anchor-id="cómo-leer-el-ejemplo-de-hit-or-miss">Cómo leer el ejemplo de hit-or-miss</h3>
@@ -633,7 +666,7 @@ A\otimes B = (A\ominus B_1)\cap(A^c\ominus B_2)
 \beta(A) = A - (A\ominus B)
 \]</span></p>
 <p>La erosión quita una capa externa. Al restarla del objeto original, queda precisamente esa capa.</p>
-<div id="cell-012" class="cell">
+<div id="cell-012" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>blob <span class="op">=</span> np.zeros((<span class="dv">70</span>, <span class="dv">70</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>yy, xx <span class="op">=</span> np.mgrid[:<span class="dv">70</span>, :<span class="dv">70</span>]</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>blob[((xx <span class="op">-</span> <span class="dv">32</span>) <span class="op">/</span> <span class="dv">20</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((yy <span class="op">-</span> <span class="dv">35</span>) <span class="op">/</span> <span class="dv">25</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">1</span>] <span class="op">=</span> <span class="va">True</span></span>
@@ -649,6 +682,13 @@ A\otimes B = (A\ominus B_1)\cap(A^c\ominus B_2)
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="dv">3</span>),</span>
 <span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
 <span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="llenado-de-regiones" class="level2">
@@ -661,7 +701,7 @@ X_0 = \{p\}
 X_k = (X_{k-1}\oplus B)\cap A^c
 \]</span></p>
 <p>La dilatación hace crecer la semilla, y la intersección con <span class="math inline">\(A^c\)</span> impide que el crecimiento atraviese la frontera. El algoritmo termina cuando <span class="math inline">\(X_k=X_{k-1}\)</span>.</p>
-<div id="cell-014" class="cell">
+<div id="cell-014" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>boundary <span class="op">=</span> np.zeros((<span class="dv">42</span>, <span class="dv">42</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>boundary[<span class="dv">8</span>, <span class="dv">8</span>:<span class="dv">34</span>] <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>boundary[<span class="dv">33</span>, <span class="dv">8</span>:<span class="dv">34</span>] <span class="op">=</span> <span class="va">True</span></span>
@@ -690,6 +730,13 @@ X_k = (X_{k-1}\oplus B)\cap A^c
 <span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Frontera"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">X_0</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">X_4</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">X_8</span><span class="dv">$</span><span class="vs">"</span>, <span class="vs">r"</span><span class="dv">$</span><span class="vs">X_</span><span class="op">{12}</span><span class="dv">$</span><span class="vs">"</span>, <span class="st">"Resultado"</span>],</span>
 <span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">3</span>)</span>
 <span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="labeling-y-componentes-conectadas" class="level2">
@@ -701,7 +748,7 @@ X_k = (X_{k-1}\oplus B)\cap A^c
 <li>Con 8-conectividad usamos un cuadrado.</li>
 </ul>
 <p>Esto permite contar objetos y medir propiedades por componente.</p>
-<div id="cell-016" class="cell">
+<div id="cell-016" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> label_components(img):</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> img.astype(<span class="bu">bool</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    labels <span class="op">=</span> np.zeros(img.shape, dtype<span class="op">=</span><span class="bu">int</span>)</span>
@@ -742,6 +789,13 @@ X_k = (X_{k-1}\oplus B)\cap A^c
 <span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].text(xs.mean(), ys.mean(), <span class="bu">str</span>(k), color<span class="op">=</span><span class="st">"white"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">14</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
 <span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="thinning-thickening-y-pruning" class="level2">
@@ -750,7 +804,7 @@ X_k = (X_{k-1}\oplus B)\cap A^c
 <p><strong>Thickening</strong> es el dual conceptual: agrega pixeles siguiendo reglas locales.</p>
 <p><strong>Pruning</strong> elimina ramas cortas o espolones producidos por ruido después de esqueletizar.</p>
 <p>Muchos algoritmos de thinning y pruning usan patrones locales del tipo hit-or-miss.</p>
-<div id="cell-018" class="cell">
+<div id="cell-018" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> zhang_suen_thinning(img, max_iter<span class="op">=</span><span class="dv">100</span>):</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    img <span class="op">=</span> img.astype(np.uint8).copy()</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    h, w <span class="op">=</span> img.shape</span>
@@ -816,6 +870,13 @@ X_k = (X_{k-1}\oplus B)\cap A^c
 <span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="dv">3</span>),</span>
 <span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
 <span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="morfología-en-escala-de-grises" class="level2">
@@ -830,7 +891,7 @@ f:\mathbb{Z}^2\rightarrow\mathbb{R}
 <li>erosión gris: reemplaza cada pixel por el <strong>mínimo local</strong>.</li>
 </ul>
 <p>Por eso la dilatación expande regiones brillantes y la erosión expande regiones oscuras.</p>
-<div id="cell-020" class="cell">
+<div id="cell-020" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gray_dilation(f, se):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> np.asarray(f, dtype<span class="op">=</span><span class="bu">float</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    py, px <span class="op">=</span> np.array(se.shape) <span class="op">//</span> <span class="dv">2</span></span>
@@ -877,6 +938,13 @@ f:\mathbb{Z}^2\rightarrow\mathbb{R}
 <span id="cb10-44"><a href="#cb10-44" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
 <span id="cb10-45"><a href="#cb10-45" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb10-46"><a href="#cb10-46" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="gradiente-top-hat-y-bottom-hat" class="level2">
@@ -895,7 +963,7 @@ B_{hat}(f)=(f\bullet B)-f
 \]</span></p>
 <p><strong>Top-hat:</strong> lo que la apertura eliminó, típicamente detalles brillantes pequeños.</p>
 <p><strong>Bottom-hat:</strong> lo que el cierre rellenó, típicamente detalles oscuros pequeños.</p>
-<div id="cell-022" class="cell">
+<div id="cell-022" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> disk(<span class="dv">7</span>)</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>opened <span class="op">=</span> gray_opening(f, B)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>closed <span class="op">=</span> gray_closing(f, B)</span>
@@ -912,6 +980,13 @@ B_{hat}(f)=(f\bullet B)-f
 <span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
 <span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
 <span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-12-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="ejemplos-con-scikit-image" class="level2">
@@ -926,44 +1001,54 @@ B_{hat}(f)=(f\bullet B)-f
 <li>morfología en escala de grises: <code>dilation</code>, <code>erosion</code>, <code>opening</code>, <code>closing</code>, <code>white_tophat</code>, <code>black_tophat</code>.</li>
 </ul>
 <p>La ventaja es que estas funciones son más rápidas, están testeadas y manejan muchos detalles de borde.</p>
-<div id="skimage-imports" class="cell">
+<div id="skimage-imports" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimage <span class="im">import</span> data, filters, measure, morphology, util</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> skimage.color <span class="im">import</span> rgb2gray</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"scikit-image cargado correctamente"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>scikit-image cargado correctamente</code></pre>
+</div>
 </div>
 <section id="operadores-binarios-con-skimage.morphology" class="level3">
 <h3 class="anchored" data-anchor-id="operadores-binarios-con-skimage.morphology">11.1 Operadores binarios con <code>skimage.morphology</code></h3>
 <p>Primero repetimos la idea de apertura y cierre, pero usando funciones de <code>skimage</code>.</p>
 <p>En <code>skimage</code>, el elemento estructurante se pasa como <code>footprint</code>. Por ejemplo:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>footprint <span class="op">=</span> morphology.disk(<span class="dv">3</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>opened <span class="op">=</span> morphology.binary_opening(mask, footprint<span class="op">=</span>footprint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>footprint <span class="op">=</span> morphology.disk(<span class="dv">3</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>opened <span class="op">=</span> morphology.binary_opening(mask, footprint<span class="op">=</span>footprint)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>Esto hace lo mismo conceptualmente que nuestras funciones, pero con implementación optimizada.</p>
-<div id="skimage-binary-code" class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.zeros((<span class="dv">90</span>, <span class="dv">130</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>yy, xx <span class="op">=</span> np.mgrid[:<span class="dv">90</span>, :<span class="dv">130</span>]</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>mask <span class="op">|=</span> ((yy <span class="op">-</span> <span class="dv">42</span>) <span class="op">/</span> <span class="dv">22</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((xx <span class="op">-</span> <span class="dv">45</span>) <span class="op">/</span> <span class="dv">28</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">1</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>mask <span class="op">|=</span> ((yy <span class="op">-</span> <span class="dv">45</span>) <span class="op">/</span> <span class="dv">15</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((xx <span class="op">-</span> <span class="dv">88</span>) <span class="op">/</span> <span class="dv">18</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">1</span></span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>mask[<span class="dv">38</span>:<span class="dv">44</span>, <span class="dv">63</span>:<span class="dv">72</span>] <span class="op">=</span> <span class="va">True</span>     <span class="co"># puente delgado</span></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>mask[<span class="dv">25</span>:<span class="dv">31</span>, <span class="dv">35</span>:<span class="dv">41</span>] <span class="op">=</span> <span class="va">False</span>    <span class="co"># hueco pequeño</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>mask[<span class="dv">52</span>:<span class="dv">59</span>, <span class="dv">86</span>:<span class="dv">94</span>] <span class="op">=</span> <span class="va">False</span>    <span class="co"># otro hueco</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12</span>)</span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>noisy_mask <span class="op">=</span> mask.copy()</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>noisy_mask[rng.random(mask.shape) <span class="op">&lt;</span> <span class="fl">0.012</span>] <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>noisy_mask[rng.random(mask.shape) <span class="op">&lt;</span> <span class="fl">0.006</span>] <span class="op">=</span> <span class="va">False</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>footprint <span class="op">=</span> morphology.disk(<span class="dv">3</span>)</span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>opened <span class="op">=</span> morphology.binary_opening(noisy_mask, footprint<span class="op">=</span>footprint)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>closed <span class="op">=</span> morphology.binary_closing(noisy_mask, footprint<span class="op">=</span>footprint)</span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>clean <span class="op">=</span> morphology.binary_closing(opened, footprint<span class="op">=</span>footprint)</span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>show_row(</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    [noisy_mask, opened, closed, clean],</span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Máscara con ruido"</span>, <span class="st">"Apertura"</span>, <span class="st">"Cierre"</span>, <span class="st">"Apertura + cierre"</span>],</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">3</span>),</span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="skimage-binary-code" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> np.zeros((<span class="dv">90</span>, <span class="dv">130</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>yy, xx <span class="op">=</span> np.mgrid[:<span class="dv">90</span>, :<span class="dv">130</span>]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>mask <span class="op">|=</span> ((yy <span class="op">-</span> <span class="dv">42</span>) <span class="op">/</span> <span class="dv">22</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((xx <span class="op">-</span> <span class="dv">45</span>) <span class="op">/</span> <span class="dv">28</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">1</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>mask <span class="op">|=</span> ((yy <span class="op">-</span> <span class="dv">45</span>) <span class="op">/</span> <span class="dv">15</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ((xx <span class="op">-</span> <span class="dv">88</span>) <span class="op">/</span> <span class="dv">18</span>)<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> <span class="dv">1</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>mask[<span class="dv">38</span>:<span class="dv">44</span>, <span class="dv">63</span>:<span class="dv">72</span>] <span class="op">=</span> <span class="va">True</span>     <span class="co"># puente delgado</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>mask[<span class="dv">25</span>:<span class="dv">31</span>, <span class="dv">35</span>:<span class="dv">41</span>] <span class="op">=</span> <span class="va">False</span>    <span class="co"># hueco pequeño</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>mask[<span class="dv">52</span>:<span class="dv">59</span>, <span class="dv">86</span>:<span class="dv">94</span>] <span class="op">=</span> <span class="va">False</span>    <span class="co"># otro hueco</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">12</span>)</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>noisy_mask <span class="op">=</span> mask.copy()</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>noisy_mask[rng.random(mask.shape) <span class="op">&lt;</span> <span class="fl">0.012</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>noisy_mask[rng.random(mask.shape) <span class="op">&lt;</span> <span class="fl">0.006</span>] <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>footprint <span class="op">=</span> morphology.disk(<span class="dv">3</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>opened <span class="op">=</span> morphology.binary_opening(noisy_mask, footprint<span class="op">=</span>footprint)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>closed <span class="op">=</span> morphology.binary_closing(noisy_mask, footprint<span class="op">=</span>footprint)</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>clean <span class="op">=</span> morphology.binary_closing(opened, footprint<span class="op">=</span>footprint)</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>show_row(</span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    [noisy_mask, opened, closed, clean],</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Máscara con ruido"</span>, <span class="st">"Apertura"</span>, <span class="st">"Cierre"</span>, <span class="st">"Apertura + cierre"</span>],</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">3</span>),</span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-14-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="limpieza-de-máscaras-objetos-pequeños-y-huecos" class="level3">
@@ -971,46 +1056,63 @@ B_{hat}(f)=(f\bullet B)-f
 <p><code>remove_small_objects</code> elimina componentes conectadas con área menor que un umbral.</p>
 <p><code>remove_small_holes</code> rellena huecos oscuros menores que un umbral.</p>
 <p>Estas funciones son muy usadas después de segmentar una imagen, porque una segmentación real suele traer puntos aislados, huecos pequeños o regiones espurias.</p>
-<div id="skimage-cleaning-code" class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>clean_objects <span class="op">=</span> morphology.remove_small_objects(noisy_mask, min_size<span class="op">=</span><span class="dv">80</span>)</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>clean_holes <span class="op">=</span> morphology.remove_small_holes(clean_objects, area_threshold<span class="op">=</span><span class="dv">120</span>)</span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>show_row(</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    [noisy_mask, clean_objects, clean_holes],</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Original ruidosa"</span>, <span class="st">"Sin objetos pequeños"</span>, <span class="st">"Huecos pequeños rellenados"</span>],</span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>),</span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="skimage-cleaning-code" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>clean_objects <span class="op">=</span> morphology.remove_small_objects(noisy_mask, min_size<span class="op">=</span><span class="dv">80</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>clean_holes <span class="op">=</span> morphology.remove_small_holes(clean_objects, area_threshold<span class="op">=</span><span class="dv">120</span>)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>show_row(</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    [noisy_mask, clean_objects, clean_holes],</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Original ruidosa"</span>, <span class="st">"Sin objetos pequeños"</span>, <span class="st">"Huecos pequeños rellenados"</span>],</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">3</span>),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="labeling-con-measure.label" class="level3">
 <h3 class="anchored" data-anchor-id="labeling-con-measure.label">11.3 Labeling con <code>measure.label</code></h3>
 <p><code>measure.label</code> etiqueta componentes conectadas.</p>
 <p>Después, <code>measure.regionprops</code> permite medir propiedades por objeto: área, centroide, bounding box, excentricidad, etc. Esto es una rutina típica para pasar desde segmentación a cuantificación.</p>
-<div id="skimage-label-code" class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> measure.label(clean_holes, connectivity<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>props <span class="op">=</span> measure.regionprops(labels)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].imshow(clean_holes, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Máscara limpia"</span>)</span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xticks([])</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_yticks([])</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].imshow(labels, cmap<span class="op">=</span><span class="st">"tab20"</span>)</span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="ss">f"Labeling: </span><span class="sc">{</span><span class="bu">len</span>(props)<span class="sc">}</span><span class="ss"> componentes"</span>)</span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xticks([])</span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_yticks([])</span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region <span class="kw">in</span> props:</span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>    y, x <span class="op">=</span> region.centroid</span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].text(x, y, <span class="bu">str</span>(region.label), color<span class="op">=</span><span class="st">"white"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region <span class="kw">in</span> props:</span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"label=</span><span class="sc">{</span>region<span class="sc">.</span>label<span class="sc">:2d}</span><span class="ss">  area=</span><span class="sc">{</span>region<span class="sc">.</span>area<span class="sc">:5.0f}</span><span class="ss">  centroid=(</span><span class="sc">{</span>region<span class="sc">.</span>centroid[<span class="dv">0</span>]<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>region<span class="sc">.</span>centroid[<span class="dv">1</span>]<span class="sc">:.1f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="skimage-label-code" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> measure.label(clean_holes, connectivity<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>props <span class="op">=</span> measure.regionprops(labels)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].imshow(clean_holes, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Máscara limpia"</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xticks([])</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_yticks([])</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].imshow(labels, cmap<span class="op">=</span><span class="st">"tab20"</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="ss">f"Labeling: </span><span class="sc">{</span><span class="bu">len</span>(props)<span class="sc">}</span><span class="ss"> componentes"</span>)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xticks([])</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_yticks([])</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region <span class="kw">in</span> props:</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    y, x <span class="op">=</span> region.centroid</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    axs[<span class="dv">1</span>].text(x, y, <span class="bu">str</span>(region.label), color<span class="op">=</span><span class="st">"white"</span>, ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, weight<span class="op">=</span><span class="st">"bold"</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> region <span class="kw">in</span> props:</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"label=</span><span class="sc">{</span>region<span class="sc">.</span>label<span class="sc">:2d}</span><span class="ss">  area=</span><span class="sc">{</span>region<span class="sc">.</span>area<span class="sc">:5.0f}</span><span class="ss">  centroid=(</span><span class="sc">{</span>region<span class="sc">.</span>centroid[<span class="dv">0</span>]<span class="sc">:.1f}</span><span class="ss">, </span><span class="sc">{</span>region<span class="sc">.</span>centroid[<span class="dv">1</span>]<span class="sc">:.1f}</span><span class="ss">)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-16-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>label= 1  area= 2745  centroid=(42.9, 57.9)</code></pre>
+</div>
 </div>
 </section>
 <section id="skeletonize-y-thin" class="level3">
@@ -1018,23 +1120,30 @@ B_{hat}(f)=(f\bullet B)-f
 <p><code>skeletonize</code> calcula una representación medial del objeto.</p>
 <p><code>thin</code> adelgaza iterativamente la máscara. Si se le entrega <code>max_num_iter</code>, podemos detener el proceso antes de llegar al esqueleto final.</p>
 <p>La diferencia práctica es útil: a veces queremos adelgazar un poco, no necesariamente llegar a una línea de un pixel.</p>
-<div id="skimage-skeleton-code" class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>shape <span class="op">=</span> np.zeros((<span class="dv">100</span>, <span class="dv">120</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">18</span>:<span class="dv">82</span>, <span class="dv">50</span>:<span class="dv">68</span>] <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">38</span>:<span class="dv">56</span>, <span class="dv">22</span>:<span class="dv">98</span>] <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">62</span>:<span class="dv">80</span>, <span class="dv">28</span>:<span class="dv">52</span>] <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">60</span>:<span class="dv">88</span>, <span class="dv">80</span>:<span class="dv">99</span>] <span class="op">=</span> <span class="va">True</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>thin_8 <span class="op">=</span> morphology.thin(shape, max_num_iter<span class="op">=</span><span class="dv">8</span>)</span>
-<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>thin_full <span class="op">=</span> morphology.thin(shape)</span>
-<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>skel <span class="op">=</span> morphology.skeletonize(shape)</span>
-<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>show_row(</span>
-<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    [shape, thin_8, thin_full, skel],</span>
-<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Original"</span>, <span class="st">"thin: 8 iteraciones"</span>, <span class="st">"thin completo"</span>, <span class="st">"skeletonize"</span>],</span>
-<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">3</span>),</span>
-<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
-<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="skimage-skeleton-code" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>shape <span class="op">=</span> np.zeros((<span class="dv">100</span>, <span class="dv">120</span>), dtype<span class="op">=</span><span class="bu">bool</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">18</span>:<span class="dv">82</span>, <span class="dv">50</span>:<span class="dv">68</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">38</span>:<span class="dv">56</span>, <span class="dv">22</span>:<span class="dv">98</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">62</span>:<span class="dv">80</span>, <span class="dv">28</span>:<span class="dv">52</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>shape[<span class="dv">60</span>:<span class="dv">88</span>, <span class="dv">80</span>:<span class="dv">99</span>] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>thin_8 <span class="op">=</span> morphology.thin(shape, max_num_iter<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>thin_full <span class="op">=</span> morphology.thin(shape)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>skel <span class="op">=</span> morphology.skeletonize(shape)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>show_row(</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    [shape, thin_8, thin_full, skel],</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Original"</span>, <span class="st">"thin: 8 iteraciones"</span>, <span class="st">"thin completo"</span>, <span class="st">"skeletonize"</span>],</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>    figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">3</span>),</span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>    grid<span class="op">=</span><span class="va">False</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-17-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="escala-de-grises-con-una-imagen-real-de-ejemplo" class="level3">
@@ -1042,29 +1151,36 @@ B_{hat}(f)=(f\bullet B)-f
 <p>Ahora usamos <code>data.coins()</code> de <code>scikit-image</code>.</p>
 <p>La apertura gris atenúa detalles brillantes pequeños. El top-hat blanco extrae justamente esos detalles brillantes que la apertura removió.</p>
 <p>Esto conecta con una idea práctica: si el fondo cambia lentamente y los objetos son pequeños, top-hat puede ayudar a resaltarlos.</p>
-<div id="skimage-gray-code" class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>coins <span class="op">=</span> util.img_as_float(data.coins())</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>footprint <span class="op">=</span> morphology.disk(<span class="dv">12</span>)</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>coins_open <span class="op">=</span> morphology.opening(coins, footprint<span class="op">=</span>footprint)</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>coins_close <span class="op">=</span> morphology.closing(coins, footprint<span class="op">=</span>footprint)</span>
-<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>coins_tophat <span class="op">=</span> morphology.white_tophat(coins, footprint<span class="op">=</span>footprint)</span>
-<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>coins_bothat <span class="op">=</span> morphology.black_tophat(coins, footprint<span class="op">=</span>footprint)</span>
-<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>coins_grad <span class="op">=</span> morphology.dilation(coins, footprint<span class="op">=</span>footprint) <span class="op">-</span> morphology.erosion(coins, footprint<span class="op">=</span>footprint)</span>
-<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">7</span>))</span>
-<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, im, title <span class="kw">in</span> <span class="bu">zip</span>(</span>
-<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>    axs.ravel(),</span>
-<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    [coins, coins_open, coins_close, coins_grad, coins_tophat, coins_bothat],</span>
-<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Imagen original"</span>, <span class="st">"Apertura gris"</span>, <span class="st">"Cierre gris"</span>, <span class="st">"Gradiente"</span>, <span class="st">"White top-hat"</span>, <span class="st">"Black top-hat"</span>]</span>
-<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>):</span>
-<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    vmax <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> title <span class="kw">in</span> [<span class="st">"Imagen original"</span>, <span class="st">"Apertura gris"</span>, <span class="st">"Cierre gris"</span>] <span class="cf">else</span> <span class="bu">max</span>(<span class="bu">float</span>(im.<span class="bu">max</span>()), <span class="fl">1e-6</span>)</span>
-<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    ax.imshow(im, cmap<span class="op">=</span><span class="st">"gray"</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span>vmax)</span>
-<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
-<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
-<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
-<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="skimage-gray-code" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>coins <span class="op">=</span> util.img_as_float(data.coins())</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>footprint <span class="op">=</span> morphology.disk(<span class="dv">12</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>coins_open <span class="op">=</span> morphology.opening(coins, footprint<span class="op">=</span>footprint)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>coins_close <span class="op">=</span> morphology.closing(coins, footprint<span class="op">=</span>footprint)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>coins_tophat <span class="op">=</span> morphology.white_tophat(coins, footprint<span class="op">=</span>footprint)</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>coins_bothat <span class="op">=</span> morphology.black_tophat(coins, footprint<span class="op">=</span>footprint)</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>coins_grad <span class="op">=</span> morphology.dilation(coins, footprint<span class="op">=</span>footprint) <span class="op">-</span> morphology.erosion(coins, footprint<span class="op">=</span>footprint)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">7</span>))</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, im, title <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>    axs.ravel(),</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    [coins, coins_open, coins_close, coins_grad, coins_tophat, coins_bothat],</span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>    [<span class="st">"Imagen original"</span>, <span class="st">"Apertura gris"</span>, <span class="st">"Cierre gris"</span>, <span class="st">"Gradiente"</span>, <span class="st">"White top-hat"</span>, <span class="st">"Black top-hat"</span>]</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>):</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    vmax <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> title <span class="kw">in</span> [<span class="st">"Imagen original"</span>, <span class="st">"Apertura gris"</span>, <span class="st">"Cierre gris"</span>] <span class="cf">else</span> <span class="bu">max</span>(<span class="bu">float</span>(im.<span class="bu">max</span>()), <span class="fl">1e-6</span>)</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    ax.imshow(im, cmap<span class="op">=</span><span class="st">"gray"</span>, vmin<span class="op">=</span><span class="dv">0</span>, vmax<span class="op">=</span>vmax)</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>    ax.set_title(title)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-18-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="segmentación-simple-threshold-morfología" class="level3">
@@ -1077,34 +1193,45 @@ B_{hat}(f)=(f\bullet B)-f
 <li>medir propiedades.</li>
 </ol>
 <p>Este ejemplo no busca ser una segmentación perfecta de monedas; busca mostrar el rol de la morfología en un pipeline real.</p>
-<div id="skimage-threshold-code" class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> filters.threshold_otsu(coins)</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> coins <span class="op">&gt;</span> threshold</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Limpieza morfológica: cerrar huecos, remover objetos pequeños y rellenar cavidades.</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> morphology.binary_closing(mask, footprint<span class="op">=</span>morphology.disk(<span class="dv">3</span>))</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> morphology.remove_small_objects(mask2, min_size<span class="op">=</span><span class="dv">120</span>)</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> morphology.remove_small_holes(mask2, area_threshold<span class="op">=</span><span class="dv">120</span>)</span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> measure.label(mask2)</span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>props <span class="op">=</span> measure.regionprops(labels)</span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">4</span>))</span>
-<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].imshow(coins, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Imagen"</span>)</span>
-<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].imshow(mask, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
-<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Umbral Otsu"</span>)</span>
-<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].imshow(labels, cmap<span class="op">=</span><span class="st">"tab20"</span>)</span>
-<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="ss">f"Máscara limpia + labels (</span><span class="sc">{</span><span class="bu">len</span>(props)<span class="sc">}</span><span class="ss">)"</span>)</span>
-<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs:</span>
-<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
-<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
-<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
-<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
-<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>areas <span class="op">=</span> [r.area <span class="cf">for</span> r <span class="kw">in</span> props]</span>
-<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Componentes detectadas: </span><span class="sc">{</span><span class="bu">len</span>(props)<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Área promedio: </span><span class="sc">{</span>np<span class="sc">.</span>mean(areas)<span class="sc">:.1f}</span><span class="ss"> pixeles"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="skimage-threshold-code" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>threshold <span class="op">=</span> filters.threshold_otsu(coins)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>mask <span class="op">=</span> coins <span class="op">&gt;</span> threshold</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Limpieza morfológica: cerrar huecos, remover objetos pequeños y rellenar cavidades.</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> morphology.binary_closing(mask, footprint<span class="op">=</span>morphology.disk(<span class="dv">3</span>))</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> morphology.remove_small_objects(mask2, min_size<span class="op">=</span><span class="dv">120</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>mask2 <span class="op">=</span> morphology.remove_small_holes(mask2, area_threshold<span class="op">=</span><span class="dv">120</span>)</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> measure.label(mask2)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>props <span class="op">=</span> measure.regionprops(labels)</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">4</span>))</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].imshow(coins, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Imagen"</span>)</span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].imshow(mask, cmap<span class="op">=</span><span class="st">"gray"</span>)</span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_title(<span class="st">"Umbral Otsu"</span>)</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].imshow(labels, cmap<span class="op">=</span><span class="st">"tab20"</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">2</span>].set_title(<span class="ss">f"Máscara limpia + labels (</span><span class="sc">{</span><span class="bu">len</span>(props)<span class="sc">}</span><span class="ss">)"</span>)</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs:</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks([])</span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>areas <span class="op">=</span> [r.area <span class="cf">for</span> r <span class="kw">in</span> props]</span>
+<span id="cb21-26"><a href="#cb21-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Componentes detectadas: </span><span class="sc">{</span><span class="bu">len</span>(props)<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb21-27"><a href="#cb21-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Área promedio: </span><span class="sc">{</span>np<span class="sc">.</span>mean(areas)<span class="sc">:.1f}</span><span class="ss"> pixeles"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="math-morpho_files/figure-html/cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Componentes detectadas: 22
+Área promedio: 2186.6 pixeles</code></pre>
+</div>
 </div>
 </section>
 </section>
@@ -1144,7 +1271,7 @@ B_{hat}(f)=(f\bullet B)-f
       a.appendChild(i);
       window.document.body.appendChild(a);
     }
-    window.setColorSchemeToggle(window.hasAlternateSentinel())
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
