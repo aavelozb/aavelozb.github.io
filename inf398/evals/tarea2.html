@@ -371,7 +371,7 @@ window.Quarto = {
   <li><a href="#regularización-explícita-implícita-y-heurística" id="toc-regularización-explícita-implícita-y-heurística" class="nav-link" data-scroll-target="#regularización-explícita-implícita-y-heurística">4. Regularización explícita, implícita y heurística</a></li>
   <li><a href="#sensibilidad-ruido-y-sesgo-varianza" id="toc-sensibilidad-ruido-y-sesgo-varianza" class="nav-link" data-scroll-target="#sensibilidad-ruido-y-sesgo-varianza">5. Sensibilidad, ruido y sesgo-varianza</a></li>
   <li><a href="#preguntas-de-discusión" id="toc-preguntas-de-discusión" class="nav-link" data-scroll-target="#preguntas-de-discusión">6. Preguntas de discusión</a></li>
-  <li><a href="#pregunta-adicional-red-neuronal-con-salidas-mixtas" id="toc-pregunta-adicional-red-neuronal-con-salidas-mixtas" class="nav-link" data-scroll-target="#pregunta-adicional-red-neuronal-con-salidas-mixtas">7. Pregunta adicional: red neuronal con salidas mixtas</a></li>
+  <li><a href="#red-neuronal-con-salidas-mixtas" id="toc-red-neuronal-con-salidas-mixtas" class="nav-link" data-scroll-target="#red-neuronal-con-salidas-mixtas">7. Red neuronal con salidas mixtas</a></li>
   <li><a href="#entregables" id="toc-entregables" class="nav-link" data-scroll-target="#entregables">Entregables</a></li>
   </ul>
 </nav>
@@ -408,7 +408,7 @@ window.Quarto = {
 </ol>
 <p>El problema se contextualiza en la predicción de demanda operacional para un sistema de bicicletas compartidas. Suponga que se quiere estimar el número esperado de viajes diarios en una estación a partir de variables de calendario, clima y operación. Por definición, la demanda real no puede ser negativa, pero un modelo de regresión estándar con pérdida cuadrática no impone esta restricción de manera explícita.</p>
 <p>Trabajaremos con un conjunto de datos sintético. Puede usar el siguiente generador:</p>
-<div id="b55eb769" class="cell" data-execution_count="1">
+<div id="03dd9cee" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -585,8 +585,8 @@ L(\phi) = \frac{1}{I}\sum_{i=1}^{I} (y_i - f[x_i,\phi])^2.
 <li>¿Qué costo computacional se tiene al usar un ensamble y cuándo se justificaría?</li>
 </ol>
 </section>
-<section id="pregunta-adicional-red-neuronal-con-salidas-mixtas" class="level2">
-<h2 class="anchored" data-anchor-id="pregunta-adicional-red-neuronal-con-salidas-mixtas">7. Pregunta adicional: red neuronal con salidas mixtas</h2>
+<section id="red-neuronal-con-salidas-mixtas" class="level2">
+<h2 class="anchored" data-anchor-id="red-neuronal-con-salidas-mixtas">7. Red neuronal con salidas mixtas</h2>
 <p>En muchos problemas reales, una misma entrada debe alimentar varias predicciones de naturaleza distinta. Extienda el problema anterior para que la red tenga tres salidas:</p>
 <ol type="1">
 <li><strong>Salida continua:</strong> una variable real que puede tomar valores positivos o negativos, por ejemplo el desvío de demanda respecto del promedio histórico de la estación.</li>
@@ -599,7 +599,7 @@ L(\phi) = \frac{1}{I}\sum_{i=1}^{I} (y_i - f[x_i,\phi])^2.
 L_{\text{total}} =
 \lambda_1 L_{\text{continua}}
 + \lambda_2 L_{\text{positiva}}
-+ \lambda_3 L_{\text{categorica}},
++ \lambda_3 L_{\text{categórica}},
 \]</span></p>
 <p>donde puede usar MSE o MAE para la salida continua, una NLL log-normal/Gamma o una transformación positiva para la salida positiva, y entropía cruzada para la salida categórica.</p>
 <p>Responda:</p>
@@ -614,7 +614,7 @@ L_{\text{total}} =
 </section>
 <section id="entregables" class="level2">
 <h2 class="anchored" data-anchor-id="entregables">Entregables</h2>
-<p>Debe entregar un notebook o informe reproducible que incluya lo siguiente:</p>
+<p>Debe entregar un notebook reproducible que incluya lo siguiente:</p>
 <ul>
 <li>Código completo de la red neuronal desde cero.</li>
 <li>Código de la implementación equivalente en PyTorch.</li>
