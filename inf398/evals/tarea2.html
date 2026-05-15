@@ -163,7 +163,7 @@ window.Quarto = {
 <meta property="og:description" content="Redes neuronales feedforward, verosimilitud y regularización">
 <meta property="og:image" content="https://aavelozb.github.io/inf398/evals/tarea2_files/figure-html/cell-2-output-1.png">
 <meta property="og:image:height" content="748">
-<meta property="og:image:width" content="1131">
+<meta property="og:image:width" content="1132">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -371,6 +371,7 @@ window.Quarto = {
   <li><a href="#regularización-explícita-implícita-y-heurística" id="toc-regularización-explícita-implícita-y-heurística" class="nav-link" data-scroll-target="#regularización-explícita-implícita-y-heurística">4. Regularización explícita, implícita y heurística</a></li>
   <li><a href="#sensibilidad-ruido-y-sesgo-varianza" id="toc-sensibilidad-ruido-y-sesgo-varianza" class="nav-link" data-scroll-target="#sensibilidad-ruido-y-sesgo-varianza">5. Sensibilidad, ruido y sesgo-varianza</a></li>
   <li><a href="#preguntas-de-discusión" id="toc-preguntas-de-discusión" class="nav-link" data-scroll-target="#preguntas-de-discusión">6. Preguntas de discusión</a></li>
+  <li><a href="#pregunta-adicional-red-neuronal-con-salidas-mixtas" id="toc-pregunta-adicional-red-neuronal-con-salidas-mixtas" class="nav-link" data-scroll-target="#pregunta-adicional-red-neuronal-con-salidas-mixtas">7. Pregunta adicional: red neuronal con salidas mixtas</a></li>
   <li><a href="#entregables" id="toc-entregables" class="nav-link" data-scroll-target="#entregables">Entregables</a></li>
   </ul>
 </nav>
@@ -405,53 +406,53 @@ window.Quarto = {
 <li>El entrenamiento como minimización de una función de pérdida derivada desde máxima verosimilitud.</li>
 <li>La evaluación de generalización mediante capacidad del modelo, sesgo-varianza y estrategias de regularización.</li>
 </ol>
-<p>El problema se contextualiza en la predicción de una variable biomédica positiva. Suponga que se quiere estimar la concentración de un biomarcador plasmático a partir de variables clínicas y experimentales. Por definición, la concentración real no puede ser negativa, pero un modelo de regresión estándar con pérdida cuadrática no impone esta restricción de manera explícita.</p>
+<p>El problema se contextualiza en la predicción de demanda operacional para un sistema de bicicletas compartidas. Suponga que se quiere estimar el número esperado de viajes diarios en una estación a partir de variables de calendario, clima y operación. Por definición, la demanda real no puede ser negativa, pero un modelo de regresión estándar con pérdida cuadrática no impone esta restricción de manera explícita.</p>
 <p>Trabajaremos con un conjunto de datos sintético. Puede usar el siguiente generador:</p>
-<div id="a6444926" class="cell" data-execution_count="1">
+<div id="b55eb769" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generar_datos_biomarcador(n<span class="op">=</span><span class="dv">1200</span>, ruido<span class="op">=</span><span class="fl">0.25</span>, seed<span class="op">=</span><span class="dv">42</span>):</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generar_datos_demanda(n<span class="op">=</span><span class="dv">1200</span>, ruido<span class="op">=</span><span class="fl">0.25</span>, seed<span class="op">=</span><span class="dv">42</span>):</span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    rng <span class="op">=</span> np.random.default_rng(seed)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    edad <span class="op">=</span> rng.uniform(<span class="dv">18</span>, <span class="dv">90</span>, size<span class="op">=</span>n)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    dosis <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>n)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    horas <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">24</span>, size<span class="op">=</span>n)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    indice_riesgo <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>n)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    inflamacion_base <span class="op">=</span> rng.gamma(shape<span class="op">=</span><span class="fl">2.0</span>, scale<span class="op">=</span><span class="fl">1.0</span>, size<span class="op">=</span>n)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    temperatura <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">35</span>, size<span class="op">=</span>n)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    lluvia <span class="op">=</span> rng.gamma(shape<span class="op">=</span><span class="fl">1.5</span>, scale<span class="op">=</span><span class="fl">4.0</span>, size<span class="op">=</span>n)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    hora_punta <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">1</span>, size<span class="op">=</span>n)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    dia_laboral <span class="op">=</span> rng.binomial(<span class="dv">1</span>, <span class="fl">0.72</span>, size<span class="op">=</span>n)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    eventos <span class="op">=</span> rng.poisson(<span class="fl">0.25</span>, size<span class="op">=</span>n)</span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> np.column_stack([</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        edad,</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        dosis,</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        horas,</span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        indice_riesgo,</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        inflamacion_base,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        temperatura,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        lluvia,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        hora_punta,</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        dia_laboral,</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>        eventos,</span>
 <span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>    ])</span>
 <span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Funcion latente no lineal. La variable observada se genera como positiva.</span></span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> (</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span><span class="fl">1.2</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.018</span> <span class="op">*</span> edad</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">1.4</span> <span class="op">*</span> np.sin(np.pi <span class="op">*</span> dosis)</span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.03</span> <span class="op">*</span> horas</span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.55</span> <span class="op">*</span> indice_riesgo</span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> np.sqrt(inflamacion_base)</span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> <span class="fl">0.015</span> <span class="op">*</span> dosis <span class="op">*</span> horas</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="fl">2.0</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.045</span> <span class="op">*</span> temperatura</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> <span class="fl">0.055</span> <span class="op">*</span> lluvia</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">1.1</span> <span class="op">*</span> np.sin(np.pi <span class="op">*</span> hora_punta)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.35</span> <span class="op">*</span> dia_laboral</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">+</span> <span class="fl">0.22</span> <span class="op">*</span> eventos</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>        <span class="op">-</span> <span class="fl">0.0025</span> <span class="op">*</span> temperatura <span class="op">*</span> lluvia</span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.exp(g <span class="op">+</span> rng.normal(<span class="dv">0</span>, ruido, size<span class="op">=</span>n))</span>
 <span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    columnas <span class="op">=</span> [<span class="st">"edad"</span>, <span class="st">"dosis"</span>, <span class="st">"horas"</span>, <span class="st">"indice_riesgo"</span>, <span class="st">"inflamacion_base"</span>]</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>    columnas <span class="op">=</span> [<span class="st">"temperatura"</span>, <span class="st">"lluvia"</span>, <span class="st">"hora_punta"</span>, <span class="st">"dia_laboral"</span>, <span class="st">"eventos"</span>]</span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> pd.DataFrame(X, columns<span class="op">=</span>columnas), y</span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> generar_datos_biomarcador()</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> generar_datos_demanda()</span>
 <span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">1</span>, figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="dv">4</span>))</span>
 <span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].hist(y, bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">"#4c78a8"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
 <span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">"Distribucion del target"</span>)</span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Concentracion del biomarcador"</span>)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"Demanda diaria de viajes"</span>)</span>
 <span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Frecuencia"</span>)</span>
 <span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].hist(np.log(y), bins<span class="op">=</span><span class="dv">40</span>, color<span class="op">=</span><span class="st">"#f58518"</span>, edgecolor<span class="op">=</span><span class="st">"white"</span>)</span>
@@ -510,7 +511,7 @@ L(\phi) = \frac{1}{I}\sum_{i=1}^{I} (y_i - f[x_i,\phi])^2.
 </section>
 <section id="verosimilitud-para-una-variable-objetivo-positiva" class="level2">
 <h2 class="anchored" data-anchor-id="verosimilitud-para-una-variable-objetivo-positiva">3. Verosimilitud para una variable objetivo positiva</h2>
-<p>La concentración del biomarcador es estrictamente positiva. Por lo tanto, una pérdida cuadrática con salida lineal puede ser inadecuada, ya que no representa explícitamente el dominio del target ni su posible asimetría.</p>
+<p>La demanda diaria es estrictamente positiva. Por lo tanto, una pérdida cuadrática con salida lineal puede ser inadecuada, ya que no representa explícitamente el dominio del target ni su posible asimetría.</p>
 <p>Modifique la formulación probabilística del modelo para que la distribución condicional de la variable objetivo tenga soporte positivo. Debe elegir al menos una de las siguientes alternativas:</p>
 <ol type="1">
 <li><strong>Modelo log-normal:</strong> suponga que <span class="math inline">\(\log(y)\)</span> sigue una distribución normal. La red puede predecir <span class="math inline">\(\mu(x)\)</span> y opcionalmente <span class="math inline">\(\sigma(x)\)</span> o una varianza global.</li>
@@ -526,7 +527,7 @@ L(\phi) = \frac{1}{I}\sum_{i=1}^{I} (y_i - f[x_i,\phi])^2.
 <li>Implemente la pérdida en su red <em>from scratch</em> o en PyTorch.</li>
 <li>Compare sus resultados contra el modelo con MSE.</li>
 </ul>
-<p>Incluya una discusión sobre el efecto de esta modificación en las predicciones bajas. En particular: ¿disminuye la frecuencia de predicciones negativas o cercanas a cero?, ¿mejora el error relativo para pacientes con concentraciones pequeñas?, ¿cambia la calibración de la incertidumbre si el modelo predice una varianza?</p>
+<p>Incluya una discusión sobre el efecto de esta modificación en las predicciones bajas. En particular: ¿disminuye la frecuencia de predicciones negativas o cercanas a cero?, ¿mejora el error relativo para estaciones con baja demanda?, ¿cambia la calibración de la incertidumbre si el modelo predice una varianza?</p>
 </section>
 <section id="regularización-explícita-implícita-y-heurística" class="level2">
 <h2 class="anchored" data-anchor-id="regularización-explícita-implícita-y-heurística">4. Regularización explícita, implícita y heurística</h2>
@@ -552,6 +553,7 @@ L(\phi) = \frac{1}{I}\sum_{i=1}^{I} (y_i - f[x_i,\phi])^2.
 <li>¿En qué casos el <em>early stopping</em> se comporta de manera similar a una penalización <span class="math inline">\(\ell_2\)</span>?</li>
 <li>¿Existe evidencia de doble descenso o de una relación no monótona entre capacidad y error de prueba?</li>
 <li>Si usa dropout, ¿cómo cambia el comportamiento cuando aumenta la probabilidad de apagar unidades?</li>
+<li>Para la red implementada <em>from scratch</em>, compare las magnitudes de los pesos del modelo sin regularización y del modelo regularizado. Reporte al menos una norma global de los pesos, por ejemplo <span class="math inline">\(\|\phi\|_2\)</span> o <span class="math inline">\(\|\phi\|_1\)</span>, y una visualización de la distribución de pesos por capa. ¿La regularización produjo pesos de menor magnitud? ¿El efecto fue igual en todas las capas?</li>
 </ol>
 </section>
 <section id="sensibilidad-ruido-y-sesgo-varianza" class="level2">
@@ -583,6 +585,33 @@ L(\phi) = \frac{1}{I}\sum_{i=1}^{I} (y_i - f[x_i,\phi])^2.
 <li>¿Qué costo computacional se tiene al usar un ensamble y cuándo se justificaría?</li>
 </ol>
 </section>
+<section id="pregunta-adicional-red-neuronal-con-salidas-mixtas" class="level2">
+<h2 class="anchored" data-anchor-id="pregunta-adicional-red-neuronal-con-salidas-mixtas">7. Pregunta adicional: red neuronal con salidas mixtas</h2>
+<p>En muchos problemas reales, una misma entrada debe alimentar varias predicciones de naturaleza distinta. Extienda el problema anterior para que la red tenga tres salidas:</p>
+<ol type="1">
+<li><strong>Salida continua:</strong> una variable real que puede tomar valores positivos o negativos, por ejemplo el desvío de demanda respecto del promedio histórico de la estación.</li>
+<li><strong>Salida continua positiva:</strong> una variable estrictamente positiva, por ejemplo la demanda diaria esperada de viajes.</li>
+<li><strong>Salida categórica:</strong> una clase operacional, por ejemplo <code>baja</code>, <code>normal</code> o <code>alta</code> congestión del sistema.</li>
+</ol>
+<p>Puede generar estos tres targets de manera sintética a partir de las mismas variables de entrada, o elegir una base de datos simple y definir targets razonables. En ambos casos debe explicar cómo se construyeron las salidas y qué representa cada una.</p>
+<p>Para esta parte <strong>no se exige implementación from scratch</strong>. Implemente la red en PyTorch con un tronco compartido y tres cabezales de salida. Defina una función de costo total apropiada para este caso, por ejemplo:</p>
+<p><span class="math display">\[
+L_{\text{total}} =
+\lambda_1 L_{\text{continua}}
++ \lambda_2 L_{\text{positiva}}
++ \lambda_3 L_{\text{categorica}},
+\]</span></p>
+<p>donde puede usar MSE o MAE para la salida continua, una NLL log-normal/Gamma o una transformación positiva para la salida positiva, y entropía cruzada para la salida categórica.</p>
+<p>Responda:</p>
+<ul>
+<li>¿Qué función de pérdida eligió para cada salida y por qué?</li>
+<li>¿Cómo garantiza que la salida positiva respete su dominio?</li>
+<li>¿Cómo eligió o ajustó los pesos <span class="math inline">\(\lambda_1, \lambda_2, \lambda_3\)</span>?</li>
+<li>¿Qué métricas reporta para cada salida?</li>
+<li>¿Observa conflicto entre tareas, por ejemplo mejora en una salida y empeoramiento en otra?</li>
+<li>¿Qué ventajas y desventajas tiene usar un tronco compartido en lugar de tres modelos separados?</li>
+</ul>
+</section>
 <section id="entregables" class="level2">
 <h2 class="anchored" data-anchor-id="entregables">Entregables</h2>
 <p>Debe entregar un notebook o informe reproducible que incluya lo siguiente:</p>
@@ -593,6 +622,7 @@ L(\phi) = \frac{1}{I}\sum_{i=1}^{I} (y_i - f[x_i,\phi])^2.
 <li>Tablas comparativas de resultados.</li>
 <li>Figuras de entrenamiento, validación y predicción.</li>
 <li>Análisis de regularización y sensibilidad al ruido.</li>
+<li>Implementación en PyTorch de la red con salidas mixtas: continua, positiva y categórica.</li>
 <li>Respuestas a las preguntas de discusión.</li>
 <li>Conclusiones sobre qué modelo recomendaría y bajo qué restricciones.</li>
 </ul>
