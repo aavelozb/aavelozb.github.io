@@ -487,7 +487,11 @@
     "href": "bme423/evals/lab3.html#section",
     "title": "Segmentación de imágenes",
     "section": "",
+<<<<<<< HEAD
     "text": "Nota:\n\nPuede emplear las librerías que considere pertinentes para el desarrollo de los workflows. Explique el funcionamiento de todas las funciones utilizadas.\nPara region growing debe crear una versión propia (además del uso de versiones de librerías).\nEs necesario analizar el efecto de los principales parámetros de cada técnica de segmentación para una correcta comparación cuantitativa."
+=======
+    "text": "Nota:\n\nPuede emplear las librerías que considere pertinentes para el desarrollo de los workflows. Explique el funcionamiento de todas las funciones utilizadas.\nEs necesario analizar el efecto de los principales parámetros de cada técnica de segmentación para una correcta comparación cuantitativa."
+>>>>>>> 492b5dec2e17c20bbdd5c3e1e5d2fb9dd79cc375
   },
   {
     "objectID": "bme423/evals/lab3.html#instrucciones-para-la-entrega",
