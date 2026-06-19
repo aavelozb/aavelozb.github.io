@@ -14,15 +14,15 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf398/index.html</loc>
-    <lastmod>2026-06-19T16:05:15.135Z</lastmod>
+    <lastmod>2026-06-19T16:51:27.475Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf398/evals/tarea1.html</loc>
-    <lastmod>2026-04-20T12:20:00.055Z</lastmod>
+    <lastmod>2026-06-19T17:00:39.016Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf398/evals/tarea2.html</loc>
-    <lastmod>2026-06-19T16:01:41.309Z</lastmod>
+    <lastmod>2026-06-19T17:01:12.374Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/bme321/bme321-ejercicios.html</loc>
@@ -109,6 +109,10 @@
     <lastmod>2026-03-30T11:53:18.513Z</lastmod>
   </url>
   <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ensembles-xgboost.html</loc>
+    <lastmod>2026-06-19T16:50:32.218Z</lastmod>
+  </url>
+  <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/logreg-gc.html</loc>
     <lastmod>2026-03-30T11:53:18.512Z</lastmod>
   </url>
@@ -119,6 +123,10 @@
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/gp04-deep_GPs.html</loc>
     <lastmod>2026-03-16T11:20:20.541Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ArbolesYRandomForest.html</loc>
+    <lastmod>2026-06-19T16:26:18.005Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/passenger-data.html</loc>
@@ -145,12 +153,16 @@
     <lastmod>2026-06-02T20:11:05.258Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB.html</loc>
-    <lastmod>2026-03-30T11:53:18.516Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/fuzzy-anfis-example.html</loc>
+    <lastmod>2026-06-19T16:35:53.424Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-04-fullycnn.html</loc>
-    <lastmod>2025-10-16T23:15:19.000Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist.html</loc>
+    <lastmod>2026-04-21T21:01:58.585Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist-gc.html</loc>
+    <lastmod>2026-04-21T20:56:09.734Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB-gc.html</loc>
@@ -161,12 +173,16 @@
     <lastmod>2025-10-16T23:09:09.000Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist-gc.html</loc>
-    <lastmod>2026-04-21T20:56:09.734Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/pgm-GraphicalModels.html</loc>
+    <lastmod>2026-06-19T16:31:28.710Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist.html</loc>
-    <lastmod>2026-04-21T21:01:58.585Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-04-fullycnn.html</loc>
+    <lastmod>2025-10-16T23:15:19.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB.html</loc>
+    <lastmod>2026-03-30T11:53:18.516Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/cnn-01-conv.html</loc>
@@ -193,6 +209,10 @@
     <lastmod>2026-03-30T11:53:18.518Z</lastmod>
   </url>
   <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/pgm-inference-example.html</loc>
+    <lastmod>2026-06-19T17:04:15.485Z</lastmod>
+  </url>
+  <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/naive_Bayes.html</loc>
     <lastmod>2026-03-30T11:53:18.514Z</lastmod>
   </url>
@@ -207,6 +227,10 @@
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/03-06-word2vec-example.html</loc>
     <lastmod>2026-06-02T20:11:05.255Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ensembles-AdaBoost.html</loc>
+    <lastmod>2026-06-19T16:49:50.337Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/ejemplos-ml/passenger-data-gc.html</loc>
@@ -290,7 +314,7 @@
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf398/evals/tarea3.html</loc>
-    <lastmod>2026-06-19T16:00:35.133Z</lastmod>
+    <lastmod>2026-06-19T16:56:05.719Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/inf398/evals/proyectos-inf398-2026.html</loc>

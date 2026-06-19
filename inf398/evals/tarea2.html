@@ -362,7 +362,7 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Contenido de la página</h2>
    
-  <ul>
+  <ul class="collapse">
   <li><a href="#red-neuronal-feedforward-desde-cero" id="toc-red-neuronal-feedforward-desde-cero" class="nav-link active" data-scroll-target="#red-neuronal-feedforward-desde-cero">1. Red neuronal feedforward desde cero</a></li>
   <li><a href="#comparación-con-pytorch" id="toc-comparación-con-pytorch" class="nav-link" data-scroll-target="#comparación-con-pytorch">2. Comparación con PyTorch</a></li>
   <li><a href="#verosimilitud-para-una-variable-objetivo-positiva" id="toc-verosimilitud-para-una-variable-objetivo-positiva" class="nav-link" data-scroll-target="#verosimilitud-para-una-variable-objetivo-positiva">3. Verosimilitud para una variable objetivo positiva</a></li>
@@ -372,7 +372,7 @@ window.Quarto = {
   <li><a href="#red-neuronal-con-salidas-mixtas" id="toc-red-neuronal-con-salidas-mixtas" class="nav-link" data-scroll-target="#red-neuronal-con-salidas-mixtas">7. Red neuronal con salidas mixtas</a></li>
   <li><a href="#entregables" id="toc-entregables" class="nav-link" data-scroll-target="#entregables">Entregables</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="tarea2.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -406,7 +406,7 @@ window.Quarto = {
 </ol>
 <p>El problema se contextualiza en la predicción de demanda operacional para un sistema de bicicletas compartidas. Suponga que se quiere estimar el número esperado de viajes diarios en una estación a partir de variables de calendario, clima y operación. Por definición, la demanda real no puede ser negativa, pero un modelo de regresión estándar con pérdida cuadrática no impone esta restricción de manera explícita.</p>
 <p>Trabajaremos con un conjunto de datos sintético. Puede usar el siguiente generador:</p>
-<div id="6aa54458" class="cell" data-execution_count="1">
+<div id="941738e6" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>

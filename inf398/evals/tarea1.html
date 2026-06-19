@@ -358,19 +358,8 @@ window.Quarto = {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contenido de la página</h2>
-   
-  <ul>
-  <li><a href="#implementación-de-modelos" id="toc-implementación-de-modelos" class="nav-link active" data-scroll-target="#implementación-de-modelos">1. Implementación de modelos</a></li>
-  <li><a href="#validación-robustez-y-sensibilidad-de-los-modelos" id="toc-validación-robustez-y-sensibilidad-de-los-modelos" class="nav-link" data-scroll-target="#validación-robustez-y-sensibilidad-de-los-modelos">2. Validación, robustez y sensibilidad de los modelos</a></li>
-  <li><a href="#compensación-del-sesgo-por-clase-mayoritaria" id="toc-compensación-del-sesgo-por-clase-mayoritaria" class="nav-link" data-scroll-target="#compensación-del-sesgo-por-clase-mayoritaria">3. Compensación del sesgo por clase mayoritaria</a></li>
-  <li><a href="#optimización-de-costos-y-minimización-de-errores-críticos" id="toc-optimización-de-costos-y-minimización-de-errores-críticos" class="nav-link" data-scroll-target="#optimización-de-costos-y-minimización-de-errores-críticos">4. Optimización de costos y minimización de errores críticos</a></li>
-  <li><a href="#análisis-de-importancia-de-atributos-e-interpretabilidad" id="toc-análisis-de-importancia-de-atributos-e-interpretabilidad" class="nav-link" data-scroll-target="#análisis-de-importancia-de-atributos-e-interpretabilidad">5. Análisis de importancia de atributos e interpretabilidad</a></li>
-  <li><a href="#preguntas-de-discusión-a-considerar" id="toc-preguntas-de-discusión-a-considerar" class="nav-link" data-scroll-target="#preguntas-de-discusión-a-considerar">Preguntas de discusión a considerar</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -400,7 +389,7 @@ window.Quarto = {
 <p>En el ámbito de la medicina de urgencias, la clasificación precisa del estado de un paciente es vital. Se busca, entonces, clasificar a los pacientes en tres categorías: <span style="color: #2ecc71;"><strong>sano</strong></span>, <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span> e <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span>.</p>
 <p>En este escenario clínico, el costo de los errores es asimétrico. Un <strong>falso negativo</strong> (clasificar a un paciente con <span style="color: #e74c3c;"><strong>isquemia crítica</strong></span> como <span style="color: #2ecc71;"><strong>sano</strong></span>) es extremadamente grave, ya que priva al paciente de una intervención inmediata que podría salvarle la vida. Por el contrario, un <strong>falso positivo</strong> (clasificar a un paciente <span style="color: #2ecc71;"><strong>sano</strong></span> como de <span style="color: #f1c40f;"><strong>riesgo moderado</strong></span>) conlleva un costo menor, asociado principalmente a pruebas diagnósticas adicionales y estrés innecesario, pero sin poner en riesgo su vida. Además, la prevalencia de la enfermedad en la población es baja, lo que genera un dataset desbalanceado donde la clase de mayor interés es la menos frecuente.</p>
 <p>En este ejercicio, resolveremos un problema de clasificación que posee desbalance de clases y costo asimétrico. Trabajaremos con datos simulados y compararemos variantes de los algoritmos vistos en clases. El siguiente ejemplo genera datos 2D:</p>
-<div id="25df51f3" class="cell" data-execution_count="1">
+<div id="5e31e59e" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
