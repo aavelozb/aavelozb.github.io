@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>INF398 - Proyectos 2026</title>
+<title>Tarea 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -94,9 +94,38 @@ ul.task-list li input[type="checkbox"] {
   }
 </style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="INF398 - Proyectos 2026">
-<meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Tarea 3">
+<meta property="og:description" content="Árboles, modelos probabilísticos, procesos gaussianos y aprendizaje no supervisado">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -268,7 +297,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">INF398 - Proyectos 2026</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Tarea 3</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -295,20 +324,19 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Contenido de la página</h2>
    
-  <ul>
-  <li><a href="#instrucciones-generales" id="toc-instrucciones-generales" class="nav-link active" data-scroll-target="#instrucciones-generales">Instrucciones generales</a></li>
-  <li><a href="#entregables" id="toc-entregables" class="nav-link" data-scroll-target="#entregables">Entregables</a>
   <ul class="collapse">
-  <li><a href="#definición-del-tema" id="toc-definición-del-tema" class="nav-link" data-scroll-target="#definición-del-tema">1. Definición del tema</a></li>
-  <li><a href="#entrega-parcial" id="toc-entrega-parcial" class="nav-link" data-scroll-target="#entrega-parcial">2. Entrega parcial</a></li>
-  <li><a href="#entrega-final" id="toc-entrega-final" class="nav-link" data-scroll-target="#entrega-final">3. Entrega final</a></li>
-  </ul></li>
-  <li><a href="#rúbrica-de-evaluación" id="toc-rúbrica-de-evaluación" class="nav-link" data-scroll-target="#rúbrica-de-evaluación">Rúbrica de evaluación</a>
-  <ul class="collapse">
-  <li><a href="#descuentos-adicionales" id="toc-descuentos-adicionales" class="nav-link" data-scroll-target="#descuentos-adicionales"><span class="my-green">Descuentos adicionales</span></a></li>
-  </ul></li>
+  <li><a href="#requisitos-mínimos-de-los-datos" id="toc-requisitos-mínimos-de-los-datos" class="nav-link active" data-scroll-target="#requisitos-mínimos-de-los-datos">Requisitos mínimos de los datos</a></li>
+  <li><a href="#partición-y-protocolo-experimental" id="toc-partición-y-protocolo-experimental" class="nav-link" data-scroll-target="#partición-y-protocolo-experimental">Partición y protocolo experimental</a></li>
+  <li><a href="#random-forest-e-importancia-de-variables" id="toc-random-forest-e-importancia-de-variables" class="nav-link" data-scroll-target="#random-forest-e-importancia-de-variables">1. Random Forest e importancia de variables</a></li>
+  <li><a href="#desbalance-de-clases-redes-neuronales-versus-random-forest" id="toc-desbalance-de-clases-redes-neuronales-versus-random-forest" class="nav-link" data-scroll-target="#desbalance-de-clases-redes-neuronales-versus-random-forest">2. Desbalance de clases: redes neuronales versus Random Forest</a></li>
+  <li><a href="#calibración-de-modelos" id="toc-calibración-de-modelos" class="nav-link" data-scroll-target="#calibración-de-modelos">3. Calibración de modelos</a></li>
+  <li><a href="#modelos-en-grafos-probabilísticos" id="toc-modelos-en-grafos-probabilísticos" class="nav-link" data-scroll-target="#modelos-en-grafos-probabilísticos">4. Modelos en grafos probabilísticos</a></li>
+  <li><a href="#procesos-gaussianos" id="toc-procesos-gaussianos" class="nav-link" data-scroll-target="#procesos-gaussianos">5. Procesos gaussianos</a></li>
+  <li><a href="#aprendizaje-no-supervisado-em-y-gmm" id="toc-aprendizaje-no-supervisado-em-y-gmm" class="nav-link" data-scroll-target="#aprendizaje-no-supervisado-em-y-gmm">6. Aprendizaje no supervisado: EM y GMM</a></li>
+  <li><a href="#entregables" id="toc-entregables" class="nav-link" data-scroll-target="#entregables">Entregables</a></li>
+  <li><a href="#criterios-de-evaluación" id="toc-criterios-de-evaluación" class="nav-link" data-scroll-target="#criterios-de-evaluación">Criterios de evaluación</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="tarea3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -316,7 +344,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">INF398 - Proyectos 2026</h1>
+<h1 class="title">Tarea 3</h1>
+<p class="subtitle lead">Árboles, modelos probabilísticos, procesos gaussianos y aprendizaje no supervisado</p>
 </div>
 
 
@@ -333,189 +362,265 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="instrucciones-generales" class="level1">
-<h1>Instrucciones generales</h1>
+<p>En esta tarea trabajaremos con varios modelos vistos en las últimas clases:</p>
+<ol type="1">
+<li>Árboles, Random Forest, importancia de variables y calibración.</li>
+<li>Redes neuronales y problemas de clasificación desbalanceada.</li>
+<li>Modelos en grafos probabilísticos.</li>
+<li>Procesos gaussianos multioutput.</li>
+<li>Aprendizaje no supervisado con EM, mezclas gaussianas y regularización espacial tipo MRF.</li>
+</ol>
+<p>A diferencia de las tareas anteriores, <strong>los datos deben ser elegidos por cada estudiante</strong>. Esta decisión es parte de la evaluación: se espera que justifiquen por qué el dataset permite estudiar los fenómenos pedidos.</p>
+<section id="requisitos-mínimos-de-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="requisitos-mínimos-de-los-datos">Requisitos mínimos de los datos</h2>
+<p>Puede usar un único dataset con varias vistas del problema, o más de un dataset si eso hace más natural resolver las secciones. Debe incluir una ficha con la siguiente información:</p>
 <ul>
-<li>Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).</li>
-<li>Los temas son a elección de los estudiantes.</li>
-<li>Se puede trabajar en grupos de uno, dos o tres personas.</li>
+<li>Fuente del dataset, enlace o procedimiento de descarga.</li>
+<li>Descripción del dominio.</li>
+<li>Número de observaciones y variables.</li>
+<li>Significado de la variable objetivo.</li>
+<li>Tipos de variables: continuas, discretas, binarias, categóricas, temporales o espaciales.</li>
+<li>Proporción de clases.</li>
+<li>Tratamiento de valores faltantes, si aplica. <!-- - Posibles riesgos de fuga de información (*data leakage*). --></li>
+</ul>
+<p>El dataset principal de clasificación debe cumplir:</p>
+<ul>
+<li>Al menos <strong>8 variables predictoras</strong> después de limpieza inicial.</li>
+<li>al menos <strong>5 variables numéricas</strong>.</li>
+<li>Al menos una variable categórica o binaria.</li>
+<li>Una tarea de clasificación binaria o multiclase.</li>
+<li>Desbalance de clases natural o inducido, con razón mayoría/minoría de al menos <strong>3:1</strong>.</li>
+</ul>
+<p>Si el desbalance se induce artificialmente, debe reportar la distribución original.</p>
+<p>Para las secciones de modelos en grafos y procesos gaussianos puede usar el mismo dominio, pero se permiten vistas diferentes:</p>
+<ul>
+<li>Para modelos en grafos: entre <strong>6 y 12 variables</strong> discretas o discretizadas, con al menos <strong>500 observaciones</strong>.</li>
+<li>Para procesos gaussianos: una variable de entrada ordenada, por ejemplo tiempo, dosis, distancia o ubicación 1D/2D, con al menos <strong>80 observaciones</strong>.</li>
 </ul>
 </section>
-<section id="entregables" class="level1">
-<h1>Entregables</h1>
-<p>Los entregables son:</p>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Entregable</th>
-<th>Fecha</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1. Definición del tema</td>
-<td>27-marzo-2026</td>
-</tr>
-<tr class="even">
-<td>2. Entrega parcial</td>
-<td>15-mayo-2026</td>
-</tr>
-<tr class="odd">
-<td>3. Entrega final</td>
-<td>26-junio-2026<br>3-julio-2026</td>
-</tr>
-</tbody>
-</table>
-<section id="definición-del-tema" class="level2">
-<h2 class="anchored" data-anchor-id="definición-del-tema">1. Definición del tema</h2>
-<p>La entrega del <em>tema de proyecto</em> permite verificar que el trabajo tenga una dificultad adecuada y, si es necesario, ajustar su alcance para evitar proyectos demasiado simples o demasiado ambiciosos.</p>
-<p>En la fecha indicada, debe entregar un documento en formato libre de máximo dos páginas vía <strong>Aula Virtual</strong>, que incluya:</p>
+<section id="partición-y-protocolo-experimental" class="level2">
+<h2 class="anchored" data-anchor-id="partición-y-protocolo-experimental">Partición y protocolo experimental</h2>
+<p>Para las secciones supervisadas use partición entrenamiento-validación-prueba, por ejemplo 60/20/20 o 70/15/15. La partición debe ser estratificada si hay clasificación.</p>
+<p>No use el conjunto de prueba para:</p>
 <ul>
-<li><strong>Título del proyecto.</strong></li>
-<li><strong>Integrantes.</strong></li>
-<li><strong>Descripción del problema.</strong> Breve contexto del tema, explicado de forma simple y concreta. Por ejemplo:
+<li>Seleccionar variables.</li>
+<li>Ajustar hiperparámetros.</li>
+<li>Calibrar probabilidades.</li>
+<li>Decidir umbrales.</li>
+<li>Elegir arquitectura de red neuronal.</li>
+<li>Escoger número de componentes en modelos no supervisados, si luego reporta desempeño final sobre test.</li>
+</ul>
+<p>Debe fijar semillas aleatorias y describir el preprocesamiento. Toda normalización, imputación o codificación debe ajustarse usando solo entrenamiento.</p>
+</section>
+<section id="random-forest-e-importancia-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="random-forest-e-importancia-de-variables">1. Random Forest e importancia de variables</h2>
+<p>Entrene un modelo Random Forest para la tarea de clasificación principal.</p>
+<p>Debe reportar:</p>
 <ul>
-<li>“Este trabajo se trata de la detección automática de (…) en base a datos de (…). En la literatura se han alcanzado desempeños de entre el 60–70% en Acc en el problema descrito”.</li>
-</ul></li>
-<li><strong>Objetivo del trabajo.</strong> Enunciar claramente qué se busca lograr. Por ejemplo:
+<li>Métricas apropiadas para desbalance: <code>balanced accuracy</code>, F1 macro, recall por clase y matriz de confusión.</li>
+<li>Curva o tabla de sensibilidad a hiperparámetros, al menos para número de árboles, profundidad máxima y número de variables candidatas por split.</li>
+<li>Comparación entre un árbol individual y el Random Forest.</li>
+<li>Análisis de importancia de variables.</li>
+</ul>
+<p>Para importancia de variables debe calcular y comparar al menos dos métodos:</p>
+<ol type="1">
+<li><strong>Disminución media de impureza</strong> (<em>mean decrease in impurity</em>).</li>
+<li><strong>Importancia por permutación</strong>, idealmente usando validación o datos out-of-bag.</li>
+</ol>
+<p>Responda:</p>
+<ol type="1">
+<li>¿Las variables más importantes coinciden entre ambos métodos?</li>
+<li>¿Hay variables correlacionadas que puedan repartir o esconder importancia?</li>
+<li>¿Cambian las importancias cuando se ajusta <code>max_depth</code> o <code>max_features</code>?</li>
+<li>¿Qué variables parecen predictivas, pero no deberían interpretarse causalmente?</li>
+<li>¿Qué limitaciones tiene usar importancia de variables como explicación del modelo?</li>
+</ol>
+</section>
+<section id="desbalance-de-clases-redes-neuronales-versus-random-forest" class="level2">
+<h2 class="anchored" data-anchor-id="desbalance-de-clases-redes-neuronales-versus-random-forest">2. Desbalance de clases: redes neuronales versus Random Forest</h2>
+<p>Construya un problema de clasificación desbalanceado usando el dataset elegido. Si el dataset ya está desbalanceado, use esa distribución. Si no lo está, genere una versión desbalanceada mediante submuestreo controlado de una o más clases.</p>
+<p>Compare al menos los siguientes modelos:</p>
+<ol type="1">
+<li>Random Forest estándar.</li>
+<li>Random Forest con estrategia para desbalance, por ejemplo <code>class_weight</code>, submuestreo, sobremuestreo o ajuste de umbral.</li>
+<li>Red neuronal MLP estándar.</li>
+<li>Red neuronal MLP con estrategia para desbalance, por ejemplo pesos por clase en la entropía cruzada, focal loss, sobremuestreo o ajuste de umbral.</li>
+</ol>
+<p>La red neuronal puede implementarse en PyTorch, TensorFlow, JAX o <code>sklearn</code>, pero debe describir arquitectura, función de pérdida, optimizador y criterios de parada.</p>
+<p>Reporte:</p>
 <ul>
-<li>“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.<br>
-</li>
-<li>“Varios artículos que resuelven el problema descrito emplean el modelo <em>X</em>. Mi objetivo es evaluar el modelo <em>Y</em> y comparar los resultados obtenidos al usar el enfoque tradicional”.<br>
-</li>
-<li>“No existen implementaciones disponibles públicamente del método propuesto en el artículo <em>X</em>. Mi objetivo es implementar dicho método y reproducir los resultados reportados”.</li>
-</ul></li>
-<li><strong>Punto de partida.</strong> Indicar si existen implementaciones previas relacionadas o si el proyecto continúa un trabajo anterior (otra asignatura, tesis, etc.), explicando qué se hará de nuevo o diferente en este curso.</li>
-<li><strong>Dataset(s).</strong> Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos.</li>
-<li><strong>Artículo(s) relacionado(s).</strong> Referencia a uno o más artículos directamente relacionados con el proyecto.</li>
+<li>Distribución de clases en train, validación y test.</li>
+<li>Accuracy, balanced accuracy, F1 macro, F1 weighted, recall por clase y PR-AUC si corresponde.</li>
+<li>Matriz de confusión.</li>
+<li>Curvas precision-recall para la clase minoritaria.</li>
+<li>Análisis del compromiso entre detectar la clase minoritaria y aumentar falsos positivos.</li>
+</ul>
+<p>Discuta:</p>
+<ol type="1">
+<li>¿Qué modelo se sesga más hacia la clase mayoritaria?</li>
+<li>¿Qué técnica de compensación mejora más el recall de la clase minoritaria?</li>
+<li>¿La mejora en recall tiene costo en precisión?</li>
+<li>¿Qué modelo recomendaría si el costo de un falso negativo de la clase minoritaria es alto?</li>
+<li>¿El Random Forest fue más robusto que la red neuronal con pocos datos o variables heterogéneas?</li>
+</ol>
+</section>
+<section id="calibración-de-modelos" class="level2">
+<h2 class="anchored" data-anchor-id="calibración-de-modelos">3. Calibración de modelos</h2>
+<p>En muchas aplicaciones no basta con predecir una clase. También interesa que la probabilidad predicha sea interpretable.</p>
+<p>Un clasificador está calibrado si, para los casos donde predice probabilidad cercana a <span class="math inline">\(p\)</span>, la frecuencia observada del evento también es cercana a <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\mathbb{P}(Y=1 \mid \hat p(X)=p) \approx p.
+\]</span></p>
+<p>Formalmente, si <span class="math inline">\(\hat p_i\)</span> es la probabilidad predicha para el evento positivo, una medida simple de calidad probabilística es el <strong>Brier score</strong>:</p>
+<p><span class="math display">\[
+\operatorname{Brier}
+= \frac{1}{N}\sum_{i=1}^{N}(y_i-\hat p_i)^2.
+\]</span></p>
+<p>También puede evaluar la calibración agrupando predicciones en bins:</p>
+<p><span class="math display">\[
+\operatorname{ECE}
+=
+\sum_{b=1}^{B}
+\frac{|I_b|}{N}
+\left|
+\operatorname{acc}(I_b)-\operatorname{conf}(I_b)
+\right|,
+\]</span></p>
+<p>donde <span class="math inline">\(I_b\)</span> es el conjunto de ejemplos cuyo score cae en el bin <span class="math inline">\(b\)</span>, <span class="math inline">\(\operatorname{acc}(I_b)\)</span> es la frecuencia real del evento y <span class="math inline">\(\operatorname{conf}(I_b)\)</span> es la confianza promedio predicha.</p>
+<p><strong>Pregunta:</strong> Compare un Random Forest <strong>sin calibración</strong> contra el mismo modelo <strong>con calibración</strong>.</p>
+<p>Debe explicar e implementar al menos dos técnicas de calibración:</p>
+<ul>
+<li>Platt scaling / sigmoid calibration.</li>
+<li>Isotonic regression.</li>
+<li>Temperature scaling, si lo adapta justificadamente.</li>
+</ul>
+<p>Use sólo validación o calibración cruzada para ajustar el calibrador. No calibre usando test.</p>
+<p>Reporte:</p>
+<ul>
+<li>Reliability diagram.</li>
+<li>Brier score antes y después de calibrar.</li>
+<li>ECE (Expected Calibration Error) antes y después de calibrar.</li>
+<li>ROC-AUC y PR-AUC antes y después.</li>
+<li>Métricas de clasificación usando un umbral fijo, por ejemplo 0.5.</li>
+<li>Métricas usando un umbral elegido en validación para favorecer la clase minoritaria.</li>
+</ul>
+<p>Discuta:</p>
+<ol type="1">
+<li>¿La calibración cambió las probabilidades aunque no cambiara la accuracy?</li>
+<li>¿Qué método calibró mejor: sigmoid o isotonic?</li>
+<li>¿Hubo sobreajuste del calibrador?</li>
+<li>¿En qué escenarios preferiría un modelo menos exacto pero mejor calibrado?</li>
+<li>¿Cómo interactúa calibración con desbalance de clases?</li>
+</ol>
+</section>
+<section id="modelos-en-grafos-probabilísticos" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-en-grafos-probabilísticos">4. Modelos en grafos probabilísticos</h2>
+<p>Construya un ejemplo de modelo en grafo probabilístico usando el dataset elegido o una versión discretizada de éste.</p>
+<p>El objetivo es representar dependencias entre variables, realizar inferencia y discutir independencias condicionales.</p>
+<p>Condiciones mínimas:</p>
+<ul>
+<li>Use entre <strong>6 y 12 variables</strong>.</li>
+<li>Discretice variables continuas de manera justificada, por ejemplo cuantiles o umbrales del dominio.</li>
+<li>Incluya al menos una variable objetivo o variable de interés.</li>
+<li>Use al menos <strong>500 observaciones</strong>.</li>
+<li>Separe entrenamiento y prueba o use validación cruzada.</li>
+<li>Dibuje el grafo aprendido o propuesto.</li>
+</ul>
+<p>Debe:</p>
+<ul>
+<li>Proponer o aprender una estructura DAG.</li>
+<li>Estimar tablas de probabilidad condicional.</li>
+<li>Calcular al menos tres consultas del tipo <span class="math inline">\(p(Y\mid E=e)\)</span>.</li>
+<li>Analizar independencias condicionales usando d-separation.</li>
+<li>Evaluar log-verosimilitud o alguna métrica predictiva sobre datos no usados para ajustar.</li>
+</ul>
+<p>Ejemplos de consultas:</p>
+<p><span class="math display">\[
+p(\text{riesgo alto}\mid \text{edad alta}, \text{biomarcador alto}),
+\]</span></p>
+<p><span class="math display">\[
+p(\text{evento}=1\mid \text{sensor}_1=\text{alto}, \text{sensor}_2=\text{bajo}).
+\]</span></p>
+<p>Considere las preguntas:</p>
+<ul>
+<li>¿Qué gana y qué pierde al discretizar variables para una red bayesiana?</li>
+<li>¿Qué representa una independencia condicional en un grafo probabilístico?</li>
 </ul>
 </section>
-<section id="entrega-parcial" class="level2">
-<h2 class="anchored" data-anchor-id="entrega-parcial">2. Entrega parcial</h2>
-<p>La entrega parcial tiene como objetivo mostrar el <strong>avance real</strong> del proyecto, comprobar que la dirección elegida es adecuada y permitir ajustes antes de la entrega final.</p>
-<p>En la fecha indicada, cada grupo debe entregar un informe breve (3–5 páginas) vía <strong>Aula Virtual</strong>, que incluya al menos:</p>
+<section id="procesos-gaussianos" class="level2">
+<h2 class="anchored" data-anchor-id="procesos-gaussianos">5. Procesos gaussianos</h2>
+<p>Use un problema de regresión donde tenga sentido modelar suavidad, incertidumbre y correlación entre observaciones cercanas.</p>
+<p>Puede elegir una de estas alternativas:</p>
+<section id="alternativa-a-gp-univariado" class="level3">
+<h3 class="anchored" data-anchor-id="alternativa-a-gp-univariado">Alternativa A: GP univariado</h3>
+<p>Modele una variable continua <span class="math inline">\(y(t)\)</span> o <span class="math inline">\(y(x)\)</span> usando un proceso gaussiano:</p>
+<p><span class="math display">\[
+f(x)\sim \mathcal{GP}(m(x), k(x,x')).
+\]</span></p>
+<p>Debe comparar al menos dos kernels, por ejemplo RBF, Matérn, periodicidad o suma/producto de kernels.</p>
+<p>Reporte:</p>
 <ul>
-<li><strong>Versión actualizada del problema y objetivo.</strong> Ajustar, si es necesario, la formulación inicial del problema y los objetivos, a partir de lo aprendido hasta ahora.</li>
-<li><strong>Descripción de la solución propuesta.</strong> Explicar con mayor detalle el enfoque elegido (modelos, algoritmos, arquitectura, procedimientos, etc.), idealmente con diagramas o pseudocódigo donde sea útil.</li>
-<li><strong>Plan de implementación.</strong> Resumen de lo implementado hasta la fecha y de lo que falta por hacer (módulos, componentes, tareas principales).</li>
-<li><strong>Dataset(s) y preprocesamiento.</strong> Describir los datos efectivamente utilizados hasta ahora, cómo se obtuvieron y qué preprocesamientos se han aplicado o se planea aplicar.</li>
-<li><strong>Primeros experimentos (si corresponde).</strong> Reportar experimentos preliminares, aunque sean simples o estén incompletos, junto con las métricas utilizadas.</li>
-<li><strong>Riesgos y ajustes al plan.</strong> Indicar dificultades encontradas, riesgos detectados (por ejemplo, calidad de datos, tiempo, complejidad técnica) y cómo se adaptará el plan de trabajo para llegar a la entrega final.</li>
-<li><strong>Bibliografía actualizada.</strong> Lista de artículos y recursos relevantes que están guiando el proyecto hasta este punto (puede ampliarse luego en la entrega final).</li>
+<li>Media predictiva e intervalos de credibilidad.</li>
+<li>log marginal likelihood o métrica equivalente para comparar kernels.</li>
+<li>Sensibilidad a ruido y longitud de escala.</li>
+<li>Análisis de extrapolación fuera del rango observado.</li>
 </ul>
 </section>
-<section id="entrega-final" class="level2">
-<h2 class="anchored" data-anchor-id="entrega-final">3. Entrega final</h2>
-<p>La entrega final reúne todos los productos del proyecto y se evalúa según la rúbrica.</p>
-<p>El trabajo debe demostrar un desarrollo sistemático durante el semestre y un nivel de profundidad acorde a un proyecto INF398.</p>
-<p>Cada grupo debe entregar:</p>
+<section id="alternativa-b-gp-multioutput" class="level3">
+<h3 class="anchored" data-anchor-id="alternativa-b-gp-multioutput">Alternativa B: GP multioutput</h3>
+<p>Modele dos o más salidas relacionadas, por ejemplo dos sensores, dos contaminantes, demanda en dos estaciones, temperatura y humedad, o mediciones en ubicaciones cercanas.</p>
+<p>Debe explicar cómo modela la correlación entre salidas. Puede usar una aproximación simple:</p>
 <ul>
-<li><strong>Repositorio en GitHub.</strong>
+<li>Entrenar GPs independientes y comparar contra un modelo con variables compartidas.</li>
+<li>Usar un kernel separable de la forma:</li>
+</ul>
+<p><span class="math display">\[
+k\big((x,a),(x',b)\big)=k_X(x,x')\,B_{ab},
+\]</span></p>
+<p>donde <span class="math inline">\(a,b\)</span> indican la salida y <span class="math inline">\(B\)</span> es una matriz de correlación entre tareas; usar una librería que implemente multioutput GP.</p>
+<p>Reporte:</p>
 <ul>
-<li>Mantener un repositorio en GitHub (compartido con el equipo docente).</li>
-<li>Incluir todo el <strong>código fuente</strong> del proyecto, archivos de configuración y, cuando corresponda, scripts para descargar y/o preparar los datos.</li>
-<li>Incluir un archivo <code>README.md</code> que contenga:
-<ul>
-<li>Una descripción breve del proyecto.</li>
-<li>Los requisitos de software y las instrucciones para instalar dependencias.</li>
-<li>Instrucciones claras para ejecutar el proyecto y reproducir (al menos parte de) los experimentos.</li>
-</ul></li>
-<li>No subir datasets pesados al repositorio; documentar en su lugar enlaces o instrucciones para obtenerlos.</li>
-</ul></li>
-<li><strong>Informe escrito en LaTeX.</strong>
-<ul>
-<li>El informe debe redactarse en LaTeX y el <strong>código fuente del informe</strong> (<code>.tex</code>, <code>.bib</code>, figuras, etc.) debe almacenarse en una carpeta del repositorio (por ejemplo, <code>report/</code>).</li>
-<li>El informe <strong>no debe incluir listados extensos de código</strong> del proyecto. Solo se permiten fragmentos breves a modo de ejemplo cuando aporten a la explicación.</li>
-<li>El código completo se evaluará directamente en el repositorio de GitHub.</li>
-<li>El <strong>PDF final</strong> del informe debe subirse al repositorio. En enlace al repositorio será entregado vía Aula Virtual.</li>
-<li>El informe debe incluir, al menos:
-<ul>
-<li>Título del proyecto y autores (nombre, apellido y carrera).</li>
-<li>Resumen breve del trabajo.</li>
-<li>Introducción y descripción del problema y de los datos utilizados.</li>
-<li>Descripción detallada de la solución propuesta e implementada.</li>
-<li>Descripción de la implementación (arquitectura, módulos principales, decisiones de diseño relevantes).</li>
-<li>Metodología experimental, métricas de desempeño y resultados obtenidos.</li>
-<li>Análisis crítico de los resultados y, cuando corresponda, comparación con otros métodos.</li>
-<li>Conclusiones y posibles extensiones o trabajo futuro.</li>
-<li>Bibliografía relevante con citas en el texto (se recomienda usar BibTeX).</li>
-</ul></li>
-</ul></li>
-<li><strong>Presentación presencial.</strong>
-<ul>
-<li>Duración de 10–15 minutos.</li>
-<li>Debe explicar de forma clara:
-<ul>
-<li>El problema abordado.</li>
-<li>La solución propuesta.</li>
-<li>La implementación realizada.</li>
-<li>Los resultados y conclusiones principales.</li>
-</ul></li>
-<li>Se recomienda usar figuras y/o demos breves cuando sea posible.</li>
-</ul></li>
-<li><strong>Presentación grabada.</strong>
-<ul>
-<li>Duración máxima de 15 minutos.</li>
-<li>Puede ser una versión similar a la presentación presencial.</li>
-<li>No subir el video directamente a Aula Virtual; incluir en el informe un enlace (por ejemplo, YouTube o Google Drive con permisos de acceso adecuados).</li>
-</ul></li>
+<li>Predicción de cada salida con incertidumbre.</li>
+<li>Comparación contra regresión lineal, Random Forest o red neuronal simple.</li>
+<li>Discusión sobre cuándo la transferencia entre salidas ayuda o perjudica.</li>
+<li>Costo computacional del GP y cómo escala con el número de observaciones.</li>
 </ul>
 </section>
 </section>
-<section id="rúbrica-de-evaluación" class="level1">
-<h1>Rúbrica de evaluación</h1>
-<table class="caption-top table">
-<caption>Rúbrica del proyecto</caption>
-<colgroup>
-<col style="width: 20%">
-<col style="width: 35%">
-<col style="width: 10%">
-<col style="width: 35%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Criterio</th>
-<th>Descripción</th>
-<th>Puntaje máximo</th>
-<th>Descuentos</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1. Claridad del informe escrito y presentación</td>
-<td>Claridad, redacción y estructura del informe y la presentación; calidad de las figuras; explicación de datos/problemas; uso y citación de bibliografía relevante.</td>
-<td>20</td>
-<td>- Hasta −5 pts si la redacción o estructura dificultan la comprensión.<br>- Hasta −5 pts si las figuras no son claras o no se explican.<br>- Hasta −5 pts si los datos/problemas no quedan bien descritos.<br>- Hasta −5 pts si la bibliografía es insuficiente o está mal citada.</td>
-</tr>
-<tr class="even">
-<td>2. Descripción y calidad de la solución</td>
-<td>Claridad y completitud en la descripción de la solución; evidencia de dominio de los elementos que la componen; justificación coherente con el problema; uso de ejemplos, diagramas o pseudocódigo cuando sea necesario; nivel de trabajo acorde a un semestre.</td>
-<td>40</td>
-<td>- Hasta −10 pts si la solución no está claramente explicada o hay partes importantes sin detallar.<br>- Hasta −10 pts si la justificación es débil o poco coherente con el problema.<br>- Hasta −10 pts si faltan ejemplos/diagramas/pseudocódigo cuando serían útiles.<br>- Hasta −10 pts si el trabajo no refleja dedicación de un semestre (alcance muy limitado).</td>
-</tr>
-<tr class="odd">
-<td>3. Claridad y pertinencia de la implementación</td>
-<td>Organización, legibilidad y adecuación de la implementación al problema planteado. Se evalúa principalmente el código y la estructura del proyecto en el repositorio de GitHub (módulos, funciones, documentación mínima, instrucciones de ejecución).</td>
-<td>25</td>
-<td>- Hasta −10 pts si la organización del código (estructura de carpetas, nombres de archivos, ausencia de modularización, etc.) dificulta su comprensión o ejecución.<br>- Hasta −10 pts si la implementación no se ajusta bien al problema definido o a la solución descrita en el informe.<br>- Hasta −5 pts si el repositorio no incluye instrucciones claras para ejecutar el proyecto o reproducir los experimentos.</td>
-</tr>
-<tr class="even">
-<td>4. Experimentación y análisis de resultados</td>
-<td>Definición y reporte de métricas de desempeño relevantes; claridad y profundidad del análisis; evidencia de aporte propio en el análisis o en los experimentos.</td>
-<td>15</td>
-<td>- Hasta −5 pts si las métricas son poco relevantes o están mal reportadas.<br>- Hasta −5 pts si el análisis de resultados es superficial o poco claro.<br>- Hasta −5 pts si no se evidencia aporte propio (por ejemplo, solo se replican resultados sin reflexión).</td>
-</tr>
-</tbody>
-</table>
-<section id="descuentos-adicionales" class="level3">
-<h3 class="anchored" data-anchor-id="descuentos-adicionales"><span class="my-green">Descuentos adicionales</span></h3>
+<section id="aprendizaje-no-supervisado-em-y-gmm" class="level2">
+<h2 class="anchored" data-anchor-id="aprendizaje-no-supervisado-em-y-gmm">6. Aprendizaje no supervisado: EM y GMM</h2>
+<p>Explique y reimplemente de manera eficiente EM para GMM en el ejemplo (<a href="GMM-EM.zip">Descargar</a>). Compare la solución actual con su implementación en términos de verosimilitud y tiempo de procesamiento.</p>
+<p>Refine la solución usando un MRF. ¿Qué efecto tiene el parámetro <span class="math inline">\(\beta\)</span> en un modelo GMM+MRF?</p>
+</section>
+<section id="entregables" class="level2">
+<h2 class="anchored" data-anchor-id="entregables">Entregables</h2>
+<p>Debe entregar:</p>
 <ul>
-<li>La entrega parcial no es consistente con la entrega final: −20 pts.</li>
-<li>La entrega parcial no refleja trabajo sistemático: −10 pts.</li>
+<li>Una carpeta con un notebook por pregunta o un único notebook que contenga todo. En formato .zip (no .rar).</li>
+<li>Archivo <code>requirements.txt</code> o lista clara de dependencias.</li>
+<li>Instrucciones para descargar o reconstruir los datos.</li>
+<li>Tablas de resultados (dentro del notebook).</li>
+<li>Figuras principales (dentro del notebook).</li>
 </ul>
+</section>
+<section id="criterios-de-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="criterios-de-evaluación">Criterios de evaluación</h2>
+<p>La evaluación considerará:</p>
+<ul>
+<li>Pertinencia y justificación del dataset elegido.</li>
+<li>Limpieza y protocolo experimental.</li>
+<li>Implementación correcta de los modelos.</li>
+<li>Métricas apropiadas para desbalance y calibración.</li>
+<li>Calidad del análisis de importancia de variables.</li>
+<li>Claridad del modelo en grafo y de las consultas probabilísticas.</li>
+<li>Formulación y evaluación del proceso gaussiano.</li>
+<li>Implementación de EM y extensión con MRF.</li>
+<li>Calidad de figuras, tablas y conclusiones.</li>
+<li>Reproducibilidad del trabajo.</li>
+</ul>
+<p>Es muy importante los análisis hechos por Ud., más que una colección de modelos sin interpretación.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
