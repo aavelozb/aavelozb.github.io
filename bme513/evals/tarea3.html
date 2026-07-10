@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>BME513 - Inteligencia Artificial en Salud</title>
+<title>Tarea 3</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,26 +23,26 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="../site_libs/quarto-search/fuse.min.js"></script>
-<script src="../site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="../">
-<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-42a7f9c2375842409b634896d48c404b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-42a7f9c2375842409b634896d48c404b.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -94,9 +94,38 @@ ul.task-list li input[type="checkbox"] {
   }
 </style>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<meta property="og:title" content="BME513 - Inteligencia Artificial en Salud">
-<meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Tarea 3">
+<meta property="og:description" content="Árboles, modelos probabilísticos, procesos gaussianos y aprendizaje no supervisado">
 </head>
 
 <body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
@@ -270,7 +299,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">BME513 - Inteligencia Artificial en Salud</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Tarea 3</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -282,7 +311,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
     <div class="pt-lg-2 mt-2 text-center sidebar-header">
       <a href="#" class="sidebar-logo-link">
-      <img src="../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       <div class="sidebar-tools-main tools-wide">
     <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
@@ -297,25 +326,19 @@ ul.task-list li input[type="checkbox"] {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">Contenido de la página</h2>
    
-  <ul>
-  <li><a href="#horarios-y-contacto" id="toc-horarios-y-contacto" class="nav-link active" data-scroll-target="#horarios-y-contacto">Horarios y contacto</a></li>
-  <li><a href="#clases" id="toc-clases" class="nav-link" data-scroll-target="#clases">Clases</a></li>
-  <li><a href="#bibliografía-y-otros-recursos" id="toc-bibliografía-y-otros-recursos" class="nav-link" data-scroll-target="#bibliografía-y-otros-recursos">Bibliografía y otros recursos</a></li>
-  <li><a href="#evaluaciones" id="toc-evaluaciones" class="nav-link" data-scroll-target="#evaluaciones">Evaluaciones</a>
   <ul class="collapse">
-  <li><a href="#tareas" id="toc-tareas" class="nav-link" data-scroll-target="#tareas">Tareas</a></li>
-  </ul></li>
-  <li><a href="#políticas-del-curso" id="toc-políticas-del-curso" class="nav-link" data-scroll-target="#políticas-del-curso">Políticas del Curso</a>
-  <ul class="collapse">
-  <li><a href="#integridad-académica" id="toc-integridad-académica" class="nav-link" data-scroll-target="#integridad-académica">Integridad Académica</a></li>
-  <li><a href="#uso-de-herramientas-de-inteligencia-artificial-ia" id="toc-uso-de-herramientas-de-inteligencia-artificial-ia" class="nav-link" data-scroll-target="#uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</a></li>
-  <li><a href="#colaboración" id="toc-colaboración" class="nav-link" data-scroll-target="#colaboración">Colaboración</a></li>
-  <li><a href="#uso-de-código-y-recursos-online" id="toc-uso-de-código-y-recursos-online" class="nav-link" data-scroll-target="#uso-de-código-y-recursos-online">Uso de código y recursos online</a></li>
-  <li><a href="#entregas-tardias" id="toc-entregas-tardias" class="nav-link" data-scroll-target="#entregas-tardias">Entregas tardías</a></li>
-  <li><a href="#recalificaciones" id="toc-recalificaciones" class="nav-link" data-scroll-target="#recalificaciones">Recalificaciones</a></li>
-  </ul></li>
+  <li><a href="#requisitos-mínimos-de-los-datos" id="toc-requisitos-mínimos-de-los-datos" class="nav-link active" data-scroll-target="#requisitos-mínimos-de-los-datos">Requisitos mínimos de los datos</a></li>
+  <li><a href="#partición-y-protocolo-experimental" id="toc-partición-y-protocolo-experimental" class="nav-link" data-scroll-target="#partición-y-protocolo-experimental">Partición y protocolo experimental</a></li>
+  <li><a href="#random-forest-e-importancia-de-variables" id="toc-random-forest-e-importancia-de-variables" class="nav-link" data-scroll-target="#random-forest-e-importancia-de-variables">1. Random Forest e importancia de variables</a></li>
+  <li><a href="#desbalance-de-clases-redes-neuronales-versus-random-forest" id="toc-desbalance-de-clases-redes-neuronales-versus-random-forest" class="nav-link" data-scroll-target="#desbalance-de-clases-redes-neuronales-versus-random-forest">2. Desbalance de clases: redes neuronales versus Random Forest</a></li>
+  <li><a href="#calibración-de-modelos" id="toc-calibración-de-modelos" class="nav-link" data-scroll-target="#calibración-de-modelos">3. Calibración de modelos</a></li>
+  <li><a href="#modelos-en-grafos-probabilísticos" id="toc-modelos-en-grafos-probabilísticos" class="nav-link" data-scroll-target="#modelos-en-grafos-probabilísticos">4. Modelos en grafos probabilísticos</a></li>
+  <li><a href="#procesos-gaussianos" id="toc-procesos-gaussianos" class="nav-link" data-scroll-target="#procesos-gaussianos">5. Procesos gaussianos</a></li>
+  <li><a href="#aprendizaje-no-supervisado-em-y-gmm" id="toc-aprendizaje-no-supervisado-em-y-gmm" class="nav-link" data-scroll-target="#aprendizaje-no-supervisado-em-y-gmm">6. Aprendizaje no supervisado: EM y GMM</a></li>
+  <li><a href="#entregables" id="toc-entregables" class="nav-link" data-scroll-target="#entregables">Entregables</a></li>
+  <li><a href="#criterios-de-evaluación" id="toc-criterios-de-evaluación" class="nav-link" data-scroll-target="#criterios-de-evaluación">Criterios de evaluación</a></li>
   </ul>
-</nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="tarea3.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -323,7 +346,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">BME513 - Inteligencia Artificial en Salud</h1>
+<h1 class="title">Tarea 3</h1>
+<p class="subtitle lead">Árboles, modelos probabilísticos, procesos gaussianos y aprendizaje no supervisado</p>
 </div>
 
 
@@ -340,177 +364,265 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><strong>Descripción.</strong> Este curso ofrece una introducción a los métodos de inteligencia artificial y aprendizaje automático aplicados a la salud e ingeniería biomédica. Se abordan técnicas de aprendizaje supervisado y no supervisado, redes neuronales profundas, modelos probabilísticos y causales, y aprendizaje por refuerzo. El curso enfatiza el análisis de datos médicos, sistemas de apoyo al diagnóstico, el procesamiento de lenguaje natural, señales e imágenes biomédicas y la toma de decisiones clínicas. También se presentan avances y aplicaciones recientes en medicina personalizada, salud digital e imagenología médica.</p>
-<section id="horarios-y-contacto" class="level1">
-<h1>Horarios y contacto</h1>
-<p><strong>Clases:</strong> Viernes 10:15-13:30 (Lab. entrepiso Industrial).<br> <strong>Profesor:</strong> Dr.&nbsp;Alejandro Veloz (email: <a href="mailto:alejandro.veloz@uv.cl">alejandro.veloz@uv.cl</a>)<br> <strong>Horario atención:</strong> Jueves 10:00-12:00 (presencial o virtual)</p>
-</section>
-<section id="clases" class="level1">
-<h1>Clases</h1>
-<p>(Esta planificación puede cambiar)</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 5%">
-<col style="width: 20%">
-<col style="width: 10%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Semana</th>
-<th>Tema</th>
-<th>Material adicional</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td></td>
-<td>Introducción IA en salud (<a href="slides/01-AI-health.pdf">slides</a>)<br>Introducción ML (<a href="slides/01-introML.pdf">slides</a>)<br>Statistical learning theory (<a href="slides/01-slt.pdf">slides</a>)</td>
-<td><a href="material/vapnik99-slt.pdf">Vapnik99</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Modelos lineales para regresión (<a href="slides/021-linreg.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/passenger-data.html">Ejemplo regresión</a><br><a href="../ejemplos-ml/varejemplo.html">Ejemplo VAR</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Modelos lineales para clasificación<br>Naive Bayes (<a href="slides/022-naive-bayes.pdf">slides</a>)<br>Logistic regression (<a href="slides/023-log-reg.pdf">slides</a>, <a href="material/notas-logreg.pdf">notas</a>)<br>LDA/QDA (<a href="slides/024-lda-qda.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/logreg.html">Ejemplo regresión logística</a><br><a href="../ejemplos-ml/sentiment_analysis_IMDB.html">Ejemplo IMDB</a><br><a href="../ejemplos-ml/naive_Bayes.html">Naive Bayes</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="evals/tarea1.html">Tarea 1</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Redes neuronales feedforward (<a href="slides/031-mlp.pdf">slides</a>)<br>Funciones de pérdida (<a href="slides/032-loss.pdf">slides</a>)<br>Training MLPs (<a href="slides/033-training-mlps.pdf">slides</a>)<br>Gradientes (<a href="slides/034-gradients.pdf">slides</a>)<br>Sesgo-varianza/regularización (<a href="slides/035-perf-regu.pdf">slides</a>)</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="evals/tarea2.html">Tarea 2</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Embeddings (<a href="slides/036-embeddings.pdf">slides</a>)<br>Sistemas de recomendación (<a href="slides/037-recsys.pdf">slides</a>)<br>Autoencoders (<a href="slides/038-autoencoders.pdf">slides</a>)<br>Physics-informed neural networks (<a href="slides/039-pinns.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/03-06-mnist-image-embeddings-pytorch.html">Embeddings MNIST</a><br><a href="../ejemplos-ml/03-06-word2vec-example.html">Embeddings Word2vec</a><br><a href="../ejemplos-ml/ExpRecSys.html">RecSys</a><br><a href="../ejemplos-ml/03-08-mnist-autoencoder-pytorch.html">Autoencoders MNIST</a><br><a href="../ejemplos-ml/03-09-pinns-mass-spring-pytorch.html">PINNs</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>CNN (<a href="slides/04-convnets.pdf">slides</a>)<br>Conexiones residuales (<a href="slides/04-residual-networks.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/cnn-01-conv.html">conv</a><br><a href="../ejemplos-ml/cnn-02-pretr.html">modelos preentrenados</a><br><a href="../../ejemplos-ml/cnn-03-design.html">arquitecturas</a><br><a href="../ejemplos-ml/cnn-04-fullycnn.html">fully convolutional</a><br><a href="../ejemplos-ml/cnn-05-cnn-class-loc.html">object localization</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Métodos basados en kernels y Procesos Gaussianos (<a href="slides/05-gaussian-processes.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/gp01-regression.html">Gaussian Process Regression</a><br> <a href="../ejemplos-ml/gp01-regression-pytorch.html">Gaussian Process Regression (Pytorch)</a><br> <a href="../ejemplos-ml/gp02-example-noiseest-sklearn.html">Noise estimation example</a><br> <a href="../ejemplos-ml/gp02-example-co2-sklearn.html">CO2 example, choosing a kernel</a><br> <a href="../ejemplos-ml/gp03-sensors-network.html">Multi-output Gaussian Process (sensors network)</a><br> <a href="../ejemplos-ml/gp04-deep_GPs.html">Deep Gaussian Process</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Métodos basados en árboles y ensamblados (<a href="slides/06-ensembles-trees.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/ArbolesYRandomForest.html">Ejemplo</a><br><a href="../ejemplos-ml/ensembles-AdaBoost.html">AdaBoost</a><br><a href="../ejemplos-ml/ensembles-xgboost.html">XGBoost</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>Lógica difusa y modelos neurodifusos (<a href="slides/07-FL-TSK.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/fuzzy-anfis-example.html">Ejemplo ANFIS</a></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Modelos en grafos (<a href="slides/08-graphical-models.pdf">slides</a>)</td>
-<td><a href="../ejemplos-ml/pgm-inference-example.html">Ejemplo 1</a><br><a href="../ejemplos-ml/pgm-GraphicalModels.html">Ejemplo 2</a></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td><a href="slides/091-GMM.pdf">GMM</a><br><a href="slides/092-kmeans_variaciones.pdf">kmeans</a><br><a href="slides/093-metodos_densidad.pdf">density-based clustering</a><br><a href="slides/094-topic_modeling_clustering.pdf">NNMF</a></td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td><a href="evals/tarea3.html">Tarea 3</a></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td>ML y causalidad</td>
-<td></td>
-</tr>
-<tr class="even">
-<td></td>
-<td>Transformers</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<!-- |  | Transformers |  |
-|  | Tarea 3 |  |
-|  | Métodos basados en árboles y ensamblados |  |
-|  | Tarea 4 |  |
-|  | Lógica difusa y modelos neurodifusos |  |
-|  | Modelos en grafos |  |
-|  | Tarea 5 |  |
-|  | Aprendizaje no supervisado |  |
-|  | ML y causalidad |  |
-|  | Tarea 6 |  | -->
-<!-- | | Procesos Gaussianos | [slides](slides/inf358-gp.pdf)<br>[Gaussian Process Regression](../ejemplos-ml/gp01-regression.html)<br>[Gaussian Process Regression (Pytorch)](../ejemplos-ml/gp01-regression-pytorch.html)<br>[Noise estimation example](../ejemplos-ml/gp02-example-noiseest-sklearn.html)<br>[CO2 example, choosing a kernel](../ejemplos-ml/gp02-example-co2-sklearn.html)<br>[Multi-output Gaussian Process (sensors network)](../ejemplos-ml/gp03-sensors-network.html)<br>[Deep Gaussian Process](../ejemplos-ml/gp04-deep_GPs.html)<br> | -->
-</section>
-<section id="bibliografía-y-otros-recursos" class="level1">
-<h1>Bibliografía y otros recursos</h1>
+<p>En esta tarea trabajaremos con varios modelos vistos en las últimas clases:</p>
+<ol type="1">
+<li>Árboles, Random Forest, importancia de variables y calibración.</li>
+<li>Redes neuronales y problemas de clasificación desbalanceada.</li>
+<li>Modelos en grafos probabilísticos.</li>
+<li>Procesos gaussianos multioutput.</li>
+<li>Aprendizaje no supervisado con EM, mezclas gaussianas y regularización espacial tipo MRF.</li>
+</ol>
+<p>A diferencia de las tareas anteriores, <strong>los datos deben ser elegidos por cada estudiante</strong>. Esta decisión es parte de la evaluación: se espera que justifiquen por qué el dataset permite estudiar los fenómenos pedidos.</p>
+<section id="requisitos-mínimos-de-los-datos" class="level2">
+<h2 class="anchored" data-anchor-id="requisitos-mínimos-de-los-datos">Requisitos mínimos de los datos</h2>
+<p>Puede usar un único dataset con varias vistas del problema, o más de un dataset si eso hace más natural resolver las secciones. Debe incluir una ficha con la siguiente información:</p>
 <ul>
-<li><a href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Christopher Bishop (2006).</li>
-<li><a href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Kevin Patrick Murphy (2022).</li>
-<li><a href="https://link.springer.com/book/10.1007/978-3-031-45468-4?utm_medium=referral&amp;utm_source=sn&amp;utm_content=RM&amp;&amp;utm_campaign=CONR_TBOOK_CON1_GL_PBOK_05YVV_CTB25-COMP">Deep Learning: Foundations and Concepts</a>, Christopher Bishop (2024).</li>
-<li><a href="https://scikit-learn.org/stable/">Scikit-learn</a></li>
-<li><a href="https://scikit-image.org">Scikit-image</a></li>
-<li><a href="https://docs.opencv.org/4.x/d6/d00/tutorial_py_root.html">OpenCV</a></li>
+<li>Fuente del dataset, enlace o procedimiento de descarga.</li>
+<li>Descripción del dominio.</li>
+<li>Número de observaciones y variables.</li>
+<li>Significado de la variable objetivo.</li>
+<li>Tipos de variables: continuas, discretas, binarias, categóricas, temporales o espaciales.</li>
+<li>Proporción de clases.</li>
+<li>Tratamiento de valores faltantes, si aplica. <!-- - Posibles riesgos de fuga de información (*data leakage*). --></li>
+</ul>
+<p>El dataset principal de clasificación debe cumplir:</p>
+<ul>
+<li>Al menos <strong>8 variables predictoras</strong> después de limpieza inicial.</li>
+<li>al menos <strong>5 variables numéricas</strong>.</li>
+<li>Al menos una variable categórica o binaria.</li>
+<li>Una tarea de clasificación binaria o multiclase.</li>
+<li>Desbalance de clases natural o inducido, con razón mayoría/minoría de al menos <strong>3:1</strong>.</li>
+</ul>
+<p>Si el desbalance se induce artificialmente, debe reportar la distribución original.</p>
+<p>Para las secciones de modelos en grafos y procesos gaussianos puede usar el mismo dominio, pero se permiten vistas diferentes:</p>
+<ul>
+<li>Para modelos en grafos: entre <strong>6 y 12 variables</strong> discretas o discretizadas, con al menos <strong>500 observaciones</strong>.</li>
+<li>Para procesos gaussianos: una variable de entrada ordenada, por ejemplo tiempo, dosis, distancia o ubicación 1D/2D, con al menos <strong>80 observaciones</strong>.</li>
 </ul>
 </section>
-<section id="evaluaciones" class="level1">
-<h1>Evaluaciones</h1>
-<p>El curso contempla las siguientes evaluaciones:</p>
+<section id="partición-y-protocolo-experimental" class="level2">
+<h2 class="anchored" data-anchor-id="partición-y-protocolo-experimental">Partición y protocolo experimental</h2>
+<p>Para las secciones supervisadas use partición entrenamiento-validación-prueba, por ejemplo 60/20/20 o 70/15/15. La partición debe ser estratificada si hay clasificación.</p>
+<p>No use el conjunto de prueba para:</p>
 <ul>
-<li>6 tareas (60%). Una vez publicada una tarea, se dispondrá de dos semanas para resolverla.</li>
-<li>Miniproyecto (40%). Las instrucciones se pueden encontrar en el siguiente enlace <a href="evals/proyectos-bme513-2026.html">Proyectos 2026</a></li>
+<li>Seleccionar variables.</li>
+<li>Ajustar hiperparámetros.</li>
+<li>Calibrar probabilidades.</li>
+<li>Decidir umbrales.</li>
+<li>Elegir arquitectura de red neuronal.</li>
+<li>Escoger número de componentes en modelos no supervisados, si luego reporta desempeño final sobre test.</li>
 </ul>
-<section id="tareas" class="level2">
-<h2 class="anchored" data-anchor-id="tareas">Tareas</h2>
+<p>Debe fijar semillas aleatorias y describir el preprocesamiento. Toda normalización, imputación o codificación debe ajustarse usando solo entrenamiento.</p>
+</section>
+<section id="random-forest-e-importancia-de-variables" class="level2">
+<h2 class="anchored" data-anchor-id="random-forest-e-importancia-de-variables">1. Random Forest e importancia de variables</h2>
+<p>Entrene un modelo Random Forest para la tarea de clasificación principal.</p>
+<p>Debe reportar:</p>
 <ul>
-<li>Tarea 1. Modelos lineales, regularización.</li>
-<li>Tarea 2. Redes neuronales.</li>
-<li>Tarea 3. Procesos gaussianos, árboles y modelos en grafos.</li>
+<li>Métricas apropiadas para desbalance: <code>balanced accuracy</code>, F1 macro, recall por clase y matriz de confusión.</li>
+<li>Curva o tabla de sensibilidad a hiperparámetros, al menos para número de árboles, profundidad máxima y número de variables candidatas por split.</li>
+<li>Comparación entre un árbol individual y el Random Forest.</li>
+<li>Análisis de importancia de variables.</li>
+</ul>
+<p>Para importancia de variables debe calcular y comparar al menos dos métodos:</p>
+<ol type="1">
+<li><strong>Disminución media de impureza</strong> (<em>mean decrease in impurity</em>).</li>
+<li><strong>Importancia por permutación</strong>, idealmente usando validación o datos out-of-bag.</li>
+</ol>
+<p>Responda:</p>
+<ol type="1">
+<li>¿Las variables más importantes coinciden entre ambos métodos?</li>
+<li>¿Hay variables correlacionadas que puedan repartir o esconder importancia?</li>
+<li>¿Cambian las importancias cuando se ajusta <code>max_depth</code> o <code>max_features</code>?</li>
+<li>¿Qué variables parecen predictivas, pero no deberían interpretarse causalmente?</li>
+<li>¿Qué limitaciones tiene usar importancia de variables como explicación del modelo?</li>
+</ol>
+</section>
+<section id="desbalance-de-clases-redes-neuronales-versus-random-forest" class="level2">
+<h2 class="anchored" data-anchor-id="desbalance-de-clases-redes-neuronales-versus-random-forest">2. Desbalance de clases: redes neuronales versus Random Forest</h2>
+<p>Construya un problema de clasificación desbalanceado usando el dataset elegido. Si el dataset ya está desbalanceado, use esa distribución. Si no lo está, genere una versión desbalanceada mediante submuestreo controlado de una o más clases.</p>
+<p>Compare al menos los siguientes modelos:</p>
+<ol type="1">
+<li>Random Forest estándar.</li>
+<li>Random Forest con estrategia para desbalance, por ejemplo <code>class_weight</code>, submuestreo, sobremuestreo o ajuste de umbral.</li>
+<li>Red neuronal MLP estándar.</li>
+<li>Red neuronal MLP con estrategia para desbalance, por ejemplo pesos por clase en la entropía cruzada, focal loss, sobremuestreo o ajuste de umbral.</li>
+</ol>
+<p>La red neuronal puede implementarse en PyTorch, TensorFlow, JAX o <code>sklearn</code>, pero debe describir arquitectura, función de pérdida, optimizador y criterios de parada.</p>
+<p>Reporte:</p>
+<ul>
+<li>Distribución de clases en train, validación y test.</li>
+<li>Accuracy, balanced accuracy, F1 macro, F1 weighted, recall por clase y PR-AUC si corresponde.</li>
+<li>Matriz de confusión.</li>
+<li>Curvas precision-recall para la clase minoritaria.</li>
+<li>Análisis del compromiso entre detectar la clase minoritaria y aumentar falsos positivos.</li>
+</ul>
+<p>Discuta:</p>
+<ol type="1">
+<li>¿Qué modelo se sesga más hacia la clase mayoritaria?</li>
+<li>¿Qué técnica de compensación mejora más el recall de la clase minoritaria?</li>
+<li>¿La mejora en recall tiene costo en precisión?</li>
+<li>¿Qué modelo recomendaría si el costo de un falso negativo de la clase minoritaria es alto?</li>
+<li>¿El Random Forest fue más robusto que la red neuronal con pocos datos o variables heterogéneas?</li>
+</ol>
+</section>
+<section id="calibración-de-modelos" class="level2">
+<h2 class="anchored" data-anchor-id="calibración-de-modelos">3. Calibración de modelos</h2>
+<p>En muchas aplicaciones no basta con predecir una clase. También interesa que la probabilidad predicha sea interpretable.</p>
+<p>Un clasificador está calibrado si, para los casos donde predice probabilidad cercana a <span class="math inline">\(p\)</span>, la frecuencia observada del evento también es cercana a <span class="math inline">\(p\)</span>:</p>
+<p><span class="math display">\[
+\mathbb{P}(Y=1 \mid \hat p(X)=p) \approx p.
+\]</span></p>
+<p>Formalmente, si <span class="math inline">\(\hat p_i\)</span> es la probabilidad predicha para el evento positivo, una medida simple de calidad probabilística es el <strong>Brier score</strong>:</p>
+<p><span class="math display">\[
+\operatorname{Brier}
+= \frac{1}{N}\sum_{i=1}^{N}(y_i-\hat p_i)^2.
+\]</span></p>
+<p>También puede evaluar la calibración agrupando predicciones en bins:</p>
+<p><span class="math display">\[
+\operatorname{ECE}
+=
+\sum_{b=1}^{B}
+\frac{|I_b|}{N}
+\left|
+\operatorname{acc}(I_b)-\operatorname{conf}(I_b)
+\right|,
+\]</span></p>
+<p>donde <span class="math inline">\(I_b\)</span> es el conjunto de ejemplos cuyo score cae en el bin <span class="math inline">\(b\)</span>, <span class="math inline">\(\operatorname{acc}(I_b)\)</span> es la frecuencia real del evento y <span class="math inline">\(\operatorname{conf}(I_b)\)</span> es la confianza promedio predicha.</p>
+<p><strong>Pregunta:</strong> Compare un Random Forest <strong>sin calibración</strong> contra el mismo modelo <strong>con calibración</strong>.</p>
+<p>Debe explicar e implementar al menos dos técnicas de calibración:</p>
+<ul>
+<li>Platt scaling / sigmoid calibration.</li>
+<li>Isotonic regression.</li>
+<li>Temperature scaling, si lo adapta justificadamente.</li>
+</ul>
+<p>Use sólo validación o calibración cruzada para ajustar el calibrador. No calibre usando test.</p>
+<p>Reporte:</p>
+<ul>
+<li>Reliability diagram.</li>
+<li>Brier score antes y después de calibrar.</li>
+<li>ECE (Expected Calibration Error) antes y después de calibrar.</li>
+<li>ROC-AUC y PR-AUC antes y después.</li>
+<li>Métricas de clasificación usando un umbral fijo, por ejemplo 0.5.</li>
+<li>Métricas usando un umbral elegido en validación para favorecer la clase minoritaria.</li>
+</ul>
+<p>Discuta:</p>
+<ol type="1">
+<li>¿La calibración cambió las probabilidades aunque no cambiara la accuracy?</li>
+<li>¿Qué método calibró mejor: sigmoid o isotonic?</li>
+<li>¿Hubo sobreajuste del calibrador?</li>
+<li>¿En qué escenarios preferiría un modelo menos exacto pero mejor calibrado?</li>
+<li>¿Cómo interactúa calibración con desbalance de clases?</li>
+</ol>
+</section>
+<section id="modelos-en-grafos-probabilísticos" class="level2">
+<h2 class="anchored" data-anchor-id="modelos-en-grafos-probabilísticos">4. Modelos en grafos probabilísticos</h2>
+<p>Construya un ejemplo de modelo en grafo probabilístico usando el dataset elegido o una versión discretizada de éste.</p>
+<p>El objetivo es representar dependencias entre variables, realizar inferencia y discutir independencias condicionales.</p>
+<p>Condiciones mínimas:</p>
+<ul>
+<li>Use entre <strong>6 y 12 variables</strong>.</li>
+<li>Discretice variables continuas de manera justificada, por ejemplo cuantiles o umbrales del dominio.</li>
+<li>Incluya al menos una variable objetivo o variable de interés.</li>
+<li>Use al menos <strong>500 observaciones</strong>.</li>
+<li>Separe entrenamiento y prueba o use validación cruzada.</li>
+<li>Dibuje el grafo aprendido o propuesto.</li>
+</ul>
+<p>Debe:</p>
+<ul>
+<li>Proponer o aprender una estructura DAG.</li>
+<li>Estimar tablas de probabilidad condicional.</li>
+<li>Calcular al menos tres consultas del tipo <span class="math inline">\(p(Y\mid E=e)\)</span>.</li>
+<li>Analizar independencias condicionales usando d-separation.</li>
+<li>Evaluar log-verosimilitud o alguna métrica predictiva sobre datos no usados para ajustar.</li>
+</ul>
+<p>Ejemplos de consultas:</p>
+<p><span class="math display">\[
+p(\text{riesgo alto}\mid \text{edad alta}, \text{biomarcador alto}),
+\]</span></p>
+<p><span class="math display">\[
+p(\text{evento}=1\mid \text{sensor}_1=\text{alto}, \text{sensor}_2=\text{bajo}).
+\]</span></p>
+<p>Considere las preguntas:</p>
+<ul>
+<li>¿Qué gana y qué pierde al discretizar variables para una red bayesiana?</li>
+<li>¿Qué representa una independencia condicional en un grafo probabilístico?</li>
+</ul>
+</section>
+<section id="procesos-gaussianos" class="level2">
+<h2 class="anchored" data-anchor-id="procesos-gaussianos">5. Procesos gaussianos</h2>
+<p>Use un problema de regresión donde tenga sentido modelar suavidad, incertidumbre y correlación entre observaciones cercanas.</p>
+<p>Puede elegir una de estas alternativas:</p>
+<section id="alternativa-a-gp-univariado" class="level3">
+<h3 class="anchored" data-anchor-id="alternativa-a-gp-univariado">Alternativa A: GP univariado</h3>
+<p>Modele una variable continua <span class="math inline">\(y(t)\)</span> o <span class="math inline">\(y(x)\)</span> usando un proceso gaussiano:</p>
+<p><span class="math display">\[
+f(x)\sim \mathcal{GP}(m(x), k(x,x')).
+\]</span></p>
+<p>Debe comparar al menos dos kernels, por ejemplo RBF, Matérn, periodicidad o suma/producto de kernels.</p>
+<p>Reporte:</p>
+<ul>
+<li>Media predictiva e intervalos de credibilidad.</li>
+<li>log marginal likelihood o métrica equivalente para comparar kernels.</li>
+<li>Sensibilidad a ruido y longitud de escala.</li>
+<li>Análisis de extrapolación fuera del rango observado.</li>
+</ul>
+</section>
+<section id="alternativa-b-gp-multioutput" class="level3">
+<h3 class="anchored" data-anchor-id="alternativa-b-gp-multioutput">Alternativa B: GP multioutput</h3>
+<p>Modele dos o más salidas relacionadas, por ejemplo dos sensores, dos contaminantes, demanda en dos estaciones, temperatura y humedad, o mediciones en ubicaciones cercanas.</p>
+<p>Debe explicar cómo modela la correlación entre salidas. Puede usar una aproximación simple:</p>
+<ul>
+<li>Entrenar GPs independientes y comparar contra un modelo con variables compartidas.</li>
+<li>Usar un kernel separable de la forma:</li>
+</ul>
+<p><span class="math display">\[
+k\big((x,a),(x',b)\big)=k_X(x,x')\,B_{ab},
+\]</span></p>
+<p>donde <span class="math inline">\(a,b\)</span> indican la salida y <span class="math inline">\(B\)</span> es una matriz de correlación entre tareas; usar una librería que implemente multioutput GP.</p>
+<p>Reporte:</p>
+<ul>
+<li>Predicción de cada salida con incertidumbre.</li>
+<li>Comparación contra regresión lineal, Random Forest o red neuronal simple.</li>
+<li>Discusión sobre cuándo la transferencia entre salidas ayuda o perjudica.</li>
+<li>Costo computacional del GP y cómo escala con el número de observaciones.</li>
 </ul>
 </section>
 </section>
-<section id="políticas-del-curso" class="level1">
-<h1>Políticas del Curso</h1>
-<section id="integridad-académica" class="level2">
-<h2 class="anchored" data-anchor-id="integridad-académica">Integridad Académica</h2>
-<p>Se espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado <strong>puede considerarse plagio</strong>.</p>
+<section id="aprendizaje-no-supervisado-em-y-gmm" class="level2">
+<h2 class="anchored" data-anchor-id="aprendizaje-no-supervisado-em-y-gmm">6. Aprendizaje no supervisado: EM y GMM</h2>
+<p>Explique y reimplemente de manera eficiente EM para GMM en el ejemplo (<a href="GMM-EM.zip">Descargar</a>). Compare la solución actual con su implementación en términos de verosimilitud y tiempo de procesamiento.</p>
+<p>Refine la solución usando un MRF. ¿Qué efecto tiene el parámetro <span class="math inline">\(\beta\)</span> en un modelo GMM+MRF?</p>
 </section>
-<section id="uso-de-herramientas-de-inteligencia-artificial-ia" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-herramientas-de-inteligencia-artificial-ia">Uso de Herramientas de Inteligencia Artificial (IA)</h2>
-<p>El uso de herramientas de Inteligencia Artificial no está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso.</p>
+<section id="entregables" class="level2">
+<h2 class="anchored" data-anchor-id="entregables">Entregables</h2>
+<p>Debe entregar:</p>
+<ul>
+<li>Una carpeta con un notebook por pregunta o un único notebook que contenga todo. En formato .zip (no .rar).</li>
+<li>Archivo <code>requirements.txt</code> o lista clara de dependencias.</li>
+<li>Instrucciones para descargar o reconstruir los datos.</li>
+<li>Tablas de resultados (dentro del notebook).</li>
+<li>Figuras principales (dentro del notebook).</li>
+</ul>
 </section>
-<section id="colaboración" class="level2">
-<h2 class="anchored" data-anchor-id="colaboración">Colaboración</h2>
-<p>Salvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo.</p>
-</section>
-<section id="uso-de-código-y-recursos-online" class="level2">
-<h2 class="anchored" data-anchor-id="uso-de-código-y-recursos-online">Uso de código y recursos online</h2>
-<p>Puede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente.</p>
-</section>
-<section id="entregas-tardias" class="level2">
-<h2 class="anchored" data-anchor-id="entregas-tardias">Entregas tardías</h2>
-<p>Dispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas <strong>sin penalización</strong>. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este <em>beneficio</em> en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera.</p>
-</section>
-<section id="recalificaciones" class="level2">
-<h2 class="anchored" data-anchor-id="recalificaciones">Recalificaciones</h2>
-<p>Las solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos.</p>
+<section id="criterios-de-evaluación" class="level2">
+<h2 class="anchored" data-anchor-id="criterios-de-evaluación">Criterios de evaluación</h2>
+<p>La evaluación considerará:</p>
+<ul>
+<li>Pertinencia y justificación del dataset elegido.</li>
+<li>Limpieza y protocolo experimental.</li>
+<li>Implementación correcta de los modelos.</li>
+<li>Métricas apropiadas para desbalance y calibración.</li>
+<li>Calidad del análisis de importancia de variables.</li>
+<li>Claridad del modelo en grafo y de las consultas probabilísticas.</li>
+<li>Formulación y evaluación del proceso gaussiano.</li>
+<li>Implementación de EM y extensión con MRF.</li>
+<li>Calidad de figuras, tablas y conclusiones.</li>
+<li>Reproducibilidad del trabajo.</li>
+</ul>
+<p>Es muy importante los análisis hechos por Ud., más que una colección de modelos sin interpretación.</p>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
