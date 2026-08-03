@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.7.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Laboratorio programación</title>
+<title>IWI131 — Programación</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -35,9 +35,9 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-6c49c5477b92c77c9eb341f9299c235f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-985aa47af68dae11cd4d235c71fb941e.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap-8db6229841abb9e4445c572ff9004143.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
@@ -95,10 +95,11 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<meta property="og:title" content="Laboratorio programación">
+<meta property="og:title" content="IWI131 — Programación">
+<meta property="og:description" content="2026, segundo semestre">
 </head>
 
-<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+<body class="nav-sidebar docked fullcontent quarto-light"><script id="quarto-html-before-body" type="application/javascript">
     const toggleBodyColorMode = (bsSheetEl) => {
       const mode = bsSheetEl.getAttribute("data-mode");
       const bodyEl = window.document.querySelector("body");
@@ -116,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
         toggleBodyColorMode(bsSheetEl);
       }
     }
-    const setColorSchemeToggle = (alternate) => {
+    window.setColorSchemeToggle = (alternate) => {
       const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
       for (let i=0; i < toggles.length; i++) {
         const toggle = toggles[i];
@@ -149,7 +150,7 @@ ul.task-list li input[type="checkbox"] {
       }
       manageTransitions('#quarto-margin-sidebar .nav-link', true);
       // Switch the toggles
-      setColorSchemeToggle(alternate)
+      window.setColorSchemeToggle(alternate)
       // Hack to workaround the fact that safari doesn't
       // properly recolor the scrollbar when toggling (#1455)
       if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
@@ -189,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
     const isFileUrl = () => {
       return window.location.protocol === 'file:';
     }
-    const hasAlternateSentinel = () => {
+    window.hasAlternateSentinel = () => {
       let styleSentinel = getColorSchemeSentinel();
       if (styleSentinel !== null) {
         return styleSentinel === "alternate";
@@ -217,7 +218,7 @@ ul.task-list li input[type="checkbox"] {
       const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
       const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
       let newTheme = '';
-      if(authorPrefersDark) {
+      if(darkModeDefault) {
         newTheme = isAlternate ? baseTheme : alternateTheme;
       } else {
         newTheme = isAlternate ? alternateTheme : baseTheme;
@@ -240,22 +241,20 @@ ul.task-list li input[type="checkbox"] {
         changeGiscusTheme();
       }
     };
-    const authorPrefersDark = false;
-    const darkModeDefault = authorPrefersDark;
+    const darkModeDefault = false;
       document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
       document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
     let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
     // Dark / light mode switch
     window.quartoToggleColorScheme = () => {
       // Read the current dark / light value
-      let toAlternate = !hasAlternateSentinel();
+      let toAlternate = !window.hasAlternateSentinel();
       toggleColorMode(toAlternate);
       setStyleSentinel(toAlternate);
       toggleGiscusIfUsed(toAlternate, darkModeDefault);
-      window.dispatchEvent(new Event('resize'));
     };
     // Switch to dark mode if need be
-    if (hasAlternateSentinel()) {
+    if (window.hasAlternateSentinel()) {
       toggleColorMode(true);
     } else {
       toggleColorMode(false);
@@ -269,7 +268,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Laboratorio programación</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">IWI131 — Programación</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -292,16 +291,15 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Laboratorio programación</h1>
+<h1 class="title">IWI131 — Programación</h1>
+<p class="subtitle lead">2026, segundo semestre</p>
 </div>
 
 
@@ -318,45 +316,71 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Profesor</strong> · Alejandro Veloz<br>
+<strong>Email</strong> · <a href="mailto:alejandro.veloz@usm.cl">alejandro.veloz@usm.cl</a><br>
+<strong>Horario de atención</strong> · Viernes, bloque 7–8</p>
+</div>
+</div>
+</div>
 <table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 27%">
+<col style="width: 65%">
+</colgroup>
 <thead>
 <tr class="header">
-<th>Unidad</th>
+<th style="text-align: center;">#</th>
+<th>Tema</th>
 <th>Material</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>Programas secuenciales (<a href="01-secuenciales.pdf">slides</a>)</td>
+<td style="text-align: center;">1</td>
+<td>Programas secuenciales</td>
+<td><a href="01-secuenciales.pdf">Slides</a></td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>Programas condicionales (<a href="02-condicionales.pdf">slides</a>)<br><a href="https://chemical-isthmus-d04.notion.site/Laboratorio-2-Condicionales-173c7c34fd6d80a589fefbf327d23ec5#1bdc7c34fd6d80f69441db9877adbca6">Ejercicios 1</a><br><a href="02 - Ejercicios Condicionales.pdf">Ejercicios 2</a></td>
+<td style="text-align: center;">2</td>
+<td>Programas condicionales</td>
+<td><a href="02-condicionales.pdf">Slides</a><br><a href="https://chemical-isthmus-d04.notion.site/Laboratorio-2-Condicionales-173c7c34fd6d80a589fefbf327d23ec5#1bdc7c34fd6d80f69441db9877adbca6">Ejercicios 1</a><br><a href="02 - Ejercicios Condicionales.pdf">Ejercicios 2</a></td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>Ciclos (<a href="03-ciclos.pdf">slides</a>)<br><a href="03-ciclos.html">Ejercicios 1</a><br> <a href="https://chemical-isthmus-d04.notion.site/Laboratorio-3-Ciclos-While-1c6c7c34fd6d800cbe3cdb438366ff20">Ejercicios 2</a></td>
+<td style="text-align: center;">3</td>
+<td>Ciclos</td>
+<td><a href="03-ciclos.pdf">Slides</a><br><a href="03-ciclos.html">Ejercicios 1</a><br><a href="https://chemical-isthmus-d04.notion.site/Laboratorio-3-Ciclos-While-1c6c7c34fd6d800cbe3cdb438366ff20">Ejercicios 2</a></td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>Strings (<a href="04-strings.pdf">slides</a>)<br><a href="04-ejercicios.pdf">Ejercicios 1</a><br> <a href="04-ejercicios2.pdf">Ejercicios 2</a></td>
+<td style="text-align: center;">4</td>
+<td>Strings</td>
+<td><a href="04-strings.pdf">Slides</a><br><a href="04-ejercicios.pdf">Ejercicios 1</a><br><a href="04-ejercicios2.pdf">Ejercicios 2</a></td>
 </tr>
 <tr class="odd">
-<td>5</td>
-<td>Funciones (<a href="05-funciones.html">slides</a>)<br><a href="05-ejercicios.pdf">Ejercicios</a></td>
+<td style="text-align: center;">5</td>
+<td>Funciones</td>
+<td><a href="05-funciones.html">Apunte</a><br><a href="05-ejercicios.pdf">Ejercicios</a></td>
 </tr>
 <tr class="even">
-<td>6</td>
-<td>Listas (<a href="06-listas.html">apunte</a>)<br><a href="06-Ejercicios01.pdf">Ejercicios 1</a><br><a href="06-Ejercicios02.pdf">Ejercicios 2</a></td>
+<td style="text-align: center;">6</td>
+<td>Listas</td>
+<td><a href="06-listas.html">Apunte</a><br><a href="06-Ejercicios01.pdf">Ejercicios 1</a><br><a href="06-Ejercicios02.pdf">Ejercicios 2</a><br><a href="06-Ejercicios03.pdf">Ejercicios 3</a> · <a href="06-Ejercicios03.py">solución</a></td>
 </tr>
 <tr class="odd">
-<td>7</td>
-<td>Diccionarios (<a href="07-Diccionarios.html">apunte</a>)<br><a href="07-Ejercicios.pdf">Ejercicios</a><br><a href="07-01-autopistas.pdf">autopistas</a>, <a href="07-01-autopistas.py">sol</a><br><a href="07-02-SeriesTV.pdf">series tv</a>, <a href="07-02-SeriesTV.py">sol</a><br><a href="07-03-trenes.pdf">autopistas</a>, <a href="07-03-trenes.py">sol</a></td>
+<td style="text-align: center;">7</td>
+<td>Diccionarios</td>
+<td><a href="07-Diccionarios.html">Apunte</a><br><a href="07-Ejercicios.pdf">Ejercicios</a><br>Autopistas: <a href="07-01-autopistas.pdf">enunciado</a> · <a href="07-01-autopistas.py">solución</a><br>Series TV: <a href="07-02-SeriesTV.pdf">enunciado</a> · <a href="07-02-SeriesTV.py">solución</a><br>Trenes: <a href="07-03-trenes.pdf">enunciado</a> · <a href="07-03-trenes.py">solución</a></td>
 </tr>
 <tr class="even">
-<td>8</td>
-<td>Texto y archivos (<a href="08-texto-archivos.html">apunte</a>)<br><a href="08-ej01.pdf">Ejercicios 1</a><br><a href="08-ej02.pdf">Ejercicios 1</a><br><a href="08-ej03.pdf">Ejercicios 1</a><br><a href="08-ej04.pdf">Ejercicios 1</a></td>
+<td style="text-align: center;">8</td>
+<td>Texto y archivos</td>
+<td><a href="08-texto-archivos.html">Apunte</a><br><a href="08-ej01.pdf">Ejercicios 1</a><br><a href="08-ej02.pdf">Ejercicios 2</a><br><a href="08-ej03.pdf">Ejercicios 3</a><br><a href="08-ej04.pdf">Ejercicios 4</a></td>
 </tr>
 </tbody>
 </table>
@@ -378,7 +402,7 @@ ul.task-list li input[type="checkbox"] {
       a.appendChild(i);
       window.document.body.appendChild(a);
     }
-    setColorSchemeToggle(hasAlternateSentinel())
+    window.setColorSchemeToggle(window.hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
