@@ -147,6 +147,34 @@
     "text": "Entregables\nDebe entregar un notebook reproducible que incluya lo siguiente:\n\nCódigo completo de la red neuronal desde cero.\nCódigo de la implementación equivalente en PyTorch.\nDerivación matemática de la pérdida positiva elegida.\nTablas comparativas de resultados.\nFiguras de entrenamiento, validación y predicción.\nAnálisis de regularización y sensibilidad al ruido.\nImplementación en PyTorch de la red con salidas mixtas: continua, positiva y categórica.\nRespuestas a las preguntas de discusión.\nConclusiones sobre qué modelo recomendaría y bajo qué restricciones.\n\nLa evaluación considerará la corrección de la implementación, la claridad de las derivaciones, el diseño experimental, la calidad de las visualizaciones y la profundidad del análisis."
   },
   {
+    "objectID": "inf396/evals/proyectos-inf396-2026.html",
+    "href": "inf396/evals/proyectos-inf396-2026.html",
+    "title": "INF396 - Proyectos 2026",
+    "section": "",
+    "text": "Los proyectos deben desarrollarse durante el transcurso del semestre (no al final).\nLos temas son a elección de los estudiantes.\nSe puede trabajar en grupos de uno, dos o tres personas."
+  },
+  {
+    "objectID": "inf396/evals/proyectos-inf396-2026.html#definición-del-tema",
+    "href": "inf396/evals/proyectos-inf396-2026.html#definición-del-tema",
+    "title": "INF396 - Proyectos 2026",
+    "section": "1. Definición del tema",
+    "text": "1. Definición del tema\nLa entrega del tema de proyecto permite verificar que el trabajo tenga una dificultad adecuada y, si es necesario, ajustar su alcance para evitar proyectos demasiado simples o demasiado ambiciosos.\nEn la fecha indicada, debe entregar un documento en formato libre de máximo dos páginas vía Aula Virtual, que incluya:\n\nTítulo del proyecto.\nIntegrantes.\nDescripción del problema. Breve contexto del tema, explicado de forma simple y concreta. Por ejemplo:\n\n“Este trabajo se trata de la detección automática de (…) en base a datos de (…). En la literatura se han alcanzado desempeños de entre el 60-70% en Acc en el problema descrito”.\n\nObjetivo del trabajo. Enunciar claramente qué se busca lograr. Por ejemplo:\n\n“Mi objetivo es superar las medidas de desempeño obtenidas en los artículos …”.\n\n“Varios artículos que resuelven el problema descrito emplean el modelo X. Mi objetivo es evaluar el modelo Y y comparar los resultados obtenidos al usar el enfoque tradicional”.\n\n“No existen implementaciones disponibles públicamente del método propuesto en el artículo X. Mi objetivo es implementar dicho método y reproducir los resultados reportados”.\n\nPunto de partida. Indicar si existen implementaciones previas relacionadas o si el proyecto continúa un trabajo anterior (otra asignatura, tesis, etc.), explicando qué se hará de nuevo o diferente en este curso.\nDataset(s). Breve descripción de los datos a utilizar, incluyendo enlaces a las bases de datos.\nArtículo(s) relacionado(s). Referencia a uno o más artículos directamente relacionados con el proyecto."
+  },
+  {
+    "objectID": "inf396/evals/proyectos-inf396-2026.html#entrega-parcial",
+    "href": "inf396/evals/proyectos-inf396-2026.html#entrega-parcial",
+    "title": "INF396 - Proyectos 2026",
+    "section": "2. Entrega parcial",
+    "text": "2. Entrega parcial\nLa entrega parcial tiene como objetivo mostrar el avance real del proyecto, comprobar que la dirección elegida es adecuada y permitir ajustes antes de la entrega final.\nEn la fecha indicada, cada grupo debe entregar un informe breve (3-5 páginas) vía Aula Virtual, que incluya al menos:\n\nVersión actualizada del problema y objetivo. Ajustar, si es necesario, la formulación inicial del problema y los objetivos, a partir de lo aprendido hasta ahora.\nDescripción de la solución propuesta. Explicar con mayor detalle el enfoque elegido (modelos, algoritmos, arquitectura, procedimientos, etc.), idealmente con diagramas o pseudocódigo donde sea útil.\nPlan de implementación. Resumen de lo implementado hasta la fecha y de lo que falta por hacer (módulos, componentes, tareas principales).\nDataset(s) y preprocesamiento. Describir los datos efectivamente utilizados hasta ahora, cómo se obtuvieron y qué preprocesamientos se han aplicado o se planea aplicar.\nPrimeros experimentos (si corresponde). Reportar experimentos preliminares, aunque sean simples o estén incompletos, junto con las métricas utilizadas.\nRiesgos y ajustes al plan. Indicar dificultades encontradas, riesgos detectados (por ejemplo, calidad de datos, tiempo, complejidad técnica) y cómo se adaptará el plan de trabajo para llegar a la entrega final.\nBibliografía actualizada. Lista de artículos y recursos relevantes que están guiando el proyecto hasta este punto (puede ampliarse luego en la entrega final)."
+  },
+  {
+    "objectID": "inf396/evals/proyectos-inf396-2026.html#entrega-final",
+    "href": "inf396/evals/proyectos-inf396-2026.html#entrega-final",
+    "title": "INF396 - Proyectos 2026",
+    "section": "3. Entrega final",
+    "text": "3. Entrega final\nLa entrega final reúne todos los productos del proyecto y se evalúa según la rúbrica.\nEl trabajo debe demostrar un desarrollo sistemático durante el semestre y un nivel de profundidad acorde a un proyecto INF396.\nCada grupo debe entregar:\n\nRepositorio en GitHub.\n\nMantener un repositorio en GitHub (compartido con el equipo docente).\nIncluir todo el código fuente del proyecto, archivos de configuración y, cuando corresponda, scripts para descargar y/o preparar los datos.\nIncluir un archivo README.md que contenga:\n\nUna descripción breve del proyecto.\nLos requisitos de software y las instrucciones para instalar dependencias.\nInstrucciones claras para ejecutar el proyecto y reproducir (al menos parte de) los experimentos.\n\nNo subir datasets pesados al repositorio; documentar en su lugar enlaces o instrucciones para obtenerlos.\n\nInforme escrito en LaTeX.\n\nEl informe debe redactarse en LaTeX y el código fuente del informe (.tex, .bib, figuras, etc.) debe almacenarse en una carpeta del repositorio (por ejemplo, report/).\nEl informe no debe incluir listados extensos de código del proyecto. Solo se permiten fragmentos breves a modo de ejemplo cuando aporten a la explicación.\nEl código completo se evaluará directamente en el repositorio de GitHub.\nEl PDF final del informe debe subirse al repositorio. En enlace al repositorio será entregado vía Aula Virtual.\nEl informe debe incluir, al menos:\n\nTítulo del proyecto y autores (nombre, apellido y carrera).\nResumen breve del trabajo.\nIntroducción y descripción del problema y de los datos utilizados.\nDescripción detallada de la solución propuesta e implementada.\nDescripción de la implementación (arquitectura, módulos principales, decisiones de diseño relevantes).\nMetodología experimental, métricas de desempeño y resultados obtenidos.\nAnálisis crítico de los resultados y, cuando corresponda, comparación con otros métodos.\nConclusiones y posibles extensiones o trabajo futuro.\nBibliografía relevante con citas en el texto (se recomienda usar BibTeX).\n\n\nPresentación presencial.\n\nDuración de 10-15 minutos.\nDebe explicar de forma clara:\n\nEl problema abordado.\nLa solución propuesta.\nLa implementación realizada.\nLos resultados y conclusiones principales.\n\nSe recomienda usar figuras y/o demos breves cuando sea posible."
+  },
+  {
     "objectID": "bme321/bme321-ejercicios.html",
     "href": "bme321/bme321-ejercicios.html",
     "title": "BME321 - Ejercicios",
@@ -2238,6 +2266,90 @@
     "title": "BME321 - Mediciones Biomédicas",
     "section": "Políticas del Curso",
     "text": "Políticas del Curso\n\nIntegridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas. El material no citado o mal referenciado puede considerarse plagio.\n\n\nRecalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
+  },
+  {
+    "objectID": "inf396/index.html",
+    "href": "inf396/index.html",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "",
+    "text": "Descripción. El estudiante adquiere una visión general del área de ciencias de datos, con una mirada multidisciplinaria y desarrolla habilidades básicas para la extracción sistemática de información de distintos tipos de fuentes de datos. Formula estrategias de solución en problemas de análisis de datos, con fines descriptivos, asociativos y predictivos, aplicando principios fundamentales y los pasos que describen las técnicas estudiadas, incluyendo la formulación del problema, análisis exploratorio, pre-procesamiento de los datos, modelamiento, visualización, evaluación, implementación y retroalimentación."
+  },
+  {
+    "objectID": "inf396/index.html#tareas",
+    "href": "inf396/index.html#tareas",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Tareas",
+    "text": "Tareas\nUna vez publicada una tarea, se dispondrá de dos semanas para resolverla.\n\nTarea 1. Análisis exploratorio y visualización de datos.\nTarea 2. Pre-procesamiento, selección de características y reducción de la dimensión.\nTarea 3. Inferencia estadística paramétrica, no paramétrica y Bootstrap.\nTarea 4. Clasificación y métodos de evaluación.\n\nLos enunciados se publican en esta página a medida que avanza el semestre."
+  },
+  {
+    "objectID": "inf396/index.html#proyecto-final",
+    "href": "inf396/index.html#proyecto-final",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Proyecto final",
+    "text": "Proyecto final\nEl proyecto se desarrolla durante todo el semestre, con tres entregas parciales. Las instrucciones, entregables y rúbrica están en el siguiente enlace: Proyectos 2026."
+  },
+  {
+    "objectID": "inf396/index.html#texto-guía",
+    "href": "inf396/index.html#texto-guía",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Texto guía",
+    "text": "Texto guía\n\nAn Introduction to Statistical Learning: with Applications in R, G. James, D. Witten, T. Hastie, R. Tibshirani. Springer, 2015."
+  },
+  {
+    "objectID": "inf396/index.html#complementaria",
+    "href": "inf396/index.html#complementaria",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Complementaria",
+    "text": "Complementaria\n\nAn Introduction to Data Science, J. S. Saltz, J. M. Stanton. SAGE Publications, 1ª edición, 2018.\nPrinciples of Data Science, S. Ozdemir. Packt, 2016.\nData Preprocessing in Data Mining, S. García, J. Luengo, F. Herrera. Springer, 2015."
+  },
+  {
+    "objectID": "inf396/index.html#herramientas",
+    "href": "inf396/index.html#herramientas",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Herramientas",
+    "text": "Herramientas\n\npandas, NumPy y Matplotlib — manipulación, cómputo y visualización.\nscikit-learn — modelos de clasificación, regresión y evaluación.\nstatsmodels — inferencia estadística y ajuste de modelos."
+  },
+  {
+    "objectID": "inf396/index.html#integridad-académica",
+    "href": "inf396/index.html#integridad-académica",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Integridad Académica",
+    "text": "Integridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio."
+  },
+  {
+    "objectID": "inf396/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "href": "inf396/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Uso de Herramientas de Inteligencia Artificial (IA)",
+    "text": "Uso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas de Inteligencia Artificial está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso."
+  },
+  {
+    "objectID": "inf396/index.html#colaboración",
+    "href": "inf396/index.html#colaboración",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Colaboración",
+    "text": "Colaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo."
+  },
+  {
+    "objectID": "inf396/index.html#uso-de-código-y-recursos-online",
+    "href": "inf396/index.html#uso-de-código-y-recursos-online",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Uso de código y recursos online",
+    "text": "Uso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente."
+  },
+  {
+    "objectID": "inf396/index.html#entregas-tardías",
+    "href": "inf396/index.html#entregas-tardías",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Entregas tardías",
+    "text": "Entregas tardías\nDispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las entregas del curso. Los días de retraso le permiten entregar tareas y entregables del proyecto sin penalización. Retrasos superiores a 12 horas se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten su desempeño, se recomienda informar al profesor o al jefe de carrera.\nEste beneficio no aplica a la presentación oral del proyecto."
+  },
+  {
+    "objectID": "inf396/index.html#recalificaciones",
+    "href": "inf396/index.html#recalificaciones",
+    "title": "INF396 - Introducción a la Ciencia de Datos",
+    "section": "Recalificaciones",
+    "text": "Recalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
   },
   {
     "objectID": "inf398/evals/tarea3.html",
