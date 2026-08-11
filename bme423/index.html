@@ -355,9 +355,9 @@ ul.task-list li input[type="checkbox"] {
 <h1>Horarios y contacto</h1>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 5%">
-<col style="width: 20%">
-<col style="width: 10%">
+<col style="width: 8%">
+<col style="width: 52%">
+<col style="width: 40%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -384,24 +384,88 @@ ul.task-list li input[type="checkbox"] {
 <section id="clases" class="level1">
 <h1>Clases</h1>
 <p>(Esta planificación puede cambiar)</p>
-<div class="line-block">1 | Introducción (<a href="slides/01-introduccion.pdf">slides</a>) | |<br>
-2 | Definiciones (<a href="slides/02-01-definiciones.pdf">slides</a>)<br> Ruido/degradación (<a href="slides/02-02-ruido-deg.pdf">slides</a>) | <a href="https://innolitics.com/articles/dicom-i-facilitating-interoperability/">Why Does the DICOM Standard Exist?</a> <br> <a href="http://dicom.nema.org/medical/dicom/current/output/html/part01.html">Parte 1 “Introduction and Overview” del estándar DICOM.</a><br> <a href="https://pydicom.github.io/pydicom/stable/">Documentación de la biblioteca PyDicom.</a> |<br>
-3 | Mejora de contraste<br>Operaciones puntuales (<a href="slides/03-01-op-puntuales.pdf">slides</a>)<br>proc. histogramas (<a href="slides/03-02-proc-histo.pdf">slides</a>) | <a href="https://medium.com/imagecraft/histogram-equalization-clahe-algorithm-8841d402fc76">CLAHE</a> |<br>
-4 | Filtrado espacial (<a href="slides/04-filtradoespacial.pdf">slides</a>) | |<br>
-5 | Filtrado ec. difusión (<a href="slides/04-01-ecdiff.pdf">slides</a>) | |<br>
-6 | Filtrado en frecuencia (<a href="slides/05-fourier-o.pdf">slides</a>) | |<br>
-7 | Transformaciones geométricas (<a href="slides/06-transf-geom-o.pdf">slides</a>) | <a href="ejemplos/syn_registration_3d.html">Dipy example</a> |<br>
-8 | Morfología matemática (<a href="slides/07-math-morpho.pdf">slides</a>) | <a href="ejemplos/math-morpho.html">Ejemplo</a> |<br>
-9 | Segmentación (<a href="slides/08-segmentation.pdf">slides</a>) | <a href="ejemplos/rgrowing_ctimages.zip">Region growing</a> |<br>
-10 | IA en imágenes | |<br>
-11 | Reconstrucción de CT | |<br>
-12 | Compresión | |</div>
-<!-- 
+<table class="caption-top table">
+<colgroup>
+<col style="width: 8%">
+<col style="width: 52%">
+<col style="width: 40%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Semana</th>
+<th>Tema</th>
+<th>Material adicional</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td>Introducción (<a href="slides/01-introduccion.pdf">slides</a>)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td>Definiciones (<a href="slides/02-01-definiciones.pdf">slides</a>)<br>Ruido/degradación (<a href="slides/02-02-ruido-deg.pdf">slides</a>)</td>
+<td><a href="https://innolitics.com/articles/dicom-i-facilitating-interoperability/">Why Does the DICOM Standard Exist?</a><br><a href="http://dicom.nema.org/medical/dicom/current/output/html/part01.html">Parte 1 “Introduction and Overview” del estándar DICOM.</a><br><a href="https://pydicom.github.io/pydicom/stable/">Documentación de la biblioteca PyDicom.</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td>Mejora de contraste<br>Operaciones puntuales (<a href="slides/03-01-op-puntuales.pdf">slides</a>)<br>Proc. histogramas (<a href="slides/03-02-proc-histo.pdf">slides</a>)</td>
+<td><a href="https://medium.com/imagecraft/histogram-equalization-clahe-algorithm-8841d402fc76">CLAHE</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td>Filtrado espacial (<a href="slides/04-filtradoespacial.pdf">slides</a>)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td>Filtrado ec. difusión (<a href="slides/04-01-ecdiff.pdf">slides</a>)</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td>Filtrado en frecuencia (<a href="slides/05-fourier-o.pdf">slides</a>)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">7</td>
+<td>Transformaciones geométricas (<a href="slides/06-transf-geom-o.pdf">slides</a>)</td>
+<td><a href="ejemplos/syn_registration_3d.html">Dipy example</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">8</td>
+<td>Morfología matemática (<a href="slides/07-math-morpho.pdf">slides</a>)</td>
+<td><a href="ejemplos/math-morpho.html">Ejemplo</a></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">9</td>
+<td>Segmentación (<a href="slides/08-segmentation.pdf">slides</a>)</td>
+<td><a href="ejemplos/rgrowing_ctimages.zip">Region growing</a></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">10</td>
+<td>IA en imágenes</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">11</td>
+<td>Reconstrucción de CT</td>
+<td></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">12</td>
+<td>Compresión</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<!--
 | Semana | Tema | Material adicional |
-|-------------------|----------------------------------|-------------------|
+|:------:|------|--------------------|
 |  | [Lab 1 / Tarea 1](evals/lab1.html) |  |
 |  | [Lab 2 / Tarea 2](evals/lab2.html) |  |
-|  | [Lab 3 / Tarea 3](evals/lab3.html) |  | 
+|  | [Lab 3 / Tarea 3](evals/lab3.html) |  |
 -->
 </section>
 <section id="guía-de-ejercicios" class="level1">
