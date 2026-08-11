@@ -378,6 +378,48 @@
     "text": "Ejercicio 5\nGenere un dataset sencillo para el problema de regresión con target positivo. Utilizando una función de pérdida apropiada, entrene una red neuronal que considere esta restricción.\nConsideración:\nDebe implementar la FANN y la CNN usando el framework Keras."
   },
   {
+    "objectID": "est852/evals/tarea-modulo1.html",
+    "href": "est852/evals/tarea-modulo1.html",
+    "title": "Tarea Módulo 1",
+    "section": "",
+    "text": "Para este ejercicio, debe usar el dataset MNIST para el problema de clasificación. El modelo a usar es una red neuronal feedforward de tres capas, una de entrada, una oculta y una de salida. Implemente un experimento que permita seleccionar el mejor modelo cambiando los hiperparámetros (cantidad de neuronas de la capa oculta, algoritmo de aprendizaje, tasa de aprendizaje, etc.). Analice el desempeño mediante las curvas de entrenamiento, validación y test para distintos casos representativos con distintos valores de hiperparámetros.\nIntroduzca regularización L2 y analice el efecto en los parámetros de la red neuronal."
+  },
+  {
+    "objectID": "est852/evals/tarea-modulo1.html#ejercicio-1",
+    "href": "est852/evals/tarea-modulo1.html#ejercicio-1",
+    "title": "Tarea Módulo 1",
+    "section": "",
+    "text": "Para este ejercicio, debe usar el dataset MNIST para el problema de clasificación. El modelo a usar es una red neuronal feedforward de tres capas, una de entrada, una oculta y una de salida. Implemente un experimento que permita seleccionar el mejor modelo cambiando los hiperparámetros (cantidad de neuronas de la capa oculta, algoritmo de aprendizaje, tasa de aprendizaje, etc.). Analice el desempeño mediante las curvas de entrenamiento, validación y test para distintos casos representativos con distintos valores de hiperparámetros.\nIntroduzca regularización L2 y analice el efecto en los parámetros de la red neuronal."
+  },
+  {
+    "objectID": "est852/evals/tarea-modulo1.html#ejercicio-2",
+    "href": "est852/evals/tarea-modulo1.html#ejercicio-2",
+    "title": "Tarea Módulo 1",
+    "section": "Ejercicio 2",
+    "text": "Ejercicio 2\nRepita el análisis del ejercicio 1, pero usando una CNN."
+  },
+  {
+    "objectID": "est852/evals/tarea-modulo1.html#ejercicio-3",
+    "href": "est852/evals/tarea-modulo1.html#ejercicio-3",
+    "title": "Tarea Módulo 1",
+    "section": "Ejercicio 3",
+    "text": "Ejercicio 3\nSe sabe que en los problemas de clasificación, cuando existe un desbalance significativo entre el número de muestras de cada clase, un modelo de aprendizaje automático tiende a presentar sesgo hacia la clase mayoritaria una vez entrenado. En este ejercicio, debe demostrar este efecto utilizando una red neuronal feedforward (FANN) o una red neuronal convolucional (CNN) como modelo base.\n\nMuestre el efecto que tiene el desbalance de clases en la clasificación de las imágenes de MNIST. El desbalance en las clases lo debe generar Ud. artificialmente. Debe evaluar distintos escenarios, con y sin desbalance, utilizando métricas cuantitativas.\nImplemente dos mecanismos para afrontar el problema del desbalance de clases (por ejemplo, técnicas de remuestreo o modificación de la función objetivo). Esto implica tomar un conjunto de entrenamiento desbalanceado y, a partir de éste, mejorar el desempeño del modelo mediante los mecanismos elegidos."
+  },
+  {
+    "objectID": "est852/evals/tarea-modulo1.html#ejercicio-4",
+    "href": "est852/evals/tarea-modulo1.html#ejercicio-4",
+    "title": "Tarea Módulo 1",
+    "section": "Ejercicio 4",
+    "text": "Ejercicio 4\nReproduzca y explique el ejemplo de sistema de recomendación con feedback explícito visto en clases (enlace). Reformúlelo como un problema de clasificación."
+  },
+  {
+    "objectID": "est852/evals/tarea-modulo1.html#ejercicio-5",
+    "href": "est852/evals/tarea-modulo1.html#ejercicio-5",
+    "title": "Tarea Módulo 1",
+    "section": "Ejercicio 5",
+    "text": "Ejercicio 5\nGenere un dataset sencillo para el problema de regresión con target positivo. Utilizando una función de pérdida apropiada, entrene una red neuronal que considere esta restricción.\nConsideración:\nDebe implementar la FANN y la CNN usando el framework Keras."
+  },
+  {
     "objectID": "bme423/ejemplos/syn_registration_3d.html",
     "href": "bme423/ejemplos/syn_registration_3d.html",
     "title": "Symmetric Diffeomorphic Registration in 3D",
@@ -949,7 +991,7 @@
     "href": "ejemplos-ml/varejemplo-gc.html",
     "title": "Regresión lineal para un proceso VAR",
     "section": "",
-    "text": "Generación de datos VAR\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import Ridge, Lasso\n\ndef varParams2TransMat( A, p ):\n    A = np.abs( A.T )\n    N_nds = A.shape[1]\n    A2 = np.zeros( (N_nds, N_nds) )\n    for n in range(N_nds):\n        A2[n, :] = A[:, n].reshape( (N_nds, p) ).sum(axis=1)\n    return A2\n\ndef X2var( X, p ):\n    N, N_nds = X.shape\n    Xvar = []\n    Yvar = np.zeros( (N-p, N_nds) )\n    for j in range( N_nds ):\n        Yvar[:, j] = X[p:, j]\n        Xvar_tmp = np.zeros( (N-p, p) )\n        for i in range( p ):\n            Xvar_tmp[:, i] = X[p-i-1: N-i-1, j]\n        Xvar.append( Xvar_tmp )\n    Xvar = np.hstack( Xvar )\n    return Xvar, Yvar\n\nN = 1000\nN_nds = 4\np = 3\nX = np.zeros( (N, N_nds) )\nA = np.zeros( (N_nds, N_nds, p) )\n\n# matriz de conexiones\nstd_mattrans = 0.2\nfor j in range( p ):\n    A[0, 3, j] = std_mattrans * np.random.randn()\n    A[1, 0, j] = std_mattrans * np.random.randn()\n    A[2, 1, j] = std_mattrans * np.random.randn()\n    A[3, 2, j] = std_mattrans * np.random.randn()\n\n# generación de datos VAR\nstd_datos = 0.1\nfor t in range( p, N ):\n    X[t, :] = std_datos * np.random.randn( N_nds )\n    for j in range( p ):\n        X[t, :] = X[t, :] + A[:,:,j] @ X[t-j-1, :]\n\n# visualización de los datos\nfig, axs = plt.subplots(nrows = N_nds, ncols = 1)\nfor nd in range(N_nds):\n    axs[ nd ].plot( X[:, nd] )\nplt.show()\n\n\n\n\n\n\n\n\nMatriz de conexiones real\n\nA_ = np.sum( A, axis=2 )\nA_[ A_!=0 ] = 1\n\nf, ax = plt.subplots(1,1)\nax.imshow(A_)\nax.set_title('matrix de conexiones')\n\nText(0.5, 1.0, 'matrix de conexiones')\n\n\n\n\n\n\n\n\n\nSolución mediante Ridge regression y Lasso\n\np = 3\nXvar, Yvar = X2var( X, p )\n\nmodelo = Ridge( alpha=0.1 )\nA_ridge = modelo.fit( Xvar, Yvar ).coef_\nA_ridge = varParams2TransMat(A_ridge, p)\n\nmodelo = Lasso( alpha=0.001 )\nA_lasso = modelo.fit( Xvar, Yvar ).coef_\nA_lasso = varParams2TransMat(A_lasso, p)\n\nVisualización de los resultados\n\nf, ax = plt.subplots(1,3)\nax[0].imshow(A_)\nax[0].set_title('matrix de conexiones')\nax[1].imshow(A_ridge)\nax[1].set_title('Ridge regression')\nax[2].imshow(A_lasso)\nax[2].set_title('Lasso regression')\nplt.show()"
+    "text": "Generación de datos VAR\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import Ridge, Lasso\n\ndef varParams2TransMat( A, p ):\n    A = np.abs( A.T )\n    N_nds = A.shape[1]\n    A2 = np.zeros( (N_nds, N_nds) )\n    for n in range(N_nds):\n        A2[n, :] = A[:, n].reshape( (N_nds, p) ).sum(axis=1)\n    return A2\n\ndef X2var( X, p ):\n    N, N_nds = X.shape\n    Xvar = []\n    Yvar = np.zeros( (N-p, N_nds) )\n    for j in range( N_nds ):\n        Yvar[:, j] = X[p:, j]\n        Xvar_tmp = np.zeros( (N-p, p) )\n        for i in range( p ):\n            Xvar_tmp[:, i] = X[p-i-1: N-i-1, j]\n        Xvar.append( Xvar_tmp )\n    Xvar = np.hstack( Xvar )\n    return Xvar, Yvar\n\nN = 1000\nN_nds = 4\np = 3\nX = np.zeros( (N, N_nds) )\nA = np.zeros( (N_nds, N_nds, p) )\n\n# matriz de conexiones\nstd_mattrans = 0.2\nfor j in range( p ):\n    A[0, 3, j] = std_mattrans * np.random.randn()\n    A[1, 0, j] = std_mattrans * np.random.randn()\n    A[2, 1, j] = std_mattrans * np.random.randn()\n    A[3, 2, j] = std_mattrans * np.random.randn()\n\n# generación de datos VAR\nstd_datos = 0.1\nfor t in range( p, N ):\n    X[t, :] = std_datos * np.random.randn( N_nds )\n    for j in range( p ):\n        X[t, :] = X[t, :] + A[:,:,j] @ X[t-j-1, :]\n\n# visualización de los datos\nfig, axs = plt.subplots(nrows = N_nds, ncols = 1)\nfor nd in range(N_nds):\n    axs[ nd ].plot( X[:, nd] )\nplt.show()\n\n\n\n\n\n\n\n\nMatriz de conexiones real\n\nA_ = np.sum( A, axis=2 )\nA_[ A_!=0 ] = 1\n\nf, ax = plt.subplots(1,1)\nax.imshow(A_)\nax.set_title('matrix de conexiones')\n\n\n\n\n\n\n\n\nSolución mediante Ridge regression y Lasso\n\np = 3\nXvar, Yvar = X2var( X, p )\n\nmodelo = Ridge( alpha=0.1 )\nA_ridge = modelo.fit( Xvar, Yvar ).coef_\nA_ridge = varParams2TransMat(A_ridge, p)\n\nmodelo = Lasso( alpha=0.001 )\nA_lasso = modelo.fit( Xvar, Yvar ).coef_\nA_lasso = varParams2TransMat(A_lasso, p)\n\nVisualización de los resultados\n\nf, ax = plt.subplots(1,3)\nax[0].imshow(A_)\nax[0].set_title('matrix de conexiones')\nax[1].imshow(A_ridge)\nax[1].set_title('Ridge regression')\nax[2].imshow(A_lasso)\nax[2].set_title('Lasso regression')\nplt.show()"
   },
   {
     "objectID": "ejemplos-ml/logreg.html",
@@ -1005,7 +1047,7 @@
     "href": "ejemplos-ml/varejemplo.html",
     "title": "Regresión lineal para un proceso VAR",
     "section": "",
-    "text": "Generación de datos VAR\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import Ridge, Lasso\n\ndef varParams2TransMat( A, p ):\n    A = np.abs( A.T )\n    N_nds = A.shape[1]\n    A2 = np.zeros( (N_nds, N_nds) )\n    for n in range(N_nds):\n        A2[n, :] = A[:, n].reshape( (N_nds, p) ).sum(axis=1)\n    return A2\n\ndef X2var( X, p ):\n    N, N_nds = X.shape\n    Xvar = []\n    Yvar = np.zeros( (N-p, N_nds) )\n    for j in range( N_nds ):\n        Yvar[:, j] = X[p:, j]\n        Xvar_tmp = np.zeros( (N-p, p) )\n        for i in range( p ):\n            Xvar_tmp[:, i] = X[p-i-1: N-i-1, j]\n        Xvar.append( Xvar_tmp )\n    Xvar = np.hstack( Xvar )\n    return Xvar, Yvar\n\nN = 1000\nN_nds = 4\np = 3\nX = np.zeros( (N, N_nds) )\nA = np.zeros( (N_nds, N_nds, p) )\n\n# matriz de conexiones\nstd_mattrans = 0.2\nfor j in range( p ):\n    A[0, 3, j] = std_mattrans * np.random.randn()\n    A[1, 0, j] = std_mattrans * np.random.randn()\n    A[2, 1, j] = std_mattrans * np.random.randn()\n    A[3, 2, j] = std_mattrans * np.random.randn()\n\n# generación de datos VAR\nstd_datos = 0.1\nfor t in range( p, N ):\n    X[t, :] = std_datos * np.random.randn( N_nds )\n    for j in range( p ):\n        X[t, :] = X[t, :] + A[:,:,j] @ X[t-j-1, :]\n\n# visualización de los datos\nfig, axs = plt.subplots(nrows = N_nds, ncols = 1)\nfor nd in range(N_nds):\n    axs[ nd ].plot( X[:, nd] )\nplt.show()\n\n\n\n\n\n\n\n\nMatriz de conexiones real\n\nA_ = np.sum( A, axis=2 )\nA_[ A_!=0 ] = 1\n\nf, ax = plt.subplots(1,1)\nax.imshow(A_)\nax.set_title('matrix de conexiones')\n\nText(0.5, 1.0, 'matrix de conexiones')\n\n\n\n\n\n\n\n\n\nSolución mediante Ridge regression y Lasso\n\np = 3\nXvar, Yvar = X2var( X, p )\n\nmodelo = Ridge( alpha=0.1 )\nA_ridge = modelo.fit( Xvar, Yvar ).coef_\nA_ridge = varParams2TransMat(A_ridge, p)\n\nmodelo = Lasso( alpha=0.001 )\nA_lasso = modelo.fit( Xvar, Yvar ).coef_\nA_lasso = varParams2TransMat(A_lasso, p)\n\nVisualización de los resultados\n\nf, ax = plt.subplots(1,3)\nax[0].imshow(A_)\nax[0].set_title('matrix de conexiones')\nax[1].imshow(A_ridge)\nax[1].set_title('Ridge regression')\nax[2].imshow(A_lasso)\nax[2].set_title('Lasso regression')\nplt.show()"
+    "text": "Generación de datos VAR\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom sklearn.linear_model import Ridge, Lasso\n\ndef varParams2TransMat( A, p ):\n    A = np.abs( A.T )\n    N_nds = A.shape[1]\n    A2 = np.zeros( (N_nds, N_nds) )\n    for n in range(N_nds):\n        A2[n, :] = A[:, n].reshape( (N_nds, p) ).sum(axis=1)\n    return A2\n\ndef X2var( X, p ):\n    N, N_nds = X.shape\n    Xvar = []\n    Yvar = np.zeros( (N-p, N_nds) )\n    for j in range( N_nds ):\n        Yvar[:, j] = X[p:, j]\n        Xvar_tmp = np.zeros( (N-p, p) )\n        for i in range( p ):\n            Xvar_tmp[:, i] = X[p-i-1: N-i-1, j]\n        Xvar.append( Xvar_tmp )\n    Xvar = np.hstack( Xvar )\n    return Xvar, Yvar\n\nN = 1000\nN_nds = 4\np = 3\nX = np.zeros( (N, N_nds) )\nA = np.zeros( (N_nds, N_nds, p) )\n\n# matriz de conexiones\nstd_mattrans = 0.2\nfor j in range( p ):\n    A[0, 3, j] = std_mattrans * np.random.randn()\n    A[1, 0, j] = std_mattrans * np.random.randn()\n    A[2, 1, j] = std_mattrans * np.random.randn()\n    A[3, 2, j] = std_mattrans * np.random.randn()\n\n# generación de datos VAR\nstd_datos = 0.1\nfor t in range( p, N ):\n    X[t, :] = std_datos * np.random.randn( N_nds )\n    for j in range( p ):\n        X[t, :] = X[t, :] + A[:,:,j] @ X[t-j-1, :]\n\n# visualización de los datos\nfig, axs = plt.subplots(nrows = N_nds, ncols = 1)\nfor nd in range(N_nds):\n    axs[ nd ].plot( X[:, nd] )\nplt.show()\n\n\n\n\n\n\n\n\nMatriz de conexiones real\n\nA_ = np.sum( A, axis=2 )\nA_[ A_!=0 ] = 1\n\nf, ax = plt.subplots(1,1)\nax.imshow(A_)\nax.set_title('matrix de conexiones')\n\n\n\n\n\n\n\n\nSolución mediante Ridge regression y Lasso\n\np = 3\nXvar, Yvar = X2var( X, p )\n\nmodelo = Ridge( alpha=0.1 )\nA_ridge = modelo.fit( Xvar, Yvar ).coef_\nA_ridge = varParams2TransMat(A_ridge, p)\n\nmodelo = Lasso( alpha=0.001 )\nA_lasso = modelo.fit( Xvar, Yvar ).coef_\nA_lasso = varParams2TransMat(A_lasso, p)\n\nVisualización de los resultados\n\nf, ax = plt.subplots(1,3)\nax[0].imshow(A_)\nax[0].set_title('matrix de conexiones')\nax[1].imshow(A_ridge)\nax[1].set_title('Ridge regression')\nax[2].imshow(A_lasso)\nax[2].set_title('Lasso regression')\nplt.show()"
   },
   {
     "objectID": "ejemplos-ml/gp01-regression.html",
@@ -1810,7 +1852,7 @@
     "href": "bme423/index.html#pruebas",
     "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Pruebas",
-    "text": "Pruebas\n\nPrueba 1 (25%). 17 de abril.\nPrueba 2 (25%). 27 de mayo.\nPrueba 3 (25%). 10 de julio."
+    "text": "Pruebas\n\nPrueba 1 (25%). 10-09\nPrueba 2 (25%). 22-10\nPrueba 3 (25%). 03-12"
   },
   {
     "objectID": "bme423/index.html#laboratorios",
@@ -1848,8 +1890,8 @@
     "text": "Uso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente."
   },
   {
-    "objectID": "bme423/index.html#entregas-tardias",
-    "href": "bme423/index.html#entregas-tardias",
+    "objectID": "bme423/index.html#entregas-tardías",
+    "href": "bme423/index.html#entregas-tardías",
     "title": "BME423 - Procesamiento de imágenes médicas",
     "section": "Entregas tardías",
     "text": "Entregas tardías\nDispone de un total de 4 días de retraso que puede utilizar a gusto a lo largo del semestre en cualquiera de las evaluaciones del curso. Los días de retraso le permiten entregar laboratorios, tareas sin penalización. Retrasos superiores a 12 horas, se consideran como un día completo de retraso. Considere hacer uso de este beneficio en situaciones significativas o imprevistas. Si tiene problemas a largo plazo que afecten tu desempeño, se recomienda informar al profesor o jefe de carrera."
@@ -1951,6 +1993,48 @@
     "title": "Morfología matemática",
     "section": "Ideas para experimentar",
     "text": "Ideas para experimentar\nPrueba modificar:\n\nel tamaño del elemento estructurante, por ejemplo disk(1), disk(5), disk(12);\nla forma: cross(3), square(5), disk(4);\nla imagen binaria inicial;\nel número de iteraciones en el llenado o la poda.\n\nPreguntas para profundizar:\n\n¿Qué estructuras desaparecen cuando aumento el tamaño de \\(B\\)?\n¿Qué cambia al usar cruz en vez de cuadrado?\n¿Cuándo la apertura destruye información relevante?\n¿Por qué hit-or-miss necesita condiciones sobre objeto y fondo?\nEn escala de grises, ¿qué estructuras resaltan top-hat y bottom-hat?"
+  },
+  {
+    "objectID": "est852/index.html",
+    "href": "est852/index.html",
+    "title": "EST744 - Deep Learning (módulo 1)",
+    "section": "",
+    "text": "Descripción. El curso de Deep Learning ofrece a los participantes conocimientos y habilidades prácticas en el campo de la inteligencia artificial. A lo largo del programa, los estudiantes conocerán fundamentos teóricos del aprendizaje profundo, explorando conceptos clave como redes neuronales, arquitecturas convolucionales y recurrentes, funciones de activación y técnicas de optimización. Se desarrollarán implementaciones prácticas mediante el framework de Keras con TensorFlow, permitiendo a los participantes desarrollar y experimentar con modelos complejos."
+  },
+  {
+    "objectID": "est852/index.html#integridad-académica",
+    "href": "est852/index.html#integridad-académica",
+    "title": "EST744 - Deep Learning (módulo 1)",
+    "section": "Integridad Académica",
+    "text": "Integridad Académica\nSe espera que los estudiantes actúen con honestidad e integridad. No mentir, hacer trampa ni plagiar en trabajos académicos o no académicos. Todo trabajo presentado debe ser propio, a menos que se permita expresamente la colaboración. Debe citar adecuadamente todas las fuentes utilizadas, incluyendo código tomado de recursos en línea. El material no citado o mal referenciado puede considerarse plagio."
+  },
+  {
+    "objectID": "est852/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "href": "est852/index.html#uso-de-herramientas-de-inteligencia-artificial-ia",
+    "title": "EST744 - Deep Learning (módulo 1)",
+    "section": "Uso de Herramientas de Inteligencia Artificial (IA)",
+    "text": "Uso de Herramientas de Inteligencia Artificial (IA)\nEl uso de herramientas de Inteligencia Artificial está prohibido (¡broma!). De hecho, su utilización está permitida y fomentada. Sin embargo, es importante declarar de forma explícita cuándo y cómo se emplean estas herramientas en las tareas y trabajos del curso, especificando qué contenidos o códigos fueron generados mediante IA. Se requiere total transparencia para asegurar la integridad académica: omitir esta información puede considerarse una falta a las políticas del curso."
+  },
+  {
+    "objectID": "est852/index.html#colaboración",
+    "href": "est852/index.html#colaboración",
+    "title": "EST744 - Deep Learning (módulo 1)",
+    "section": "Colaboración",
+    "text": "Colaboración\nSalvo que expresamente se indique trabajo en grupo, todas las tareas deben realizarse de forma individual. Se permite la discusión general con compañeros, pero no compartir respuestas detalladas ni código. Para proyectos en equipo, debe colaborar únicamente dentro de su grupo."
+  },
+  {
+    "objectID": "est852/index.html#uso-de-código-y-recursos-online",
+    "href": "est852/index.html#uso-de-código-y-recursos-online",
+    "title": "EST744 - Deep Learning (módulo 1)",
+    "section": "Uso de código y recursos online",
+    "text": "Uso de código y recursos online\nPuede consultar y utilizar recursos en línea. Todo código o material tomado de fuentes externas debe ser citado correctamente."
+  },
+  {
+    "objectID": "est852/index.html#recalificaciones",
+    "href": "est852/index.html#recalificaciones",
+    "title": "EST744 - Deep Learning (módulo 1)",
+    "section": "Recalificaciones",
+    "text": "Recalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
   },
   {
     "objectID": "est744/index.html",
