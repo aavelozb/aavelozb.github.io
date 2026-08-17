@@ -1,0 +1,2375 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Alejandro Veloz">
+
+<title>UVA 2 — Condicionales</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6136a7884fe1a7fac599e736414a8c72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<style>
+  .cv-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .cv-photo-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D9E3E4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .cv-info {
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    .cv-container { flex-direction: column-reverse; text-align: center; }
+  }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="UVA 2 — Condicionales">
+<meta property="og:description" content="Guía de ejercicios ordenados por dificultad">
+<meta property="og:image" content="https://aavelozb.github.io/py/files/figs/uva2/tiro-al-blanco.png">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">UVA 2 — Condicionales</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="#" class="sidebar-logo-link">
+      <img src="../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=eq254vUAAAAJ" title="Google Scholar" class="quarto-navigation-tool px-1" aria-label="Google Scholar"><i class="bi bi-mortarboard-fill"></i></a>
+</div>
+      </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Ejercicios</h2>
+   
+  <ul class="collapse">
+  <li><a href="#bloque-1-expresiones-lógicas" id="toc-bloque-1-expresiones-lógicas" class="nav-link active" data-scroll-target="#bloque-1-expresiones-lógicas"><span class="header-section-number">1</span> Bloque 1 — Expresiones lógicas</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-1-preguntas-breves-instrucción-por-pares" id="toc-ejercicio-1-preguntas-breves-instrucción-por-pares" class="nav-link" data-scroll-target="#ejercicio-1-preguntas-breves-instrucción-por-pares"><span class="header-section-number">1.1</span> Ejercicio 1 — Preguntas breves (instrucción por pares)</a></li>
+  <li><a href="#ejercicio-2-de-lenguaje-natural-a-operadores-lógicos" id="toc-ejercicio-2-de-lenguaje-natural-a-operadores-lógicos" class="nav-link" data-scroll-target="#ejercicio-2-de-lenguaje-natural-a-operadores-lógicos"><span class="header-section-number">1.2</span> Ejercicio 2 — De lenguaje natural a operadores lógicos</a></li>
+  <li><a href="#ejercicio-3-leyes-de-de-morgan" id="toc-ejercicio-3-leyes-de-de-morgan" class="nav-link" data-scroll-target="#ejercicio-3-leyes-de-de-morgan"><span class="header-section-number">1.3</span> Ejercicio 3 — Leyes de De Morgan</a></li>
+  <li><a href="#ejercicio-4-condición-de-año-bisiesto" id="toc-ejercicio-4-condición-de-año-bisiesto" class="nav-link" data-scroll-target="#ejercicio-4-condición-de-año-bisiesto"><span class="header-section-number">1.4</span> Ejercicio 4 — Condición de año bisiesto</a></li>
+  <li><a href="#ejercicio-5-especificar-una-condición-compuesta" id="toc-ejercicio-5-especificar-una-condición-compuesta" class="nav-link" data-scroll-target="#ejercicio-5-especificar-una-condición-compuesta"><span class="header-section-number">1.5</span> Ejercicio 5 — Especificar una condición compuesta</a></li>
+  </ul></li>
+  <li><a href="#bloque-2-lectura-y-ruteo-de-código" id="toc-bloque-2-lectura-y-ruteo-de-código" class="nav-link" data-scroll-target="#bloque-2-lectura-y-ruteo-de-código"><span class="header-section-number">2</span> Bloque 2 — Lectura y ruteo de código</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-6-cuántas-veces-se-ejecuta" id="toc-ejercicio-6-cuántas-veces-se-ejecuta" class="nav-link" data-scroll-target="#ejercicio-6-cuántas-veces-se-ejecuta"><span class="header-section-number">2.1</span> Ejercicio 6 — ¿Cuántas veces se ejecuta?</a></li>
+  <li><a href="#ejercicio-7-determinar-la-salida" id="toc-ejercicio-7-determinar-la-salida" class="nav-link" data-scroll-target="#ejercicio-7-determinar-la-salida"><span class="header-section-number">2.2</span> Ejercicio 7 — Determinar la salida</a></li>
+  <li><a href="#ejercicio-8-if-elif-vs.-if-sueltos" id="toc-ejercicio-8-if-elif-vs.-if-sueltos" class="nav-link" data-scroll-target="#ejercicio-8-if-elif-vs.-if-sueltos"><span class="header-section-number">2.3</span> Ejercicio 8 — <code>if-elif</code> vs.&nbsp;<code>if</code> sueltos</a></li>
+  <li><a href="#ejercicio-9-ruteo-es-correcta-la-fecha" id="toc-ejercicio-9-ruteo-es-correcta-la-fecha" class="nav-link" data-scroll-target="#ejercicio-9-ruteo-es-correcta-la-fecha"><span class="header-section-number">2.4</span> Ejercicio 9 — Ruteo: ¿es correcta la fecha?</a></li>
+  </ul></li>
+  <li><a href="#bloque-3-primeros-programas-con-decisiones" id="toc-bloque-3-primeros-programas-con-decisiones" class="nav-link" data-scroll-target="#bloque-3-primeros-programas-con-decisiones"><span class="header-section-number">3</span> Bloque 3 — Primeros programas con decisiones</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-10-clasificador-de-sismos" id="toc-ejercicio-10-clasificador-de-sismos" class="nav-link" data-scroll-target="#ejercicio-10-clasificador-de-sismos"><span class="header-section-number">3.1</span> Ejercicio 10 — Clasificador de sismos</a></li>
+  <li><a href="#ejercicio-11-capibaras-y-mandarinas" id="toc-ejercicio-11-capibaras-y-mandarinas" class="nav-link" data-scroll-target="#ejercicio-11-capibaras-y-mandarinas"><span class="header-section-number">3.2</span> Ejercicio 11 — Capibaras y mandarinas</a></li>
+  <li><a href="#ejercicio-12-solución-de-ax-b-0" id="toc-ejercicio-12-solución-de-ax-b-0" class="nav-link" data-scroll-target="#ejercicio-12-solución-de-ax-b-0"><span class="header-section-number">3.3</span> Ejercicio 12 — Solución de <span class="math inline">\(ax + b = 0\)</span></a></li>
+  <li><a href="#ejercicio-13-el-mayor-de-tres-números" id="toc-ejercicio-13-el-mayor-de-tres-números" class="nav-link" data-scroll-target="#ejercicio-13-el-mayor-de-tres-números"><span class="header-section-number">3.4</span> Ejercicio 13 — El mayor de tres números</a></li>
+  <li><a href="#ejercicio-14-punto-y-circunferencia" id="toc-ejercicio-14-punto-y-circunferencia" class="nav-link" data-scroll-target="#ejercicio-14-punto-y-circunferencia"><span class="header-section-number">3.5</span> Ejercicio 14 — Punto y circunferencia</a></li>
+  </ul></li>
+  <li><a href="#bloque-4-condiciones-compuestas-y-validación" id="toc-bloque-4-condiciones-compuestas-y-validación" class="nav-link" data-scroll-target="#bloque-4-condiciones-compuestas-y-validación"><span class="header-section-number">4</span> Bloque 4 — Condiciones compuestas y validación</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-15-tipo-de-triángulo-según-sus-lados" id="toc-ejercicio-15-tipo-de-triángulo-según-sus-lados" class="nav-link" data-scroll-target="#ejercicio-15-tipo-de-triángulo-según-sus-lados"><span class="header-section-number">4.1</span> Ejercicio 15 — Tipo de triángulo según sus lados</a></li>
+  <li><a href="#ejercicio-16-tipo-de-triángulo-según-sus-ángulos" id="toc-ejercicio-16-tipo-de-triángulo-según-sus-ángulos" class="nav-link" data-scroll-target="#ejercicio-16-tipo-de-triángulo-según-sus-ángulos"><span class="header-section-number">4.2</span> Ejercicio 16 — Tipo de triángulo según sus ángulos</a></li>
+  <li><a href="#ejercicio-17-pago-de-horas-extra" id="toc-ejercicio-17-pago-de-horas-extra" class="nav-link" data-scroll-target="#ejercicio-17-pago-de-horas-extra"><span class="header-section-number">4.3</span> Ejercicio 17 — Pago de horas extra</a></li>
+  <li><a href="#ejercicio-18-llamadas-telefónicas-internacionales" id="toc-ejercicio-18-llamadas-telefónicas-internacionales" class="nav-link" data-scroll-target="#ejercicio-18-llamadas-telefónicas-internacionales"><span class="header-section-number">4.4</span> Ejercicio 18 — Llamadas telefónicas internacionales</a></li>
+  <li><a href="#ejercicio-19-tiro-al-blanco" id="toc-ejercicio-19-tiro-al-blanco" class="nav-link" data-scroll-target="#ejercicio-19-tiro-al-blanco"><span class="header-section-number">4.5</span> Ejercicio 19 — Tiro al blanco</a></li>
+  </ul></li>
+  <li><a href="#bloque-5-desafíos" id="toc-bloque-5-desafíos" class="nav-link" data-scroll-target="#bloque-5-desafíos"><span class="header-section-number">5</span> Bloque 5 — Desafíos</a>
+  <ul class="collapse">
+  <li><a href="#ejercicio-20-alfil-y-torre" id="toc-ejercicio-20-alfil-y-torre" class="nav-link" data-scroll-target="#ejercicio-20-alfil-y-torre"><span class="header-section-number">5.1</span> Ejercicio 20 — Alfil y torre</a></li>
+  <li><a href="#ejercicio-21-el-paracaidista-de-kreisdorf" id="toc-ejercicio-21-el-paracaidista-de-kreisdorf" class="nav-link" data-scroll-target="#ejercicio-21-el-paracaidista-de-kreisdorf"><span class="header-section-number">5.2</span> Ejercicio 21 — El paracaidista de Kreisdorf</a></li>
+  </ul></li>
+  <li><a href="#para-cerrar" id="toc-para-cerrar" class="nav-link" data-scroll-target="#para-cerrar"><span class="header-section-number">6</span> Para cerrar</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">UVA 2 — Condicionales</h1>
+<p class="subtitle lead">Guía de ejercicios ordenados por dificultad</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alejandro Veloz </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-important">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Las soluciones están ocultas.</strong> Haz clic en <em>Solución</em> (o en <em>Pista</em>) para revelarlas.</p>
+</div>
+</div>
+</div>
+<p>Los ejercicios están ordenados de menor a mayor dificultad, en cinco bloques:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 10%">
+<col style="width: 55%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Bloque</th>
+<th>Contenido</th>
+<th>Ejercicios</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Expresiones lógicas (sin programar)</td>
+<td>1 – 5</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Lectura y ruteo de código</td>
+<td>6 – 9</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Programas con <code>if</code> / <code>if-else</code> / <code>if-elif</code></td>
+<td>10 – 14</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Condiciones compuestas y validación</td>
+<td>15 – 19</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Desafíos</td>
+<td>20 – 21</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Objetivos de la unidad</strong></p>
+<ul>
+<li>Expresar una condición lógica que modele una situación, usando comparaciones y operadores lógicos.</li>
+<li>Organizar la lógica de decisiones en decisiones simples (un camino), dobles (<code>if-else</code>), en cascada (<code>if-elif</code>) o anidadas.</li>
+<li>Dar seguimiento (ruteo) a un programa que comprende decisiones.</li>
+<li>Resolver problemas expresando adecuadamente las condiciones que controlan el flujo de ejecución.</li>
+</ul>
+<section id="bloque-1-expresiones-lógicas" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Bloque 1 — Expresiones lógicas</h1>
+<blockquote class="blockquote">
+<p>Todavía no escribimos programas: solo construimos y evaluamos <strong>condiciones</strong>.</p>
+</blockquote>
+<section id="ejercicio-1-preguntas-breves-instrucción-por-pares" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="ejercicio-1-preguntas-breves-instrucción-por-pares"><span class="header-section-number">1.1</span> Ejercicio 1 — Preguntas breves (instrucción por pares)</h2>
+<p><strong>a)</strong> ¿Cuál es el resultado de la expresión <code>(5 &gt; 3) and (10 &lt; 5)</code>?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;a) <code>True</code> &nbsp;&nbsp; b) <code>False</code> &nbsp;&nbsp; c) <code>None</code></p>
+<p><strong>b)</strong> Si <code>x = 10</code> e <code>y = 20</code>, ¿cuál es el resultado de <code>x &lt; y</code>?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;a) <code>True</code> &nbsp;&nbsp; b) <code>False</code> &nbsp;&nbsp; c) <code>10</code></p>
+<p><strong>c)</strong> ¿Cuál de las siguientes opciones define correctamente un condicional en Python?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;a) <code>if condicion: print("True")</code> &nbsp;&nbsp;&nbsp;&nbsp;b) <code>if (condicion) { print("True") }</code> &nbsp;&nbsp;&nbsp;&nbsp;c) <code>if condicion: { print("True") }</code> &nbsp;&nbsp;&nbsp;&nbsp;d) <code>if condicion then: print("True")</code></p>
+<p><strong>d)</strong> Para comprobar si un número es positivo o negativo, ¿qué tipo de condicional usaríamos?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;a) <code>if</code> &nbsp;&nbsp; b) <code>if-else</code> &nbsp;&nbsp; c) <code>if-elif-else</code> &nbsp;&nbsp; d) Ninguno, basta una expresión lógica.</p>
+<p><strong>e)</strong> Dadas <code>a</code>, <code>b</code> y <code>c</code>, ¿cuál imprime <code>"Es válido"</code> si <code>a</code> es mayor que <code>b</code> <strong>o</strong> <code>c</code> es menor que <code>a</code>?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;a) <code>if a &gt; b or c &lt; a: print("Es válido")</code> &nbsp;&nbsp;&nbsp;&nbsp;b) <code>if a &gt; b and c &lt; a: print("Es válido")</code> &nbsp;&nbsp;&nbsp;&nbsp;c) <code>if a &gt; b and a &lt; c: print("Es válido")</code> &nbsp;&nbsp;&nbsp;&nbsp;d) <code>if a &gt; b or a &lt; c: print("Es válido")</code></p>
+<p><strong>f)</strong> ¿Cuál es el resultado de <code>True and not False or False</code>?</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;a) <code>True</code> &nbsp;&nbsp; b) <code>False</code> &nbsp;&nbsp; c) <code>None</code></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Respuestas">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Respuestas
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a) b)</strong> <code>False</code>. <code>(5 &gt; 3)</code> es <code>True</code>, pero <code>(10 &lt; 5)</code> es <code>False</code>, y <code>and</code> exige que <strong>ambos</strong> sean verdaderos.</p>
+<p><strong>b) a)</strong> <code>True</code>.</p>
+<p><strong>c) a)</strong> Python usa <code>:</code> e <strong>indentación</strong>; las llaves <code>{}</code> y la palabra <code>then</code> no existen en Python.</p>
+<p><strong>d) b)</strong> <code>if-else</code>: son dos caminos excluyentes.</p>
+<p><strong>e) a)</strong> El enunciado dice “<code>a</code> mayor que <code>b</code>” (<code>a &gt; b</code>) <strong>o</strong> “<code>c</code> menor que <code>a</code>” (<code>c &lt; a</code>).</p>
+<p><strong>f) a)</strong> <code>True</code>. Precedencia: <code>not</code> &gt; <code>and</code> &gt; <code>or</code>, así que se lee <code>(True and (not False)) or False</code> = <code>True or False</code> = <code>True</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-2-de-lenguaje-natural-a-operadores-lógicos" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="ejercicio-2-de-lenguaje-natural-a-operadores-lógicos"><span class="header-section-number">1.2</span> Ejercicio 2 — De lenguaje natural a operadores lógicos</h2>
+<p>Escribe la condición lógica que modela cada frase e indica <strong>cuándo</strong> resulta <code>True</code> y cuándo <code>False</code>:</p>
+<p><strong>a)</strong> <em>“Iré en bicicleta a comprar si no está lloviendo y si el negocio está a menos de 5 km.”</em></p>
+<p><strong>b)</strong> <em>“Hago deporte si es martes o jueves.”</em></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Solución">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Con <code>lloviendo</code> (bool) y <code>distancia</code> (número, en km):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>voy_en_bici <span class="op">=</span> (<span class="kw">not</span> lloviendo) <span class="kw">and</span> (distancia <span class="op">&lt;</span> <span class="dv">5</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Es <code>True</code> <strong>solo</strong> si se cumplen las dos cosas a la vez: no llueve <strong>y</strong> el negocio está a menos de 5 km. Es <code>False</code> si llueve, o si el negocio está a 5 km o más (o ambas).</p>
+<p><strong>b)</strong> Con <code>dia</code> (string):</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>hago_deporte <span class="op">=</span> (dia <span class="op">==</span> <span class="st">'martes'</span>) <span class="kw">or</span> (dia <span class="op">==</span> <span class="st">'jueves'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Es <code>True</code> si el día es martes, o si es jueves. Es <code>False</code> los otros cinco días.</p>
+<div class="callout callout-style-simple callout-warning">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Error frecuente: escribir <code>dia == 'martes' or 'jueves'</code>. Python lo evalúa como <code>(dia == 'martes') or ('jueves')</code>, y como el string <code>'jueves'</code> no está vacío, ¡la condición es <strong>siempre</strong> verdadera!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-3-leyes-de-de-morgan" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="ejercicio-3-leyes-de-de-morgan"><span class="header-section-number">1.3</span> Ejercicio 3 — Leyes de De Morgan</h2>
+<p><strong>a)</strong> Para ser presidente de Chile se debe ser chileno por nacimiento <strong>y</strong> mayor de 35 años. ¿Bajo qué condiciones <strong>no</strong> se puede ser presidente de Chile?</p>
+<p><strong>b)</strong> Dejo de comer cuando ya no tengo comida en el plato <strong>o</strong> cuando no tengo hambre. ¿En qué circunstancias <strong>sigo</strong> comiendo?</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-3-contents" aria-controls="callout-3" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-3" class="callout-3-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><span class="math display">\[\text{not}(A \text{ and } B) \equiv (\text{not } A) \text{ or } (\text{not } B)\]</span> <span class="math display">\[\text{not}(A \text{ or } B) \equiv (\text{not } A) \text{ and } (\text{not } B)\]</span></p>
+<p>La negación <strong>da vuelta el operador</strong>: <code>and</code> se convierte en <code>or</code> y viceversa.</p>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solución">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-4-contents" aria-controls="callout-4" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-4" class="callout-4-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Puede ser presidente: <code>chileno_por_nacimiento and edad &gt; 35</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (chileno <span class="kw">and</span> edad <span class="op">&gt;</span> <span class="dv">35</span>)  <span class="op">==</span>  (<span class="kw">not</span> chileno) <span class="kw">or</span> (edad <span class="op">&lt;=</span> <span class="dv">35</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>No se puede ser presidente si <strong>no</strong> se es chileno por nacimiento, <strong>o</strong> si se tiene 35 años o menos. Basta que falle <strong>una</strong> de las dos condiciones.</p>
+<p><strong>b)</strong> Dejo de comer: <code>plato_vacio or (not hambre)</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">not</span> (plato_vacio <span class="kw">or</span> <span class="kw">not</span> hambre)  <span class="op">==</span>  (<span class="kw">not</span> plato_vacio) <span class="kw">and</span> hambre</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Sigo comiendo mientras <strong>queda comida en el plato Y además tengo hambre</strong>. Deben cumplirse <strong>las dos</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-4-condición-de-año-bisiesto" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="ejercicio-4-condición-de-año-bisiesto"><span class="header-section-number">1.4</span> Ejercicio 4 — Condición de año bisiesto</h2>
+<blockquote class="blockquote">
+<p><em>“Un año es bisiesto si es divisible por 4, con excepción de los que son divisibles por 100 y no por 400.”</em></p>
+</blockquote>
+<p>Escribe <strong>la expresión lógica</strong> <code>es_bisiesto</code> (todavía no un programa completo) que sea verdadera si el año es bisiesto.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-5-contents" aria-controls="callout-5" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-5" class="callout-5-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Traduce cada trozo por separado:</p>
+<ul>
+<li>“divisible por 4” → <code>anio % 4 == 0</code></li>
+<li>“con excepción de” → <code>and not (...)</code></li>
+<li>“divisible por 100 y no por 400” → <code>anio % 100 == 0 and anio % 400 != 0</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div id="cell-12" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>anio <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese año: '</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Traducción literal del enunciado</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>es_bisiesto <span class="op">=</span> (anio <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span>) <span class="kw">and</span> <span class="kw">not</span> (anio <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> anio <span class="op">%</span> <span class="dv">400</span> <span class="op">!=</span> <span class="dv">0</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Forma equivalente (aplicando De Morgan a la excepción)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>es_bisiesto <span class="op">=</span> (anio <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> anio <span class="op">%</span> <span class="dv">100</span> <span class="op">!=</span> <span class="dv">0</span>) <span class="kw">or</span> (anio <span class="op">%</span> <span class="dv">400</span> <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(es_bisiesto)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-6-contents" aria-controls="callout-6" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-6" class="callout-6-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Ambas expresiones son equivalentes. La segunda se obtiene de la primera aplicando De Morgan:</p>
+<p><code>not (A and B)</code> = <code>(not A) or (not B)</code>, con <code>A = anio % 100 == 0</code> y <code>B = anio % 400 != 0</code>, y luego distribuyendo el <code>and</code>.</p>
+<p>Comprobación rápida: 2024 → <code>True</code>; 1900 → <code>False</code> (divisible por 100 y no por 400); 2000 → <code>True</code> (divisible por 400); 2023 → <code>False</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-5-especificar-una-condición-compuesta" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="ejercicio-5-especificar-una-condición-compuesta"><span class="header-section-number">1.5</span> Ejercicio 5 — Especificar una condición compuesta</h2>
+<p>Escribe una condición lógica para la siguiente frase:</p>
+<blockquote class="blockquote">
+<p><em>“Yo tengo horas de atención a estudiantes los lunes y los miércoles, siempre que no sea feriado, pero por superstición también atiendo todos los martes 13.”</em></p>
+</blockquote>
+<p>Supón que dispones de las variables <code>dia</code> (<code>'lunes'</code>, <code>'martes'</code>, …), <code>fecha</code> (día del mes, entero) y <code>feriado</code> (booleano).</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-7-contents" aria-controls="callout-7" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-7" class="callout-7-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El operador <strong>principal</strong> es un <code>or</code>: hay dos formas independientes de que haya atención. Escribe primero cada una por separado y recién después únelas.</p>
+</div>
+</div>
+</div>
+<div id="cell-16" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dia <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Día: '</span>)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fecha <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Día del mes: '</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>feriado <span class="op">=</span> <span class="bu">input</span>(<span class="st">'¿Es feriado? (s/n): '</span>) <span class="op">==</span> <span class="st">'s'</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>regla_normal   <span class="op">=</span> (dia <span class="op">==</span> <span class="st">'lunes'</span> <span class="kw">or</span> dia <span class="op">==</span> <span class="st">'miercoles'</span>) <span class="kw">and</span> <span class="kw">not</span> feriado</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>regla_martes13 <span class="op">=</span> (dia <span class="op">==</span> <span class="st">'martes'</span> <span class="kw">and</span> fecha <span class="op">==</span> <span class="dv">13</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>atiende <span class="op">=</span> regla_normal <span class="kw">or</span> regla_martes13</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(atiende)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-8-contents" aria-controls="callout-8" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-8" class="callout-8-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La condición completa es:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>atiende <span class="op">=</span> ((dia <span class="op">==</span> <span class="st">'lunes'</span> <span class="kw">or</span> dia <span class="op">==</span> <span class="st">'miercoles'</span>) <span class="kw">and</span> <span class="kw">not</span> feriado) <span class="kw">or</span> (dia <span class="op">==</span> <span class="st">'martes'</span> <span class="kw">and</span> fecha <span class="op">==</span> <span class="dv">13</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Dos detalles importantes:</p>
+<ol type="1">
+<li>Los <strong>paréntesis</strong> alrededor de <code>(dia == 'lunes' or dia == 'miercoles')</code> son imprescindibles: sin ellos, <code>and</code> se evalúa antes que <code>or</code> y el <code>not feriado</code> quedaría aplicándose solo al miércoles.</li>
+<li>La excepción del martes 13 va <strong>fuera</strong> del <code>not feriado</code>: se atiende “todos los martes 13”, sea feriado o no.</li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bloque-2-lectura-y-ruteo-de-código" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Bloque 2 — Lectura y ruteo de código</h1>
+<blockquote class="blockquote">
+<p>Aquí no escribimos programas nuevos: <strong>leemos</strong> los de otros y predecimos qué hacen.</p>
+</blockquote>
+<section id="ejercicio-6-cuántas-veces-se-ejecuta" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="ejercicio-6-cuántas-veces-se-ejecuta"><span class="header-section-number">2.1</span> Ejercicio 6 — ¿Cuántas veces se ejecuta?</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> n <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> <span class="bu">abs</span>(n)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Se ejecuta el programa <strong>10 veces distintas</strong>, con estas entradas:</p>
+<pre><code>5   -2   0   0   -3   -1   7   0   2   -2</code></pre>
+<p><strong>a)</strong> ¿Cuántas veces <strong>en total</strong> se ejecuta la instrucción <code>n = abs(n)</code>?</p>
+<p><strong>b)</strong> En el mismo escenario, ¿cuántas veces se ejecuta <code>print(n)</code>?</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Solución">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-9-contents" aria-controls="callout-9" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-9" class="callout-9-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a) 4 veces.</strong> Solo cuando la entrada es negativa: <code>-2</code>, <code>-3</code>, <code>-1</code>, <code>-2</code>.</p>
+<p><strong>b) 10 veces.</strong> <code>print(n)</code> está <strong>fuera</strong> del <code>if</code> (sin indentar), así que se ejecuta siempre, en las 10 ejecuciones.</p>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>La idea que hay que instalar: la <strong>indentación</strong> decide qué instrucciones son parte del <code>if</code> y cuáles son parte del programa principal. El <code>0</code> no es negativo, así que no entra al <code>if</code>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-7-determinar-la-salida" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="ejercicio-7-determinar-la-salida"><span class="header-section-number">2.2</span> Ejercicio 7 — Determinar la salida</h2>
+<p>Considerando el siguiente código, determina la salida para las entradas <strong>a)</strong> <code>2022</code>, <strong>b)</strong> <code>4000</code>, <strong>c)</strong> <code>1999</code>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Ingrese dato: "</span>))</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> a <span class="op">%</span> <span class="dv">100</span> <span class="op">==</span> <span class="dv">0</span> <span class="kw">and</span> a <span class="op">%</span> <span class="dv">400</span> <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"No es"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Lo es"</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"No es"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-note callout-titled" title="Solución">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-10-contents" aria-controls="callout-10" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-10" class="callout-10-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Entrada</th>
+<th><code>a % 4 == 0</code></th>
+<th><code>a % 100 == 0</code></th>
+<th><code>a % 400 != 0</code></th>
+<th>Salida</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2022</td>
+<td><code>False</code> (2022 % 4 = 2)</td>
+<td>—</td>
+<td>—</td>
+<td><code>No es</code></td>
+</tr>
+<tr class="even">
+<td>4000</td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>False</code> (4000 % 400 = 0)</td>
+<td><code>Lo es</code></td>
+</tr>
+<tr class="odd">
+<td>1999</td>
+<td><code>False</code> (1999 % 4 = 3)</td>
+<td>—</td>
+<td>—</td>
+<td><code>No es</code></td>
+</tr>
+</tbody>
+</table>
+<p>Es el mismo criterio del ejercicio 4, pero escrito con <code>if</code> <strong>anidados</strong> en vez de una sola expresión lógica. Vale la pena hacer notar que el <code>else</code> interno está asociado al <code>if</code> interno, y el externo al externo: lo determina la <strong>indentación</strong>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-8-if-elif-vs.-if-sueltos" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="ejercicio-8-if-elif-vs.-if-sueltos"><span class="header-section-number">2.3</span> Ejercicio 8 — <code>if-elif</code> vs.&nbsp;<code>if</code> sueltos</h2>
+<p><strong>a)</strong> El siguiente programa determina el nivel de estudios de una persona a partir de su edad:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Preescolar'</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> edad <span class="op">&lt;</span> <span class="dv">18</span>:</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Escolar'</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> edad <span class="op">&lt;</span> <span class="dv">25</span>:</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Universitario'</span>)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Postgrado'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>¿Qué condición debe cumplirse para que imprima <code>Escolar</code>? ¿Y para que llegue al último <code>else</code>?</p>
+<p><strong>b)</strong> Un programador hizo esta otra implementación del mismo problema:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Preescolar'</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">18</span>:</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Escolar'</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">25</span>:</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Universitario'</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Postgrado'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>¿Qué problemas tiene? Da un ejemplo.</p>
+<p><strong>c)</strong> Se propone la siguiente mejora:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> edad <span class="op">&lt;</span> <span class="dv">6</span>:</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Preescolar'</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">6</span> <span class="op">&lt;=</span> edad <span class="op">&lt;</span> <span class="dv">18</span>:</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Escolar'</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="dv">18</span> <span class="op">&lt;=</span> edad <span class="op">&lt;</span> <span class="dv">25</span>:</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Universitario'</span>)</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Postgrado'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>¿Está correcta? Justifica.</p>
+<div class="callout callout-style-default callout-note callout-titled" title="Solución">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-11-contents" aria-controls="callout-11" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Solución
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-11" class="callout-11-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>a)</strong> Para imprimir <code>Escolar</code> se necesita <code>edad &gt;= 6 and edad &lt; 18</code>. Aunque en el código escrito solo aparece <code>edad &lt; 18</code>, el <code>elif</code> <strong>arrastra la negación de todas las condiciones anteriores</strong>: para llegar ahí, <code>edad &lt; 6</code> tuvo que ser <code>False</code>.</p>
+<p>Para llegar al último <code>else</code>: <code>edad &gt;= 25</code>.</p>
+<p><strong>b)</strong> Al usar <code>if</code> sueltos, <strong>todas</strong> las condiciones se evalúan de forma independiente y se pueden imprimir varias líneas. Con <code>edad = 3</code>:</p>
+<pre><code>Preescolar
+Escolar
+Universitario</code></pre>
+<p>Además el <code>else</code> está asociado <strong>solo al último <code>if</code></strong> (<code>edad &lt; 25</code>), no a la cadena completa: con <code>edad = 3</code> no se imprime <code>Postgrado</code>, pero con <code>edad = 30</code> se imprime <code>Postgrado</code> (que es lo correcto, por casualidad).</p>
+<p><strong>c)</strong> <strong>No, sigue estando mal.</strong> Los rangos ya no se solapan, así que el problema de las impresiones múltiples se resolvió, pero el <code>else</code> sigue colgando del <strong>último <code>if</code></strong>. Entonces, para <code>edad = 3</code>:</p>
+<pre><code>Preescolar
+Postgrado</code></pre>
+<p>porque <code>18 &lt;= 3 &lt; 25</code> es <code>False</code> y se ejecuta su <code>else</code>. Lo mismo pasa con <code>edad = 10</code> (<code>Escolar</code> + <code>Postgrado</code>).</p>
+<p>La única forma correcta con <code>if</code> sueltos es escribir explícitamente la cuarta condición:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> edad <span class="op">&gt;=</span> <span class="dv">25</span>:</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Postgrado'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Moraleja:</strong> cuando las alternativas son mutuamente excluyentes, <code>if-elif-else</code> no es solo más corto: es más difícil de equivocar.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-9-ruteo-es-correcta-la-fecha" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="ejercicio-9-ruteo-es-correcta-la-fecha"><span class="header-section-number">2.4</span> Ejercicio 9 — Ruteo: ¿es correcta la fecha?</h2>
+<p>El siguiente programa determina si una fecha es correcta, considerando un rango de años válido, la cantidad de días de cada mes y los años bisiestos para el caso de febrero.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>dd   <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese día: '</span>))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>mm   <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese mes: '</span>))</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>aaaa <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese año: '</span>))</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>esBisiesto <span class="op">=</span> (aaaa <span class="op">%</span> <span class="dv">4</span> <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>esBisiesto <span class="op">=</span> esBisiesto <span class="kw">and</span> (aaaa <span class="op">%</span> <span class="dv">100</span> <span class="op">!=</span> <span class="dv">0</span> <span class="kw">or</span> aaaa <span class="op">%</span> <span class="dv">400</span> <span class="op">==</span> <span class="dv">0</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>anioOk <span class="op">=</span> aaaa <span class="op">&gt;=</span> <span class="dv">1800</span></span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>mesOk  <span class="op">=</span> (mm <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> mm <span class="op">&lt;=</span> <span class="dv">12</span>)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>diaOk  <span class="op">=</span> (dd <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> dd <span class="op">&lt;=</span> <span class="dv">31</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> mm <span class="op">==</span> <span class="dv">4</span> <span class="kw">or</span> mm <span class="op">==</span> <span class="dv">6</span> <span class="kw">or</span> mm <span class="op">==</span> <span class="dv">9</span> <span class="kw">or</span> mm <span class="op">==</span> <span class="dv">11</span>:</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    diaOk <span class="op">=</span> diaOk <span class="kw">and</span> (dd <span class="op">&lt;=</span> <span class="dv">30</span>)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> mm <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> esBisiesto:</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        diaOk <span class="op">=</span> diaOk <span class="kw">and</span> (dd <span class="op">&lt;=</span> <span class="dv">29</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        diaOk <span class="op">=</span> diaOk <span class="kw">and</span> (dd <span class="op">&lt;=</span> <span class="dv">28</span>)</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> anioOk <span class="kw">and</span> mesOk <span class="kw">and</span> diaOk:</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Fecha correcta'</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Fecha incorrecta'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Completa la tabla de ruteo para las entradas <strong>a)</strong> <code>29 2 2020</code>, <strong>b)</strong> <code>31 6 2020</code>, <strong>c)</strong> <code>31 7 2020</code>.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><code>dd</code></th>
+<th><code>mm</code></th>
+<th><code>aaaa</code></th>
+<th><code>esBisiesto</code></th>
+<th><code>anioOk</code></th>
+<th><code>mesOk</code></th>
+<th><code>diaOk</code></th>
+<th>Salida</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>b)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>c)</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-note callout-titled" title="Solución (tabla de ruteo)">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-12-contents" aria-controls="callout-12" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Solución (tabla de ruteo)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-12" class="callout-12-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><code>dd</code></th>
+<th><code>mm</code></th>
+<th><code>aaaa</code></th>
+<th><code>esBisiesto</code></th>
+<th><code>anioOk</code></th>
+<th><code>mesOk</code></th>
+<th><code>diaOk</code></th>
+<th>Salida</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a)</td>
+<td>29</td>
+<td>2</td>
+<td>2020</td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code> → <code>True</code></td>
+<td><code>Fecha correcta</code></td>
+</tr>
+<tr class="even">
+<td>b)</td>
+<td>31</td>
+<td>6</td>
+<td>2020</td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code> → <code>False</code></td>
+<td><code>Fecha incorrecta</code></td>
+</tr>
+<tr class="odd">
+<td>c)</td>
+<td>31</td>
+<td>7</td>
+<td>2020</td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td><code>Fecha correcta</code></td>
+</tr>
+</tbody>
+</table>
+<p>Detalle del ruteo de <code>diaOk</code>, que es la variable interesante porque <strong>se va actualizando</strong>:</p>
+<ul>
+<li><strong>a)</strong> parte en <code>True</code> (29 está entre 1 y 31). <code>mm == 2</code>, y como 2020 es bisiesto: <code>diaOk = True and (29 &lt;= 29)</code> → <code>True</code>.</li>
+<li><strong>b)</strong> parte en <code>True</code> (31 está entre 1 y 31). Junio está en la lista de meses de 30 días: <code>diaOk = True and (31 &lt;= 30)</code> → <code>False</code>.</li>
+<li><strong>c)</strong> parte en <code>True</code>. Julio no está en la lista de 30 días ni es febrero: <code>diaOk</code> queda <code>True</code>.</li>
+</ul>
+<p>Nota sobre <code>esBisiesto</code>: se construye en <strong>dos pasos</strong>, acumulando sobre sí misma. Es la misma expresión del ejercicio 4, partida en dos líneas para que se lea mejor.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bloque-3-primeros-programas-con-decisiones" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Bloque 3 — Primeros programas con decisiones</h1>
+<section id="ejercicio-10-clasificador-de-sismos" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="ejercicio-10-clasificador-de-sismos"><span class="header-section-number">3.1</span> Ejercicio 10 — Clasificador de sismos</h2>
+<p>Después de obtener tu título, iniciaste tu carrera laboral en el Centro Sismológico Nacional. En tu primer día tu jefe te encomienda implementar un clasificador de sismos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Magnitud</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0.0 – 1.9</td>
+<td>Menor</td>
+</tr>
+<tr class="even">
+<td>2.0 – 4.9</td>
+<td>Moderado</td>
+</tr>
+<tr class="odd">
+<td>5.0 +</td>
+<td>Fuerte</td>
+</tr>
+</tbody>
+</table>
+<p>Desarrolla un programa capaz de clasificar los sismos. Observa los ejemplos para definir correctamente los condicionales (ojo con el último):</p>
+<pre><code>Ingrese el grado del sismo: 0.1
+El sismo es Menor</code></pre>
+<pre><code>Ingrese el grado del sismo: 10.9
+El sismo es Fuerte</code></pre>
+<pre><code>Ingrese el grado del sismo: -10
+Valor no válido para la magnitud</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-13-contents" aria-controls="callout-13" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-13" class="callout-13-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Hay <strong>cuatro</strong> casos, no tres: el enunciado no dice nada sobre magnitudes negativas, pero el tercer ejemplo sí. ¿Conviene validar primero o al final?</p>
+</div>
+</div>
+</div>
+<div id="cell-30" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>grado <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Ingrese el grado del sismo: "</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> grado <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Valor no válido para la magnitud"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> grado <span class="op">&lt;</span> <span class="fl">2.0</span>:</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"El sismo es Menor"</span>)</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> grado <span class="op">&lt;</span> <span class="fl">5.0</span>:</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"El sismo es Moderado"</span>)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"El sismo es Fuerte"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-14-contents" aria-controls="callout-14" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-14" class="callout-14-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Poner la <strong>validación primero</strong> es lo que permite que el resto de la cascada quede simple: cuando llegamos a <code>elif grado &lt; 2.0</code> ya sabemos que <code>grado &gt;= 0</code>.</p>
+<p>Fíjate además en que el corte se escribe <code>&lt; 2.0</code> y no <code>&lt;= 1.9</code>: la magnitud es un <code>float</code>, y <code>1.95</code> debe clasificarse como <em>Menor</em>. Escribir <code>&lt;= 1.9</code> dejaría un hueco entre 1.9 y 2.0.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-11-capibaras-y-mandarinas" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="ejercicio-11-capibaras-y-mandarinas"><span class="header-section-number">3.2</span> Ejercicio 11 — Capibaras y mandarinas</h2>
+<p>Eres parte del equipo encargado de la sección de capibaras del zoológico de tu ciudad. A los capibaras les encanta relajarse en agua con mandarinas en sus cabezas, así que tu trabajo consiste en distribuir las mandarinas entre los capibaras.</p>
+<p>Desarrolla un programa que reciba la cantidad de mandarinas disponibles y la cantidad total de capibaras. Las reglas son:</p>
+<ol type="1">
+<li>Cada capibara requiere <strong>exactamente 3</strong> mandarinas.</li>
+<li>Debes revisar primero la cantidad de mandarinas que tienes:
+<ul>
+<li>Si tienes <strong>menos</strong> mandarinas que las que necesitas, debes volver a la bodega a buscar más.</li>
+<li>Si tienes <strong>tantas</strong> mandarinas como las que necesitas, ya las puedes repartir.</li>
+<li>Si tienes <strong>más</strong> mandarinas que las que necesitas, debes devolver lo que sobra a la bodega.</li>
+</ul></li>
+</ol>
+<pre><code>Ingrese la cantidad de mandarinas: 3
+Ingrese la cantidad de capibaras: 4
+Faltan mandarinas! Tienes que ir a buscar mas a la bodega.</code></pre>
+<pre><code>Ingrese la cantidad de mandarinas: 9
+Ingrese la cantidad de capibaras: 3
+Muy bien, puedes repartir las mandarinas.</code></pre>
+<pre><code>Ingrese la cantidad de mandarinas: 10
+Ingrese la cantidad de capibaras: 3
+Sobran mandarinas! Tienes que devolverlas a la bodega.</code></pre>
+<div id="cell-33" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mandarinas <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Ingrese la cantidad de mandarinas: "</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>capibaras  <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">"Ingrese la cantidad de capibaras: "</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>necesarias <span class="op">=</span> <span class="dv">3</span> <span class="op">*</span> capibaras</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> mandarinas <span class="op">&lt;</span> necesarias:</span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Faltan mandarinas! Tienes que ir a buscar mas a la bodega."</span>)</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> mandarinas <span class="op">==</span> necesarias:</span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Muy bien, puedes repartir las mandarinas."</span>)</span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Sobran mandarinas! Tienes que devolverlas a la bodega."</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-15-contents" aria-controls="callout-15" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-15" class="callout-15-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La clave es <strong>calcular primero</strong> <code>necesarias = 3 * capibaras</code> y recién después decidir. Meter la multiplicación dentro de cada condición funciona, pero repite la misma cuenta tres veces.</p>
+<p>Comparar tres alternativas mutuamente excluyentes (<code>&lt;</code>, <code>==</code>, <code>&gt;</code>) es el caso de libro para <code>if-elif-else</code>: la tercera rama no necesita condición, porque si no es menor ni igual, es mayor.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-12-solución-de-ax-b-0" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="ejercicio-12-solución-de-ax-b-0"><span class="header-section-number">3.3</span> Ejercicio 12 — Solución de <span class="math inline">\(ax + b = 0\)</span></h2>
+<p>Escribe un programa que reciba como entrada <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span>, y entregue la solución de la ecuación <span class="math inline">\(ax + b = 0\)</span>. Debe validarse si la ecuación tiene solución, es decir, si <span class="math inline">\(a \neq 0\)</span>.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-16-contents" aria-controls="callout-16" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-16" class="callout-16-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>¿Qué pasa cuando <code>a == 0</code>? Hay en realidad <strong>dos</strong> subcasos distintos, según el valor de <code>b</code>.</p>
+</div>
+</div>
+</div>
+<div id="cell-37" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese a: '</span>))</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese b: '</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> <span class="op">-</span>b <span class="op">/</span> a</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'La solución es x ='</span>, x)</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'La ecuación no tiene solución única.'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-17-contents" aria-controls="callout-17" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-17" class="callout-17-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La versión mínima que pide el enunciado es la de arriba. Ahora bien, cuando <code>a == 0</code> la ecuación queda <code>b = 0</code>, y ahí hay dos situaciones distintas que vale la pena distinguir en clase:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'La solución es x ='</span>, <span class="op">-</span>b <span class="op">/</span> a)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> b <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Infinitas soluciones: cualquier x sirve.'</span>)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No hay solución.'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Lo importante: la validación <code>a != 0</code> va <strong>antes</strong> de la división. Si se invierte el orden, el programa se cae con <code>ZeroDivisionError</code> antes de alcanzar a decidir.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-13-el-mayor-de-tres-números" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="ejercicio-13-el-mayor-de-tres-números"><span class="header-section-number">3.4</span> Ejercicio 13 — El mayor de tres números</h2>
+<p>Determina el mayor de 3 números enteros ingresados como entrada. Resuélvelo de <strong>dos maneras</strong>: con instrucciones <code>if</code> <strong>anidadas</strong>, y con <strong>condiciones complejas</strong> basadas en <code>and</code> / <code>or</code>.</p>
+<p>Ejemplos:</p>
+<ul>
+<li>Si se ingresa <code>3, 1, 2</code> en cualquier orden, debe mostrar <code>3</code>.</li>
+<li>Si se ingresa <code>1, 1, 2</code> en cualquier orden, debe mostrar <code>2</code>.</li>
+<li>Si se ingresa <code>1, 1, 1</code>, debe mostrar <code>1</code>.</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-18-contents" aria-controls="callout-18" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-18" class="callout-18-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>En la versión con condiciones complejas, cuidado con los <strong>empates</strong>: si usas <code>&gt;</code> estricto, el caso <code>1, 1, 1</code> no entra en ninguna rama. Usa <code>&gt;=</code>.</p>
+</div>
+</div>
+</div>
+<div id="cell-41" class="cell">
+<details class="code-fold">
+<summary>Solución 1 — if anidados</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'a: '</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'b: '</span>))</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'c: '</span>))</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Versión 1: if anidados ---------------------------------</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">&gt;=</span> b:</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> a <span class="op">&gt;=</span> c:</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        mayor <span class="op">=</span> a</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        mayor <span class="op">=</span> c</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> b <span class="op">&gt;=</span> c:</span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>        mayor <span class="op">=</span> b</span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>        mayor <span class="op">=</span> c</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'El mayor es'</span>, mayor)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="cell-42" class="cell">
+<details class="code-fold">
+<summary>Solución 2 — condiciones complejas</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'a: '</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'b: '</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'c: '</span>))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Versión 2: condiciones complejas -----------------------</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">&gt;=</span> b <span class="kw">and</span> a <span class="op">&gt;=</span> c:</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    mayor <span class="op">=</span> a</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> b <span class="op">&gt;=</span> a <span class="kw">and</span> b <span class="op">&gt;=</span> c:</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    mayor <span class="op">=</span> b</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    mayor <span class="op">=</span> c</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'El mayor es'</span>, mayor)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-19-contents" aria-controls="callout-19" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-19" class="callout-19-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Con <code>1, 1, 1</code> la versión 2 entra en la primera rama (<code>1 &gt;= 1 and 1 &gt;= 1</code> es <code>True</code>) y responde <code>1</code>. Si se hubiera escrito con <code>&gt;</code> estricto, ninguna de las tres condiciones se cumpliría en el caso de triple empate.</p>
+<p>Un tercer camino, útil para mostrar la idea de “acumulador”:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>mayor <span class="op">=</span> a</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> b <span class="op">&gt;</span> mayor:</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>    mayor <span class="op">=</span> b</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> c <span class="op">&gt;</span> mayor:</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    mayor <span class="op">=</span> c</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Este es el patrón que reaparecerá en la unidad de ciclos, cuando los números no sean tres sino <span class="math inline">\(n\)</span>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-14-punto-y-circunferencia" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="ejercicio-14-punto-y-circunferencia"><span class="header-section-number">3.5</span> Ejercicio 14 — Punto y circunferencia</h2>
+<p>Dado un círculo (coordenadas del centro y radio) y un punto cualquiera (coordenadas), determina si el punto está <strong>dentro</strong>, <strong>fuera</strong> o <strong>justo en</strong> la circunferencia del círculo.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-20-contents" aria-controls="callout-20" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-20" class="callout-20-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La distancia entre <span class="math inline">\((x_0, y_0)\)</span> y <span class="math inline">\((x, y)\)</span> es</p>
+<p><span class="math display">\[d = \sqrt{(x - x_0)^2 + (y - y_0)^2}\]</span></p>
+<p>Compara <code>d</code> con el radio. Para evitar la raíz, también puedes comparar <span class="math inline">\(d^2\)</span> con <span class="math inline">\(r^2\)</span>.</p>
+</div>
+</div>
+</div>
+<div id="cell-46" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> math <span class="im">import</span> sqrt</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>x0 <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'x del centro: '</span>))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>y0 <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'y del centro: '</span>))</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>r  <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'radio: '</span>))</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>x  <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'x del punto: '</span>))</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>y  <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'y del punto: '</span>))</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> sqrt((x <span class="op">-</span> x0)<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> (y <span class="op">-</span> y0)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> d <span class="op">&lt;</span> r:</span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El punto está DENTRO del círculo.'</span>)</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> d <span class="op">&gt;</span> r:</span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El punto está FUERA del círculo.'</span>)</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El punto está JUSTO EN la circunferencia.'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-21-contents" aria-controls="callout-21" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-21" class="callout-21-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Sin <code>math</code>, la raíz también se puede escribir como <code>d = ((x-x0)**2 + (y-y0)**2) ** 0.5</code>.</p>
+<p>Sobre el caso “justo en la circunferencia”: con <code>float</code> la igualdad exacta casi nunca se cumple en la práctica (por el redondeo binario). Si quieres ser riguroso, se compara con una tolerancia:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">abs</span>(d <span class="op">-</span> r) <span class="op">&lt;</span> <span class="fl">1e-9</span>:</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El punto está JUSTO EN la circunferencia.'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para efectos de esta unidad basta la versión con <code>==</code> implícito del <code>else</code>, pero es una buena conversación de clase.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bloque-4-condiciones-compuestas-y-validación" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Bloque 4 — Condiciones compuestas y validación</h1>
+<blockquote class="blockquote">
+<p>Problemas donde la dificultad ya no está en el <code>if</code>, sino en <strong>escribir bien la condición</strong>.</p>
+</blockquote>
+<section id="ejercicio-15-tipo-de-triángulo-según-sus-lados" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="ejercicio-15-tipo-de-triángulo-según-sus-lados"><span class="header-section-number">4.1</span> Ejercicio 15 — Tipo de triángulo según sus lados</h2>
+<p>Los tres lados <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> y <span class="math inline">\(c\)</span> de un triángulo deben satisfacer la <strong>desigualdad triangular</strong>: cada uno de los lados no puede ser más largo que la suma de los otros dos.</p>
+<p>Escribe un programa que reciba como entrada los tres lados de un triángulo, e indique:</p>
+<ul>
+<li>si acaso el triángulo es <strong>inválido</strong>; y</li>
+<li>si no lo es, <strong>qué tipo</strong> de triángulo es (escaleno, isósceles o equilátero).</li>
+</ul>
+<pre><code>Ingrese a: 3.9          Ingrese a: 2.0
+Ingrese b: 6.0          Ingrese b: 1.9
+Ingrese c: 1.2          Ingrese c: 2.0
+No es un triangulo valido.   El triangulo es isosceles.</code></pre>
+<pre><code>Ingrese a: 3.0          Ingrese a: 3.14
+Ingrese b: 5.0          Ingrese b: 3.14
+Ingrese c: 4.0          Ingrese c: 3.14
+El triangulo es escaleno.    El triangulo es equilatero.</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-22-contents" aria-controls="callout-22" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-22" class="callout-22-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La desigualdad triangular son <strong>tres</strong> condiciones a la vez (una por cada lado), unidas con <code>and</code>.</p>
+<p>Para el tipo: equilátero = los tres iguales; isósceles = <strong>al menos</strong> dos iguales; escaleno = todos distintos. Ojo con el orden en que preguntas.</p>
+</div>
+</div>
+</div>
+<div id="cell-51" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese a: '</span>))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese b: '</span>))</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese c: '</span>))</span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>valido <span class="op">=</span> (a <span class="op">&lt;</span> b <span class="op">+</span> c) <span class="kw">and</span> (b <span class="op">&lt;</span> a <span class="op">+</span> c) <span class="kw">and</span> (c <span class="op">&lt;</span> a <span class="op">+</span> b)</span>
+<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> valido:</span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No es un triangulo valido.'</span>)</span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> a <span class="op">==</span> b <span class="kw">and</span> b <span class="op">==</span> c:</span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El triangulo es equilatero.'</span>)</span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> a <span class="op">==</span> b <span class="kw">or</span> b <span class="op">==</span> c <span class="kw">or</span> a <span class="op">==</span> c:</span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El triangulo es isosceles.'</span>)</span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El triangulo es escaleno.'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-23-contents" aria-controls="callout-23" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-23" class="callout-23-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>El orden importa: si preguntáramos primero por isósceles, un triángulo equilátero (que también tiene dos lados iguales) sería clasificado como isósceles. <strong>La condición más restrictiva va primero.</strong></p>
+<p>Nótese también que <code>valido</code> se calcula como una <strong>variable booleana</strong> antes del <code>if</code>. Eso hace que la cascada se lea casi como el enunciado, y es exactamente la misma técnica del ruteo del ejercicio 9 (<code>anioOk</code>, <code>mesOk</code>, <code>diaOk</code>).</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-16-tipo-de-triángulo-según-sus-ángulos" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="ejercicio-16-tipo-de-triángulo-según-sus-ángulos"><span class="header-section-number">4.2</span> Ejercicio 16 — Tipo de triángulo según sus ángulos</h2>
+<p>Determina el tipo de triángulo según sus ángulos. Es necesario encontrar el lado más grande (que sería la hipotenusa) y verificar si cumple el teorema de Pitágoras:</p>
+<ul>
+<li>Si <span class="math inline">\(a^2 + b^2 = c^2\)</span>, el triángulo es <strong>rectángulo</strong>.</li>
+<li>Si <span class="math inline">\(a^2 + b^2 &lt; c^2\)</span>, el triángulo es <strong>obtusángulo</strong>.</li>
+<li>Si <span class="math inline">\(a^2 + b^2 &gt; c^2\)</span>, el triángulo es <strong>acutángulo</strong>.</li>
+</ul>
+<p>donde <span class="math inline">\(c\)</span> es el lado mayor.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-24-contents" aria-controls="callout-24" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-24" class="callout-24-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Este ejercicio son dos problemas encadenados: primero <strong>identificar el lado mayor</strong> (ejercicio 13), y recién después comparar. Conviene reordenar los tres lados en variables auxiliares.</p>
+</div>
+</div>
+</div>
+<div id="cell-55" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese a: '</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese b: '</span>))</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese c: '</span>))</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1) identificar el lado mayor (hip) y los otros dos (l1, l2)</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> a <span class="op">&gt;=</span> b <span class="kw">and</span> a <span class="op">&gt;=</span> c:</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    hip, l1, l2 <span class="op">=</span> a, b, c</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> b <span class="op">&gt;=</span> a <span class="kw">and</span> b <span class="op">&gt;=</span> c:</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    hip, l1, l2 <span class="op">=</span> b, a, c</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>    hip, l1, l2 <span class="op">=</span> c, a, b</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 2) clasificar</span></span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> l1<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> l2<span class="op">**</span><span class="dv">2</span> <span class="op">==</span> hip<span class="op">**</span><span class="dv">2</span>:</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El triangulo es rectangulo.'</span>)</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> l1<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> l2<span class="op">**</span><span class="dv">2</span> <span class="op">&lt;</span> hip<span class="op">**</span><span class="dv">2</span>:</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El triangulo es obtusangulo.'</span>)</span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El triangulo es acutangulo.'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-25-contents" aria-controls="callout-25" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-25" class="callout-25-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>La asignación múltiple <code>hip, l1, l2 = a, b, c</code> es cómoda, pero si aún no se ha visto en clase se puede escribir en tres líneas separadas; el algoritmo es idéntico.</p>
+<p>Para el ejemplo clásico <code>3, 4, 5</code>: el mayor es <code>5</code>, y <code>9 + 16 == 25</code> → rectángulo. Con <code>3, 4, 6</code>: <code>9 + 16 = 25 &lt; 36</code> → obtusángulo. Con <code>3, 4, 4</code>: <code>9 + 16 = 25 &gt; 16</code> → acutángulo.</p>
+<p>Se puede combinar con el ejercicio 15 pidiendo que primero valide la desigualdad triangular.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-17-pago-de-horas-extra" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="ejercicio-17-pago-de-horas-extra"><span class="header-section-number">4.3</span> Ejercicio 17 — Pago de horas extra</h2>
+<p><strong>Entradas:</strong> categoría del empleado (<code>int</code>) y número de horas extra trabajadas en una semana (<code>int</code>). Alternativamente, el número de horas totales trabajadas en la semana, descontando 44.</p>
+<p><strong>Reglas:</strong></p>
+<ul>
+<li>Se pagan <strong>máximo 10</strong> horas extra.</li>
+<li>Si el empleado tiene categoría <strong>4 o superior</strong>, no tiene derecho al pago de horas extra.</li>
+<li>El monto a pagar por hora depende de la categoría: Cat 1: <code>5000</code>, Cat 2: <code>8000</code>, Cat 3: <code>10000</code>.</li>
+</ul>
+<p>Escribe un programa que calcule el monto a pagar.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-26-contents" aria-controls="callout-26" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-26" class="callout-26-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Tres decisiones distintas, mejor tomadas por separado:</p>
+<ol type="1">
+<li>¿Tiene derecho a pago? (categoría)</li>
+<li>¿Cuántas horas se pagan efectivamente? (tope de 10)</li>
+<li>¿Cuánto vale la hora? (categoría)</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="cell-59" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>categoria <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Categoría del empleado: '</span>))</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>horas     <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Horas extra trabajadas: '</span>))</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> categoria <span class="op">&gt;=</span> <span class="dv">4</span>:</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Su categoría no tiene derecho al pago de horas extra.'</span>)</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    monto <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># tope de 10 horas extra</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> horas <span class="op">&gt;</span> <span class="dv">10</span>:</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>        horas_pagadas <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>        horas_pagadas <span class="op">=</span> horas</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># valor de la hora según categoría</span></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> categoria <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>        valor <span class="op">=</span> <span class="dv">5000</span></span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> categoria <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>        valor <span class="op">=</span> <span class="dv">8000</span></span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:            <span class="co"># categoría 3</span></span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>        valor <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a>    monto <span class="op">=</span> horas_pagadas <span class="op">*</span> valor</span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Horas pagadas:'</span>, horas_pagadas)</span>
+<span id="cb37-24"><a href="#cb37-24" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Monto a pagar:'</span>, monto)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario y variante">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-27-contents" aria-controls="callout-27" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario y variante
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-27" class="callout-27-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Variante con las horas <strong>totales</strong> de la semana como entrada:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Horas totales trabajadas: '</span>))</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>horas <span class="op">=</span> total <span class="op">-</span> <span class="dv">44</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> horas <span class="op">&lt;</span> <span class="dv">0</span>:</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    horas <span class="op">=</span> <span class="dv">0</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Un buen tema de discusión: ¿qué pasa si la categoría ingresada es <code>0</code> o negativa? El enunciado no lo dice, y ese es justamente el punto — decidir explícitamente qué se considera entrada válida es parte del diseño del programa.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-18-llamadas-telefónicas-internacionales" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="ejercicio-18-llamadas-telefónicas-internacionales"><span class="header-section-number">4.4</span> Ejercicio 18 — Llamadas telefónicas internacionales</h2>
+<p>El costo de las llamadas telefónicas internacionales depende de la <strong>zona geográfica</strong> en la que se encuentra el país de destino y del <strong>número de minutos</strong> que se hablaron. Además, las llamadas que se inician en <strong>horario nocturno</strong> tienen un descuento del <strong>20 %</strong>.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Código de zona</th>
+<th>Zona</th>
+<th>Precio por minuto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>12</td>
+<td>América del Norte</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>15</td>
+<td>América Central</td>
+<td>2.2</td>
+</tr>
+<tr class="odd">
+<td>18</td>
+<td>América del Sur</td>
+<td>4.5</td>
+</tr>
+<tr class="even">
+<td>19</td>
+<td>Europa</td>
+<td>3.5</td>
+</tr>
+<tr class="odd">
+<td>23</td>
+<td>Asia</td>
+<td>6</td>
+</tr>
+<tr class="even">
+<td>25</td>
+<td>África</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>29</td>
+<td>Oceanía</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>Escribe un programa que lea como entrada la zona de una llamada, el horario (día o noche) y la cantidad de minutos, e indique el <strong>costo total</strong> de la llamada. Debe validarse que la zona, el horario y la cantidad de minutos sean válidos. De lo contrario, termina con error.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-28-contents" aria-controls="callout-28" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-28" class="callout-28-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Conviene resolverlo en dos etapas: primero <strong>obtener el precio por minuto</strong> (una cascada larga que además detecta la zona inválida), y luego validar horario y minutos antes de calcular.</p>
+<p>Truco: inicializa <code>precio = 0</code> y úsalo como marca de “zona inválida”.</p>
+</div>
+</div>
+</div>
+<div id="cell-63" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>zona    <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Código de zona: '</span>))</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>horario <span class="op">=</span> <span class="bu">input</span>(<span class="st">'Horario (dia/noche): '</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>minutos <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Cantidad de minutos: '</span>))</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># --- precio por minuto según la zona ---</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> zona <span class="op">==</span> <span class="dv">12</span>:</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> zona <span class="op">==</span> <span class="dv">15</span>:</span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="fl">2.2</span></span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> zona <span class="op">==</span> <span class="dv">18</span>:</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="fl">4.5</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> zona <span class="op">==</span> <span class="dv">19</span>:</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="fl">3.5</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> zona <span class="op">==</span> <span class="dv">23</span>:</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> zona <span class="op">==</span> <span class="dv">25</span>:</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="dv">6</span></span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> zona <span class="op">==</span> <span class="dv">29</span>:</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>    precio <span class="op">=</span> <span class="dv">0</span>          <span class="co"># marca de zona inválida</span></span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a><span class="co"># --- validaciones ---</span></span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>zona_ok    <span class="op">=</span> precio <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a>horario_ok <span class="op">=</span> (horario <span class="op">==</span> <span class="st">'dia'</span> <span class="kw">or</span> horario <span class="op">==</span> <span class="st">'noche'</span>)</span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a>minutos_ok <span class="op">=</span> minutos <span class="op">&gt;</span> <span class="dv">0</span></span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> zona_ok:</span>
+<span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Error: código de zona inválido.'</span>)</span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="kw">not</span> horario_ok:</span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Error: el horario debe ser dia o noche.'</span>)</span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="kw">not</span> minutos_ok:</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Error: la cantidad de minutos debe ser positiva.'</span>)</span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a>    costo <span class="op">=</span> precio <span class="op">*</span> minutos</span>
+<span id="cb39-36"><a href="#cb39-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> horario <span class="op">==</span> <span class="st">'noche'</span>:</span>
+<span id="cb39-37"><a href="#cb39-37" aria-hidden="true" tabindex="-1"></a>        costo <span class="op">=</span> costo <span class="op">*</span> <span class="fl">0.8</span>      <span class="co"># 20% de descuento</span></span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El costo total de la llamada es'</span>, <span class="bu">round</span>(costo, <span class="dv">2</span>))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-29-contents" aria-controls="callout-29" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-29" class="callout-29-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Dos cosas para destacar en clase:</p>
+<ol type="1">
+<li><p><strong>Las zonas 23 y 25 comparten precio.</strong> Se pueden fusionar en una sola rama: <code>elif zona == 23 or zona == 25:</code>. Es una buena oportunidad para mostrar que la cascada agrupa casos, no valores.</p></li>
+<li><p><strong>Reportar el error específico</strong> (<code>elif not horario_ok</code>) es más útil que un único “datos inválidos”. Y usar variables booleanas con nombre (<code>zona_ok</code>, <code>horario_ok</code>, <code>minutos_ok</code>) hace que el <code>if</code> final se lea solo.</p></li>
+</ol>
+<p>Aplicar el descuento como <code>costo * 0.8</code> es equivalente a <code>costo - costo * 0.2</code>; la primera forma es la que se usa habitualmente.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-19-tiro-al-blanco" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="ejercicio-19-tiro-al-blanco"><span class="header-section-number">4.5</span> Ejercicio 19 — Tiro al blanco</h2>
+<p>En un juego de video hay que dispararle a un tablero de tiro al blanco formado por <strong>cuatro áreas cuadradas concéntricas</strong> separadas por una distancia <span class="math inline">\(d\)</span> (igual para todas las áreas). El tablero está en un plano cartesiano de dos dimensiones cuyo centro <span class="math inline">\((0,0)\)</span> es el centro mismo del blanco.</p>
+<p><img src="files/figs/uva2/tiro-al-blanco.png" class="img-fluid" style="width:60.0%"></p>
+<p>Si las áreas concéntricas se enumeran desde la más interna hasta la más externa de 1 a 4, realiza un programa que retorne el número del área en la cual ha caído el disparo. El usuario debe ingresar la distancia <span class="math inline">\(d\)</span> y el punto <span class="math inline">\((x, y)\)</span>.</p>
+<pre><code>Ingrese distancia: 5     Ingrese distancia: 1
+Ingrese x: 3             Ingrese x: 6
+Ingrese y: 4             Ingrese y: 6
+Area 1                   Fuera del area</code></pre>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-30-contents" aria-controls="callout-30" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-30" class="callout-30-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Las áreas son <strong>cuadrados</strong>, no círculos: lo que determina en qué anillo cae el punto no es la distancia euclidiana, sino <span class="math inline">\(\max(|x|, |y|)\)</span>.</p>
+<p>Con eso, el punto está en el área 1 si <span class="math inline">\(\max(|x|,|y|) \le d\)</span>, en el área 2 si <span class="math inline">\(\le 2d\)</span>, y así.</p>
+</div>
+</div>
+</div>
+<div id="cell-67" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese distancia: '</span>))</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese x: '</span>))</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">'Ingrese y: '</span>))</span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a><span class="co"># el "radio" de un cuadrado centrado en el origen</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>lado <span class="op">=</span> <span class="bu">max</span>(<span class="bu">abs</span>(x), <span class="bu">abs</span>(y))</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> lado <span class="op">&lt;=</span> d:</span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Area 1'</span>)</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> lado <span class="op">&lt;=</span> <span class="dv">2</span><span class="op">*</span>d:</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Area 2'</span>)</span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> lado <span class="op">&lt;=</span> <span class="dv">3</span><span class="op">*</span>d:</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Area 3'</span>)</span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> lado <span class="op">&lt;=</span> <span class="dv">4</span><span class="op">*</span>d:</span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Area 4'</span>)</span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Fuera del area'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-31-contents" aria-controls="callout-31" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-31" class="callout-31-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Verificación de los ejemplos:</p>
+<ul>
+<li><code>d = 5</code>, punto <code>(3, 4)</code>: <code>max(3, 4) = 4 &lt;= 5</code> → <strong>Area 1</strong>. ✔ (Si las áreas fueran círculos, la distancia sería <span class="math inline">\(\sqrt{9+16} = 5\)</span> — justo en el borde. Es un buen ejemplo para mostrar por qué la geometría del problema importa.)</li>
+<li><code>d = 1</code>, punto <code>(6, 6)</code>: <code>max(6, 6) = 6 &gt; 4·1 = 4</code> → <strong>Fuera del area</strong>. ✔</li>
+</ul>
+<p>Si <code>max()</code> aún no se ha visto, se reemplaza por:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="bu">abs</span>(x) <span class="op">&gt;</span> <span class="bu">abs</span>(y):</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    lado <span class="op">=</span> <span class="bu">abs</span>(x)</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    lado <span class="op">=</span> <span class="bu">abs</span>(y)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>que es, otra vez, el ejercicio 13 disfrazado.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bloque-5-desafíos" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Bloque 5 — Desafíos</h1>
+<blockquote class="blockquote">
+<p>Enunciados de certamen. Aquí la dificultad está en <strong>modelar</strong> el problema antes de escribir la primera línea.</p>
+</blockquote>
+<section id="ejercicio-20-alfil-y-torre" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="ejercicio-20-alfil-y-torre"><span class="header-section-number">5.1</span> Ejercicio 20 — Alfil y torre</h2>
+<p>Un tablero de ajedrez es una grilla de ocho filas y ocho columnas, numeradas de 1 a 8. Dos de las piezas del juego de ajedrez son el <strong>alfil</strong> y la <strong>torre</strong>. El alfil se desplaza en diagonal, mientras que la torre se desplaza horizontal o verticalmente. Una pieza puede ser capturada por otra si está en una casilla a la cual la otra puede desplazarse:</p>
+<p><img src="files/figs/uva2/ajedrez.png" class="img-fluid"></p>
+<p>Escribe un programa que reciba como entrada las posiciones en el tablero de un alfil y de una torre, e indique cuál pieza captura a la otra:</p>
+<pre><code>Fila alfil: 7        Fila alfil: 3        Fila alfil: 3
+Columna alfil: 6     Columna alfil: 4     Columna alfil: 3
+Fila torre: 4        Fila torre: 7        Fila torre: 8
+Columna torre: 3     Columna torre: 4     Columna torre: 5
+Alfil captura       Torre captura        Ninguna captura</code></pre>
+<p>Supón que todos los datos ingresados son válidos.</p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-32-contents" aria-controls="callout-32" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-32" class="callout-32-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<ul>
+<li>La <strong>torre</strong> captura si comparte fila <strong>o</strong> columna con el alfil.</li>
+<li>El <strong>alfil</strong> captura si está en la misma diagonal: la diferencia de filas y la diferencia de columnas tienen el mismo valor absoluto.</li>
+</ul>
+<p>Como el movimiento es simétrico, ¿pueden capturarse ambas a la vez? (No: una pieza no puede estar al mismo tiempo en la misma fila/columna y en la misma diagonal.)</p>
+</div>
+</div>
+</div>
+<div id="cell-72" class="cell">
+<details class="code-fold">
+<summary>Solución</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>fa <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Fila alfil: '</span>))</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>ca <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Columna alfil: '</span>))</span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>ft <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Fila torre: '</span>))</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>ct <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Columna torre: '</span>))</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>alfil_captura <span class="op">=</span> <span class="bu">abs</span>(fa <span class="op">-</span> ft) <span class="op">==</span> <span class="bu">abs</span>(ca <span class="op">-</span> ct)</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>torre_captura <span class="op">=</span> (fa <span class="op">==</span> ft) <span class="kw">or</span> (ca <span class="op">==</span> ct)</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> alfil_captura:</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Alfil captura'</span>)</span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> torre_captura:</span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Torre captura'</span>)</span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Ninguna captura'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-33-contents" aria-controls="callout-33" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-33" class="callout-33-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Verificación de los tres ejemplos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Alfil</th>
+<th>Torre</th>
+<th><code>abs(Δfila)</code></th>
+<th><code>abs(Δcol)</code></th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>(7, 6)</td>
+<td>(4, 3)</td>
+<td>3</td>
+<td>3</td>
+<td>Alfil captura</td>
+</tr>
+<tr class="even">
+<td>(3, 4)</td>
+<td>(7, 4)</td>
+<td>4</td>
+<td>0</td>
+<td>Torre captura (misma columna)</td>
+</tr>
+<tr class="odd">
+<td>(3, 3)</td>
+<td>(8, 5)</td>
+<td>5</td>
+<td>2</td>
+<td>Ninguna captura</td>
+</tr>
+</tbody>
+</table>
+<p>El corazón del ejercicio es traducir “estar en la misma diagonal” a <code>abs(fa - ft) == abs(ca - ct)</code>. Vale la pena dibujarlo en la pizarra: moverse una casilla en diagonal cambia fila y columna <strong>en la misma cantidad</strong>.</p>
+<p>El <code>abs()</code> es imprescindible: sin él, solo se detectaría una de las dos diagonales.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-21-el-paracaidista-de-kreisdorf" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="ejercicio-21-el-paracaidista-de-kreisdorf"><span class="header-section-number">5.2</span> Ejercicio 21 — El paracaidista de Kreisdorf</h2>
+<p>Para celebrar el aniversario de la fundación de Kreisdorf, la alcaldesa ha organizado un espectáculo aéreo que finalizará con el aterrizaje de un paracaidista en la plaza del pueblo.</p>
+<div class="columns">
+<div class="column" style="width:55%;">
+<p>La plaza es <strong>circular</strong>, y su radio es de <strong>47 metros</strong>. En su centro hay una <strong>pileta</strong> de <strong>7 metros</strong> de radio. Además, hay cuatro <strong>áreas verdes</strong> en las posiciones indicadas en la figura; los radios interno y externo de las áreas verdes son, respectivamente, <strong>20</strong> y <strong>35</strong> metros. El resto de la superficie es <strong>cemento</strong>.</p>
+<p>El <strong>público</strong> que irá a presenciar el espectáculo se ubicará en el sector rayado de la figura (entre los 45° y los 90°).</p>
+<p>El punto de aterrizaje está definido por dos valores: su <strong>distancia</strong> al centro de la plaza y el <strong>ángulo</strong> con respecto a las coordenadas indicadas en la figura.</p>
+</div><div class="column" style="width:45%;">
+<p><img src="files/figs/uva2/plaza.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Escribe un programa que, a partir de la distancia y el ángulo de aterrizaje, le indique al paracaidista dónde caerá. El programa debe imprimir <code>PILETA</code>, <code>AREA VERDE</code>, <code>PUBLICO</code>, <code>CEMENTO</code> o <code>FUERA DE LA PLAZA</code>. Si el paracaidista aterriza justo en la frontera entre dos regiones, elige cualquiera de ellas.</p>
+<pre><code>Distancia: 25.4      Distancia: 29.1      Distancia: 40
+Angulo: 192.9        Angulo: 333.0        Angulo: 60
+AREA VERDE           CEMENTO              PUBLICO</code></pre>
+<section id="a-completar-el-código" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="a-completar-el-código"><span class="header-section-number">5.2.1</span> 21.a — Completar el código</h3>
+<p>Antes de escribirlo desde cero, completa el siguiente esqueleto de manera que produzca las salidas correctas:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Distancia: "</span>))</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Ángulo: "</span>))</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>  ________________________________ :</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Pileta"</span>)</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> ________________________________ :</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Público"</span>)</span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> ________________________________________________________________ :</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Area verde"</span>)</span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Cemento"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Pista">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-34-contents" aria-controls="callout-34" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Pista
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-34" class="callout-34-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Las cuatro áreas verdes ocupan los sectores 0°–45°, 90°–135°, 180°–225° y 270°–315°, siempre entre los radios 20 y 35.</p>
+<p>¿Notas el patrón? Los cuatro sectores se repiten cada 90°. Eso permite escribir la condición angular de las áreas verdes en <strong>una sola comparación</strong>, usando el operador <code>%</code>.</p>
+</div>
+</div>
+</div>
+<div id="cell-76" class="cell">
+<details class="code-fold">
+<summary>Solución 21.a — esqueleto completado</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Distancia: "</span>))</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Ángulo: "</span>))</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> d <span class="op">&lt;=</span> <span class="dv">7</span>:</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Pileta"</span>)</span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="dv">45</span> <span class="op">&lt;=</span> a <span class="op">&lt;=</span> <span class="dv">90</span>:</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Público"</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="dv">20</span> <span class="op">&lt;=</span> d <span class="op">&lt;=</span> <span class="dv">35</span> <span class="kw">and</span> (a <span class="op">&lt;=</span> <span class="dv">45</span> <span class="kw">or</span> <span class="dv">90</span> <span class="op">&lt;=</span> a <span class="op">&lt;=</span> <span class="dv">135</span> <span class="kw">or</span> <span class="dv">180</span> <span class="op">&lt;=</span> a <span class="op">&lt;=</span> <span class="dv">225</span> <span class="kw">or</span> <span class="dv">270</span> <span class="op">&lt;=</span> a <span class="op">&lt;=</span> <span class="dv">315</span>):</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Area verde"</span>)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"Cemento"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div id="cell-77" class="cell">
+<details class="code-fold">
+<summary>Solución 21.b — programa completo</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Distancia: "</span>))</span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">float</span>(<span class="bu">input</span>(<span class="st">"Ángulo: "</span>))</span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> d <span class="op">&gt;</span> <span class="dv">47</span>:</span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"FUERA DE LA PLAZA"</span>)</span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> d <span class="op">&lt;=</span> <span class="dv">7</span>:</span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PILETA"</span>)</span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="dv">45</span> <span class="op">&lt;=</span> a <span class="op">&lt;=</span> <span class="dv">90</span>:</span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"PUBLICO"</span>)</span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> <span class="dv">20</span> <span class="op">&lt;=</span> d <span class="op">&lt;=</span> <span class="dv">35</span> <span class="kw">and</span> a <span class="op">%</span> <span class="dv">90</span> <span class="op">&lt;=</span> <span class="dv">45</span>:</span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"AREA VERDE"</span>)</span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"CEMENTO"</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-note callout-titled" title="Comentario">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-35-contents" aria-controls="callout-35" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Comentario
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-35" class="callout-35-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p><strong>El orden de la cascada es todo.</strong> Las regiones se solapan si se las mira por separado, así que la cascada resuelve las prioridades: primero lo que está fuera, luego la pileta (que es el centro y no depende del ángulo), luego el público (que va desde la pileta hasta el borde, sin importar el radio), y recién al final las áreas verdes.</p>
+<p><strong>El truco del <code>%</code>:</strong> las cuatro áreas verdes se repiten cada 90°, ocupando la primera mitad de cada bloque. Entonces <code>a % 90 &lt;= 45</code> cubre de una sola vez los cuatro sectores 0°–45°, 90°–135°, 180°–225° y 270°–315°. La versión larga con cuatro <code>or</code> es igual de correcta; conviene mostrar las dos y comparar.</p>
+<p>Verificación de los ejemplos:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Distancia</th>
+<th>Ángulo</th>
+<th><code>a % 90</code></th>
+<th>Resultado</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25.4</td>
+<td>192.9</td>
+<td>12.9 ≤ 45, y 20 ≤ 25.4 ≤ 35</td>
+<td><code>AREA VERDE</code> ✔</td>
+</tr>
+<tr class="even">
+<td>29.1</td>
+<td>333.0</td>
+<td>63.0 &gt; 45</td>
+<td><code>CEMENTO</code> ✔</td>
+</tr>
+<tr class="odd">
+<td>40</td>
+<td>60</td>
+<td>—</td>
+<td><code>PUBLICO</code> (45 ≤ 60 ≤ 90) ✔</td>
+</tr>
+</tbody>
+</table>
+<p>Nótese que el tercer caso tiene <code>d = 40</code>, fuera del rango de las áreas verdes, pero eso da lo mismo: la rama del público se evaluó antes y no mira la distancia.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="para-cerrar" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Para cerrar</h1>
+<p>Los patrones que se repitieron a lo largo de toda la guía:</p>
+<ol type="1">
+<li><strong>Validar primero.</strong> La entrada inválida se descarta al inicio de la cascada; así el resto de las condiciones quedan simples (ejercicios 10, 12, 18).</li>
+<li><strong>La condición más restrictiva va primero.</strong> Equilátero antes que isósceles, pileta antes que cemento (ejercicios 15, 21).</li>
+<li><strong>Nombrar las condiciones.</strong> Guardar el resultado de una expresión lógica en una variable con nombre (<code>diaOk</code>, <code>valido</code>, <code>alfil_captura</code>) convierte un <code>if</code> ilegible en uno que se lee solo (ejercicios 9, 15, 20).</li>
+<li><strong>Calcular antes de decidir.</strong> <code>necesarias = 3 * capibaras</code>, <code>lado = max(abs(x), abs(y))</code>: el cálculo va fuera del <code>if</code>, no repetido dentro de cada rama (ejercicios 11, 19).</li>
+<li><strong><code>if-elif-else</code> cuando las alternativas son excluyentes.</strong> No es solo más corto que varios <code>if</code> sueltos: es mucho más difícil de equivocar (ejercicio 8).</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/aavelozb\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Alejandro Veloz</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
