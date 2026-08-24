@@ -105,83 +105,107 @@
     <lastmod>2026-08-07T21:46:49.972Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bambinos/corazon.html</loc>
-    <lastmod>2026-08-07T21:46:49.662Z</lastmod>
+    <loc>https://aavelozb.github.io/causal-ml/causalML-eeg-demo.html</loc>
+    <lastmod>2026-08-23T18:27:30.647Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme323/index.html</loc>
-    <lastmod>2026-08-21T13:46:08.031Z</lastmod>
+    <loc>https://aavelozb.github.io/causal-ml/slides-causalml.html</loc>
+    <lastmod>2026-08-24T15:10:26.435Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/py/03-ciclos-gc.html</loc>
+    <loc>https://aavelozb.github.io/bambinos/mayas.html</loc>
+    <lastmod>2026-08-07T21:46:49.709Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/bme323/02-parametros-interactivo.html</loc>
+    <lastmod>2026-08-21T13:39:31.827Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/py/07-Diccionarios.html</loc>
+    <lastmod>2026-08-07T21:46:51.622Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/py/02-condicionales-ejercicios.html</loc>
+    <lastmod>2026-08-17T01:02:42.335Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/py/03-ciclos.html</loc>
     <lastmod>2026-08-07T21:46:51.615Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/py/08-texto-archivos.html</loc>
-    <lastmod>2026-08-07T21:46:51.628Z</lastmod>
+    <loc>https://aavelozb.github.io/py/06-listas.html</loc>
+    <lastmod>2026-08-07T21:46:51.621Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/py/index.html</loc>
-    <lastmod>2026-08-17T01:11:35.867Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-03-design.html</loc>
-    <lastmod>2026-08-07T21:46:50.919Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/naive_Bayes-gc.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/passenger-data-gc.html</loc>
     <lastmod>2026-08-07T21:46:51.013Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/ensembles-xgboost.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ensembles-AdaBoost.html</loc>
     <lastmod>2026-08-07T21:46:50.944Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/logreg-gc.html</loc>
-    <lastmod>2026-08-07T21:46:50.999Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/03-06-word2vec-example.html</loc>
+    <lastmod>2026-08-07T21:46:50.684Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/03-09-pinns-mass-spring-pytorch.html</loc>
-    <lastmod>2026-08-07T21:46:50.686Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression-pytorch.html</loc>
+    <lastmod>2026-08-07T21:46:50.950Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp04-deep_GPs.html</loc>
-    <lastmod>2026-08-07T21:46:50.972Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-05-cnn-class-loc.html</loc>
+    <lastmod>2026-08-07T21:46:50.931Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/ArbolesYRandomForest.html</loc>
-    <lastmod>2026-08-07T21:46:50.687Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/passenger-data.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/naive_Bayes.html</loc>
     <lastmod>2026-08-07T21:46:51.013Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-noiseest-sklearn.html</loc>
-    <lastmod>2026-08-07T21:46:50.966Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/pgm-inference-example.html</loc>
+    <lastmod>2026-08-07T21:46:51.017Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/03-06-mnist-image-embeddings-pytorch.html</loc>
-    <lastmod>2026-08-07T21:46:50.683Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/varejemplo-gc.html</loc>
+    <lastmod>2026-08-07T21:46:51.019Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp03-sensors-network.html</loc>
-    <lastmod>2026-08-07T21:46:50.969Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/logreg.html</loc>
+    <lastmod>2026-08-07T21:46:50.999Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/ExpRecSys.html</loc>
-    <lastmod>2026-08-07T21:46:50.688Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-co2-sklearn.html</loc>
+    <lastmod>2026-08-07T21:46:50.963Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/03-08-mnist-autoencoder-pytorch.html</loc>
-    <lastmod>2026-08-07T21:46:50.685Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/varejemplo.html</loc>
+    <lastmod>2026-08-07T21:46:51.021Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/fuzzy-anfis-example.html</loc>
-    <lastmod>2026-08-07T21:46:50.945Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression.html</loc>
+    <lastmod>2026-08-07T21:46:50.960Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-01-conv.html</loc>
+    <lastmod>2026-08-07T21:46:50.846Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB.html</loc>
+    <lastmod>2026-08-07T21:46:51.018Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-04-fullycnn.html</loc>
+    <lastmod>2026-08-07T21:46:50.920Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/pgm-GraphicalModels.html</loc>
+    <lastmod>2026-08-07T21:46:51.014Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-02-pretr.html</loc>
+    <lastmod>2026-08-07T21:46:50.916Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB-gc.html</loc>
     <lastmod>2026-08-07T21:46:51.017Z</lastmod>
   </url>
   <url>
@@ -189,104 +213,88 @@
     <lastmod>2026-08-07T21:46:51.017Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB-gc.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/read_mnist.html</loc>
     <lastmod>2026-08-07T21:46:51.017Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/demo/index.html</loc>
-    <lastmod>2026-08-23T18:29:28.843Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/fuzzy-anfis-example.html</loc>
+    <lastmod>2026-08-07T21:46:50.945Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-02-pretr.html</loc>
-    <lastmod>2026-08-07T21:46:50.916Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/03-08-mnist-autoencoder-pytorch.html</loc>
+    <lastmod>2026-08-07T21:46:50.685Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/pgm-GraphicalModels.html</loc>
-    <lastmod>2026-08-07T21:46:51.014Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ExpRecSys.html</loc>
+    <lastmod>2026-08-07T21:46:50.688Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-04-fullycnn.html</loc>
-    <lastmod>2026-08-07T21:46:50.920Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp03-sensors-network.html</loc>
+    <lastmod>2026-08-07T21:46:50.969Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/sentiment_analysis_IMDB.html</loc>
-    <lastmod>2026-08-07T21:46:51.018Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/03-06-mnist-image-embeddings-pytorch.html</loc>
+    <lastmod>2026-08-07T21:46:50.683Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-01-conv.html</loc>
-    <lastmod>2026-08-07T21:46:50.846Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-noiseest-sklearn.html</loc>
+    <lastmod>2026-08-07T21:46:50.966Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression.html</loc>
-    <lastmod>2026-08-07T21:46:50.960Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/passenger-data.html</loc>
+    <lastmod>2026-08-07T21:46:51.013Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/varejemplo.html</loc>
-    <lastmod>2026-08-07T21:46:51.021Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ArbolesYRandomForest.html</loc>
+    <lastmod>2026-08-07T21:46:50.687Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp02-example-co2-sklearn.html</loc>
-    <lastmod>2026-08-07T21:46:50.963Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/gp04-deep_GPs.html</loc>
+    <lastmod>2026-08-07T21:46:50.972Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/logreg.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/03-09-pinns-mass-spring-pytorch.html</loc>
+    <lastmod>2026-08-07T21:46:50.686Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/ejemplos-ml/logreg-gc.html</loc>
     <lastmod>2026-08-07T21:46:50.999Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/varejemplo-gc.html</loc>
-    <lastmod>2026-08-07T21:46:51.019Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/pgm-inference-example.html</loc>
-    <lastmod>2026-08-07T21:46:51.017Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/naive_Bayes.html</loc>
-    <lastmod>2026-08-07T21:46:51.013Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-05-cnn-class-loc.html</loc>
-    <lastmod>2026-08-07T21:46:50.931Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/gp01-regression-pytorch.html</loc>
-    <lastmod>2026-08-07T21:46:50.950Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/03-06-word2vec-example.html</loc>
-    <lastmod>2026-08-07T21:46:50.684Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/ensembles-AdaBoost.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/ensembles-xgboost.html</loc>
     <lastmod>2026-08-07T21:46:50.944Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/ejemplos-ml/passenger-data-gc.html</loc>
+    <loc>https://aavelozb.github.io/ejemplos-ml/naive_Bayes-gc.html</loc>
     <lastmod>2026-08-07T21:46:51.013Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/py/06-listas.html</loc>
-    <lastmod>2026-08-07T21:46:51.621Z</lastmod>
+    <loc>https://aavelozb.github.io/ejemplos-ml/cnn-03-design.html</loc>
+    <lastmod>2026-08-07T21:46:50.919Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/py/03-ciclos.html</loc>
+    <loc>https://aavelozb.github.io/py/index.html</loc>
+    <lastmod>2026-08-17T01:11:35.867Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/py/08-texto-archivos.html</loc>
+    <lastmod>2026-08-07T21:46:51.628Z</lastmod>
+  </url>
+  <url>
+    <loc>https://aavelozb.github.io/py/03-ciclos-gc.html</loc>
     <lastmod>2026-08-07T21:46:51.615Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/py/02-condicionales-ejercicios.html</loc>
-    <lastmod>2026-08-17T01:02:42.335Z</lastmod>
+    <loc>https://aavelozb.github.io/bme323/index.html</loc>
+    <lastmod>2026-08-21T13:46:08.031Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/py/07-Diccionarios.html</loc>
-    <lastmod>2026-08-07T21:46:51.622Z</lastmod>
+    <loc>https://aavelozb.github.io/bambinos/corazon.html</loc>
+    <lastmod>2026-08-07T21:46:49.662Z</lastmod>
   </url>
   <url>
-    <loc>https://aavelozb.github.io/bme323/02-parametros-interactivo.html</loc>
-    <lastmod>2026-08-21T13:39:31.827Z</lastmod>
-  </url>
-  <url>
-    <loc>https://aavelozb.github.io/bambinos/mayas.html</loc>
-    <lastmod>2026-08-07T21:46:49.709Z</lastmod>
+    <loc>https://aavelozb.github.io/causal-ml/index.html</loc>
+    <lastmod>2026-08-23T18:29:28.843Z</lastmod>
   </url>
   <url>
     <loc>https://aavelozb.github.io/index.html</loc>
