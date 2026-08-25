@@ -805,6 +805,27 @@
     "text": "Recalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
   },
   {
+    "objectID": "bme423/evals/files/lab1/w-filter.html",
+    "href": "bme423/evals/files/lab1/w-filter.html",
+    "title": "",
+    "section": "",
+    "text": "filtro\n      \n        Box filter\n        Gaussiano\n        Mediana\n        Laplaciano\n        High-boost\n        Sobel\n      \n    máscara \n      3 x 3\n    A \n      1.5\n    ruido \n      20\n  \n  \n    \n      imagen degradada g\n    \n      resultado del filtrado\n    \n      RMSE de g respecto de f\n         -\n      RMSE tras el filtrado\n         -\n      La referencia f\n        es la imagen sin degradar, disponible sólo porque la degradación es sintética."
+  },
+  {
+    "objectID": "bme423/evals/files/lab1/w-window.html",
+    "href": "bme423/evals/files/lab1/w-window.html",
+    "title": "",
+    "section": "",
+    "text": "WindowCenter \n      40\n    WindowWidth \n      350\n  \n  \n    Pulmón\n    Mediastino\n    Hueso\n    Abdomen\n    Declarada en el archivo\n  \n  \n    \n      corte de data2\n    \n      histograma en HU, escala logarítmica"
+  },
+  {
+    "objectID": "bme423/evals/files/lab1/w-noise.html",
+    "href": "bme423/evals/files/lab1/w-noise.html",
+    "title": "",
+    "section": "",
+    "text": "modelo de ruido\n      \n        Gaussiano\n        Uniforme\n        Rayleigh\n        Exponencial\n        Erlang (k = 3)\n        Impulsivo (salt-and-pepper)\n      \n    intensidad \n      25\n    regenerar\n  \n  \n    \n      imagen degradada\n    \n      histograma del ruido η\n    \n      histograma de la imagen g"
+  },
+  {
     "objectID": "bme423/evals/lab3-old.html#objetivos",
     "href": "bme423/evals/lab3-old.html#objetivos",
     "title": "Segmentación de imágenes",
@@ -2242,114 +2263,338 @@
   {
     "objectID": "bme423/evals/lab1.html#objetivos",
     "href": "bme423/evals/lab1.html#objetivos",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "Objetivos",
-    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nFamiliarizarse con las bibliotecas NumPy, SciPy, y Matplotlib.\nFamiliarizarse con el manejo básico de imágenes digitales.\nFamiliarizarse con el estándar DICOM, utilizado para transmitir, almacenar, recuperar, imprimir, procesar y mostrar información relativa a las imágenes médicas.\nAprender a utilizar la biblioteca pydicom."
+    "text": "Objetivos\n\nFamiliarizarse con las bibliotecas NumPy, SciPy y Matplotlib.\nReconstruir y caracterizar volúmenes médicos a partir de los metadatos DICOM, usando pydicom.\nSimular el modelo de degradación \\(g = h * f + \\eta\\) y estimar los parámetros del ruido.\nImplementar operadores puntuales, procesamiento de histogramas y filtrado espacial.\nEvaluar cada etapa de procesamiento mediante métricas cuantitativas."
   },
   {
     "objectID": "bme423/evals/lab1.html#actividades",
     "href": "bme423/evals/lab1.html#actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "Actividades",
-    "text": "Actividades\n\nTrabajo complementario (opcional)\nDICOM\nMejora de contraste\nFiltrado espacial\nVisualización de mapas de activación\nInstrucciones para la entrega"
+    "text": "Actividades\n\nTrabajo complementario (opcional)\nDICOM, geometría y cuantización\nRuido y modelo de degradación\nMejora de contraste\nFiltrado espacial\nVisualización de mapas de activación\nInstrucciones para la entrega"
   },
   {
     "objectID": "bme423/evals/lab1.html#trabajo-complementario-1",
     "href": "bme423/evals/lab1.html#trabajo-complementario-1",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "1. Trabajo complementario",
-    "text": "1. Trabajo complementario\n\nInstale la plataforma de desarrollo Anaconda, disponible de forma gratuita en LINK. También puede usar Google Colab o Visual Studio Code.\nEstudie y haga los ejercicios de las siguientes secciones del documento “Scipy Lecture Notes”:\n\nSección 1.4. NumPy: creating and manipulating numerical data.\nSección 1.5. Matplotlib: plotting.\nSecciones 1.6.1, 1.6.3, 1.6.5, 1.6.6 y 1.6.10. Scipy : high-level scientific computing."
+    "text": "1. Trabajo complementario\n\nInstale la plataforma de desarrollo Anaconda, disponible de forma gratuita en LINK. También puede usar Google Colab o Visual Studio Code.\nEstudie y haga los ejercicios de las siguientes secciones del documento “Scipy Lecture Notes”.\n\nSección 1.4, NumPy\nSección 1.5, Matplotlib\nSecciones 1.6.1, 1.6.3, 1.6.5, 1.6.6 y 1.6.10, Scipy"
   },
   {
     "objectID": "bme423/evals/lab1.html#trabajo-complementario-2",
     "href": "bme423/evals/lab1.html#trabajo-complementario-2",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "1. Trabajo complementario",
-    "text": "1. Trabajo complementario\n\nLeer el siguiente material de referencia:\n\nWhy Does the DICOM Standard Exist?\nParte 1 “Introduction and Overview” del estándar DICOM.\nDocumentación de la biblioteca PyDicom."
+    "text": "1. Trabajo complementario\n\nLeer el siguiente material de referencia.\n\nWhy Does the DICOM Standard Exist?\nParte 1 “Introduction and Overview” del estándar DICOM.\nParte 3, módulo “Image Plane”.\nDocumentación de la biblioteca PyDicom."
   },
   {
-    "objectID": "bme423/evals/lab1.html#dicom-1",
-    "href": "bme423/evals/lab1.html#dicom-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "2. DICOM",
-    "text": "2. DICOM\n\nSe trabajará con dos conjunto de datos.\n\ndata1: imágenes de CT de distintos pacientes.\ndata2: Imágenes de CT de cortes de un mismo paciente.\n\nLos datos están disponibles en Github.\n\n!git clone https://github.com/aavelozb/bme423-data.git\n!unzip bme423-data/data1.zip -d bme423-data/\n!unzip bme423-data/data2.zip -d bme423-data/"
+    "objectID": "bme423/evals/lab1.html#datos",
+    "href": "bme423/evals/lab1.html#datos",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. Datos",
+    "text": "2. Datos\n\ndata1.zip, 20 imágenes de CT de distintos pacientes.\ndata2.zip, 110 cortes de CT de un mismo paciente.\np5.dcm, corte axial de CT.\nxray.dcm, radiografía de tórax.\nanat.nii, volumen anatómico.\nzmap_voice.nii.gz y zmap_nonvoice.nii.gz, mapas de activación.\n\nLos archivos están disponibles en aavelozb.github.io/data."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#datos---descarga",
+    "href": "bme423/evals/lab1.html#datos---descarga",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. Datos - descarga",
+    "text": "2. Datos - descarga\nimport urllib.request, zipfile, os\n\nBASE = \"https://aavelozb.github.io/data/\"\narchivos = [\"data1.zip\", \"data2.zip\", \"p5.dcm\", \"xray.dcm\",\n            \"anat.nii\", \"zmap_voice.nii.gz\", \"zmap_nonvoice.nii.gz\"]\n\nfor f in archivos:\n    if not os.path.exists(f):\n        urllib.request.urlretrieve(BASE + f, f)\n\nfor z in [\"data1.zip\", \"data2.zip\"]:\n    zipfile.ZipFile(z).extractall(\".\")\nEn Google Colab también puede usar !wget https://aavelozb.github.io/data/data1.zip."
   },
   {
     "objectID": "bme423/evals/lab1.html#dicom---actividades",
     "href": "bme423/evals/lab1.html#dicom---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "2. DICOM - actividades",
-    "text": "2. DICOM - actividades\n\nDesarrolle un programa que genere un archivo CSV con los nombres y fechas de nacimiento de los pacientes de las imágenes contenidas en el directorio data1.\nDesarrolle un programa que muestre en una sola figura todas las imágenes del directorio data1. Cada imagen debe estar identificada por el nombre del paciente.\nDesarrolle un programa que anonimice todas las imágenes del directorio data1.\nImplemente un programa que permita visualizar un corte coronal y sagital de las imágenes del directorio data2."
+    "text": "2. DICOM - actividades\n\nGenere un archivo CSV con los parámetros de data1, con una fila por estudio.\n\nIncluya Modality, Rows, Columns, PixelSpacing, BitsStored, PixelRepresentation, RescaleSlope, RescaleIntercept, WindowCenter y WindowWidth.\nConsidere que algunos atributos poseen más de un valor, y que otros están declarados pero vacíos.\nIndique cuáles son indispensables para interpretar cuantitativamente cada imagen, y cuáles están ausentes o son inconsistentes."
   },
   {
     "objectID": "bme423/evals/lab1.html#dicom---actividades-1",
     "href": "bme423/evals/lab1.html#dicom---actividades-1",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "2. DICOM - actividades",
-    "text": "2. DICOM - actividades\n\nImplemente un programa que permita visualizar un corte oblicuo coronal-sagital de las imágenes del directorio data2.\nEl proceso de downsampling consiste en re-muestrear una imagen. La forma más simple de realizar este proceso es conservar uno de cada \\(n \\in \\mathbb{N}\\) píxeles de la imagen.\n\n\nRealice el proceso de downsampling de la imagen p5.dcm, conservando uno de cada 2, 3 y 4 píxeles.\nMuestre la imagen original y las de tamaño reducido. Analice las diferencias entre éstas."
+    "text": "2. DICOM - actividades\n\nLos estudios de data1 codifican la intensidad de manera diferente.\n\nConvierta las imágenes a unidades Hounsfield usando RescaleSlope y RescaleIntercept.\nVerifique el resultado en aire, grasa, tejido blando y hueso.\nMuestre el histograma antes y después de la conversión."
   },
   {
     "objectID": "bme423/evals/lab1.html#dicom---actividades-2",
     "href": "bme423/evals/lab1.html#dicom---actividades-2",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "2. DICOM - actividades",
-    "text": "2. DICOM - actividades\n\nVisualice las imágenes del directorio data2 usando widgets de Matplotlib, o ipywidgets."
+    "text": "2. DICOM - actividades\n\nIdentifique el estudio de data1 cuya conversión resulta inconsistente con los demás, y explique a qué atributo se debe.\nDetermine el valor de relleno que ocupa la región exterior al campo de visión. Indique cómo afecta al histograma y al cálculo de estadísticos de intensidad."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-3",
+    "href": "bme423/evals/lab1.html#dicom---actividades-3",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nLa visualización clínica emplea una ventana de intensidades definida por WindowCenter y WindowWidth.\n\nImplemente el windowing y aplíquelo a un corte de data2 con ventana de pulmón, de mediastino, de hueso y de abdomen.\nCompare con la ventana declarada en los metadatos del propio archivo.\nRelacione el resultado con los conceptos de rango dinámico y contraste."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#demostración---windowing",
+    "href": "bme423/evals/lab1.html#demostración---windowing",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. Demostración - windowing",
+    "text": "2. Demostración - windowing\nEjemplo del resultado esperado en la actividad 3.\n\n  \n    WindowCenter \n      40\n    WindowWidth \n      350\n  \n  \n    Pulmón\n    Mediastino\n    Hueso\n    Abdomen\n    Declarada en el archivo\n  \n  \n    \n      corte de data2\n    \n      histograma en HU, escala logarítmica"
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-4",
+    "href": "bme423/evals/lab1.html#dicom---actividades-4",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nEl orden alfabético de los nombres de archivo no garantiza el orden anatómico de los cortes.\n\nConstruya el volumen 3D de data2 ordenando los cortes según ImagePositionPatient, y compare con el volumen ordenado por nombre de archivo.\nDetermine el espaciado efectivo entre cortes y verifique si el sampling es uniforme.\nCompare ese espaciado con el SliceThickness declarado."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-5",
+    "href": "bme423/evals/lab1.html#dicom---actividades-5",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nUsando el volumen anterior y el PixelSpacing declarado en los metadatos, genere una figura con un corte axial, uno coronal y uno sagital, con la relación de aspecto correcta.\n\nMuestre el efecto de omitir esta corrección.\nCuantifique el error que se comete al medir una distancia anatómica en ese caso."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-6",
+    "href": "bme423/evals/lab1.html#dicom---actividades-6",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nEl sampling y la cuantización afectan a la imagen de forma distinta.\n\nAplique downsampling a p5.dcm conservando uno de cada \\(n\\) píxeles, con \\(n \\in \\{2,4,8\\}\\).\nCompare con el resultado de promediar bloques de \\(n \\times n\\) píxeles antes de submuestrear.\nReduzca la cuantización a 6, 4 y 2 bits por píxel."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#demostración---sampling-y-cuantización",
+    "href": "bme423/evals/lab1.html#demostración---sampling-y-cuantización",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. Demostración - sampling y cuantización",
+    "text": "2. Demostración - sampling y cuantización\nEjemplo del resultado esperado en la actividad 6.\n\n  \n    uno de cada 1 píxeles\n      \n    bits por píxel 8\n      \n     promediar bloques antes de submuestrear\n  \n  \n    \n      reducción del sampling\n    \n      reducción de la cuantización\n    \n      histograma tras cuantizar"
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-7",
+    "href": "bme423/evals/lab1.html#dicom---actividades-7",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nExplique cuál de las dos degradaciones anteriores produce aliasing y cuál produce falsos contornos. Justifique con los histogramas correspondientes.\n\n\nLa eliminación de los identificadores directos no elimina el riesgo de reidentificación.\n\nPseudonimice data1 con códigos reproducibles y una tabla de correspondencia.\nConserve los atributos necesarios para el procesamiento cuantitativo."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#dicom---actividades-8",
+    "href": "bme423/evals/lab1.html#dicom---actividades-8",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nDiscuta al menos tres atributos que permanecen en el archivo y que constituyen un riesgo residual de reidentificación.\n\n\nImplemente un visualizador interactivo del volumen data2 con Matplotlib o ipywidgets, que permita recorrer los cortes y ajustar WindowCenter y WindowWidth."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#modelo-de-degradación",
+    "href": "bme423/evals/lab1.html#modelo-de-degradación",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Modelo de degradación",
+    "text": "3. Modelo de degradación\nEl modelo estudiado en clases supone un sistema LTI,\n\\[\ng(x,y) = h(x,y) * f(x,y) + \\eta(x,y).\n\\]\nDegradar imágenes de manera sintética permite disponer de la referencia \\(f\\), y por lo tanto medir objetivamente la calidad del procesamiento posterior."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#ruido---actividades",
+    "href": "bme423/evals/lab1.html#ruido---actividades",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Ruido - actividades",
+    "text": "3. Ruido - actividades\n\nImplemente generadores de ruido gaussiano, Rayleigh, Erlang, exponencial, uniforme e impulsivo (salt-and-pepper).\n\nAplíquelos a un corte de data2 con una potencia de ruido equivalente.\nMuestre, para cada caso, la imagen degradada junto a su histograma."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#demostración---modelos-de-ruido",
+    "href": "bme423/evals/lab1.html#demostración---modelos-de-ruido",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Demostración - modelos de ruido",
+    "text": "3. Demostración - modelos de ruido\nEjemplo del resultado esperado en la actividad 9.\n\n  \n    modelo de ruido\n      \n        Gaussiano\n        Uniforme\n        Rayleigh\n        Exponencial\n        Erlang (k = 3)\n        Impulsivo (salt-and-pepper)\n      \n    intensidad \n      25\n    regenerar\n  \n  \n    \n      imagen degradada\n    \n      histograma del ruido η\n    \n      histograma de la imagen g"
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#ruido---actividades-1",
+    "href": "bme423/evals/lab1.html#ruido---actividades-1",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Ruido - actividades",
+    "text": "3. Ruido - actividades\n\nConstruya un conjunto de imágenes degradadas aplicando el modelo completo, con un núcleo \\(h\\) gaussiano de desviación estándar conocida, seguido de cada tipo de ruido.\n\nNota. Almacene la imagen original \\(f\\), el núcleo \\(h\\) y los parámetros del ruido, dado que serán la referencia de las secciones siguientes."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#ruido---actividades-2",
+    "href": "bme423/evals/lab1.html#ruido---actividades-2",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Ruido - actividades",
+    "text": "3. Ruido - actividades\n\nEs posible estimar los parámetros de la PDF del ruido desde ventanas de intensidad homogénea.\n\nEstime media, varianza, asimetría y curtosis en una ventana seleccionada manualmente.\nCompare los valores estimados con los parámetros usados en la simulación."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#ruido---actividades-3",
+    "href": "bme423/evals/lab1.html#ruido---actividades-3",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Ruido - actividades",
+    "text": "3. Ruido - actividades\n\nProponga y justifique un criterio que permita decidir qué tipo de ruido afecta a una imagen cuya degradación se desconoce.\n\n\nAplique ese criterio a xray.dcm y a un corte de data2.\n\nInforme qué modelo de ruido resulta más verosímil en cada caso.\nFundamente según el mecanismo físico de adquisición de cada modalidad."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#métricas-de-calidad",
+    "href": "bme423/evals/lab1.html#métricas-de-calidad",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Métricas de calidad",
+    "text": "3. Métricas de calidad\nLas siguientes métricas serán empleadas en el resto del laboratorio.\n\\[\nSNR = \\frac{\\mu_{\\text{sig}}}{\\sigma_{\\text{sig}}}, \\qquad\nCNR = \\frac{|\\mu_{A} - \\mu_{B}|}{\\sigma_{\\text{fondo}}},\n\\]\n\\[\nRMSE = \\sqrt{\\frac{1}{MN}\\sum_{x,y}\\left[\\hat{f}(x,y)-f(x,y)\\right]^2}\n\\]"
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#métricas-de-calidad-1",
+    "href": "bme423/evals/lab1.html#métricas-de-calidad-1",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "3. Métricas de calidad",
+    "text": "3. Métricas de calidad\n\n\\(\\mu_{\\text{sig}}\\) y \\(\\sigma_{\\text{sig}}\\) son el promedio y la desviación estándar de las intensidades de una región de interés homogénea, seleccionada manualmente.\n\\(A\\) y \\(B\\) son dos regiones de tejido distinto.\n\\(\\hat{f}\\) es la estimación obtenida tras el procesamiento y \\(f\\) la imagen de referencia."
   },
   {
     "objectID": "bme423/evals/lab1.html#contraste---actividades",
     "href": "bme423/evals/lab1.html#contraste---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "3. Contraste - actividades",
-    "text": "3. Contraste - actividades\n\nAgregue opciones a un widget para aplicar operaciones de mejora de contraste, en base a la transformación \\(\\gamma\\) (Ec. 3.2-3, sección 3.2.3, página 110) y usando una función de transformación definida por tramos (Figura 3.10(a), página 116).\nGenere situaciones que permitan apreciar en qué situaciones el contraste mejora, versus cuándo empeora. Se recomienda usar los histogramas de las imágenes resultantes, junto a los histogramas de las imágenes de entrada para su explicación."
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "4. Contraste - actividades",
+    "text": "4. Contraste - actividades\n\nImplemente los operadores puntuales vistos en clases.\n\nOperador negativo, log-transformation y power-law transformation (Ec. 3.2-3, sección 3.2.3, página 110).\nPiecewise-linear transformation function (Figura 3.10(a), página 116) y gray-level slicing.\nAgregue estos operadores al visualizador de la actividad 8, con controles para sus parámetros."
   },
   {
     "objectID": "bme423/evals/lab1.html#contraste---actividades-1",
     "href": "bme423/evals/lab1.html#contraste---actividades-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "3. Contraste - actividades",
-    "text": "3. Contraste - actividades\n\nImplemente la ecualización (Ec. 3.3-8, página 126) y especificación de histogramas (Ec. 3.3-12, página 130). Explique los resultados (no es necesario usar widgets)."
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "4. Contraste - actividades",
+    "text": "4. Contraste - actividades\n\nDetermine, para un mismo corte de data2, situaciones en que cada operador mejora el contraste de una estructura de interés y situaciones en que lo deteriora.\n\nJustifique mediante los histogramas de entrada y de salida.\nCuantifique el efecto con el CNR sobre dos regiones de tejido distinto."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#contraste---actividades-2",
+    "href": "bme423/evals/lab1.html#contraste---actividades-2",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "4. Contraste - actividades",
+    "text": "4. Contraste - actividades\n\nImplemente la ecualización de histograma (Ec. 3.3-8, página 126) y la especificación de histograma (Ec. 3.3-12, página 130).\n\nAplique la ecualización a un corte de data2 y a xray.dcm.\nDetermine en cuál de las dos fracasa el método y explique el motivo según la forma del histograma."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#demostración---operadores-puntuales",
+    "href": "bme423/evals/lab1.html#demostración---operadores-puntuales",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "4. Demostración - operadores puntuales",
+    "text": "4. Demostración - operadores puntuales\nEjemplo del resultado esperado en las actividades 13 y 15.\n\n  \n    transformación\n      \n        Identidad\n        Negativo\n        Log-transformation\n        Power-law\n        Piecewise-linear (contrast stretching)\n        Ecualización de histograma\n      \n    γ \n      1.00\n    tramo \n      30 - 70\n  \n  \n    \n      xray.dcm procesada\n    \n      función de transformación\n    \n      histograma de salida"
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#contraste---actividades-3",
+    "href": "bme423/evals/lab1.html#contraste---actividades-3",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "4. Contraste - actividades",
+    "text": "4. Contraste - actividades\n\nImplemente una versión local de la ecualización, que opere sobre ventanas de la imagen e incorpore limitación del contraste. Compare con la versión global.\n\n\nLa especificación de histograma permite homogeneizar imágenes adquiridas en condiciones distintas.\n\nSeleccione dos imágenes de data1 con distinta profundidad de bits o distinta ventana declarada.\nUse el histograma de una de ellas como especificación para la otra."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#contraste---actividades-4",
+    "href": "bme423/evals/lab1.html#contraste---actividades-4",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "4. Contraste - actividades",
+    "text": "4. Contraste - actividades\n\nEvalúe si el procedimiento preserva las unidades Hounsfield obtenidas en la actividad 2.\nDiscuta las consecuencias de aplicar esta normalización antes de un análisis cuantitativo.\n\nNota. Los operadores puntuales y los métodos basados en histogramas debe implementarlos Ud., sin utilizar bibliotecas específicas de procesamiento de imágenes."
   },
   {
     "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades",
     "href": "bme423/evals/lab1.html#filtrado-espacial---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "4. Filtrado espacial - actividades",
-    "text": "4. Filtrado espacial - actividades\n\nImplemente la operación de convolución (sección 3.4.2, página 148, ecuación 3.4-1).\nUsando su implementación de la convolución:\n\n\nImplemente los filtros de suavizado, incluyendo el filtro Gaussiano, (sección 3.5.1, página 152) y agudizado (sección 3.6, página 157).\nAplique estos filtros al volumen de CT de una misma persona (data2). Aplique la convolución en 2D y luego en 3D.\nCompare con el resultado obtenido usando la función \\(\\texttt{scipy.ndimage.convolve}\\) (para un filtro)."
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nImplemente la convolución (sección 3.4.2, página 148, ecuación 3.4-1) para el caso 2D y para el caso 3D.\n\nVerifique su implementación comparando con \\(\\texttt{scipy.ndimage.convolve}\\), para al menos dos núcleos distintos.\nEl núcleo gaussiano es separable. Implemente la versión separable y compare el tiempo de cómputo con la versión directa, para tamaños de máscara crecientes."
   },
   {
     "objectID": "bme423/evals/lab1.html#section",
     "href": "bme423/evals/lab1.html#section",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "",
-    "text": "Ayuda: La siguiente sentencia permite construir la versión rellenada con ceros de la imagen:\npad_len = (mask.shape[0] - 1) // 2\nimg_padded = np.pad(img, ((pad_len, pad_len), (pad_len, pad_len)),\n                    'constant', constant_values=0)\ndonde \\(\\texttt{mask}\\) contiene la máscara del filtro (se asume que es cuadrada, con largo impar), e \\(\\texttt{img}\\) es la imagen original."
+    "text": "Ayuda. La siguiente sentencia permite construir la versión rellenada con ceros de la imagen.\npad_len = (mask.shape[0] - 1) // 2\nimg_padded = np.pad(img, ((pad_len, pad_len), (pad_len, pad_len)),\n                    'constant', constant_values=0)\ndonde \\(\\texttt{mask}\\) contiene la máscara del filtro, que se asume cuadrada y de largo impar, e \\(\\texttt{img}\\) es la imagen original."
   },
   {
     "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-1",
     "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-1",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "4. Filtrado espacial - actividades",
-    "text": "4. Filtrado espacial - actividades\n\nAplique los filtros de suavizado, filtros de agudizado y operaciones de mejora de contraste de manera combinada en la imagen xray.dcm.\n\n\nExplique la pertinencia de los pasos aplicados y cuantifique la mejora en la calidad de la imagen a medida que aplica los pasos considerados.\nUse el ejemplo de la sección 3.7 (pág. 169) como inspiración.\n\n\nResuelva el mismo problema de la pregunta anterior para el caso 3D con el volumen data2."
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nAnalice el efecto del padding con ceros en los bordes de la imagen filtrada y proponga una alternativa."
   },
   {
     "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-2",
     "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-2",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "4. Filtrado espacial - actividades",
-    "text": "4. Filtrado espacial - actividades\nNota: La operación de convolución, los filtros, y los métodos de mejora de contraste debe implementarlos Ud., sin utilizar librerías específicas de procesamiento de imágenes."
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nUsando su implementación de la convolución, implemente los siguientes filtros.\n\nBox filter, weighted average filter y filtro gaussiano (sección 3.5.1, página 152).\nFiltro de mediana.\nAgudizado laplaciano y high-boost con parámetro \\(A \\geq 1\\) (sección 3.6, página 157).\nOperador de gradiente de Sobel."
   },
   {
-    "objectID": "bme423/evals/lab1.html#visualización-de-mapas-de-activación---actividades",
-    "href": "bme423/evals/lab1.html#visualización-de-mapas-de-activación---actividades",
-    "title": "Manipulación de imágenes, DICOM y color",
-    "section": "5. Visualización de mapas de activación - actividades",
-    "text": "5. Visualización de mapas de activación - actividades\n\nDesarrolle un programa que permita visualizar un mapa como el siguiente:\n\n\n\n\n\n\nDispone de los archivos anat.nii, zmap_voice.nii.gz y zmap_nonvoice.nii.gz.\nNote que los archivos están en formato .nii, los cuales pueden ser leídos usando la librería \\(\\texttt{nibabel}\\)."
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-3",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-3",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nAplique el conjunto de filtros a las imágenes degradadas de la actividad 10.\n\nComplete una tabla con RMSE, SNR y CNR para cada combinación de tipo de ruido y filtro.\nDetermine qué filtro resulta más adecuado para cada tipo de ruido y explique el resultado según la naturaleza de cada degradación."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#demostración---filtrado-espacial",
+    "href": "bme423/evals/lab1.html#demostración---filtrado-espacial",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Demostración - filtrado espacial",
+    "text": "5. Demostración - filtrado espacial\nEjemplo del resultado esperado en las actividades 19 y 20.\n\n  \n    filtro\n      \n        Box filter\n        Gaussiano\n        Mediana\n        Laplaciano\n        High-boost\n        Sobel\n      \n    máscara \n      3 x 3\n    A \n      1.5\n    ruido \n      20\n  \n  \n    \n      imagen degradada g\n    \n      resultado del filtrado\n    \n      RMSE de g respecto de f\n         -\n      RMSE tras el filtrado\n         -\n      La referencia f\n        es la imagen sin degradar, disponible sólo porque la degradación es sintética."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-4",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-4",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nTodo filtro de suavizado establece un compromiso entre reducción de ruido y pérdida de detalle.\n\nConstruya una curva que relacione el RMSE con el tamaño de la máscara del filtro gaussiano, para un mismo nivel de ruido.\nSuperponga una medida de preservación de bordes, obtenida desde la magnitud del gradiente de Sobel."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-5",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-5",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nDetermine el tamaño de máscara óptimo y discuta la dependencia de ese óptimo respecto del nivel de ruido.\n\n\nDiseñe un procedimiento que combine suavizado, agudizado y mejora de contraste para realzar una estructura de interés en xray.dcm. Use como referencia el ejemplo de la sección 3.7, página 169."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-6",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-6",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nJustifique el orden de las etapas y muestre el resultado intermedio de cada una.\nCuantifique la mejora acumulada mediante las métricas definidas.\nProponga una segunda ordenación de las mismas etapas y explique por qué el resultado difiere."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-7",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-7",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\n\nExtienda el procedimiento anterior al caso 3D sobre el volumen data2.\n\nCompare el filtrado corte a corte en 2D con el filtrado del volumen completo en 3D.\nInforme las diferencias observadas en los cortes coronal y sagital."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#filtrado-espacial---actividades-8",
+    "href": "bme423/evals/lab1.html#filtrado-espacial---actividades-8",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "5. Filtrado espacial - actividades",
+    "text": "5. Filtrado espacial - actividades\nNota. La convolución, los filtros y los métodos de mejora de contraste debe implementarlos Ud., sin utilizar bibliotecas específicas de procesamiento de imágenes.\nSe admite el uso de \\(\\texttt{scipy.ndimage}\\) únicamente para verificar sus propias implementaciones."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#mapas-de-activación---actividades",
+    "href": "bme423/evals/lab1.html#mapas-de-activación---actividades",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "6. Mapas de activación - actividades",
+    "text": "6. Mapas de activación - actividades\n\nDesarrolle un programa que permita visualizar un mapa como el siguiente.\n\n\n\n\n\nDispone de los archivos anat.nii, zmap_voice.nii.gz y zmap_nonvoice.nii.gz.\nLos archivos están en formato .nii, y pueden ser leídos usando la biblioteca \\(\\texttt{nibabel}\\)."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#mapas-de-activación---actividades-1",
+    "href": "bme423/evals/lab1.html#mapas-de-activación---actividades-1",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "6. Mapas de activación - actividades",
+    "text": "6. Mapas de activación - actividades\n\nAmplíe el programa anterior con las siguientes prestaciones.\n\nUn montaje de varios cortes en una misma figura, con su barra de color.\nUn umbral ajustable, expresado como percentil de la distribución del mapa, de modo que sólo se superpongan los vóxeles más intensos.\nDos colormaps distintos para los valores positivos y negativos."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#demostración---superposición-del-mapa",
+    "href": "bme423/evals/lab1.html#demostración---superposición-del-mapa",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "6. Demostración - superposición del mapa",
+    "text": "6. Demostración - superposición del mapa\nEjemplo del resultado esperado en la actividad 25.\n\n  \n    umbral, percentil \n      95.0\n    opacidad \n      0.80\n     mostrar valores negativos\n  \n  \n    \n      superposición sobre anat.nii\n    \n      vóxeles sobre el umbral  -\n      umbral en unidades del mapa  -\n      Los valores positivos se muestran en escala cálida\n        y los negativos en escala fría. El umbral se expresa como percentil, dado que el mapa\n        no está estandarizado."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#mapas-de-activación---notas",
+    "href": "bme423/evals/lab1.html#mapas-de-activación---notas",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "6. Mapas de activación - notas",
+    "text": "6. Mapas de activación - notas\n\nLos mapas no están estandarizados. Sus valores no corresponden a puntuaciones \\(z\\) y se concentran en el intervalo \\([-0.03,\\, 0.06]\\).\nEl archivo anat.nii contiene vóxeles NaN, que deben excluirse al normalizar la imagen para su visualización."
+  },
+  {
+    "objectID": "bme423/evals/lab1.html#mapas-de-activación---actividades-2",
+    "href": "bme423/evals/lab1.html#mapas-de-activación---actividades-2",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
+    "section": "6. Mapas de activación - actividades",
+    "text": "6. Mapas de activación - actividades\n\nCompare la representación del mismo mapa usando un colormap perceptualmente uniforme y uno no uniforme.\n\nDiscuta el efecto de esta elección sobre la interpretación del resultado.\nRelacione su análisis con los conceptos de imagen indexada y colormap vistos en clases."
   },
   {
     "objectID": "bme423/evals/lab1.html#entrega",
     "href": "bme423/evals/lab1.html#entrega",
-    "title": "Manipulación de imágenes, DICOM y color",
+    "title": "DICOM, ruido y mejora de imágenes médicas",
     "section": "Entrega",
-    "text": "Entrega\napellido_nombre_l1.ipynb y apellido_nombre_l1.pdf\nLas versiones \\(\\texttt{.pdf}\\) en las entregas corresponden a los archivos \\(\\texttt{.ipynb}\\) con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
+    "text": "Entrega\n\napellido_nombre_l1.ipynb y apellido_nombre_l1.pdf\nMedio: Aula virtual\nLas versiones \\(\\texttt{.pdf}\\) corresponden a los archivos \\(\\texttt{.ipynb}\\) con las salidas de las celdas visibles.\nCada actividad que solicite una explicación debe incluir el análisis en una celda de texto, junto a las figuras y tablas que lo respalden.\nNo respetar las instrucciones significará un descuento de 10 pts."
   },
   {
     "objectID": "bme423/evals/lab2.html#objetivos",
@@ -2420,6 +2665,139 @@
     "title": "BME423 - Proyectos 2026",
     "section": "3. Entrega final",
     "text": "3. Entrega final\nLa entrega final reúne todos los productos del proyecto y se evalúa según la rúbrica.\nEl trabajo debe demostrar un desarrollo sistemático durante el semestre y un nivel de profundidad acorde a un proyecto BME423.\nCada grupo debe entregar:\n\nRepositorio en GitHub.\n\nMantener un repositorio en GitHub (compartido con el equipo docente).\nIncluir todo el código fuente del proyecto, archivos de configuración y, cuando corresponda, scripts para descargar y/o preparar los datos.\nIncluir un archivo README.md que contenga:\n\nUna descripción breve del proyecto.\nLos requisitos de software y las instrucciones para instalar dependencias.\nInstrucciones claras para ejecutar el proyecto y reproducir (al menos parte de) los experimentos.\n\nNo subir datasets pesados al repositorio; documentar en su lugar enlaces o instrucciones para obtenerlos.\n\nInforme escrito en LaTeX.\n\nEl informe debe redactarse en LaTeX y el código fuente del informe (.tex, .bib, figuras, etc.) debe almacenarse en una carpeta del repositorio (por ejemplo, report/).\nEl informe no debe incluir listados extensos de código del proyecto. Solo se permiten fragmentos breves a modo de ejemplo cuando aporten a la explicación.\nEl código completo se evaluará directamente en el repositorio de GitHub.\nEl PDF final del informe debe subirse al repositorio. En enlace al repositorio será entregado vía Aula Virtual.\nEl informe debe incluir, al menos:\n\nTítulo del proyecto y autores (nombre, apellido y carrera).\nResumen breve del trabajo.\nIntroducción y descripción del problema y de los datos utilizados.\nDescripción detallada de la solución propuesta e implementada.\nDescripción de la implementación (arquitectura, módulos principales, decisiones de diseño relevantes).\nMetodología experimental, métricas de desempeño y resultados obtenidos.\nAnálisis crítico de los resultados y, cuando corresponda, comparación con otros métodos.\nConclusiones y posibles extensiones o trabajo futuro.\nBibliografía relevante con citas en el texto (se recomienda usar BibTeX).\n\n\nPresentación presencial.\n\nDuración de 10–15 minutos.\nDebe explicar de forma clara:\n\nEl problema abordado.\nLa solución propuesta.\nLa implementación realizada.\nLos resultados y conclusiones principales.\n\nSe recomienda usar figuras y/o demos breves cuando sea posible.\n\nPresentación grabada.\n\nDuración máxima de 15 minutos.\nPuede ser una versión similar a la presentación presencial.\nNo subir el video directamente a Aula Virtual; incluir en el informe un enlace (por ejemplo, YouTube o Google Drive con permisos de acceso adecuados)."
+  },
+  {
+    "objectID": "bme423/evals/files/lab1/w-actmap.html",
+    "href": "bme423/evals/files/lab1/w-actmap.html",
+    "title": "",
+    "section": "",
+    "text": "umbral, percentil \n      95.0\n    opacidad \n      0.80\n     mostrar valores negativos\n  \n  \n    \n      superposición sobre anat.nii\n    \n      vóxeles sobre el umbral  -\n      umbral en unidades del mapa  -\n      Los valores positivos se muestran en escala cálida\n        y los negativos en escala fría. El umbral se expresa como percentil, dado que el mapa\n        no está estandarizado."
+  },
+  {
+    "objectID": "bme423/evals/files/lab1/w-sampling.html",
+    "href": "bme423/evals/files/lab1/w-sampling.html",
+    "title": "",
+    "section": "",
+    "text": "uno de cada 1 píxeles\n      \n    bits por píxel 8\n      \n     promediar bloques antes de submuestrear\n  \n  \n    \n      reducción del sampling\n    \n      reducción de la cuantización\n    \n      histograma tras cuantizar"
+  },
+  {
+    "objectID": "bme423/evals/files/lab1/w-point.html",
+    "href": "bme423/evals/files/lab1/w-point.html",
+    "title": "",
+    "section": "",
+    "text": "transformación\n      \n        Identidad\n        Negativo\n        Log-transformation\n        Power-law\n        Piecewise-linear (contrast stretching)\n        Ecualización de histograma\n      \n    γ \n      1.00\n    tramo \n      30 - 70\n  \n  \n    \n      xray.dcm procesada\n    \n      función de transformación\n    \n      histograma de salida"
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#objetivos",
+    "href": "bme423/evals/lab1-old.html#objetivos",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Objetivos",
+    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nFamiliarizarse con las bibliotecas NumPy, SciPy, y Matplotlib.\nFamiliarizarse con el manejo básico de imágenes digitales.\nFamiliarizarse con el estándar DICOM, utilizado para transmitir, almacenar, recuperar, imprimir, procesar y mostrar información relativa a las imágenes médicas.\nAprender a utilizar la biblioteca pydicom."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#actividades",
+    "href": "bme423/evals/lab1-old.html#actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Actividades",
+    "text": "Actividades\n\nTrabajo complementario (opcional)\nDICOM\nMejora de contraste\nFiltrado espacial\nVisualización de mapas de activación\nInstrucciones para la entrega"
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#trabajo-complementario-1",
+    "href": "bme423/evals/lab1-old.html#trabajo-complementario-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "1. Trabajo complementario",
+    "text": "1. Trabajo complementario\n\nInstale la plataforma de desarrollo Anaconda, disponible de forma gratuita en LINK. También puede usar Google Colab o Visual Studio Code.\nEstudie y haga los ejercicios de las siguientes secciones del documento “Scipy Lecture Notes”:\n\nSección 1.4. NumPy: creating and manipulating numerical data.\nSección 1.5. Matplotlib: plotting.\nSecciones 1.6.1, 1.6.3, 1.6.5, 1.6.6 y 1.6.10. Scipy : high-level scientific computing."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#trabajo-complementario-2",
+    "href": "bme423/evals/lab1-old.html#trabajo-complementario-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "1. Trabajo complementario",
+    "text": "1. Trabajo complementario\n\nLeer el siguiente material de referencia:\n\nWhy Does the DICOM Standard Exist?\nParte 1 “Introduction and Overview” del estándar DICOM.\nDocumentación de la biblioteca PyDicom."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#dicom-1",
+    "href": "bme423/evals/lab1-old.html#dicom-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM",
+    "text": "2. DICOM\n\nSe trabajará con dos conjunto de datos.\n\ndata1: imágenes de CT de distintos pacientes.\ndata2: Imágenes de CT de cortes de un mismo paciente.\n\nLos datos están disponibles en Github.\n\n!git clone https://github.com/aavelozb/bme423-data.git\n!unzip bme423-data/data1.zip -d bme423-data/\n!unzip bme423-data/data2.zip -d bme423-data/"
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#dicom---actividades",
+    "href": "bme423/evals/lab1-old.html#dicom---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nDesarrolle un programa que genere un archivo CSV con los nombres y fechas de nacimiento de los pacientes de las imágenes contenidas en el directorio data1.\nDesarrolle un programa que muestre en una sola figura todas las imágenes del directorio data1. Cada imagen debe estar identificada por el nombre del paciente.\nDesarrolle un programa que anonimice todas las imágenes del directorio data1.\nImplemente un programa que permita visualizar un corte coronal y sagital de las imágenes del directorio data2."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#dicom---actividades-1",
+    "href": "bme423/evals/lab1-old.html#dicom---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nImplemente un programa que permita visualizar un corte oblicuo coronal-sagital de las imágenes del directorio data2.\nEl proceso de downsampling consiste en re-muestrear una imagen. La forma más simple de realizar este proceso es conservar uno de cada \\(n \\in \\mathbb{N}\\) píxeles de la imagen.\n\n\nRealice el proceso de downsampling de la imagen p5.dcm, conservando uno de cada 2, 3 y 4 píxeles.\nMuestre la imagen original y las de tamaño reducido. Analice las diferencias entre éstas."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#dicom---actividades-2",
+    "href": "bme423/evals/lab1-old.html#dicom---actividades-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "2. DICOM - actividades",
+    "text": "2. DICOM - actividades\n\nVisualice las imágenes del directorio data2 usando widgets de Matplotlib, o ipywidgets."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#contraste---actividades",
+    "href": "bme423/evals/lab1-old.html#contraste---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "3. Contraste - actividades",
+    "text": "3. Contraste - actividades\n\nAgregue opciones a un widget para aplicar operaciones de mejora de contraste, en base a la transformación \\(\\gamma\\) (Ec. 3.2-3, sección 3.2.3, página 110) y usando una función de transformación definida por tramos (Figura 3.10(a), página 116).\nGenere situaciones que permitan apreciar en qué situaciones el contraste mejora, versus cuándo empeora. Se recomienda usar los histogramas de las imágenes resultantes, junto a los histogramas de las imágenes de entrada para su explicación."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#contraste---actividades-1",
+    "href": "bme423/evals/lab1-old.html#contraste---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "3. Contraste - actividades",
+    "text": "3. Contraste - actividades\n\nImplemente la ecualización (Ec. 3.3-8, página 126) y especificación de histogramas (Ec. 3.3-12, página 130). Explique los resultados (no es necesario usar widgets)."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#filtrado-espacial---actividades",
+    "href": "bme423/evals/lab1-old.html#filtrado-espacial---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\n\nImplemente la operación de convolución (sección 3.4.2, página 148, ecuación 3.4-1).\nUsando su implementación de la convolución:\n\n\nImplemente los filtros de suavizado, incluyendo el filtro Gaussiano, (sección 3.5.1, página 152) y agudizado (sección 3.6, página 157).\nAplique estos filtros al volumen de CT de una misma persona (data2). Aplique la convolución en 2D y luego en 3D.\nCompare con el resultado obtenido usando la función \\(\\texttt{scipy.ndimage.convolve}\\) (para un filtro)."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#section",
+    "href": "bme423/evals/lab1-old.html#section",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "",
+    "text": "Ayuda: La siguiente sentencia permite construir la versión rellenada con ceros de la imagen:\npad_len = (mask.shape[0] - 1) // 2\nimg_padded = np.pad(img, ((pad_len, pad_len), (pad_len, pad_len)),\n                    'constant', constant_values=0)\ndonde \\(\\texttt{mask}\\) contiene la máscara del filtro (se asume que es cuadrada, con largo impar), e \\(\\texttt{img}\\) es la imagen original."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#filtrado-espacial---actividades-1",
+    "href": "bme423/evals/lab1-old.html#filtrado-espacial---actividades-1",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\n\nAplique los filtros de suavizado, filtros de agudizado y operaciones de mejora de contraste de manera combinada en la imagen xray.dcm.\n\n\nExplique la pertinencia de los pasos aplicados y cuantifique la mejora en la calidad de la imagen a medida que aplica los pasos considerados.\nUse el ejemplo de la sección 3.7 (pág. 169) como inspiración.\n\n\nResuelva el mismo problema de la pregunta anterior para el caso 3D con el volumen data2."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#filtrado-espacial---actividades-2",
+    "href": "bme423/evals/lab1-old.html#filtrado-espacial---actividades-2",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "4. Filtrado espacial - actividades",
+    "text": "4. Filtrado espacial - actividades\nNota: La operación de convolución, los filtros, y los métodos de mejora de contraste debe implementarlos Ud., sin utilizar librerías específicas de procesamiento de imágenes."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#visualización-de-mapas-de-activación---actividades",
+    "href": "bme423/evals/lab1-old.html#visualización-de-mapas-de-activación---actividades",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "5. Visualización de mapas de activación - actividades",
+    "text": "5. Visualización de mapas de activación - actividades\n\nDesarrolle un programa que permita visualizar un mapa como el siguiente:\n\n\n\n\n\n\nDispone de los archivos anat.nii, zmap_voice.nii.gz y zmap_nonvoice.nii.gz.\nNote que los archivos están en formato .nii, los cuales pueden ser leídos usando la librería \\(\\texttt{nibabel}\\)."
+  },
+  {
+    "objectID": "bme423/evals/lab1-old.html#entrega",
+    "href": "bme423/evals/lab1-old.html#entrega",
+    "title": "Manipulación de imágenes, DICOM y color",
+    "section": "Entrega",
+    "text": "Entrega\napellido_nombre_l1.ipynb y apellido_nombre_l1.pdf\nLas versiones \\(\\texttt{.pdf}\\) en las entregas corresponden a los archivos \\(\\texttt{.ipynb}\\) con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
   },
   {
     "objectID": "bme423/ejemplos/syn_registration_3d.html",
