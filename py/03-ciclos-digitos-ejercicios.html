@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Alejandro Veloz">
+
+<title>UVA 3 — Ciclos con dígitos, paridad y ciclos anidados</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-bb62276ab45c84d9efd712f51ff97b5a.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-6136a7884fe1a7fac599e736414a8c72.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<style>
+  .cv-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .cv-photo-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D9E3E4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .cv-info {
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    .cv-container { flex-direction: column-reverse; text-align: center; }
+  }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="UVA 3 — Ciclos con dígitos, paridad y ciclos anidados">
+<meta property="og:description" content="Guía de ejercicios y soluciones">
+</head>
+
+<body class="nav-sidebar docked quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">UVA 3 — Ciclos con dígitos, paridad y ciclos anidados</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="#" class="sidebar-logo-link">
+      <img src="../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main">
+    <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=eq254vUAAAAJ" title="Google Scholar" class="quarto-navigation-tool px-1" aria-label="Google Scholar"><i class="bi bi-mortarboard-fill"></i></a>
+</div>
+      </div>
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenido</h2>
+   
+  <ul class="collapse">
+  <li><a href="#parte-i-enunciados" id="toc-parte-i-enunciados" class="nav-link active" data-scroll-target="#parte-i-enunciados">Parte I — Enunciados</a>
+  <ul class="collapse">
+  <li><a href="#bloque-1-dígitos-de-un-número" id="toc-bloque-1-dígitos-de-un-número" class="nav-link" data-scroll-target="#bloque-1-dígitos-de-un-número">Bloque 1 — Dígitos de un número</a></li>
+  <li><a href="#bloque-2-secuencias-alternantes-de-paridad" id="toc-bloque-2-secuencias-alternantes-de-paridad" class="nav-link" data-scroll-target="#bloque-2-secuencias-alternantes-de-paridad">Bloque 2 — Secuencias alternantes de paridad</a></li>
+  <li><a href="#bloque-3-ciclos-while-dobles" id="toc-bloque-3-ciclos-while-dobles" class="nav-link" data-scroll-target="#bloque-3-ciclos-while-dobles">Bloque 3 — Ciclos <code>while</code> dobles</a></li>
+  </ul></li>
+  <li><a href="#parte-ii-soluciones" id="toc-parte-ii-soluciones" class="nav-link" data-scroll-target="#parte-ii-soluciones">Parte II — Soluciones</a>
+  <ul class="collapse">
+  <li><a href="#solución-1-cantidad-de-dígitos-y-suma-de-dígitos" id="toc-solución-1-cantidad-de-dígitos-y-suma-de-dígitos" class="nav-link" data-scroll-target="#solución-1-cantidad-de-dígitos-y-suma-de-dígitos">Solución 1 — Cantidad de dígitos y suma de dígitos</a></li>
+  <li><a href="#solución-2-invertir-un-número" id="toc-solución-2-invertir-un-número" class="nav-link" data-scroll-target="#solución-2-invertir-un-número">Solución 2 — Invertir un número</a></li>
+  <li><a href="#solución-3-capicúa" id="toc-solución-3-capicúa" class="nav-link" data-scroll-target="#solución-3-capicúa">Solución 3 — Capicúa</a></li>
+  <li><a href="#solución-4-mayor-dígito" id="toc-solución-4-mayor-dígito" class="nav-link" data-scroll-target="#solución-4-mayor-dígito">Solución 4 — Mayor dígito</a></li>
+  <li><a href="#solución-5-alterna-par-impar-o-impar-par" id="toc-solución-5-alterna-par-impar-o-impar-par" class="nav-link" data-scroll-target="#solución-5-alterna-par-impar-o-impar-par">Solución 5 — ¿Alterna par-impar o impar-par?</a></li>
+  <li><a href="#solución-6-la-racha-alternante-más-larga" id="toc-solución-6-la-racha-alternante-más-larga" class="nav-link" data-scroll-target="#solución-6-la-racha-alternante-más-larga">Solución 6 — La racha alternante más larga</a></li>
+  <li><a href="#solución-7-alternancia-en-una-secuencia-leída" id="toc-solución-7-alternancia-en-una-secuencia-leída" class="nav-link" data-scroll-target="#solución-7-alternancia-en-una-secuencia-leída">Solución 7 — Alternancia en una secuencia leída</a></li>
+  <li><a href="#solución-8-calentamiento" id="toc-solución-8-calentamiento" class="nav-link" data-scroll-target="#solución-8-calentamiento">Solución 8 — Calentamiento</a></li>
+  <li><a href="#solución-9-números-alternantes-en-un-rango" id="toc-solución-9-números-alternantes-en-un-rango" class="nav-link" data-scroll-target="#solución-9-números-alternantes-en-un-rango">Solución 9 — Números alternantes en un rango</a></li>
+  <li><a href="#solución-10-capicúas-en-un-rango" id="toc-solución-10-capicúas-en-un-rango" class="nav-link" data-scroll-target="#solución-10-capicúas-en-un-rango">Solución 10 — Capicúas en un rango</a></li>
+  <li><a href="#solución-11-apariciones-de-un-dígito" id="toc-solución-11-apariciones-de-un-dígito" class="nav-link" data-scroll-target="#solución-11-apariciones-de-un-dígito">Solución 11 — Apariciones de un dígito</a></li>
+  <li><a href="#solución-12-desafío-capicúa-por-sumas-sucesivas" id="toc-solución-12-desafío-capicúa-por-sumas-sucesivas" class="nav-link" data-scroll-target="#solución-12-desafío-capicúa-por-sumas-sucesivas">Solución 12 — Desafío, capicúa por sumas sucesivas</a></li>
+  <li><a href="#solución-13-desafío-números-de-armstrong" id="toc-solución-13-desafío-números-de-armstrong" class="nav-link" data-scroll-target="#solución-13-desafío-números-de-armstrong">Solución 13 — Desafío, números de Armstrong</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">UVA 3 — Ciclos con dígitos, paridad y ciclos anidados</h1>
+<p class="subtitle lead">Guía de ejercicios y soluciones</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alejandro Veloz </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Esta guía complementa la unidad 3 con tres familias de problemas que aparecen una y otra vez en certámenes.</p>
+<p><strong>Restricciones de la unidad.</strong> Todo se resuelve con <code>while</code>. No se usan <code>for</code>, <code>break</code>, <code>continue</code> ni listas. En particular, los ejercicios de dígitos deben resolverse con <code>%</code> y <code>//</code>, sin convertir el número a texto con <code>str()</code>.</p>
+<p>En la primera parte de esta guía están todos los enunciados, para trabajarlos sin ver la respuesta. En la segunda están las soluciones.</p>
+<section id="parte-i-enunciados" class="level1">
+<h1>Parte I — Enunciados</h1>
+<section id="bloque-1-dígitos-de-un-número" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-1-dígitos-de-un-número">Bloque 1 — Dígitos de un número</h2>
+<p>Los dígitos de un entero se recorren con dos operaciones. El resto de la división por 10 entrega el último dígito, y la división entera por 10 elimina ese dígito.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">4726</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n <span class="op">%</span> <span class="dv">10</span>)    <span class="co"># 6   &lt;- último dígito</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(n <span class="op">//</span> <span class="dv">10</span>)   <span class="co"># 472 &lt;- el número sin su último dígito</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Repitiendo ambas operaciones se obtienen todos los dígitos, de derecha a izquierda, hasta que el número llega a cero.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">4726</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> n <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(n <span class="op">%</span> <span class="dv">10</span>)   <span class="co"># imprime 6, 2, 7, 4</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    n <span class="op">=</span> n <span class="op">//</span> <span class="dv">10</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Note que el ciclo <strong>destruye</strong> el número, por lo que conviene trabajar sobre una copia cuando se necesita el valor original.</p>
+<section id="ejercicio-1-cantidad-de-dígitos-y-suma-de-dígitos" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-1-cantidad-de-dígitos-y-suma-de-dígitos">Ejercicio 1 — Cantidad de dígitos y suma de dígitos</h3>
+<p>Escriba un programa que lea un entero positivo <code>n</code> y muestre cuántos dígitos tiene y cuánto suman.</p>
+<pre><code>Ingrese un numero: 4726
+Cantidad de digitos: 4
+Suma de digitos: 19</code></pre>
+<p>Responda además qué imprime su programa cuando el usuario ingresa <code>0</code>, y corríjalo si la respuesta no es la correcta.</p>
+</section>
+<section id="ejercicio-2-invertir-un-número" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-2-invertir-un-número">Ejercicio 2 — Invertir un número</h3>
+<p>Escriba un programa que lea un entero positivo y muestre el número invertido, es decir, con sus dígitos en el orden contrario. Está prohibido usar <code>str()</code>, listas o cualquier operación de texto, el resultado debe construirse con operaciones aritméticas.</p>
+<pre><code>Ingrese un numero: 4726        Ingrese un numero: 1200
+El invertido es 6274           El invertido es 21</code></pre>
+<p>Verifique el comportamiento con <code>1200</code> y con un número de un solo dígito, y explique el resultado.</p>
+</section>
+<section id="ejercicio-3-capicúa" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-3-capicúa">Ejercicio 3 — Capicúa</h3>
+<p>Un número es capicúa cuando se lee igual de izquierda a derecha que de derecha a izquierda, por ejemplo <code>1221</code>, <code>45654</code> y <code>7</code>.</p>
+<p>Escriba un programa que lea un entero positivo e indique si es capicúa. Use el programa del ejercicio 2.</p>
+<pre><code>Ingrese un numero: 45654       Ingrese un numero: 4726
+Es capicua                     No es capicua</code></pre>
+</section>
+<section id="ejercicio-4-mayor-dígito" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-4-mayor-dígito">Ejercicio 4 — Mayor dígito</h3>
+<p>Escriba un programa que lea un entero positivo y muestre su mayor dígito y cuántas veces aparece ese dígito en el número.</p>
+<pre><code>Ingrese un numero: 472862
+El mayor digito es 8 y aparece 1 vez</code></pre>
+<pre><code>Ingrese un numero: 9139
+El mayor digito es 9 y aparece 2 veces</code></pre>
+</section>
+</section>
+<section id="bloque-2-secuencias-alternantes-de-paridad" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-2-secuencias-alternantes-de-paridad">Bloque 2 — Secuencias alternantes de paridad</h2>
+<p>Se dice que un número tiene una <strong>secuencia alternante de paridad</strong> cuando dos dígitos vecinos nunca tienen la misma paridad, es decir, después de un dígito par viene uno impar y después de uno impar viene uno par.</p>
+<p>La secuencia es de tipo <strong>par-impar</strong> cuando el primer dígito, el de más a la izquierda, es par, y de tipo <strong>impar-par</strong> cuando ese primer dígito es impar.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 15%">
+<col style="width: 55%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Número</th>
+<th>Dígitos</th>
+<th>¿Alterna?</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>2385</code></td>
+<td>2 par, 3 impar, 8 par, 5 impar</td>
+<td>sí, par-impar</td>
+</tr>
+<tr class="even">
+<td><code>1234</code></td>
+<td>1 impar, 2 par, 3 impar, 4 par</td>
+<td>sí, impar-par</td>
+</tr>
+<tr class="odd">
+<td><code>4726</code></td>
+<td>4 par, 7 impar, 2 par, 6 par</td>
+<td>no, <code>2</code> y <code>6</code> son ambos pares</td>
+</tr>
+</tbody>
+</table>
+<section id="ejercicio-5-alterna-par-impar-o-impar-par" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-5-alterna-par-impar-o-impar-par">Ejercicio 5 — ¿Alterna par-impar o impar-par?</h3>
+<p>Escriba un programa que lea un entero positivo e indique si sus dígitos forman una secuencia alternante y, en caso afirmativo, de qué tipo es.</p>
+<pre><code>Ingrese un numero: 2385        Ingrese un numero: 1234
+Alterna par-impar              Alterna impar-par</code></pre>
+<pre><code>Ingrese un numero: 4726
+No alterna</code></pre>
+<p>Decida qué debe responder el programa cuando el número tiene un solo dígito y justifique la decisión.</p>
+</section>
+<section id="ejercicio-6-la-racha-alternante-más-larga" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-6-la-racha-alternante-más-larga">Ejercicio 6 — La racha alternante más larga</h3>
+<p>Escriba un programa que lea un entero positivo y muestre la cantidad de dígitos de la racha alternante más larga, entendiendo por racha un grupo de dígitos consecutivos que sí alternan.</p>
+<pre><code>Ingrese un numero: 472286
+La racha alternante mas larga tiene 3 digitos</code></pre>
+<p>En el ejemplo la racha es <code>4 7 2</code>, porque el <code>2</code> siguiente rompe la alternancia.</p>
+</section>
+<section id="ejercicio-7-alternancia-en-una-secuencia-leída" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-7-alternancia-en-una-secuencia-leída">Ejercicio 7 — Alternancia en una secuencia leída</h3>
+<p>Escriba un programa que lea números enteros hasta que se ingrese <code>0</code> e indique si los números leídos, en el orden en que fueron ingresados, alternan su paridad. El programa debe informar además cuántos números se procesaron.</p>
+<pre><code>Ingrese un numero (0 para terminar): 4
+Ingrese un numero (0 para terminar): 7
+Ingrese un numero (0 para terminar): 10
+Ingrese un numero (0 para terminar): 3
+Ingrese un numero (0 para terminar): 0
+Se procesaron 4 numeros
+La secuencia alterna par-impar</code></pre>
+<p>El ejercicio es el mismo del bloque 2, con una diferencia importante. Acá los números llegan de a uno desde la entrada y no se pueden volver a leer, por lo que hay que decidir con lo que se tiene en el momento.</p>
+</section>
+</section>
+<section id="bloque-3-ciclos-while-dobles" class="level2">
+<h2 class="anchored" data-anchor-id="bloque-3-ciclos-while-dobles">Bloque 3 — Ciclos <code>while</code> dobles</h2>
+<p>Un ciclo anidado repite un proceso que ya es repetitivo. El ciclo externo recorre los casos y el ciclo interno resuelve uno de ellos.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;=</span> n:          <span class="co"># ciclo externo</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">1</span>              <span class="co"># &lt;- reinicio del contador interno</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> j <span class="op">&lt;=</span> m:      <span class="co"># ciclo interno</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>        ...</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Las inicializaciones del ciclo interno, todas ellas, van <strong>dentro</strong> del ciclo externo. Si quedan fuera, el ciclo interno funciona la primera vez y nunca más.</p>
+<p>Los ejercicios 9 a 13 tienen la misma estructura. El ciclo interno es un programa del bloque 1 o del bloque 2, ya resuelto, y el ciclo externo lo aplica a muchos números.</p>
+<section id="ejercicio-8-calentamiento" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-8-calentamiento">Ejercicio 8 — Calentamiento</h3>
+<p><strong>a)</strong> Escriba un programa que lea <code>n</code> y <code>m</code> e imprima un rectángulo de <code>n</code> filas por <code>m</code> columnas de asteriscos.</p>
+<p><strong>b)</strong> Escriba un programa que lea <code>n</code> e imprima un triángulo numérico, donde la fila <code>i</code> contiene los números del 1 al <code>i</code>.</p>
+<pre><code>n: 4  m: 6           n: 4
+******               1
+******               12
+******               123
+******               1234</code></pre>
+<p>Cada <code>print</code> imprime una línea completa y pasa a la siguiente, de modo que la fila se arma primero en una variable de texto, con <code>linea += '*'</code>, y se imprime una sola vez al terminarla.</p>
+</section>
+<section id="ejercicio-9-números-alternantes-en-un-rango" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-9-números-alternantes-en-un-rango">Ejercicio 9 — Números alternantes en un rango</h3>
+<p>Escriba un programa que lea dos enteros positivos <code>a</code> y <code>b</code> y cuente cuántos números del rango <code>[a, b]</code> tienen sus dígitos alternados en paridad. El programa debe mostrar además el mayor de ellos.</p>
+<pre><code>Ingrese limite inferior: 10
+Ingrese limite superior: 30
+Hay 11 numeros alternantes
+El mayor es 30</code></pre>
+</section>
+<section id="ejercicio-10-capicúas-en-un-rango" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-10-capicúas-en-un-rango">Ejercicio 10 — Capicúas en un rango</h3>
+<p>Escriba un programa que lea dos enteros positivos <code>a</code> y <code>b</code>, imprima todos los capicúas del rango <code>[a, b]</code> y muestre cuánto suman.</p>
+<pre><code>Ingrese limite inferior: 100
+Ingrese limite superior: 150
+101
+111
+121
+131
+141
+La suma es 605</code></pre>
+</section>
+<section id="ejercicio-11-apariciones-de-un-dígito" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-11-apariciones-de-un-dígito">Ejercicio 11 — Apariciones de un dígito</h3>
+<p>Escriba un programa que lea un entero positivo <code>n</code> y un dígito <code>k</code>, y cuente cuántas veces aparece <code>k</code> en la escritura de todos los números del 1 al <code>n</code>.</p>
+<pre><code>Ingrese n: 20
+Ingrese k: 1
+El digito 1 aparece 12 veces</code></pre>
+<p>En el ejemplo el dígito <code>1</code> aparece una vez en el <code>1</code>, una vez en el <code>10</code>, dos veces en el <code>11</code> y una vez en cada número del <code>12</code> al <code>19</code>.</p>
+</section>
+<section id="ejercicio-12-desafío-capicúa-por-sumas-sucesivas" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-12-desafío-capicúa-por-sumas-sucesivas">Ejercicio 12 — Desafío, capicúa por sumas sucesivas</h3>
+<p>Existe un procedimiento que transforma casi cualquier número en un capicúa. Se suma el número con su invertido, y si el resultado no es capicúa se repite la operación con ese resultado.</p>
+<p><span class="math display">\[59 + 95 = 154, \qquad 154 + 451 = 605, \qquad 605 + 506 = 1111\]</span></p>
+<p>Escriba un programa que lea un entero positivo y muestre el capicúa obtenido y la cantidad de sumas necesarias. Como hay números para los que el procedimiento no termina, detenga la búsqueda después de 30 sumas e informe que no se encontró un capicúa.</p>
+<pre><code>Ingrese un numero: 59
+Se obtuvo 1111 en 3 sumas</code></pre>
+</section>
+<section id="ejercicio-13-desafío-números-de-armstrong" class="level3">
+<h3 class="anchored" data-anchor-id="ejercicio-13-desafío-números-de-armstrong">Ejercicio 13 — Desafío, números de Armstrong</h3>
+<p>Un número de tres dígitos es un número de Armstrong cuando es igual a la suma de los cubos de sus dígitos.</p>
+<p><span class="math display">\[153 = 1^3 + 5^3 + 3^3\]</span></p>
+<p>Escriba un programa que imprima todos los números de Armstrong de tres dígitos.</p>
+</section>
+</section>
+</section>
+<section id="parte-ii-soluciones" class="level1">
+<h1>Parte II — Soluciones</h1>
+<section id="solución-1-cantidad-de-dígitos-y-suma-de-dígitos" class="level2">
+<h2 class="anchored" data-anchor-id="solución-1-cantidad-de-dígitos-y-suma-de-dígitos">Solución 1 — Cantidad de dígitos y suma de dígitos</h2>
+<div id="cell-21" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero: '</span>))</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>cantidad <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> n                      <span class="co"># copia de trabajo, el ciclo destruye la variable</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    suma <span class="op">+=</span> m <span class="op">%</span> <span class="dv">10</span>         <span class="co"># se acumula el ultimo digito</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    cantidad <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span>            <span class="co"># se elimina el ultimo digito</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Cantidad de digitos:'</span>, cantidad)</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Suma de digitos:'</span>, suma)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Los dos patrones de la unidad aparecen en el mismo ciclo. <code>cantidad</code> cuenta las iteraciones y <code>suma</code> acumula un valor calculado en cada iteración.</p>
+<p>Con <code>n = 0</code> la condición <code>0 &gt; 0</code> es falsa desde el principio, el ciclo no se ejecuta ninguna vez y el programa informa cero dígitos, lo que es incorrecto porque el <code>0</code> tiene un dígito. El caso hay que tratarlo aparte, con un <code>if</code> antes del ciclo o con un ciclo <code>while m &gt; 0 or cantidad == 0</code> cuando se quiere evitar el <code>if</code>.</p>
+</section>
+<section id="solución-2-invertir-un-número" class="level2">
+<h2 class="anchored" data-anchor-id="solución-2-invertir-un-número">Solución 2 — Invertir un número</h2>
+<div id="cell-24" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero: '</span>))</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>invertido <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> n</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    digito <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    invertido <span class="op">=</span> invertido <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> digito   <span class="co"># el resultado crece por la derecha</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'El invertido es'</span>, invertido)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>La construcción del resultado es la parte que conviene entender bien. En cada iteración el acumulado se desplaza una posición hacia la izquierda, al multiplicarlo por 10, y el dígito recién extraído ocupa la posición que quedó libre.</p>
+<p>Con <code>n = 4726</code> el acumulador toma los valores 6, 62, 627 y 6274, mientras <code>m</code> toma los valores 472, 47, 4 y 0.</p>
+<p>El acumulador se inicializa en <code>0</code> y no en <code>1</code>, porque la primera operación es una suma. Es la misma regla del elemento neutro que se usa al sumar y al multiplicar.</p>
+<p>El número <code>1200</code> se invierte como <code>21</code>, ya que los ceros quedan a la izquierda del resultado y un entero no los conserva. Un número de un solo dígito es su propio invertido, y <code>0</code> produce <code>0</code> porque el ciclo no se ejecuta.</p>
+</section>
+<section id="solución-3-capicúa" class="level2">
+<h2 class="anchored" data-anchor-id="solución-3-capicúa">Solución 3 — Capicúa</h2>
+<div id="cell-27" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero: '</span>))</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>invertido <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> n</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    invertido <span class="op">=</span> invertido <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> invertido <span class="op">==</span> n:</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Es capicua'</span>)</span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No es capicua'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El ejercicio no necesita programa nuevo. Se invierte el número y se compara con el original, y por eso la copia <code>m</code> es indispensable, porque el valor de <code>n</code> tiene que sobrevivir al ciclo.</p>
+</section>
+<section id="solución-4-mayor-dígito" class="level2">
+<h2 class="anchored" data-anchor-id="solución-4-mayor-dígito">Solución 4 — Mayor dígito</h2>
+<div id="cell-30" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero: '</span>))</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>mayor <span class="op">=</span> <span class="dv">0</span>                 <span class="co"># ningun digito es menor que 0</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>veces <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> n</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    digito <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> digito <span class="op">&gt;</span> mayor:</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>        mayor <span class="op">=</span> digito</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>        veces <span class="op">=</span> <span class="dv">1</span>         <span class="co"># aparecio un nuevo maximo, se reinicia la cuenta</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> digito <span class="op">==</span> mayor:</span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>        veces <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> veces <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El mayor digito es'</span>, mayor, <span class="st">'y aparece 1 vez'</span>)</span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El mayor digito es'</span>, mayor, <span class="st">'y aparece'</span>, veces, <span class="st">'veces'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El patrón del máximo se combina con un contador que depende del máximo. Cada vez que aparece un dígito mayor que el guardado, la cuenta anterior deja de tener sentido y vuelve a <code>1</code>.</p>
+<p>La inicialización <code>mayor = 0</code> es válida porque los dígitos son mayores o iguales a cero. Cuando no existe una cota conocida, el patrón correcto es inicializar el máximo con el primer dato leído.</p>
+</section>
+<section id="solución-5-alterna-par-impar-o-impar-par" class="level2">
+<h2 class="anchored" data-anchor-id="solución-5-alterna-par-impar-o-impar-par">Solución 5 — ¿Alterna par-impar o impar-par?</h2>
+<div id="cell-33" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero: '</span>))</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> n</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>anterior <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span>          <span class="co"># primer digito extraido, el de mas a la derecha</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>alterna <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> alterna:</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    digito <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> digito <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> anterior <span class="op">%</span> <span class="dv">2</span>:      <span class="co"># misma paridad, se rompe la alternancia</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>        alterna <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>    anterior <span class="op">=</span> digito</span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="kw">not</span> alterna:</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No alterna'</span>)</span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="cf">elif</span> anterior <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Alterna par-impar'</span>)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Alterna impar-par'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El ciclo compara cada dígito con el anterior, y la variable <code>anterior</code> guarda el dígito de la iteración previa para que la comparación sea posible. La bandera <code>alterna</code> permite terminar el ciclo apenas se encuentra un par de vecinos con la misma paridad, sin usar <code>break</code>.</p>
+<p>Los dígitos se extraen de derecha a izquierda, pero eso no afecta la respuesta, porque una secuencia alterna en un sentido si y sólo si alterna en el otro. El tipo, en cambio, sí depende del orden, y para eso sirve que al terminar el ciclo <code>anterior</code> contenga el último dígito extraído, que es justamente el de más a la izquierda.</p>
+<p>Un número de un dígito alterna de manera trivial, ya que no existe ningún par de vecinos que pueda romper la condición, y el programa lo clasifica según la paridad de ese único dígito.</p>
+</section>
+<section id="solución-6-la-racha-alternante-más-larga" class="level2">
+<h2 class="anchored" data-anchor-id="solución-6-la-racha-alternante-más-larga">Solución 6 — La racha alternante más larga</h2>
+<div id="cell-36" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero: '</span>))</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> n</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>anterior <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>racha <span class="op">=</span> <span class="dv">1</span>                  <span class="co"># la racha actual siempre tiene al menos un digito</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>mayor <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>    digito <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> digito <span class="op">%</span> <span class="dv">2</span> <span class="op">!=</span> anterior <span class="op">%</span> <span class="dv">2</span>:</span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>        racha <span class="op">+=</span> <span class="dv">1</span>         <span class="co"># la racha continua</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>        racha <span class="op">=</span> <span class="dv">1</span>          <span class="co"># se corta, y la nueva racha empieza en este digito</span></span>
+<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> racha <span class="op">&gt;</span> mayor:</span>
+<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>        mayor <span class="op">=</span> racha</span>
+<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>    anterior <span class="op">=</span> digito</span>
+<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'La racha alternante mas larga tiene'</span>, mayor, <span class="st">'digitos'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Acá el ciclo recorre el número completo, sin bandera, porque interesan todas las rachas y no sólo la primera interrupción. Se llevan dos contadores, <code>racha</code> para la racha en curso y <code>mayor</code> para la mejor encontrada hasta el momento, y esa combinación de contador con máximo es el patrón habitual de los problemas de rachas.</p>
+<p>La comparación <code>racha &gt; mayor</code> se hace dentro del ciclo y después de actualizar <code>racha</code>. Si se hiciera sólo al cortar una racha, la última racha del número quedaría sin considerar.</p>
+</section>
+<section id="solución-7-alternancia-en-una-secuencia-leída" class="level2">
+<h2 class="anchored" data-anchor-id="solución-7-alternancia-en-una-secuencia-leída">Solución 7 — Alternancia en una secuencia leída</h2>
+<div id="cell-39" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero (0 para terminar): '</span>))</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> num <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No se ingresaron numeros'</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>    primero <span class="op">=</span> num</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>    anterior <span class="op">=</span> num</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>    cantidad <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>    alterna <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>    num <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero (0 para terminar): '</span>))</span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> num <span class="op">!=</span> <span class="dv">0</span>:</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> num <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> anterior <span class="op">%</span> <span class="dv">2</span>:</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>            alterna <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a>        anterior <span class="op">=</span> num</span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>        cantidad <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>        num <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero (0 para terminar): '</span>))</span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Se procesaron'</span>, cantidad, <span class="st">'numeros'</span>)</span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> alterna:</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'La secuencia no alterna'</span>)</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> primero <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'La secuencia alterna par-impar'</span>)</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'La secuencia alterna impar-par'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>La estructura es la del ejercicio 5, con dos diferencias. La primera lectura se hace antes del ciclo, para tener con qué comparar, y las lecturas siguientes se hacen al final del cuerpo, que es el esquema clásico de lectura hasta un centinela.</p>
+<p>El tipo de alternancia se decide con el primer número leído, guardado en <code>primero</code>, porque acá los datos llegan en el orden en que se van a informar y no al revés, como ocurría con los dígitos.</p>
+<p>El programa no descarta la bandera cuando ya se sabe que la secuencia no alterna, porque de todos modos hay que seguir leyendo hasta el <code>0</code> para contar los números.</p>
+</section>
+<section id="solución-8-calentamiento" class="level2">
+<h2 class="anchored" data-anchor-id="solución-8-calentamiento">Solución 8 — Calentamiento</h2>
+<div id="cell-42" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># a) rectangulo de n filas por m columnas</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'n: '</span>))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'m: '</span>))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>    linea <span class="op">=</span> <span class="st">''</span>             <span class="co"># inicializacion del ciclo interno</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> j <span class="op">&lt;=</span> m:</span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>        linea <span class="op">+=</span> <span class="st">'*'</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a>        j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(linea)</span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>****
+****
+****</code></pre>
+</div>
+</div>
+<div id="cell-43" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># b) triangulo numerico</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'n: '</span>))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>i <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> i <span class="op">&lt;=</span> n:</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    linea <span class="op">=</span> <span class="st">''</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    j <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> j <span class="op">&lt;=</span> i:          <span class="co"># el limite del ciclo interno depende del externo</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>        linea <span class="op">+=</span> <span class="bu">str</span>(j)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>        j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(linea)</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    i <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Las dos líneas que hacen funcionar el programa son <code>linea = ''</code> y <code>j = 1</code>, ubicadas dentro del ciclo externo. Si quedaran antes, la primera fila se imprimiría bien y las siguientes saldrían vacías, porque <code>j</code> conserva el valor con que terminó la iteración anterior.</p>
+<p>La diferencia entre a) y b) está en el límite del ciclo interno. En a) es la constante <code>m</code> y en b) es <code>i</code>, la variable del ciclo externo, de modo que cada fila es más larga que la anterior.</p>
+</section>
+<section id="solución-9-números-alternantes-en-un-rango" class="level2">
+<h2 class="anchored" data-anchor-id="solución-9-números-alternantes-en-un-rango">Solución 9 — Números alternantes en un rango</h2>
+<div id="cell-46" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese limite inferior: '</span>))</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese limite superior: '</span>))</span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>cantidad <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>mayor <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>candidato <span class="op">=</span> a</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> candidato <span class="op">&lt;=</span> b:</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ciclo interno, decide si candidato alterna (ejercicio 5)</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> candidato</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    anterior <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a>    alterna <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span> <span class="kw">and</span> alterna:</span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>        digito <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> digito <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> anterior <span class="op">%</span> <span class="dv">2</span>:</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>            alterna <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a>        anterior <span class="op">=</span> digito</span>
+<span id="cb28-19"><a href="#cb28-19" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb28-20"><a href="#cb28-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-21"><a href="#cb28-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> alterna:</span>
+<span id="cb28-22"><a href="#cb28-22" aria-hidden="true" tabindex="-1"></a>        cantidad <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-23"><a href="#cb28-23" aria-hidden="true" tabindex="-1"></a>        mayor <span class="op">=</span> candidato          <span class="co"># el rango se recorre en orden creciente</span></span>
+<span id="cb28-24"><a href="#cb28-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-25"><a href="#cb28-25" aria-hidden="true" tabindex="-1"></a>    candidato <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb28-26"><a href="#cb28-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-27"><a href="#cb28-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Hay'</span>, cantidad, <span class="st">'numeros alternantes'</span>)</span>
+<span id="cb28-28"><a href="#cb28-28" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> cantidad <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb28-29"><a href="#cb28-29" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'El mayor es'</span>, mayor)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El ciclo interno es la solución 5 sin ninguna modificación, y el ciclo externo se limita a aplicarla a cada número del rango. Reconocer que un problema nuevo contiene un problema ya resuelto es la habilidad que se practica en este bloque.</p>
+<p>Las cuatro inicializaciones del ciclo interno, <code>m</code>, <code>anterior</code>, <code>alterna</code> y el descarte del primer dígito, están dentro del ciclo externo, porque cada candidato empieza su análisis desde cero.</p>
+<p>Como el rango se recorre de menor a mayor, el mayor alternante es simplemente el último encontrado y no hace falta el patrón del máximo. Si el recorrido fuera descendente, habría que guardar el primero.</p>
+</section>
+<section id="solución-10-capicúas-en-un-rango" class="level2">
+<h2 class="anchored" data-anchor-id="solución-10-capicúas-en-un-rango">Solución 10 — Capicúas en un rango</h2>
+<div id="cell-49" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>a <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese limite inferior: '</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese limite superior: '</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>suma <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>candidato <span class="op">=</span> a</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> candidato <span class="op">&lt;=</span> b:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ciclo interno, invierte candidato (ejercicio 2)</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    invertido <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> candidato</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>        invertido <span class="op">=</span> invertido <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> invertido <span class="op">==</span> candidato:</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(candidato)</span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>        suma <span class="op">+=</span> candidato</span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    candidato <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'La suma es'</span>, suma)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El acumulador <code>suma</code> se inicializa antes del ciclo externo, porque acumula sobre todo el rango, mientras que <code>invertido</code> y <code>m</code> se inicializan dentro, porque pertenecen al análisis de un candidato. Distinguir a qué ciclo pertenece cada variable es lo que ordena estos programas.</p>
+</section>
+<section id="solución-11-apariciones-de-un-dígito" class="level2">
+<h2 class="anchored" data-anchor-id="solución-11-apariciones-de-un-dígito">Solución 11 — Apariciones de un dígito</h2>
+<div id="cell-52" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese n: '</span>))</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese k: '</span>))</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>total <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>numero <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> numero <span class="op">&lt;=</span> n:</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> numero</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> m <span class="op">%</span> <span class="dv">10</span> <span class="op">==</span> k:</span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>            total <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>    numero <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'El digito'</span>, k, <span class="st">'aparece'</span>, total, <span class="st">'veces'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El ciclo externo recorre los números y el interno recorre los dígitos de uno de ellos, de manera que el cuerpo del ciclo interno se ejecuta tantas veces como dígitos tienen en total los números del 1 al <code>n</code>.</p>
+<p>El contador <code>total</code> es único y vive fuera de los dos ciclos. Un error frecuente consiste en declararlo dentro del ciclo externo, con lo cual el programa termina informando sólo las apariciones del último número.</p>
+<p>El caso <code>k = 0</code> también funciona, porque el ciclo interno recorre los dígitos tal como el número se escribe, sin ceros a la izquierda. Con <code>n = 20</code> y <code>k = 0</code> el programa cuenta dos apariciones, la del <code>10</code> y la del <code>20</code>.</p>
+</section>
+<section id="solución-12-desafío-capicúa-por-sumas-sucesivas" class="level2">
+<h2 class="anchored" data-anchor-id="solución-12-desafío-capicúa-por-sumas-sucesivas">Solución 12 — Desafío, capicúa por sumas sucesivas</h2>
+<div id="cell-55" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>(<span class="st">'Ingrese un numero: '</span>))</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>sumas <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>capicua <span class="op">=</span> <span class="va">False</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> <span class="kw">not</span> capicua <span class="kw">and</span> sumas <span class="op">&lt;</span> <span class="dv">30</span>:</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ciclo interno, invierte n (ejercicio 2)</span></span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a>    invertido <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> n</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a>        invertido <span class="op">=</span> invertido <span class="op">*</span> <span class="dv">10</span> <span class="op">+</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> invertido <span class="op">==</span> n:</span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>        capicua <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>        n <span class="op">=</span> n <span class="op">+</span> invertido</span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>        sumas <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> capicua:</span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Se obtuvo'</span>, n, <span class="st">'en'</span>, sumas, <span class="st">'sumas'</span>)</span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'No se encontro un capicua en 30 sumas'</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El ciclo externo no tiene contador de recorrido sino dos condiciones de término, la bandera <code>capicua</code>, que indica éxito, y el límite <code>sumas &lt; 30</code>, que evita un ciclo infinito. Al salir hay que distinguir por cuál de las dos razones terminó el ciclo, y de eso se encarga el <code>if</code> final.</p>
+<p>El número original ya podría ser capicúa, y por eso la verificación se hace al comienzo del cuerpo y no después de sumar. Con <code>n = 1221</code> el programa responde de inmediato con cero sumas.</p>
+<p>El límite de 30 no es arbitrario en el sentido práctico. Con <code>n = 196</code> no se conoce ningún capicúa alcanzable por este procedimiento, a pesar de que se han calculado millones de sumas.</p>
+</section>
+<section id="solución-13-desafío-números-de-armstrong" class="level2">
+<h2 class="anchored" data-anchor-id="solución-13-desafío-números-de-armstrong">Solución 13 — Desafío, números de Armstrong</h2>
+<div id="cell-58" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>numero <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> numero <span class="op">&lt;=</span> <span class="dv">999</span>:</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ciclo interno, suma de los cubos de los digitos</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    suma <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> numero</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> m <span class="op">&gt;</span> <span class="dv">0</span>:</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        digito <span class="op">=</span> m <span class="op">%</span> <span class="dv">10</span></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>        suma <span class="op">+=</span> digito <span class="op">*</span> digito <span class="op">*</span> digito</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> m <span class="op">//</span> <span class="dv">10</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> suma <span class="op">==</span> numero:</span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(numero)</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    numero <span class="op">+=</span> <span class="dv">1</span></span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El programa imprime <code>153</code>, <code>370</code>, <code>371</code> y <code>407</code>.</p>
+<p>El cubo se escribe como <code>digito * digito * digito</code> para mantener el estilo de la unidad, aunque <code>digito ** 3</code> sería equivalente. Si el enunciado se generaliza a números de cualquier cantidad de dígitos, la potencia deja de ser fija y hace falta un tercer ciclo, uno para recorrer los candidatos, uno para recorrer sus dígitos y uno para elevar cada dígito a la potencia correspondiente.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/aavelozb\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Alejandro Veloz</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
