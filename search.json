@@ -882,81 +882,81 @@
     "text": "1. Preparación\n\nSeleccione dos pacientes y cargue, para cada uno, el volumen FLAIR y la segmentación de referencia (consensus gold standard). Use \\(\\texttt{nibabel}\\).\nEscoja un corte axial por paciente en el que la carga lesional sea visible y trabaje en 2D durante todo el laboratorio, salvo donde se indique lo contrario.\nConstruya una máscara de encéfalo simple, por umbral sobre el fondo, y descarte el cráneo y el aire. Todas las estadísticas y todos los histogramas posteriores deben calcularse dentro de la máscara."
   },
   {
-    "objectID": "bme423/evals/lab2.html#motivación",
-    "href": "bme423/evals/lab2.html#motivación",
+    "objectID": "bme423/evals/lab2.html#section",
+    "href": "bme423/evals/lab2.html#section",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "2. Motivación",
-    "text": "2. Motivación\nLa resonancia magnética no entrega una unidad física absoluta, a diferencia de las unidades Hounsfield del CT. Dos pacientes adquiridos con la misma secuencia presentan histogramas desplazados y con distinta escala, de modo que un mismo umbral no significa lo mismo en ambos."
+    "section": "",
+    "text": "La resonancia magnética no entrega una unidad física absoluta, a diferencia de las unidades Hounsfield del CT. Dos pacientes adquiridos con la misma secuencia presentan histogramas desplazados y con distinta escala, de modo que un mismo umbral no significa lo mismo en ambos."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-1",
-    "href": "bme423/evals/lab2.html#actividades-1",
+    "objectID": "bme423/evals/lab2.html#section-1",
+    "href": "bme423/evals/lab2.html#section-1",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "2. Actividades",
-    "text": "2. Actividades\n\nGrafique los histogramas de ambos pacientes dentro de la máscara, junto con sus funciones de distribución acumulada, e implemente sobre ellos la ecualización y la especificación de histograma, sin usar librerías de procesamiento de imágenes.\n\nEscriba la transformación \\(s = T(r)\\) de cada método a partir de la distribución acumulada y grafíquela. Explique por qué la ecualización aproxima un histograma uniforme y por qué el resultado discreto no lo es."
+    "section": "",
+    "text": "Grafique los histogramas de ambos pacientes dentro de la máscara, junto con sus funciones de distribución acumulada, e implemente sobre ellos la ecualización y la especificación de histograma, sin usar librerías de procesamiento de imágenes.\n\nEscriba la transformación \\(s = T(r)\\) de cada método a partir de la distribución acumulada y grafíquela. Explique por qué la ecualización aproxima un histograma uniforme y por qué el resultado discreto no lo es."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-2",
-    "href": "bme423/evals/lab2.html#actividades-2",
+    "objectID": "bme423/evals/lab2.html#section-2",
+    "href": "bme423/evals/lab2.html#section-2",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "2. Actividades",
-    "text": "2. Actividades\n\n(continuación)\n\nCon la especificación, lleve el histograma del segundo paciente al del primero. Verifique el resultado superponiendo las tres distribuciones acumuladas, la de origen, la de destino y la obtenida, y cuantifique el ajuste con la distancia entre ellas.\nReporte cómo cambian, en unidades de intensidad, la media de la sustancia blanca y la media de las lesiones de cada paciente antes y después de cada transformación. Indique cuál de las dos vuelve comparables ambos estudios."
+    "section": "",
+    "text": "(continuación)\n\nCon la especificación, lleve el histograma del segundo paciente al del primero. Verifique el resultado superponiendo las tres distribuciones acumuladas, la de origen, la de destino y la obtenida, y cuantifique el ajuste con la distancia entre ellas.\nReporte cómo cambian, en unidades de intensidad, la media de la sustancia blanca y la media de las lesiones de cada paciente antes y después de cada transformación. Indique cuál de las dos vuelve comparables ambos estudios."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-3",
-    "href": "bme423/evals/lab2.html#actividades-3",
+    "objectID": "bme423/evals/lab2.html#section-3",
+    "href": "bme423/evals/lab2.html#section-3",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "2. Actividades",
-    "text": "2. Actividades\n\nAplique una ecualización local con límite de contraste (CLAHE), esta vez con librería, y explique la técnica.\n\nDescriba el procedimiento, la partición en bloques, la ecualización por bloque, el recorte del histograma con redistribución de la masa excedente y la interpolación bilineal entre bloques.\nJustifique el papel del límite de recorte sobre la amplificación del ruido, y el del tamaño de bloque.\nMuestre el efecto de variar ambos parámetros sobre las lesiones y sobre el ruido de fondo del encéfalo."
+    "section": "",
+    "text": "Aplique una ecualización local con límite de contraste (CLAHE), esta vez con librería, y explique la técnica.\n\nDescriba el procedimiento, la partición en bloques, la ecualización por bloque, el recorte del histograma con redistribución de la masa excedente y la interpolación bilineal entre bloques.\nJustifique el papel del límite de recorte sobre la amplificación del ruido, y el del tamaño de bloque.\nMuestre el efecto de variar ambos parámetros sobre las lesiones y sobre el ruido de fondo del encéfalo."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-4",
-    "href": "bme423/evals/lab2.html#actividades-4",
+    "objectID": "bme423/evals/lab2.html#section-4",
+    "href": "bme423/evals/lab2.html#section-4",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "2. Actividades",
-    "text": "2. Actividades\n\nCuantifique el efecto de cada transformación mediante el contraste entre lesión y tejido circundante,\n\\[ C = \\frac{|\\mu_L - \\mu_T|}{\\sigma_T}, \\]\ndonde \\(\\mu_L\\) es la media dentro del gold standard, y \\(\\mu_T\\) y \\(\\sigma_T\\) la media y la desviación estándar en una banda de sustancia blanca vecina a la lesión.\nDiscuta cuál de las tres transformaciones deja las intensidades de ambos pacientes en una escala común y por qué la ecualización global no es, por sí sola, un método de normalización."
+    "section": "",
+    "text": "Cuantifique el efecto de cada transformación mediante el contraste entre lesión y tejido circundante, \\[ C = \\frac{|\\mu_L - \\mu_T|}{\\sigma_T}, \\] donde \\(\\mu_L\\) es la media dentro del gold standard, y \\(\\mu_T\\) y \\(\\sigma_T\\) la media y la desviación estándar en una banda de sustancia blanca vecina a la lesión.\nDiscuta cuál de las tres transformaciones deja las intensidades de ambos pacientes en una escala común y por qué la ecualización global no es, por sí sola, un método de normalización."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-5",
-    "href": "bme423/evals/lab2.html#actividades-5",
+    "objectID": "bme423/evals/lab2.html#section-5",
+    "href": "bme423/evals/lab2.html#section-5",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "3. Actividades",
-    "text": "3. Actividades\n\nImplemente el esquema explícito de Perona y Malik en 2D, sin librerías, con las dos funciones de difusión vistas en clases,\n\\[ c_1(\\|\\nabla I\\|) = e^{-(\\|\\nabla I\\|/\\kappa)^2}, \\qquad c_2(\\|\\nabla I\\|) = \\frac{1}{1+(\\|\\nabla I\\|/\\kappa)^2}. \\]\nVerifique empíricamente la condición de estabilidad del esquema explícito. Muestre qué ocurre con \\(\\Delta t\\) por sobre el límite."
+    "section": "",
+    "text": "Implemente el esquema explícito de Perona y Malik en 2D, sin librerías, con las dos funciones de difusión vistas en clases,\n\\[ c_1(\\|\\nabla I\\|) = e^{-(\\|\\nabla I\\|/\\kappa)^2}, \\qquad c_2(\\|\\nabla I\\|) = \\frac{1}{1+(\\|\\nabla I\\|/\\kappa)^2}. \\]\nVerifique empíricamente la condición de estabilidad del esquema explícito. Muestre qué ocurre con \\(\\Delta t\\) por sobre el límite."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-6",
-    "href": "bme423/evals/lab2.html#actividades-6",
+    "objectID": "bme423/evals/lab2.html#section-6",
+    "href": "bme423/evals/lab2.html#section-6",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "3. Actividades",
-    "text": "3. Actividades\n\nFije \\(\\kappa\\) a partir de la distribución de \\(\\|\\nabla I\\|\\) dentro de la máscara, por ejemplo mediante un percentil alto, y justifique la elección. Compare con al menos otros dos valores de \\(\\kappa\\).\nContraste el resultado con un suavizado gaussiano de potencia equivalente. Evalúe la preservación del borde lesional mediante el contraste \\(C\\) de la actividad 6 y mediante el perfil de intensidad a lo largo de una recta que atraviese una lesión.\nExplique, a partir del signo del coeficiente de difusión efectivo, por qué un \\(\\kappa\\) pequeño puede realzar el borde en lugar de suavizarlo."
+    "section": "",
+    "text": "Fije \\(\\kappa\\) a partir de la distribución de \\(\\|\\nabla I\\|\\) dentro de la máscara, por ejemplo mediante un percentil alto, y justifique la elección. Compare con al menos otros dos valores de \\(\\kappa\\).\nContraste el resultado con un suavizado gaussiano de potencia equivalente. Evalúe la preservación del borde lesional mediante el contraste \\(C\\) de la actividad 6 y mediante el perfil de intensidad a lo largo de una recta que atraviese una lesión.\nExplique, a partir del signo del coeficiente de difusión efectivo, por qué un \\(\\kappa\\) pequeño puede realzar el borde en lugar de suavizarlo."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-7",
-    "href": "bme423/evals/lab2.html#actividades-7",
+    "objectID": "bme423/evals/lab2.html#section-7",
+    "href": "bme423/evals/lab2.html#section-7",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "4. Actividades",
-    "text": "4. Actividades\n\nImplemente el algoritmo iterativo de umbral global y el método de Otsu, ambos sin librerías, y aplíquelos al corte FLAIR.\nAplique ambos métodos sobre la imagen original, sobre la imagen normalizada de la actividad 4 y sobre la imagen difundida de la actividad 8. Reporte el umbral obtenido en cada caso."
+    "section": "",
+    "text": "Implemente el algoritmo iterativo de umbral global y el método de Otsu, ambos sin librerías, y aplíquelos al corte FLAIR.\nAplique ambos métodos sobre la imagen original, sobre la imagen normalizada de la actividad 4 y sobre la imagen difundida de la actividad 8. Reporte el umbral obtenido en cada caso."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-8",
-    "href": "bme423/evals/lab2.html#actividades-8",
+    "objectID": "bme423/evals/lab2.html#section-8",
+    "href": "bme423/evals/lab2.html#section-8",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "4. Actividades",
-    "text": "4. Actividades\n\nCompare las segmentaciones con el gold standard mediante los coeficientes de Dice y de Jaccard, y mediante sensibilidad y valor predictivo positivo.\nLa lesión ocupa una fracción muy pequeña del corte, por lo que el histograma está dominado por el tejido sano. Explique el efecto de esta desproporción sobre el criterio de separabilidad de Otsu y proponga una corrección, restringiendo el análisis a una región de interés o subdividiendo la imagen."
+    "section": "",
+    "text": "Compare las segmentaciones con el gold standard mediante los coeficientes de Dice y de Jaccard, y mediante sensibilidad y valor predictivo positivo.\nLa lesión ocupa una fracción muy pequeña del corte, por lo que el histograma está dominado por el tejido sano. Explique el efecto de esta desproporción sobre el criterio de separabilidad de Otsu y proponga una corrección, restringiendo el análisis a una región de interés o subdividiendo la imagen."
   },
   {
-    "objectID": "bme423/evals/lab2.html#actividades-9",
-    "href": "bme423/evals/lab2.html#actividades-9",
+    "objectID": "bme423/evals/lab2.html#section-9",
+    "href": "bme423/evals/lab2.html#section-9",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "4. Actividades",
-    "text": "4. Actividades\n\nImplemente umbralización adaptativa por bloques y analice el efecto del tamaño de bloque. Relacione el resultado con la inhomogeneidad de campo propia de la resonancia.\nCalcule la magnitud del gradiente con un operador de Sobel sobre la imagen difundida y superponga el borde detectado al contorno del gold standard. Comente la correspondencia."
+    "section": "",
+    "text": "Implemente umbralización adaptativa por bloques y analice el efecto del tamaño de bloque. Relacione el resultado con la inhomogeneidad de campo propia de la resonancia.\nCalcule la magnitud del gradiente con un operador de Sobel sobre la imagen difundida y superponga el borde detectado al contorno del gold standard. Comente la correspondencia."
   },
   {
-    "objectID": "bme423/evals/lab2.html#síntesis",
-    "href": "bme423/evals/lab2.html#síntesis",
+    "objectID": "bme423/evals/lab2.html#section-10",
+    "href": "bme423/evals/lab2.html#section-10",
     "title": "Realce, difusión y umbralización en esclerosis múltiple",
-    "section": "4. Síntesis",
-    "text": "4. Síntesis\n\nCon las piezas anteriores, defina tres pipelines que combinen normalización, difusión y umbralización, y evalúelos en los dos pacientes.\n\nPresente los resultados en una tabla con Dice, Jaccard y los parámetros empleados.\nIndique qué pipeline recomienda y qué parte de la ganancia proviene de cada etapa.\nDiscuta si la elección se mantiene al cambiar de paciente."
+    "section": "",
+    "text": "Con las piezas anteriores, defina tres pipelines que combinen normalización, difusión y umbralización, y evalúelos en los dos pacientes.\n\nPresente los resultados en una tabla con Dice, Jaccard y los parámetros empleados.\nIndique qué pipeline recomienda y qué parte de la ganancia proviene de cada etapa.\nDiscuta si la elección se mantiene al cambiar de paciente."
   },
   {
     "objectID": "bme423/evals/lab2.html#entrega",

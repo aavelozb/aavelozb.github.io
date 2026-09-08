@@ -1067,12 +1067,12 @@ Dr. Alejandro Veloz
 <h1>2. Normalización de intensidades y realce</h1>
 
 </section>
-<section id="motivación" class="slide level2">
-<h2>2. Motivación</h2>
+<section id="section" class="slide level2">
+<h2></h2>
 <p>La resonancia magnética no entrega una unidad física absoluta, a diferencia de las unidades Hounsfield del CT. Dos pacientes adquiridos con la misma secuencia presentan histogramas desplazados y con distinta escala, de modo que un mismo umbral no significa lo mismo en ambos.</p>
 </section>
-<section id="actividades-1" class="slide level2">
-<h2>2. Actividades</h2>
+<section id="section-1" class="slide level2">
+<h2></h2>
 <ol start="4" type="1">
 <li><p>Grafique los histogramas de ambos pacientes dentro de la máscara, junto con sus funciones de distribución acumulada, e implemente sobre ellos la <strong>ecualización</strong> y la <strong>especificación de histograma</strong>, sin usar librerías de procesamiento de imágenes.</p>
 <ul>
@@ -1080,8 +1080,8 @@ Dr. Alejandro Veloz
 </ul></li>
 </ol>
 </section>
-<section id="actividades-2" class="slide level2">
-<h2>2. Actividades</h2>
+<section id="section-2" class="slide level2">
+<h2></h2>
 <ol start="4" type="1">
 <li><p><em>(continuación)</em></p>
 <ul>
@@ -1090,8 +1090,8 @@ Dr. Alejandro Veloz
 </ul></li>
 </ol>
 </section>
-<section id="actividades-3" class="slide level2">
-<h2>2. Actividades</h2>
+<section id="section-3" class="slide level2">
+<h2></h2>
 <ol start="5" type="1">
 <li><p>Aplique una ecualización <strong>local</strong> con límite de contraste (CLAHE), esta vez con librería, y <strong>explique la técnica</strong>.</p>
 <ul>
@@ -1101,12 +1101,10 @@ Dr. Alejandro Veloz
 </ul></li>
 </ol>
 </section>
-<section id="actividades-4" class="slide level2">
-<h2>2. Actividades</h2>
+<section id="section-4" class="slide level2">
+<h2></h2>
 <ol start="6" type="1">
-<li><p>Cuantifique el efecto de cada transformación mediante el contraste entre lesión y tejido circundante,</p>
-<p><span class="math display">\[ C = \frac{|\mu_L - \mu_T|}{\sigma_T}, \]</span></p>
-<p>donde <span class="math inline">\(\mu_L\)</span> es la media dentro del <em>gold standard</em>, y <span class="math inline">\(\mu_T\)</span> y <span class="math inline">\(\sigma_T\)</span> la media y la desviación estándar en una banda de sustancia blanca vecina a la lesión.</p></li>
+<li><p>Cuantifique el efecto de cada transformación mediante el contraste entre lesión y tejido circundante, <span class="math display">\[ C = \frac{|\mu_L - \mu_T|}{\sigma_T}, \]</span> donde <span class="math inline">\(\mu_L\)</span> es la media dentro del <em>gold standard</em>, y <span class="math inline">\(\mu_T\)</span> y <span class="math inline">\(\sigma_T\)</span> la media y la desviación estándar en una banda de sustancia blanca vecina a la lesión.</p></li>
 <li><p>Discuta cuál de las tres transformaciones deja las intensidades de ambos pacientes en una escala común y por qué la ecualización global no es, por sí sola, un método de normalización.</p></li>
 </ol>
 </section></section>
@@ -1115,16 +1113,16 @@ Dr. Alejandro Veloz
 <h1>3. Difusión anisotrópica</h1>
 
 </section>
-<section id="actividades-5" class="slide level2">
-<h2>3. Actividades</h2>
+<section id="section-5" class="slide level2">
+<h2></h2>
 <ol start="8" type="1">
 <li><p>Implemente el esquema explícito de Perona y Malik en 2D, <strong>sin librerías</strong>, con las dos funciones de difusión vistas en clases,</p>
 <p><span class="math display">\[ c_1(\|\nabla I\|) = e^{-(\|\nabla I\|/\kappa)^2}, \qquad c_2(\|\nabla I\|) = \frac{1}{1+(\|\nabla I\|/\kappa)^2}. \]</span></p></li>
 <li><p>Verifique empíricamente la condición de estabilidad del esquema explícito. Muestre qué ocurre con <span class="math inline">\(\Delta t\)</span> por sobre el límite.</p></li>
 </ol>
 </section>
-<section id="actividades-6" class="slide level2">
-<h2>3. Actividades</h2>
+<section id="section-6" class="slide level2">
+<h2></h2>
 <ol start="10" type="1">
 <li><p>Fije <span class="math inline">\(\kappa\)</span> a partir de la distribución de <span class="math inline">\(\|\nabla I\|\)</span> dentro de la máscara, por ejemplo mediante un percentil alto, y justifique la elección. Compare con al menos otros dos valores de <span class="math inline">\(\kappa\)</span>.</p></li>
 <li><p>Contraste el resultado con un suavizado gaussiano de potencia equivalente. Evalúe la preservación del borde lesional mediante el contraste <span class="math inline">\(C\)</span> de la actividad 6 y mediante el perfil de intensidad a lo largo de una recta que atraviese una lesión.</p></li>
@@ -1136,29 +1134,29 @@ Dr. Alejandro Veloz
 <h1>4. Umbralización y detección de lesiones</h1>
 
 </section>
-<section id="actividades-7" class="slide level2">
-<h2>4. Actividades</h2>
+<section id="section-7" class="slide level2">
+<h2></h2>
 <ol start="13" type="1">
 <li><p>Implemente el <strong>algoritmo iterativo de umbral global</strong> y el <strong>método de Otsu</strong>, ambos sin librerías, y aplíquelos al corte FLAIR.</p></li>
 <li><p>Aplique ambos métodos sobre la imagen original, sobre la imagen normalizada de la actividad 4 y sobre la imagen difundida de la actividad 8. Reporte el umbral obtenido en cada caso.</p></li>
 </ol>
 </section>
-<section id="actividades-8" class="slide level2">
-<h2>4. Actividades</h2>
+<section id="section-8" class="slide level2">
+<h2></h2>
 <ol start="15" type="1">
 <li><p>Compare las segmentaciones con el <em>gold standard</em> mediante los coeficientes de Dice y de Jaccard, y mediante sensibilidad y valor predictivo positivo.</p></li>
 <li><p>La lesión ocupa una fracción muy pequeña del corte, por lo que el histograma está dominado por el tejido sano. Explique el efecto de esta desproporción sobre el criterio de separabilidad de Otsu y proponga una corrección, restringiendo el análisis a una región de interés o subdividiendo la imagen.</p></li>
 </ol>
 </section>
-<section id="actividades-9" class="slide level2">
-<h2>4. Actividades</h2>
+<section id="section-9" class="slide level2">
+<h2></h2>
 <ol start="17" type="1">
 <li><p>Implemente <strong>umbralización adaptativa</strong> por bloques y analice el efecto del tamaño de bloque. Relacione el resultado con la inhomogeneidad de campo propia de la resonancia.</p></li>
 <li><p>Calcule la magnitud del gradiente con un operador de Sobel sobre la imagen difundida y superponga el borde detectado al contorno del <em>gold standard</em>. Comente la correspondencia.</p></li>
 </ol>
 </section>
-<section id="síntesis" class="slide level2">
-<h2>4. Síntesis</h2>
+<section id="section-10" class="slide level2">
+<h2></h2>
 <ol start="19" type="1">
 <li><p>Con las piezas anteriores, defina <strong>tres <em>pipelines</em></strong> que combinen normalización, difusión y umbralización, y evalúelos en los dos pacientes.</p>
 <ul>
