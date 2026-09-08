@@ -442,7 +442,7 @@
   <meta name="generator" content="quarto-1.10.18">
 
   <meta name="author" content="Dr. Alejandro Veloz">
-  <title>Realce, difusión y umbralización en esclerosis múltiple</title>
+  <title>Mejora de imágenes y transformaciones geométricas</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -984,7 +984,7 @@ display: block;
 margin-left: auto;
 margin-right: 0; }
 </style>
-<meta property="og:title" content="Realce, difusión y umbralización en esclerosis múltiple">
+<meta property="og:title" content="Mejora de imágenes y transformaciones geométricas">
 <meta property="og:description" content="Laboratorio 2">
 </head>
 <body class="quarto-light">
@@ -992,7 +992,7 @@ margin-right: 0; }
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Realce, difusión y umbralización en esclerosis múltiple</h1>
+  <h1 class="title">Mejora de imágenes y transformaciones geométricas</h1>
   <p class="subtitle">Laboratorio 2</p>
 
 <div class="quarto-title-authors">
@@ -1012,31 +1012,16 @@ Dr. Alejandro Veloz
 </section>
 <section id="objetivos" class="slide level2">
 <h2>Objetivos</h2>
+<p>Los objetivos de esta actividad son los siguientes:</p>
 <ul>
-<li>Aplicar procesamiento de histogramas para hacer comparables las intensidades de resonancias de distintos pacientes.</li>
-<li>Implementar la difusión anisotrópica de Perona y Malik como etapa previa a la segmentación.</li>
-<li>Segmentar lesiones de esclerosis múltiple mediante umbralización global, óptima y adaptativa.</li>
-<li>Evaluar cuantitativamente cada decisión de diseño contra un <em>gold standard</em>.</li>
+<li>Diseñar, implementar y evaluar distintas opciones de mejora de la calidad de imágenes médicas mediante métricas cuantitativas.</li>
+<li>Seleccionar estrategias de procesamiento de imágenes producto del análisis de varios sujetos.</li>
+<li>Comprender transformaciones geométricas y registro de imágenes.</li>
 </ul>
 </section>
-<section id="actividades" class="slide level2">
-<h2>Actividades</h2>
-<ol type="1">
-<li><p>Datos y preparación</p></li>
-<li><p>Normalización de intensidades y realce</p></li>
-<li><p>Difusión anisotrópica</p></li>
-<li><p>Umbralización y detección de lesiones</p></li>
-<li><p>Instrucciones para la entrega</p></li>
-</ol>
-</section>
-<section>
-<section id="datos-y-preparación" class="title-slide slide level1 center">
-<h1>1. Datos y preparación</h1>
-
-</section>
 <section id="datos" class="slide level2">
-<h2>1. Datos</h2>
-<p>Se trabajará con datos de pacientes que sufren esclerosis múltiple, disponibles en <a href="https://github.com/muschellij2/open_ms_data/tree/master/cross_sectional/raw" data-preview-link="true">Open MS data</a>.</p>
+<h2>Datos</h2>
+<p>Se trabajará con datos de pacientes que sufren esclerosis múltiple: <a href="https://github.com/muschellij2/open_ms_data/tree/master/cross_sectional/raw">Open MS data</a></p>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
@@ -1054,137 +1039,40 @@ Dr. Alejandro Veloz
 </div>
 </div></div>
 </section>
-<section id="preparación" class="slide level2">
-<h2>1. Preparación</h2>
+<section id="actividad-1" class="slide level2">
+<h2>Actividad 1</h2>
+<p>Implementar y comparar el filtro de difusión anisotrópica en 2D y 3D y aplicarlo a uno de los pacientes (sin el uso de librerías).</p>
+</section>
+<section id="actividad-2" class="slide level2">
+<h2>Actividad 2</h2>
 <ol type="1">
-<li><p>Seleccione <strong>dos pacientes</strong> y cargue, para cada uno, el volumen FLAIR y la segmentación de referencia (<em>consensus gold standard</em>). Use <span class="math inline">\(\texttt{nibabel}\)</span>.</p></li>
-<li><p>Escoja un corte axial por paciente en el que la carga lesional sea visible y trabaje en 2D durante todo el laboratorio, salvo donde se indique lo contrario.</p></li>
-<li><p>Construya una máscara de encéfalo simple, por umbral sobre el fondo, y descarte el cráneo y el aire. Todas las estadísticas y todos los histogramas posteriores deben calcularse <strong>dentro de la máscara</strong>.</p></li>
+<li><p>Implemente las transformaciones geométricas vistas en clases para hacer el registro entre dos pacientes. Elija los mejores parámetros de las transformaciones usando una función de costos apropiada. <strong>Nota:</strong> no se permite el uso de librerías específicas de proc. de imágenes.</p></li>
+<li><p>Haga el registro mediante el uso de librerías. Explique.</p></li>
 </ol>
-</section></section>
-<section>
-<section id="normalización-de-intensidades-y-realce" class="title-slide slide level1 center">
-<h1>2. Normalización de intensidades y realce</h1>
-
 </section>
-<section id="motivación" class="slide level2">
-<h2>2. Motivación</h2>
-<p>La resonancia magnética no entrega una unidad física absoluta, a diferencia de las unidades Hounsfield del CT. Dos pacientes adquiridos con la misma secuencia presentan histogramas desplazados y con distinta escala, de modo que un mismo umbral no significa lo mismo en ambos.</p>
-</section>
-<section id="actividades-1" class="slide level2">
-<h2>2. Actividades</h2>
-<ol start="4" type="1">
-<li><p>Grafique los histogramas de ambos pacientes dentro de la máscara, junto con sus funciones de distribución acumulada, e implemente sobre ellos la <strong>ecualización</strong> y la <strong>especificación de histograma</strong>, sin usar librerías de procesamiento de imágenes.</p>
+<section id="actividad-3" class="slide level2">
+<h2>Actividad 3</h2>
 <ul>
-<li>Escriba la transformación <span class="math inline">\(s = T(r)\)</span> de cada método a partir de la distribución acumulada y grafíquela. Explique por qué la ecualización aproxima un histograma uniforme y por qué el resultado discreto no lo es.</li>
-</ul></li>
-</ol>
-</section>
-<section id="actividades-2" class="slide level2">
-<h2>2. Actividades</h2>
-<ol start="4" type="1">
-<li><p><em>(continuación)</em></p>
+<li><p>Diseñar e implementar tres <em>pipelines</em> combinando operaciones vistas en clases con el <strong>propósito de mejorar la calidad de las imágenes disponibles</strong>. Incluir en alguno FFT, difusión.</p></li>
+<li><p>Comparar <strong>cuantitativamente</strong> estos <em>pipelines</em>.</p>
 <ul>
-<li><p>Con la especificación, lleve el histograma del segundo paciente al del primero. Verifique el resultado superponiendo las tres distribuciones acumuladas, la de origen, la de destino y la obtenida, y cuantifique el ajuste con la distancia entre ellas.</p></li>
-<li><p>Reporte cómo cambian, en unidades de intensidad, la media de la sustancia blanca y la media de las lesiones de cada paciente antes y después de cada transformación. Indique cuál de las dos vuelve comparables ambos estudios.</p></li>
+<li>Se puede usar librerías, como <em>scikit-image</em>, <em>simpleITK</em>, etc., para la convolución, FFT 2D y difusión anisotrópica.</li>
+<li>Debe considerar la adecuada selección de parámetros de las diferentes técnicas de filtrado.</li>
+<li>Debe considerar las particularidades propias de la esclerosis múltiple.</li>
 </ul></li>
-</ol>
+</ul>
 </section>
-<section id="actividades-3" class="slide level2">
-<h2>2. Actividades</h2>
-<ol start="5" type="1">
-<li><p>Aplique una ecualización <strong>local</strong> con límite de contraste (CLAHE), esta vez con librería, y <strong>explique la técnica</strong>.</p>
-<ul>
-<li>Describa el procedimiento, la partición en bloques, la ecualización por bloque, el recorte del histograma con redistribución de la masa excedente y la interpolación bilineal entre bloques.</li>
-<li>Justifique el papel del límite de recorte sobre la amplificación del ruido, y el del tamaño de bloque.</li>
-<li>Muestre el efecto de variar ambos parámetros sobre las lesiones y sobre el ruido de fondo del encéfalo.</li>
-</ul></li>
-</ol>
-</section>
-<section id="actividades-4" class="slide level2">
-<h2>2. Actividades</h2>
-<ol start="6" type="1">
-<li><p>Cuantifique el efecto de cada transformación mediante el contraste entre lesión y tejido circundante,</p>
-<p><span class="math display">\[ C = \frac{|\mu_L - \mu_T|}{\sigma_T}, \]</span></p>
-<p>donde <span class="math inline">\(\mu_L\)</span> es la media dentro del <em>gold standard</em>, y <span class="math inline">\(\mu_T\)</span> y <span class="math inline">\(\sigma_T\)</span> la media y la desviación estándar en una banda de sustancia blanca vecina a la lesión.</p></li>
-<li><p>Discuta cuál de las tres transformaciones deja las intensidades de ambos pacientes en una escala común y por qué la ecualización global no es, por sí sola, un método de normalización.</p></li>
-</ol>
-</section></section>
-<section>
-<section id="difusión-anisotrópica" class="title-slide slide level1 center">
-<h1>3. Difusión anisotrópica</h1>
-
-</section>
-<section id="actividades-5" class="slide level2">
-<h2>3. Actividades</h2>
-<ol start="8" type="1">
-<li><p>Implemente el esquema explícito de Perona y Malik en 2D, <strong>sin librerías</strong>, con las dos funciones de difusión vistas en clases,</p>
-<p><span class="math display">\[ c_1(\|\nabla I\|) = e^{-(\|\nabla I\|/\kappa)^2}, \qquad c_2(\|\nabla I\|) = \frac{1}{1+(\|\nabla I\|/\kappa)^2}. \]</span></p></li>
-<li><p>Verifique empíricamente la condición de estabilidad del esquema explícito. Muestre qué ocurre con <span class="math inline">\(\Delta t\)</span> por sobre el límite.</p></li>
-</ol>
-</section>
-<section id="actividades-6" class="slide level2">
-<h2>3. Actividades</h2>
-<ol start="10" type="1">
-<li><p>Fije <span class="math inline">\(\kappa\)</span> a partir de la distribución de <span class="math inline">\(\|\nabla I\|\)</span> dentro de la máscara, por ejemplo mediante un percentil alto, y justifique la elección. Compare con al menos otros dos valores de <span class="math inline">\(\kappa\)</span>.</p></li>
-<li><p>Contraste el resultado con un suavizado gaussiano de potencia equivalente. Evalúe la preservación del borde lesional mediante el contraste <span class="math inline">\(C\)</span> de la actividad 6 y mediante el perfil de intensidad a lo largo de una recta que atraviese una lesión.</p></li>
-<li><p>Explique, a partir del signo del coeficiente de difusión efectivo, por qué un <span class="math inline">\(\kappa\)</span> pequeño puede realzar el borde en lugar de suavizarlo.</p></li>
-</ol>
-</section></section>
-<section>
-<section id="umbralización-y-detección-de-lesiones" class="title-slide slide level1 center">
-<h1>4. Umbralización y detección de lesiones</h1>
-
-</section>
-<section id="actividades-7" class="slide level2">
-<h2>4. Actividades</h2>
-<ol start="13" type="1">
-<li><p>Implemente el <strong>algoritmo iterativo de umbral global</strong> y el <strong>método de Otsu</strong>, ambos sin librerías, y aplíquelos al corte FLAIR.</p></li>
-<li><p>Aplique ambos métodos sobre la imagen original, sobre la imagen normalizada de la actividad 4 y sobre la imagen difundida de la actividad 8. Reporte el umbral obtenido en cada caso.</p></li>
-</ol>
-</section>
-<section id="actividades-8" class="slide level2">
-<h2>4. Actividades</h2>
-<ol start="15" type="1">
-<li><p>Compare las segmentaciones con el <em>gold standard</em> mediante los coeficientes de Dice y de Jaccard, y mediante sensibilidad y valor predictivo positivo.</p></li>
-<li><p>La lesión ocupa una fracción muy pequeña del corte, por lo que el histograma está dominado por el tejido sano. Explique el efecto de esta desproporción sobre el criterio de separabilidad de Otsu y proponga una corrección, restringiendo el análisis a una región de interés o subdividiendo la imagen.</p></li>
-</ol>
-</section>
-<section id="actividades-9" class="slide level2">
-<h2>4. Actividades</h2>
-<ol start="17" type="1">
-<li><p>Implemente <strong>umbralización adaptativa</strong> por bloques y analice el efecto del tamaño de bloque. Relacione el resultado con la inhomogeneidad de campo propia de la resonancia.</p></li>
-<li><p>Calcule la magnitud del gradiente con un operador de Sobel sobre la imagen difundida y superponga el borde detectado al contorno del <em>gold standard</em>. Comente la correspondencia.</p></li>
-</ol>
-</section>
-<section id="síntesis" class="slide level2">
-<h2>4. Síntesis</h2>
-<ol start="19" type="1">
-<li><p>Con las piezas anteriores, defina <strong>tres <em>pipelines</em></strong> que combinen normalización, difusión y umbralización, y evalúelos en los dos pacientes.</p>
-<ul>
-<li>Presente los resultados en una tabla con Dice, Jaccard y los parámetros empleados.</li>
-<li>Indique qué <em>pipeline</em> recomienda y qué parte de la ganancia proviene de cada etapa.</li>
-<li>Discuta si la elección se mantiene al cambiar de paciente.</li>
-</ul></li>
-</ol>
-</section></section>
-<section>
-<section id="instrucciones-para-la-entrega" class="title-slide slide level1 center">
-<h1>5. Instrucciones para la entrega</h1>
-
-</section>
-<section id="entrega" class="slide level2">
-<h2>Entrega</h2>
+<section id="instrucciones-para-la-entrega" class="slide level2">
+<h2>Instrucciones para la entrega</h2>
 <ul>
 <li><p><em>apellido_nombre_l2.ipynb</em> y <em>apellido_nombre_l2.pdf</em></p></li>
 <li><p>Medio: Aula virtual</p></li>
-<li><p>Las versiones <span class="math inline">\(\texttt{.pdf}\)</span> corresponden a los archivos <span class="math inline">\(\texttt{.ipynb}\)</span> con las salidas de las celdas visibles.</p></li>
-<li><p>Cada actividad que solicite una explicación debe incluir el análisis en una celda de texto, junto a las figuras y tablas que lo respalden.</p></li>
+<li><p>Las versiones <em>.pdf</em> en las entregas corresponden a los archivos <em>.ipynb</em> con las salidas de las celdas visibles.</p></li>
 <li><p>No respetar las instrucciones significará un descuento de 10 pts.</p></li>
 </ul>
 
 
-</section></section>
+</section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
