@@ -1,0 +1,1303 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Alejandro Veloz">
+
+<title>Visualización de datos y preprocesamiento</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1dc1b4f9dff3763bf9510c4588684ca3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-622f28c2bbd02885262cc7b1dbb2a6ed.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-1dc1b4f9dff3763bf9510c4588684ca3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No se han encontrado resultados",
+    "search-matching-documents-text": "documentos encontrados",
+    "search-copy-link-title": "Copiar el enlace en la búsqueda",
+    "search-hide-matches-text": "Ocultar resultados adicionales",
+    "search-more-match-text": "resultado adicional en este documento",
+    "search-more-matches-text": "resultados adicionales en este documento",
+    "search-clear-button-title": "Borrar",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancelar",
+    "search-submit-button-title": "Enviar",
+    "search-label": "Buscar"
+  }
+}</script>
+<style>
+  .cv-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .cv-photo-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D9E3E4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .cv-info {
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    .cv-container { flex-direction: column-reverse; text-align: center; }
+  }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Visualización de datos y preprocesamiento">
+<meta property="og:description" content="Apunte de la clase 4 de INF396">
+<meta property="og:image" content="https://aavelozb.github.io/inf396/apuntes/clase-04-visualizacion-preprocesamiento_files/figure-html/cell-3-output-1.png">
+<meta property="og:image:height" content="791">
+<meta property="og:image:width" content="2553">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Visualización de datos y preprocesamiento</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Alternar barra lateral" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="#" class="sidebar-logo-link">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=eq254vUAAAAJ" title="Google Scholar" class="quarto-navigation-tool px-1" aria-label="Google Scholar"><i class="bi bi-mortarboard-fill"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Alternar modo oscuro"><i class="bi"></i></a>
+</div>
+      </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenido de la página</h2>
+   
+  <ul class="collapse">
+  <li><a href="#un-caso-para-empezar" id="toc-un-caso-para-empezar" class="nav-link active" data-scroll-target="#un-caso-para-empezar"><span class="header-section-number">1</span> Un caso para empezar</a></li>
+  <li><a href="#visualización-de-datos" id="toc-visualización-de-datos" class="nav-link" data-scroll-target="#visualización-de-datos"><span class="header-section-number">2</span> Visualización de datos</a>
+  <ul class="collapse">
+  <li><a href="#gramática-de-gráficos" id="toc-gramática-de-gráficos" class="nav-link" data-scroll-target="#gramática-de-gráficos"><span class="header-section-number">2.1</span> Gramática de gráficos</a></li>
+  <li><a href="#jerarquía-de-precisión-perceptual" id="toc-jerarquía-de-precisión-perceptual" class="nav-link" data-scroll-target="#jerarquía-de-precisión-perceptual"><span class="header-section-number">2.2</span> Jerarquía de precisión perceptual</a></li>
+  <li><a href="#escalas-lineal-y-logarítmica" id="toc-escalas-lineal-y-logarítmica" class="nav-link" data-scroll-target="#escalas-lineal-y-logarítmica"><span class="header-section-number">2.3</span> Escalas lineal y logarítmica</a></li>
+  <li><a href="#color" id="toc-color" class="nav-link" data-scroll-target="#color"><span class="header-section-number">2.4</span> Color</a></li>
+  <li><a href="#datos-multivariados" id="toc-datos-multivariados" class="nav-link" data-scroll-target="#datos-multivariados"><span class="header-section-number">2.5</span> Datos multivariados</a></li>
+  <li><a href="#proyecciones-no-lineales" id="toc-proyecciones-no-lineales" class="nav-link" data-scroll-target="#proyecciones-no-lineales"><span class="header-section-number">2.6</span> Proyecciones no lineales</a></li>
+  <li><a href="#datos-dependientes" id="toc-datos-dependientes" class="nav-link" data-scroll-target="#datos-dependientes"><span class="header-section-number">2.7</span> Datos dependientes</a></li>
+  </ul></li>
+  <li><a href="#preprocesamiento" id="toc-preprocesamiento" class="nav-link" data-scroll-target="#preprocesamiento"><span class="header-section-number">3</span> Preprocesamiento</a>
+  <ul class="collapse">
+  <li><a href="#el-flujo-y-la-fuga-de-información" id="toc-el-flujo-y-la-fuga-de-información" class="nav-link" data-scroll-target="#el-flujo-y-la-fuga-de-información"><span class="header-section-number">3.1</span> El flujo y la fuga de información</a></li>
+  <li><a href="#depuración" id="toc-depuración" class="nav-link" data-scroll-target="#depuración"><span class="header-section-number">3.2</span> Depuración</a></li>
+  <li><a href="#integración" id="toc-integración" class="nav-link" data-scroll-target="#integración"><span class="header-section-number">3.3</span> Integración</a></li>
+  <li><a href="#imputación" id="toc-imputación" class="nav-link" data-scroll-target="#imputación"><span class="header-section-number">3.4</span> Imputación</a></li>
+  <li><a href="#reducción-de-datos" id="toc-reducción-de-datos" class="nav-link" data-scroll-target="#reducción-de-datos"><span class="header-section-number">3.5</span> Reducción de datos</a></li>
+  <li><a href="#regresión-lineal-y-penalización" id="toc-regresión-lineal-y-penalización" class="nav-link" data-scroll-target="#regresión-lineal-y-penalización"><span class="header-section-number">3.6</span> Regresión lineal y penalización</a></li>
+  <li><a href="#transformaciones-de-escala" id="toc-transformaciones-de-escala" class="nav-link" data-scroll-target="#transformaciones-de-escala"><span class="header-section-number">3.7</span> Transformaciones de escala</a></li>
+  <li><a href="#extracción-y-selección-de-características" id="toc-extracción-y-selección-de-características" class="nav-link" data-scroll-target="#extracción-y-selección-de-características"><span class="header-section-number">3.8</span> Extracción y selección de características</a></li>
+  <li><a href="#análisis-de-componentes-principales" id="toc-análisis-de-componentes-principales" class="nav-link" data-scroll-target="#análisis-de-componentes-principales"><span class="header-section-number">3.9</span> Análisis de componentes principales</a></li>
+  <li><a href="#proyecciones-aleatorias-y-la-maldición-de-la-dimensión" id="toc-proyecciones-aleatorias-y-la-maldición-de-la-dimensión" class="nav-link" data-scroll-target="#proyecciones-aleatorias-y-la-maldición-de-la-dimensión"><span class="header-section-number">3.10</span> Proyecciones aleatorias y la maldición de la dimensión</a></li>
+  <li><a href="#umap-y-la-reducción-no-lineal" id="toc-umap-y-la-reducción-no-lineal" class="nav-link" data-scroll-target="#umap-y-la-reducción-no-lineal"><span class="header-section-number">3.11</span> UMAP y la reducción no lineal</a></li>
+  <li><a href="#efectos-lineales-y-no-lineales" id="toc-efectos-lineales-y-no-lineales" class="nav-link" data-scroll-target="#efectos-lineales-y-no-lineales"><span class="header-section-number">3.12</span> Efectos lineales y no lineales</a></li>
+  </ul></li>
+  <li><a href="#errores-frecuentes" id="toc-errores-frecuentes" class="nav-link" data-scroll-target="#errores-frecuentes"><span class="header-section-number">4</span> Errores frecuentes</a></li>
+  <li><a href="#el-caso-inicial-con-los-criterios-de-la-clase" id="toc-el-caso-inicial-con-los-criterios-de-la-clase" class="nav-link" data-scroll-target="#el-caso-inicial-con-los-criterios-de-la-clase"><span class="header-section-number">5</span> El caso inicial, con los criterios de la clase</a></li>
+  <li><a href="#referencias" id="toc-referencias" class="nav-link" data-scroll-target="#referencias"><span class="header-section-number">6</span> Referencias</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Visualización de datos y preprocesamiento</h1>
+<p class="subtitle lead">Apunte de la clase 4 de INF396</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Autor/a</div>
+    <div class="quarto-title-meta-contents">
+             <p>Alejandro Veloz </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Este apunte reemplaza la parte de la clase 4 que no alcanzó a dictarse y sirve de lectura de estudio para toda la unidad. Cubre el tercer y cuarto punto del temario, visualización de datos y preprocesamiento. Las diapositivas están en <a href="../slides/04-visualizacion-preprocesamiento.pdf">este enlace</a> y el apunte sigue su mismo orden, de modo que se pueden leer en paralelo. Las figuras se generan con el código que acompaña a cada sección, que se puede desplegar.</p>
+<p>Dos reglas organizan la clase. La variable que porta la conclusión principal de un gráfico se asigna al canal perceptual más preciso. Y todo paso de preprocesamiento que estima un parámetro a partir de los datos pertenece al modelo y se ajusta únicamente con los datos de entrenamiento.</p>
+<section id="un-caso-para-empezar" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Un caso para empezar</h1>
+<p>El 28 de enero de 1986 el transbordador Challenger se lanzó a <span class="math inline">\(-0{,}6\,^\circ\)</span>C. La noche anterior se discutió si la temperatura comprometía los sellos de los cohetes aceleradores. La evidencia considerada fueron los siete vuelos anteriores que habían presentado incidentes en los sellos, y sobre esos siete puntos no se aprecia relación entre temperatura y daño.</p>
+<div id="444807c8" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-3-output-1.png" width="1276" height="395" class="figure-img"></p>
+<figcaption>Izquierda, los siete vuelos con incidentes, que fueron los que se analizaron antes del lanzamiento. Derecha, los veintitrés vuelos, con una regresión logística ajustada sobre todos ellos.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Los dieciséis vuelos sin incidentes ocurrieron todos con temperaturas altas y son los que establecen el contraste. Al excluirlos, la asociación deja de ser visible. Filtrar las filas es una decisión de preparación de datos, y determina qué puede observar el análisis. Además, la temperatura pronosticada quedaba fuera del rango de toda la experiencia previa, cuyo mínimo fue <span class="math inline">\(11{,}7\,^\circ\)</span>C, condición bajo la cual ningún modelo ajustado sobre esos datos tiene soporte. El caso se retoma al final.</p>
+</section>
+<section id="visualización-de-datos" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Visualización de datos</h1>
+<section id="gramática-de-gráficos" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="gramática-de-gráficos"><span class="header-section-number">2.1</span> Gramática de gráficos</h2>
+<p>Un gráfico queda especificado por una composición de capas independientes: los datos (una tabla ordenada, cuya fila es la unidad de análisis), la estética (qué variable se asigna a qué canal, sea <span class="math inline">\(x\)</span>, <span class="math inline">\(y\)</span>, color, tamaño, forma o transparencia), la geometría (qué marca representa una fila, sea punto, línea, barra o área), la escala (lineal, logarítmica, discreta, temporal), el sistema de coordenadas y el facetado en paneles. Separar estas decisiones permite cambiar una sin tocar las otras.</p>
+<p>La estética es una función <span class="math inline">\(a_k : \mathcal{X}_j \to \mathcal{C}_k\)</span> que asigna la variable <span class="math inline">\(j\)</span> al canal <span class="math inline">\(k\)</span>, y debe preservar la estructura de la escala de medida de la variable. Una variable nominal asignada a un canal ordenado, como la posición o la intensidad de color, induce un orden que los datos no contienen. Una variable continua asignada a un canal nominal, como la forma, descarta la información métrica.</p>
+</section>
+<section id="jerarquía-de-precisión-perceptual" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="jerarquía-de-precisión-perceptual"><span class="header-section-number">2.2</span> Jerarquía de precisión perceptual</h2>
+<p>Cleveland y McGill (1984) midieron el error con que un observador estima magnitudes según el canal empleado. El orden, de mayor a menor precisión, es posición sobre un eje común, posición sobre ejes no alineados, longitud, ángulo y pendiente, área, volumen y saturación del color.</p>
+<div id="ac823026" class="cell" data-execution_count="3">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-4-output-1.png" width="1267" height="344" class="figure-img"></p>
+<figcaption>Las mismas cinco magnitudes, que suman cien, codificadas en ángulo, área y posición común. Ordenarlas resulta inmediato sólo en el tercer panel.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La diferencia entre A y C, de 2,5 puntos, se lee directamente sobre el eje común y es casi invisible en los otros dos paneles. En el panel del área la superficie sí es proporcional al valor, pero el lector juzga el radio, que crece como la raíz cuadrada, y por eso percibe diferencias menores que las reales. La consecuencia práctica es que la variable que porta la conclusión debe ir al canal de posición común, y el color, el área y el ángulo quedan para variables secundarias.</p>
+</section>
+<section id="escalas-lineal-y-logarítmica" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="escalas-lineal-y-logarítmica"><span class="header-section-number">2.3</span> Escalas lineal y logarítmica</h2>
+<p>La escala logarítmica corresponde a <span class="math inline">\(x \mapsto \log x\)</span> y convierte razones en diferencias. Es la escala correcta cuando el mecanismo es multiplicativo, como un crecimiento a tasa constante, o cuando el rango abarca varios órdenes de magnitud. En escala logarítmica la pendiente es la tasa de crecimiento relativo y distancias verticales iguales representan razones iguales. El eje debe rotularse con los valores originales, no con sus logaritmos.</p>
+<div id="d2369221" class="cell" data-execution_count="4">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-5-output-1.png" width="1341" height="316" class="figure-img"></p>
+<figcaption>Un crecimiento exponencial y uno lineal en escala lineal y logarítmica, y una distribución cuyo rango cubre cuatro órdenes de magnitud.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="color" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="color"><span class="header-section-number">2.4</span> Color</h2>
+<p>La paleta se elige según la escala del dato. Una variable continua sin cero de referencia usa una paleta secuencial, con luminancia monótona. Una variable continua con cero significativo, como un estadístico con signo, usa una paleta divergente, simétrica respecto del punto neutro. Una variable nominal usa una paleta cualitativa, con tonos distinguibles y sin orden de luminancia.</p>
+<div id="c1a449c9" class="cell" data-execution_count="5">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-6-output-1.png" width="1012" height="291" class="figure-img"></p>
+<figcaption>Cinco paletas. La paleta jet no tiene luminancia monótona y produce bordes que el dato no contiene.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Cerca del 4 % de la población presenta alguna deficiencia en la percepción del rojo y el verde, de modo que una codificación que dependa de ese contraste resulta inaccesible para parte de la audiencia. La verificación práctica consiste en convertir la figura a escala de grises y comprobar que sigue siendo legible. En un mapa estadístico con signo, como un mapa de estadísticos <span class="math inline">\(t\)</span>, los límites de la paleta divergente deben ser simétricos, porque si el máximo y el mínimo se fijan a los valores observados el tono neutro deja de coincidir con el cero.</p>
+</section>
+<section id="datos-multivariados" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="datos-multivariados"><span class="header-section-number">2.5</span> Datos multivariados</h2>
+<p>Con <span class="math inline">\(p\)</span> variables y sólo dos canales espaciales, toda visualización de datos multivariados adopta una de cuatro estrategias: mostrar todos los pares (matriz de dispersión, mapa de calor, con <span class="math inline">\(O(p^2)\)</span> paneles), añadir canales no espaciales (color, tamaño, forma, faceta, que saturan pasadas cuatro o cinco variables), proyectar a dimensión baja (PCA, MDS, <span class="math inline">\(t\)</span>-SNE, UMAP, con pérdida controlada o no) o redefinir los ejes (coordenadas paralelas, que dependen del orden de los ejes). Ninguna domina a las otras.</p>
+<div id="2ce24832" class="cell" data-execution_count="6">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-7-output-1.png" width="1339" height="524" class="figure-img"></p>
+<figcaption>Matriz de dispersión y coordenadas paralelas de los datos iris. La matriz muestra las seis proyecciones bivariadas; las coordenadas paralelas muestran las cuatro variables a la vez pero sólo las relaciones entre ejes adyacentes.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>El mapa de calor de una matriz de correlación depende del orden de filas y columnas. Reordenar por agrupamiento jerárquico revela la estructura de bloques que el orden original oculta. El orden es una decisión de visualización y no un dato.</p>
+<div id="296d8114" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-8-output-1.png" width="829" height="349" class="figure-img"></p>
+<figcaption>La misma matriz de correlación con las columnas en orden arbitrario y reordenadas por agrupamiento jerárquico.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La proyección lineal de referencia es el biplot de componentes principales. La flecha de la variable <span class="math inline">\(k\)</span> tiene coordenadas <span class="math inline">\(v_{kj}\sqrt{\lambda_j}\)</span>, que sobre datos estandarizados son la correlación entre esa variable y la componente <span class="math inline">\(j\)</span>. El ángulo entre dos flechas aproxima la correlación entre las variables y su longitud, la varianza representada en el plano. La lectura es válida sólo si las dos primeras componentes explican una fracción alta de la varianza. La construcción de PCA se desarrolla en la segunda parte.</p>
+<div id="b241f66d" class="cell" data-execution_count="8">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-9-output-1.png" width="1213" height="368" class="figure-img"></p>
+<figcaption>Biplot de componentes principales de iris y varianza explicada por componente.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="proyecciones-no-lineales" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="proyecciones-no-lineales"><span class="header-section-number">2.6</span> Proyecciones no lineales</h2>
+<p>Cuando los datos viven sobre una superficie curva, ninguna proyección lineal conserva la vecindad. Los métodos no lineales, como Isomap, <span class="math inline">\(t\)</span>-SNE y UMAP, construyen un grafo de vecindad en el espacio original y buscan una disposición en el plano que lo reproduzca.</p>
+<div id="8fe1a3d4" class="cell" data-execution_count="9">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-10-output-1.png" width="1409" height="370" class="figure-img"></p>
+<figcaption>Datos sobre un manifold bidimensional enrollado en tres dimensiones. El color codifica la posición a lo largo del manifold. Sólo Isomap y t-SNE recuperan el orden intrínseco.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>En una proyección no lineal la disposición del plano no corresponde a ninguna combinación de las variables originales, de modo que no toda lectura es legítima. Admiten lectura qué puntos quedaron juntos, la existencia de grupos separados si se confirma en el espacio original y la continuidad de una trayectoria dentro de una nube. No admiten lectura la distancia entre dos grupos alejados, el tamaño y la densidad aparente de cada nube, el significado de los ejes ni el número de grupos, que depende de los parámetros. La justificación de esta tabla se da al construir UMAP en la segunda parte.</p>
+</section>
+<section id="datos-dependientes" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="datos-dependientes"><span class="header-section-number">2.7</span> Datos dependientes</h2>
+<p>En una serie de tiempo la autocorrelación <span class="math inline">\(\rho(h) = \gamma(h)/\gamma(0)\)</span> mide la asociación entre <span class="math inline">\(y_t\)</span> e <span class="math inline">\(y_{t+h}\)</span> sin descontar los rezagos intermedios. La autocorrelación parcial descuenta esos rezagos y por eso identifica el orden de un proceso autorregresivo. La estacionalidad aparece como picos en múltiplos del período. La descomposición STL estima tendencia y estacionalidad con regresión local iterada, y el gráfico de subseries por mes expone la forma estacional que el gráfico de la serie oculta.</p>
+<div id="0b6e511c" class="cell" data-execution_count="10">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-11-output-1.png" width="1408" height="629" class="figure-img"></p>
+<figcaption>Una serie con tendencia, estacionalidad de período 12 y componente autorregresiva, su ACF y PACF, y su descomposición STL.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Las otras estructuras de dependencia comparten un mismo riesgo, que las observaciones no son independientes y el análisis que las trata como tales sobreestima la información disponible. En datos temporales, una partición aleatoria en entrenamiento y validación es inválida y hay que particionar por bloques de tiempo. En datos espaciales, el resultado depende de la partición administrativa elegida (problema de la unidad de área modificable). En datos jerárquicos, con grupos de tamaño <span class="math inline">\(m\)</span> y correlación intraclase <span class="math inline">\(\rho_I\)</span>, el tamaño muestral efectivo es <span class="math inline">\(n_{\text{ef}} = n/(1 + (m-1)\rho_I)\)</span>. Con <span class="math inline">\(m = 10\)</span> y <span class="math inline">\(\rho_I = 0{,}3\)</span>, mil observaciones equivalen a doscientas setenta independientes. Esta fórmula reaparece en la unidad de inferencia como efecto de diseño.</p>
+</section>
+</section>
+<section id="preprocesamiento" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Preprocesamiento</h1>
+<section id="el-flujo-y-la-fuga-de-información" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="el-flujo-y-la-fuga-de-información"><span class="header-section-number">3.1</span> El flujo y la fuga de información</h2>
+<p>Todo paso que estima un parámetro a partir de los datos es parte del modelo. La estandarización estima <span class="math inline">\(\hat\mu\)</span> y <span class="math inline">\(\hat\sigma\)</span>; la imputación por mediana estima un cuantil; la codificación por objetivo estima <span class="math inline">\(\mathbb{E}[Y \mid c_k]\)</span>; la selección de variables estima un subconjunto; PCA estima una base; la discretización estima puntos de corte. Si cualquiera de estos parámetros se estima con la muestra completa antes de particionar, la estimación del error de generalización queda sesgada hacia abajo. El fenómeno se denomina fuga de información.</p>
+<div id="d0fb2fe5" class="cell" data-execution_count="11">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-12-output-1.png" width="1010" height="290" class="figure-img"></p>
+<figcaption>Etiquetas independientes de las 3000 variables por construcción. Seleccionar las veinte variables más asociadas antes de particionar produce una exactitud estimada muy superior a la real, que es 0,5.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La herramienta que garantiza la regla es el <code>Pipeline</code> de scikit-learn, donde <code>fit</code> se ejecuta sólo sobre el pliegue de entrenamiento y <code>transform</code> se aplica al de validación con los parámetros ya estimados.</p>
+<div id="bda052f7" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> Pipeline([(<span class="st">"imp"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"median"</span>, add_indicator<span class="op">=</span><span class="va">True</span>)),</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"esc"</span>, StandardScaler())])</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>cat <span class="op">=</span> Pipeline([(<span class="st">"imp"</span>, SimpleImputer(strategy<span class="op">=</span><span class="st">"most_frequent"</span>)),</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                (<span class="st">"cod"</span>, OneHotEncoder(handle_unknown<span class="op">=</span><span class="st">"infrequent_if_exist"</span>, min_frequency<span class="op">=</span><span class="fl">0.01</span>))])</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>prep <span class="op">=</span> ColumnTransformer([(<span class="st">"num"</span>, num, cols_num), (<span class="st">"cat"</span>, cat, cols_cat)], remainder<span class="op">=</span><span class="st">"drop"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> Pipeline([(<span class="st">"prep"</span>, prep), (<span class="st">"clf"</span>, LogisticRegression(max_iter<span class="op">=</span><span class="dv">2000</span>))])</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="depuración" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="depuración"><span class="header-section-number">3.2</span> Depuración</h2>
+<p>Los problemas habituales y su tratamiento son los siguientes. Los duplicados exactos se detectan por clave repetida y se eliminan dejando registro del número. Los duplicados aproximados requieren similitud de cadenas y resolución de entidades. Las violaciones de dominio (rango, catálogo, expresión regular) se marcan como faltantes. Las inconsistencias entre columnas se detectan con reglas lógicas declaradas y marcan el registro completo. Los códigos centinela, como <span class="math inline">\(-99\)</span> o <span class="math inline">\(9999\)</span>, se convierten a nulo. Las fechas imposibles se detectan por orden temporal. Las unidades mezcladas aparecen como multimodalidad en la marginal.</p>
+<p>Toda corrección es una operación registrada sobre los datos originales, nunca una edición manual del archivo, de modo que el conjunto depurado sea función determinista del conjunto crudo. La forma más limpia es declarar las reglas una vez y producir dos salidas, el informe de violaciones y el conjunto depurado.</p>
+<div id="b3988f55" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> polars <span class="im">as</span> pl</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>REGLAS <span class="op">=</span> [</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    (pl.col(<span class="st">"edad"</span>).is_between(<span class="dv">0</span>, <span class="dv">120</span>),               <span class="st">"edad fuera de dominio"</span>),</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    (pl.col(<span class="st">"vef"</span>) <span class="op">&gt;</span> <span class="dv">0</span>,                               <span class="st">"espirometría no positiva"</span>),</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    (pl.col(<span class="st">"fecha_alta"</span>) <span class="op">&gt;=</span> pl.col(<span class="st">"fecha_ingreso"</span>), <span class="st">"alta anterior al ingreso"</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.with_columns([pl.when(cond).then(pl.lit(<span class="dv">0</span>)).otherwise(pl.lit(<span class="dv">1</span>)).alias(<span class="ss">f"viola_</span><span class="sc">{</span>i<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                      <span class="cf">for</span> i, (cond, _) <span class="kw">in</span> <span class="bu">enumerate</span>(REGLAS)])</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>informe <span class="op">=</span> df.select(pl.col(<span class="st">"^viola_.*$"</span>).<span class="bu">sum</span>())</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>limpio  <span class="op">=</span> df.<span class="bu">filter</span>(pl.sum_horizontal(pl.col(<span class="st">"^viola_.*$"</span>)) <span class="op">==</span> <span class="dv">0</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>El caso de las unidades mezcladas merece atención porque el histograma no lo resuelve. Dos columnas de peso pueden ser bimodales por razones distintas, una porque mezcla kilogramos con libras y otra porque registra adultos y niños. En escala logarítmica la separación entre modos es el logaritmo de su cociente. Ese cociente se estima ajustando una mezcla de dos normales y su incertidumbre por bootstrap. Si el intervalo contiene un factor de conversión conocido, fijado antes de mirar los datos, la columna requiere corrección; si no contiene ninguno, lo correcto es marcar la columna y consultar la fuente, nunca dividir por el cociente estimado.</p>
+<div id="ea181a1b" class="cell" data-execution_count="14">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-15-output-1.png" width="1207" height="316" class="figure-img"></p>
+<figcaption>Dos columnas bimodales. El intervalo del cociente entre modos de la columna A contiene el factor kilogramo a libra; el de la columna B no contiene ningún factor tabulado.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="integración" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="integración"><span class="header-section-number">3.3</span> Integración</h2>
+<p>Unir tablas introduce tres riesgos. El cambio de granularidad, porque una unión uno a muchos multiplica filas y rompe la independencia. El conflicto de esquema, porque dos fuentes usan la misma etiqueta con distinto significado o unidad. Y la fuga temporal, porque la tabla incorporada puede contener información posterior al instante de la predicción. La unión por proximidad temporal hacia atrás (<code>join_asof</code> con <code>strategy="backward"</code>) incorpora una serie usando sólo el último valor disponible antes del evento; la unión ordinaria por identificador usa el futuro.</p>
+</section>
+<section id="imputación" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="imputación"><span class="header-section-number">3.4</span> Imputación</h2>
+<p>Sea <span class="math inline">\(x\)</span> con <span class="math inline">\(m\)</span> valores faltantes de <span class="math inline">\(n\)</span> bajo un mecanismo completamente aleatorio. La imputación por la media observada entrega <span class="math display">\[\hat\sigma^2_{\text{imp}} = \frac{n - m - 1}{n - 1}\,\hat\sigma^2_{\text{obs}},\]</span> porque las <span class="math inline">\(m\)</span> observaciones imputadas contribuyen con desviación nula. Con un 30 % de faltantes la varianza estimada se reduce cerca de un 30 % y toda inferencia posterior resulta anticonservadora. La imputación por la media preserva la media y sesga la varianza, la covarianza y la forma de la distribución. Es admisible sólo cuando la proporción de faltantes es despreciable, situación en la que cualquier método sirve.</p>
+<div id="35a5dd0a" class="cell" data-execution_count="15">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-16-output-1.png" width="1409" height="369" class="figure-img"></p>
+<figcaption>Mecanismo MAR con 37 % de faltantes en la segunda variable. En verde los valores reales que se ocultan, en granate los imputados. La imputación por la media colapsa los faltantes sobre una recta horizontal y reduce la correlación.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>La imputación simple trata los valores imputados como si fueran observados y subestima la incertidumbre. La imputación múltiple genera <span class="math inline">\(M\)</span> conjuntos completos, ajusta el modelo en cada uno y combina con las reglas de Rubin, <span class="math display">\[T = \bar{U} + \Big(1 + \tfrac{1}{M}\Big) B,\]</span> donde <span class="math inline">\(\bar{U}\)</span> es la varianza promedio dentro de cada imputación y <span class="math inline">\(B\)</span> la varianza entre imputaciones, que cuantifica la incertidumbre por no haber observado el dato. La imputación simple corresponde a <span class="math inline">\(B = 0\)</span>.</p>
+</section>
+<section id="reducción-de-datos" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="reducción-de-datos"><span class="header-section-number">3.5</span> Reducción de datos</h2>
+<p>Reducir filas es legítimo con garantías conocidas. El muestreo aleatorio simple es insesgado con error <span class="math inline">\(O(n^{-1/2})\)</span>. El muestreo estratificado tiene varianza menor a igual <span class="math inline">\(n\)</span> y es la opción para clases desbalanceadas. El muestreo con reserva procesa un flujo en una pasada. La agregación es exacta si la consulta es aditiva. La agregación previa es la reducción que más información descarta, porque elimina la variabilidad interna de los grupos y, por la paradoja de Simpson, puede invertir el signo de la asociación observada.</p>
+</section>
+<section id="regresión-lineal-y-penalización" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="regresión-lineal-y-penalización"><span class="header-section-number">3.6</span> Regresión lineal y penalización</h2>
+<p>Todo lo que sigue opera sobre un modelo de regresión. Con <span class="math inline">\(p\)</span> predictores el modelo lineal postula <span class="math inline">\(y_i = \beta_0 + \beta_1 x_{i1} + \cdots + \beta_p x_{ip} + \varepsilon_i\)</span> con <span class="math inline">\(\mathbb{E}(\varepsilon_i) = 0\)</span>, o en forma matricial <span class="math inline">\(\mathbf{y} = \mathbf{X}\boldsymbol\beta + \boldsymbol\varepsilon\)</span>. Lineal se refiere a los parámetros y no a las variables, de modo que <span class="math inline">\(y = \beta_0 + \beta_1 x + \beta_2 x^2 + \varepsilon\)</span> es lineal y <span class="math inline">\(y = \beta_0 e^{\beta_1 x} + \varepsilon\)</span> no lo es.</p>
+<p>El criterio de mínimos cuadrados elige el <span class="math inline">\(\boldsymbol\beta\)</span> que minimiza <span class="math inline">\(\|\mathbf{y} - \mathbf{X}\boldsymbol\beta\|_2^2\)</span>. Derivando e igualando a cero se obtienen las ecuaciones normales y su solución, <span class="math display">\[\mathbf{X}^{\mathsf{T}}(\mathbf{y} - \mathbf{X}\hat{\boldsymbol\beta}) = \mathbf{0}
+\qquad\Longrightarrow\qquad
+\hat{\boldsymbol\beta} = (\mathbf{X}^{\mathsf{T}}\mathbf{X})^{-1}\mathbf{X}^{\mathsf{T}}\mathbf{y},\]</span> válida cuando las columnas son linealmente independientes y <span class="math inline">\(n &gt; p\)</span>. La primera ecuación dice que el residuo es ortogonal a toda columna de <span class="math inline">\(\mathbf{X}\)</span>, de modo que <span class="math inline">\(\hat{\mathbf{y}}\)</span> es la proyección ortogonal de <span class="math inline">\(\mathbf{y}\)</span> sobre el espacio generado por los predictores. Bajo el modelo, <span class="math inline">\(\hat{\boldsymbol\beta}\)</span> es insesgado y <span class="math inline">\(\operatorname{Var}(\hat{\boldsymbol\beta}) = \sigma^2(\mathbf{X}^{\mathsf{T}}\mathbf{X})^{-1}\)</span>. La unidad de inferencia muestra que minimizar la suma de cuadrados equivale a maximizar la verosimilitud cuando el error es normal de varianza constante.</p>
+<p>Cuando las columnas son casi colineales, <span class="math inline">\(\mathbf{X}^{\mathsf{T}}\mathbf{X}\)</span> está mal condicionada y la varianza se dispara. El estimador sigue siendo insesgado y deja de ser útil. La penalización añade un término que restringe la magnitud de los coeficientes, <span class="math display">\[\hat{\boldsymbol\beta}_\lambda = \arg\min_{\boldsymbol\beta} \;\tfrac{1}{2n}\|\mathbf{y} - \mathbf{X}\boldsymbol\beta\|_2^2 + \lambda\,\Omega(\boldsymbol\beta),
+\qquad \Omega = \|\cdot\|_2^2 \;\text{(cresta)} \;\text{o}\; \|\cdot\|_1 \;\text{(Lasso)}.\]</span> El estimador resultante es sesgado por construcción y se justifica con la descomposición <span class="math inline">\(\mathrm{ECM} = \mathrm{sesgo}^2 + \mathrm{varianza}\)</span> de la unidad 2. El sesgo introducido es pequeño frente a la reducción de varianza que produce. El parámetro <span class="math inline">\(\lambda\)</span> se estima por validación cruzada, luego es un parámetro estimado a partir de los datos y queda sujeto a la regla del flujo.</p>
+</section>
+<section id="transformaciones-de-escala" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="transformaciones-de-escala"><span class="header-section-number">3.7</span> Transformaciones de escala</h2>
+<p>La estandarización <span class="math inline">\((x - \hat\mu)/\hat\sigma\)</span> es apropiada con distribuciones aproximadamente simétricas; la transformación mínimo-máximo, con rango conocido y acotado; la robusta <span class="math inline">\((x - \hat{Q}_2)/\widehat{\text{IQR}}\)</span>, con valores extremos; la de cuantiles <span class="math inline">\(\Phi^{-1}(F_n(x))\)</span>, con forma arbitraria y <span class="math inline">\(n\)</span> grande; la de Yeo-Johnson, con asimetría, y admite valores negativos. Los métodos basados en distancia y los penalizados por norma no son invariantes a la escala de las columnas. Los árboles y sus combinaciones sí lo son, porque sólo usan el orden dentro de cada variable.</p>
+<div id="612ae1ae" class="cell" data-execution_count="16">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-17-output-1.png" width="1210" height="368" class="figure-img"></p>
+<figcaption>Dos variables igualmente informativas, la segunda en una unidad mil veces mayor. Sin escalar, la segunda domina la distancia y el clasificador de vecinos más cercanos pierde exactitud.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="extracción-y-selección-de-características" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="extracción-y-selección-de-características"><span class="header-section-number">3.8</span> Extracción y selección de características</h2>
+<p>La selección entrega un subconjunto <span class="math inline">\(S \subseteq \{1,\ldots,p\}\)</span> y conserva el significado original de las variables; la extracción entrega coordenadas nuevas <span class="math inline">\(\mathbf{z} = g(\mathbf{x}) \in \mathbb{R}^k\)</span>. Los métodos de selección se clasifican en filtros (asociación marginal con <span class="math inline">\(Y\)</span>, costo <span class="math inline">\(O(p)\)</span>, ignoran interacciones), envolturas (desempeño del modelo, costo alto, riesgo de sobreajuste) y embebidos (penalización dentro del ajuste). Un filtro marginal descarta variables cuyo efecto sólo aparece en combinación; con <span class="math inline">\(y = x_1 \oplus x_2\)</span> ambas variables tienen asociación marginal nula con <span class="math inline">\(y\)</span> y son conjuntamente determinantes.</p>
+<p>El Lasso produce ceros exactos porque <span class="math inline">\(|\beta_j|\)</span> no es diferenciable en cero. La condición de optimalidad es <span class="math inline">\(\tfrac{1}{n}\mathbf{x}_j^{\mathsf{T}}(\mathbf{y} - \mathbf{X}\hat{\boldsymbol\beta}) = \lambda\,s_j\)</span> con <span class="math inline">\(s_j = \operatorname{sgn}(\hat\beta_j)\)</span> si <span class="math inline">\(\hat\beta_j \neq 0\)</span> y <span class="math inline">\(s_j \in [-1,1]\)</span> si <span class="math inline">\(\hat\beta_j = 0\)</span>. Ese intervalo permite anular <span class="math inline">\(\hat\beta_j\)</span>. Bajo penalización <span class="math inline">\(\ell_2\)</span> la condición análoga es <span class="math inline">\(\tfrac{1}{n}\mathbf{x}_j^{\mathsf{T}}\mathbf{r} = \lambda\beta_j\)</span>, que se satisface con <span class="math inline">\(\beta_j = 0\)</span> únicamente cuando la correlación residual es exactamente nula, de modo que la regresión de cresta contrae sin anular.</p>
+<div id="ee797c94" class="cell" data-execution_count="17">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-18-output-1.png" width="1019" height="369" class="figure-img"></p>
+<figcaption>Contornos de la suma de cuadrados (azul) y región admisible (granate). El contacto con la bola l1 ocurre en un vértice, donde una coordenada es cero; la bola l2 es lisa y el contacto tiene coordenadas genéricas.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Entre dos variables casi colineales el Lasso elige una de manera esencialmente arbitraria y la elección cambia con la muestra. La frecuencia de selección sobre remuestreos bootstrap es una medida de estabilidad que un único ajuste no entrega.</p>
+</section>
+<section id="análisis-de-componentes-principales" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="análisis-de-componentes-principales"><span class="header-section-number">3.9</span> Análisis de componentes principales</h2>
+<p>Dos variables correlacionadas ocupan una franja alargada y casi toda la información está en la dirección larga de esa franja. PCA elige la dirección <span class="math inline">\(\mathbf{v}_1\)</span> que hace los residuos de proyección lo más cortos posible en promedio, y esa dirección coincide con la de máxima varianza.</p>
+<div id="2e35c674" class="cell" data-execution_count="18">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-19-output-1.png" width="1344" height="359" class="figure-img"></p>
+<figcaption>Los datos originales, las direcciones propias tras centrar, y la proyección sobre la primera. Los segmentos violeta son lo que se descarta al quedarse con una coordenada.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>El cálculo tiene cuatro pasos. Centrar, <span class="math inline">\(\tilde{\mathbf{x}}_i = \mathbf{x}_i - \bar{\mathbf{x}}\)</span>, porque sin centrar la primera componente apunta al centroide y no describe variabilidad. Formar la covarianza <span class="math inline">\(\mathbf{S} = \frac{1}{n-1}\tilde{\mathbf{X}}^{\mathsf{T}}\tilde{\mathbf{X}}\)</span>, simétrica y con valores propios reales no negativos. Diagonalizar, <span class="math inline">\(\mathbf{S} = \mathbf{V}\boldsymbol\Lambda\mathbf{V}^{\mathsf{T}}\)</span> con <span class="math inline">\(\lambda_1 \ge \cdots \ge \lambda_p \ge 0\)</span>. Proyectar, <span class="math inline">\(\mathbf{z}_i = \mathbf{V}_k^{\mathsf{T}}\tilde{\mathbf{x}}_i\)</span>, quedándose con las <span class="math inline">\(k\)</span> primeras columnas. Cada <span class="math inline">\(\lambda_j\)</span> es la varianza de los datos a lo largo de <span class="math inline">\(\mathbf{v}_j\)</span> y, como la traza se conserva bajo cambio de base ortogonal, <span class="math inline">\(\sum_j \lambda_j = \operatorname{tr}(\mathbf{S})\)</span>, de donde la proporción de varianza explicada por <span class="math inline">\(\mathbf{v}_j\)</span> es <span class="math inline">\(\lambda_j / \sum_l \lambda_l\)</span>. En la práctica no se forma <span class="math inline">\(\mathbf{S}\)</span> sino la descomposición en valores singulares <span class="math inline">\(\tilde{\mathbf{X}} = \mathbf{U}\boldsymbol\Sigma\mathbf{V}^{\mathsf{T}}\)</span>, que entrega los mismos <span class="math inline">\(\mathbf{V}\)</span> con <span class="math inline">\(\lambda_j = \sigma_j^2/(n-1)\)</span>.</p>
+<div id="1fdc9ef1" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Xc <span class="op">=</span> P2 <span class="op">-</span> P2.mean(axis<span class="op">=</span><span class="dv">0</span>)              <span class="co"># 1. centrar</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>S  <span class="op">=</span> np.cov(Xc, rowvar<span class="op">=</span><span class="va">False</span>)          <span class="co"># 2. covarianza</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>lam, V <span class="op">=</span> np.linalg.eigh(S)             <span class="co"># 3. diagonalizar</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>lam, V <span class="op">=</span> lam[::<span class="op">-</span><span class="dv">1</span>], V[:, ::<span class="op">-</span><span class="dv">1</span>]         <span class="co">#    de mayor a menor</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Z  <span class="op">=</span> Xc <span class="op">@</span> V[:, :<span class="dv">1</span>]                     <span class="co"># 4. proyectar sobre v1</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"var(Z) = </span><span class="sc">%.3f</span><span class="st">   lambda_1 = </span><span class="sc">%.3f</span><span class="st">"</span> <span class="op">%</span> (Z.var(ddof<span class="op">=</span><span class="dv">1</span>), lam[<span class="dv">0</span>]))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"tr(S)  = </span><span class="sc">%.3f</span><span class="st">   suma de valores propios = </span><span class="sc">%.3f</span><span class="st">"</span> <span class="op">%</span> (np.trace(S), lam.<span class="bu">sum</span>()))</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"proporción explicada por v1 = </span><span class="sc">%.3f</span><span class="st">"</span> <span class="op">%</span> (lam[<span class="dv">0</span>]<span class="op">/</span>lam.<span class="bu">sum</span>()))</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>var(Z) = 1.445   lambda_1 = 1.445
+tr(S)  = 1.658   suma de valores propios = 1.658
+proporción explicada por v1 = 0.872</code></pre>
+</div>
+</div>
+<p>Tres formulaciones tienen la misma solución: maximizar la varianza <span class="math inline">\(\max_{\|\mathbf{v}\|=1} \mathbf{v}^{\mathsf{T}}\mathbf{S}\mathbf{v}\)</span> sucesivamente ortogonal, minimizar el error de reconstrucción <span class="math inline">\(\sum_i \|\mathbf{x}_i - \mathbf{V}_k\mathbf{V}_k^{\mathsf{T}}\mathbf{x}_i\|_2^2\)</span>, y aproximar <span class="math inline">\(\mathbf{X}\)</span> por una matriz de rango <span class="math inline">\(k\)</span> en norma de Frobenius. El teorema de Eckart, Young y Mirsky establece que si <span class="math inline">\(\mathbf{X} = \mathbf{U}\boldsymbol\Sigma\mathbf{V}^{\mathsf{T}}\)</span>, el minimizador es <span class="math inline">\(\mathbf{X}_k = \mathbf{U}_k\boldsymbol\Sigma_k\mathbf{V}_k^{\mathsf{T}}\)</span> y el error vale <span class="math inline">\(\sum_{j&gt;k}\sigma_j^2\)</span>. Maximizar varianza y minimizar error de reconstrucción son el mismo problema porque la varianza total se reparte entre lo retenido y lo descartado.</p>
+<div id="bc57a388" class="cell" data-execution_count="20">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-21-output-1.png" width="1024" height="421" class="figure-img"></p>
+<figcaption>Dígitos manuscritos de 8 por 8 reconstruidos con k componentes. Con k = 12 se retiene el 78 % de la varianza y el dígito ya es reconocible.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Sin estandarizar, la primera componente es prácticamente la variable de mayor varianza numérica, con independencia de su relevancia. PCA sobre la matriz de correlación, es decir con estandarización previa, es el procedimiento por omisión salvo que todas las columnas compartan unidad y esa unidad sea significativa. Para elegir el número de componentes, el umbral de varianza acumulada es arbitrario. El análisis paralelo de Horn compara el espectro observado con el esperado bajo independencia y retiene las componentes que lo superan.</p>
+<div id="4133eb37" class="cell" data-execution_count="21">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-22-output-1.png" width="1212" height="318" class="figure-img"></p>
+<figcaption>Gráfico de sedimentación con análisis paralelo sobre datos con cuatro factores latentes en cuarenta variables. El análisis paralelo recupera la dimensión verdadera.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="proyecciones-aleatorias-y-la-maldición-de-la-dimensión" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="proyecciones-aleatorias-y-la-maldición-de-la-dimensión"><span class="header-section-number">3.10</span> Proyecciones aleatorias y la maldición de la dimensión</h2>
+<p>Cuando <span class="math inline">\(p\)</span> es muy grande existe una alternativa a PCA que no requiere estimar <span class="math inline">\(\mathbf{S}\)</span>. El lema de Johnson y Lindenstrauss establece que para todo <span class="math inline">\(0 &lt; \varepsilon &lt; 1\)</span> y todo conjunto de <span class="math inline">\(n\)</span> puntos en <span class="math inline">\(\mathbb{R}^p\)</span> existe una aplicación lineal <span class="math inline">\(f : \mathbb{R}^p \to \mathbb{R}^k\)</span> con <span class="math inline">\(k = O(\varepsilon^{-2}\log n)\)</span> que conserva todas las distancias entre pares dentro de un factor <span class="math inline">\(1 \pm \varepsilon\)</span>. La dimensión de llegada depende de <span class="math inline">\(\log n\)</span> y no de <span class="math inline">\(p\)</span>; con <span class="math inline">\(n = 10^6\)</span> y <span class="math inline">\(\varepsilon = 0{,}1\)</span>, la cota entrega <span class="math inline">\(k\)</span> del orden de algunos miles, sea <span class="math inline">\(p = 10^4\)</span> o <span class="math inline">\(p = 10^7\)</span>. Una matriz gaussiana aleatoria realiza esa aplicación con alta probabilidad.</p>
+<div id="a4fa17a0" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-23-output-1.png" width="1210" height="317" class="figure-img"></p>
+<figcaption>Bajo independencia entre coordenadas las distancias entre puntos se concentran alrededor de su media y el contraste relativo entre el vecino más cercano y el más lejano tiende a cero.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Bajo independencia entre coordenadas, <span class="math inline">\(\|\mathbf{x}\|_2\)</span> se concentra en <span class="math inline">\(\sqrt{p}\)</span> con desviación <span class="math inline">\(O(1)\)</span>, de modo que el concepto de vecindad pierde contenido y con él los métodos basados en distancia. Ésta es la maldición de la dimensión. Los datos reales suelen tener dimensión intrínseca mucho menor que <span class="math inline">\(p\)</span>, y esa estructura es la que los métodos de reducción explotan.</p>
+</section>
+<section id="umap-y-la-reducción-no-lineal" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="umap-y-la-reducción-no-lineal"><span class="header-section-number">3.11</span> UMAP y la reducción no lineal</h2>
+<p>PCA busca la mejor combinación lineal de las variables. Dos anillos concéntricos tienen estructura radial y ninguna combinación lineal la captura; los métodos no lineales construyen coordenadas como la distancia al centro. UMAP no proyecta. Construye un grafo de vecindad en el espacio original y luego busca una disposición en el plano que reproduzca ese grafo.</p>
+<p>En primer lugar se forma el grafo de los <span class="math inline">\(k\)</span> vecinos más cercanos de cada punto. En segundo lugar se asigna a cada arista un peso difuso <span class="math inline">\(w_{ij} = \exp(-(d_{ij} - \rho_i)/\sigma_i)\)</span>, donde <span class="math inline">\(\rho_i\)</span> es la distancia al vecino más próximo y <span class="math inline">\(\sigma_i\)</span> se ajusta para que los pesos de cada punto sumen <span class="math inline">\(\log_2 k\)</span>. Así, un punto en zona rala considera cercanos a vecinos más lejanos que un punto en zona densa, y esa normalización local es lo que permite tratar densidades heterogéneas. En tercer lugar se define un peso análogo entre las posiciones del plano, <span class="math inline">\(q_{ij} = (1 + a\|\mathbf{y}_i - \mathbf{y}_j\|_2^{2b})^{-1}\)</span>, y se minimiza la entropía cruzada entre ambos grafos, <span class="math display">\[\mathcal{L} = \sum_{i&lt;j} \Big[ w_{ij}\log\tfrac{w_{ij}}{q_{ij}} + (1-w_{ij})\log\tfrac{1-w_{ij}}{1-q_{ij}}\Big].\]</span> El primer término atrae a los pares que son vecinos en el original y el segundo repele a los que no lo son. <span class="math inline">\(t\)</span>-SNE minimiza la divergencia de Kullback-Leibler, que sólo contiene el primer término, y por eso conserva menos estructura global. Como el término repulsivo penaliza poco los errores en distancias grandes, la distancia entre grupos alejados en el plano no tiene interpretación, lo que justifica la tabla de la primera parte.</p>
+<div id="4c7e28a0" class="cell" data-execution_count="23">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-24-output-1.png" width="1149" height="447" class="figure-img"></p>
+<figcaption>UMAP sobre los dígitos manuscritos con dos valores de n_neighbors. Valores bajos fragmentan la estructura local; valores altos privilegian la estructura global.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Los dos parámetros son <code>n_neighbors</code>, que controla el tamaño del vecindario, y <code>min_dist</code>, que controla la separación mínima en el plano. En un mapa de UMAP o <span class="math inline">\(t\)</span>-SNE son interpretables las distancias entre puntos vecinos; no lo son la distancia entre grupos lejanos ni el tamaño y la densidad de los grupos; el número de grupos depende de los parámetros; los ejes no tienen significado; el resultado depende de la semilla; UMAP admite aplicarse a datos nuevos y <span class="math inline">\(t\)</span>-SNE no. Esta última propiedad determina si el método sirve dentro de un flujo de predicción. Los métodos que no admiten datos nuevos son instrumentos de exploración y no pueden formar parte de un <code>Pipeline</code> evaluado por validación cruzada.</p>
+</section>
+<section id="efectos-lineales-y-no-lineales" class="level2" data-number="3.12">
+<h2 data-number="3.12" class="anchored" data-anchor-id="efectos-lineales-y-no-lineales"><span class="header-section-number">3.12</span> Efectos lineales y no lineales</h2>
+<p>Un modelo es lineal en los parámetros si <span class="math inline">\(f(\mathbf{x}) = \sum_{j} \beta_j \phi_j(\mathbf{x})\)</span>, cualquiera sea la forma de las funciones base <span class="math inline">\(\phi_j\)</span>. Las bases habituales son la polinomial (<span class="math inline">\(1, x, \ldots, x^d\)</span>, global, oscila en los extremos), la constante por tramos, los splines cúbicos (tramos cúbicos con dos derivadas continuas, locales y suaves), los splines naturales (lineales fuera de los nodos extremos), los kernels gaussianos y las interacciones <span class="math inline">\(x_j x_k\)</span>. La regresión sobre una base sigue siendo un problema de mínimos cuadrados lineales, de modo que toda la teoría lineal continúa siendo aplicable.</p>
+<div id="6ea00e46" class="cell" data-execution_count="24">
+<div class="cell-output cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="clase-04-visualizacion-preprocesamiento_files/figure-html/cell-25-output-1.png" width="1343" height="370" class="figure-img"></p>
+<figcaption>La línea discontinua es la función verdadera; la continua es el ajuste. El polinomio de grado alto oscila en los extremos (fenómeno de Runge). El spline concentra la flexibilidad donde hay nodos.</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Si el algoritmo depende de los datos sólo por productos internos, sustituirlos por un kernel <span class="math inline">\(K(\mathbf{x}_i, \mathbf{x}_j) = \langle \varphi(\mathbf{x}_i), \varphi(\mathbf{x}_j)\rangle\)</span> define implícitamente una base de dimensión posiblemente infinita, y el teorema del representante garantiza que la solución tiene la forma <span class="math inline">\(\hat{f}(\mathbf{x}) = \sum_{i=1}^{n}\alpha_i K(\mathbf{x}_i, \mathbf{x})\)</span>, de modo que el problema es de dimensión <span class="math inline">\(n\)</span>. Los modelos aditivos generalizados, <span class="math inline">\(g(\mathbb{E}[Y \mid \mathbf{x}]) = \beta_0 + \sum_j f_j(x_j)\)</span> con cada <span class="math inline">\(f_j\)</span> un spline penalizado, ofrecen la alternativa interpretable, con el efecto de cada variable por separado y sin las interacciones no declaradas.</p>
+</section>
+</section>
+<section id="errores-frecuentes" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Errores frecuentes</h1>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Error</th>
+<th>Síntoma</th>
+<th>Corrección</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Escalar antes de particionar</td>
+<td>Error de validación optimista</td>
+<td>Todo dentro del <code>Pipeline</code></td>
+</tr>
+<tr class="even">
+<td>Imputar con la media</td>
+<td>Varianza y correlación reducidas</td>
+<td>Imputación iterativa o múltiple</td>
+</tr>
+<tr class="odd">
+<td>Codificar por objetivo sin pliegues</td>
+<td>Desempeño no reproducible</td>
+<td>Estimar dentro del pliegue</td>
+</tr>
+<tr class="even">
+<td>Partición aleatoria en series</td>
+<td>Error de validación optimista</td>
+<td>Partición por bloques temporales</td>
+</tr>
+<tr class="odd">
+<td>Balancear antes de particionar</td>
+<td>Duplicados entre conjuntos</td>
+<td>Remuestrear sólo el entrenamiento</td>
+</tr>
+<tr class="even">
+<td>PCA sin estandarizar</td>
+<td>La variable de mayor escala domina</td>
+<td>Estandarizar salvo unidades comunes</td>
+</tr>
+<tr class="odd">
+<td>Elegir <span class="math inline">\(k\)</span> mirando el desempeño final</td>
+<td>Estimación sesgada</td>
+<td>Validación cruzada anidada</td>
+</tr>
+<tr class="even">
+<td>Interpretar <span class="math inline">\(t\)</span>-SNE cuantitativamente</td>
+<td>Conclusiones sobre distancias</td>
+<td>Volver al espacio original</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="el-caso-inicial-con-los-criterios-de-la-clase" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> El caso inicial, con los criterios de la clase</h1>
+<p>El análisis previo al lanzamiento del Challenger admite un diagnóstico en tres puntos, uno por bloque. En visualización, el gráfico pertinente incorporaba los veintitrés vuelos con la temperatura asignada al canal de posición. En preprocesamiento, el filtrado de filas es una operación de preparación de datos y determina qué puede observar el análisis, de modo que la exigencia de registrar cada decisión alcanza también a los filtros. En extrapolación, la temperatura pronosticada quedaba fuera del rango de los datos disponibles, condición bajo la cual ningún modelo ajustado sobre ellos tiene soporte.</p>
+<p>Las dos reglas de la clase quedan así. La variable que porta la conclusión se asigna al canal perceptual más preciso, y todo paso que estima parámetros a partir de los datos pertenece al modelo y se ajusta únicamente en entrenamiento.</p>
+</section>
+<section id="referencias" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Referencias</h1>
+<ul>
+<li>Wilkinson, L. (2005). <em>The Grammar of Graphics</em>, 2.ª ed.&nbsp;Springer.</li>
+<li>Cleveland, W. S., McGill, R. (1984). Graphical perception. <em>Journal of the American Statistical Association</em>, 79(387), 531-554.</li>
+<li>Cleveland, R. B. et al.&nbsp;(1990). STL: a seasonal-trend decomposition procedure based on loess. <em>Journal of Official Statistics</em>, 6(1), 3-73.</li>
+<li>van der Maaten, L., Hinton, G. (2008). Visualizing data using t-SNE. <em>Journal of Machine Learning Research</em>, 9, 2579-2605.</li>
+<li>McInnes, L., Healy, J., Melville, J. (2018). UMAP: uniform manifold approximation and projection. arXiv:1802.03426.</li>
+<li>Rubin, D. B. (1987). <em>Multiple Imputation for Nonresponse in Surveys</em>. Wiley.</li>
+<li>Tibshirani, R. (1996). Regression shrinkage and selection via the lasso. <em>JRSS B</em>, 58(1), 267-288.</li>
+<li>Meinshausen, N., Bühlmann, P. (2010). Stability selection. <em>JRSS B</em>, 72(4), 417-473.</li>
+<li>Horn, J. L. (1965). A rationale and test for the number of factors in factor analysis. <em>Psychometrika</em>, 30(2), 179-185.</li>
+<li>Hastie, T., Tibshirani, R., Friedman, J. (2009). <em>The Elements of Statistical Learning</em>, 2.ª ed.&nbsp;Springer.</li>
+<li>Kaufman, S., Rosset, S., Perlich, C. (2012). Leakage in data mining. <em>ACM TKDD</em>, 6(4).</li>
+<li>Dalal, S. R., Fowlkes, E. B., Hoadley, B. (1989). Risk analysis of the space shuttle. <em>Journal of the American Statistical Association</em>, 84(408), 945-957.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiado");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiado");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/aavelozb\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Alejandro Veloz</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
