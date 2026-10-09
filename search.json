@@ -1260,6 +1260,13 @@
     "text": "Recalificaciones\nLas solicitudes de revisión deben hacerse dentro de la semana posterior a la devolución de la calificación. Solo se considerarán solicitudes fundamentadas en base a la rúbrica proporcionada. Toda la pregunta será revisada nuevamente, lo que puede implicar aumento o disminución de puntos."
   },
   {
+    "objectID": "bme423/evals/files/lab3/w-gbm.html",
+    "href": "bme423/evals/files/lab3/w-gbm.html",
+    "title": "",
+    "section": "",
+    "text": "Paciente\n      patient-022patient-010\n    Secuencia\n      CT1 (T1 con gadolinio)FLAIRT2\n    Corte axial \n      62 / 138\n    Ir al centro del tumor\n  \n  \n     Referencia sobre la imagen\n    Opacidad \n    necrosis (1)\n      edema (2)\n      realce (3)\n  \n  \n    \n      imagen\n    \n      referencia"
+  },
+  {
     "objectID": "bme423/evals/files/lab1/w-filter.html",
     "href": "bme423/evals/files/lab1/w-filter.html",
     "title": "",
@@ -3236,37 +3243,163 @@
   {
     "objectID": "bme423/evals/lab3.html#objetivos",
     "href": "bme423/evals/lab3.html#objetivos",
-    "title": "Segmentación de imágenes",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "Objetivos",
-    "text": "Objetivos\nLos objetivos de esta actividad son los siguientes:\n\nImplementar workflows que permitan segmentar estructuras de interés en imágenes médicas usando diferentes algoritmos.\nComparar distintas segmentaciones mediante métricas cuantitativas.\nAnalizar resultados en varios sujetos."
+    "text": "Objetivos\n\nDiseñar, implementar y documentar tres pipelines de segmentación y aplicarlos a dos problemas clínicos.\nIntegrar difusión anisotrópica, filtrado en el dominio de Fourier y campos aleatorios de Markov como etapas de esos pipelines.\nEvaluar cada pipeline contra una referencia, en varios pacientes, con métricas por vóxel y por lesión.\nAtribuir la ganancia de cada etapa mediante ablación y recomendar un pipeline por problema."
   },
   {
-    "objectID": "bme423/evals/lab3.html#datos",
-    "href": "bme423/evals/lab3.html#datos",
-    "title": "Segmentación de imágenes",
-    "section": "Datos",
-    "text": "Datos\nSe trabajará con datos de pacientes que sufren esclerosis múltiple: Open MS data\n\n\n\n\n\nPaciente 4 - Anatomía, slice 312\n\n\n\n\n\n\nPaciente 4 - Anatomía + Gold Standard, slice 312"
+    "objectID": "bme423/evals/lab3.html#estructura-del-desafío",
+    "href": "bme423/evals/lab3.html#estructura-del-desafío",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "Estructura del desafío",
+    "text": "Estructura del desafío\n\nEl desafío\nDatos\nReglas de diseño de los pipelines\nMétodos\nEvaluación y comparación\nInforme, rúbrica y entrega"
   },
   {
-    "objectID": "bme423/evals/lab3.html#actividad",
-    "href": "bme423/evals/lab3.html#actividad",
-    "title": "Segmentación de imágenes",
-    "section": "Actividad",
-    "text": "Actividad\n\nDesarrolle workflows para la segmentación de esclerosis múltiple usando los algoritmos: k-means, fuzzy k-means, mezclas gaussianas mediante EM y crecimiento de regiones (region growing).\nTodos los workflows deben considerar mejoras de contraste y filtros adecuados. Esta etapa puede ser común para todos los workflows.\nMejore los resultados obtenidos usando un MRF y algoritmos de morfología matemática.\nCompare cuantitativamente los distintos workflows implementados. Analice los resultados."
+    "objectID": "bme423/evals/lab3.html#problemas",
+    "href": "bme423/evals/lab3.html#problemas",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "Problemas",
+    "text": "Problemas\n\nConstruya tres pipelines de segmentación distintos, aplíquelos a lesiones de esclerosis múltiple y a un glioblastoma, compárelos con las mismas métricas y en los mismos pacientes, y recomiende uno para cada problema.\n\n\n\nProblema A, esclerosis múltiple. Lesiones focales de sustancia blanca, hiperintensas en FLAIR, pequeñas y numerosas. Referencia, consenso de tres evaluadores.\n\nProblema B, glioblastoma. Una lesión grande y heterogénea con necrosis, anillo realzante y edema, en cuatro secuencias corregistradas. Se segmentan el tumor completo y el tumor realzante."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#entregable",
+    "href": "bme423/evals/lab3.html#entregable",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "Entregable",
+    "text": "Entregable\nUn juoyter notebook que, para cada pipeline, recorra en orden: preprocesamiento, segmentación, postproceso y evaluación, con el método explicado paso a paso antes de aplicarlo, y que se cierre con:\n\nuna tabla comparativa de los tres pipelines en los dos problemas y en todos los pacientes,\nun estudio de ablación que indique qué etapa aporta la ganancia,\nuna recomendación fundamentada por problema.\n\nPregrado: 3 pipelines Postgrado: 5 pipelines"
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#datos-1",
+    "href": "bme423/evals/lab3.html#datos-1",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "2. Datos",
+    "text": "2. Datos\n\nlab3-ms.zip (32 MB), tres pacientes con esclerosis múltiple de Open MS data (Lesjak et al., 2018), FLAIR, T1 y T2 corregistradas a 1 mm, máscara de encéfalo y lesiones de consenso.\nlab3-gbm.zip (16 MB), dos pacientes con glioblastoma de LUMIERE (Suter et al., 2022), estudio preoperatorio, T1, T1 con contraste (CT1), T2 y FLAIR corregistradas al atlas MNI a 1 mm, máscara de encéfalo y segmentación de referencia."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#esclerosis-múltiple",
+    "href": "bme423/evals/lab3.html#esclerosis-múltiple",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "2. Esclerosis múltiple",
+    "text": "2. Esclerosis múltiple\n\nCorte con mayor carga lesional de cada paciente, FLAIR y contorno de la referencia\n\n\nPaciente\nEdad\nSexo\nTipo\nEDSS\nVolumen lesional\n\n\n\n\npatient04\n25\nM\nSP\n6,5\n40,4 mL\n\n\npatient08\n41\nM\nRR\n5,0\n6,3 mL\n\n\npatient14\n42\nM\nRR\n4,0\n13,5 mL"
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#glioblastoma",
+    "href": "bme423/evals/lab3.html#glioblastoma",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "2. Glioblastoma",
+    "text": "2. Glioblastoma\n\nPaciente 022. Las cuatro secuencias y la referencia sobre CT1Etiquetas de seg.nii.gz, 1 núcleo necrótico, 2 edema, 3 tumor realzante. Tumor completo es la unión de las tres; tumor realzante es la etiqueta 3. La referencia es la segmentación de DeepBraTumIA validada por los autores de la base, no un trazado manual, y conviene tenerlo presente al interpretar los resultados."
   },
   {
     "objectID": "bme423/evals/lab3.html#section",
     "href": "bme423/evals/lab3.html#section",
-    "title": "Segmentación de imágenes",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "",
-    "text": "Nota:\n\nPuede emplear las librerías que considere pertinentes para el desarrollo de los workflows. Explique el funcionamiento de todas las funciones utilizadas.\nPara region growing debe crear una versión propia (además del uso de versiones de librerías).\nEs necesario analizar el efecto de los principales parámetros de cada técnica de segmentación para una correcta comparación cuantitativa."
+    "text": "Paciente\n      patient-022patient-010\n    Secuencia\n      CT1 (T1 con gadolinio)FLAIRT2\n    Corte axial \n      62 / 138\n    Ir al centro del tumor\n  \n  \n     Referencia sobre la imagen\n    Opacidad \n    necrosis (1)\n      edema (2)\n      realce (3)\n  \n  \n    \n      imagen\n    \n      referencia"
   },
   {
-    "objectID": "bme423/evals/lab3.html#instrucciones-para-la-entrega",
-    "href": "bme423/evals/lab3.html#instrucciones-para-la-entrega",
-    "title": "Segmentación de imágenes",
-    "section": "Instrucciones para la entrega",
-    "text": "Instrucciones para la entrega\n\napellido_nombre_l3.ipynb y apellido_nombre_l3.pdf\nMedio: Aula virtual\nLas versiones .pdf en las entregas corresponden a los archivos .ipynb con las salidas de las celdas visibles.\nNo respetar las instrucciones significará un descuento de 10 pts."
+    "objectID": "bme423/evals/lab3.html#carga-de-los-datos",
+    "href": "bme423/evals/lab3.html#carga-de-los-datos",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "2. Carga de los datos",
+    "text": "2. Carga de los datos\nimport nibabel as nb\nimport numpy as np\n\nflair = nb.load(\"lab3-ms/patient04/FLAIR.nii.gz\").get_fdata()\ngt    = nb.load(\"lab3-ms/patient04/consensus_gt.nii.gz\").get_fdata() &gt; 0.5\nmasc  = nb.load(\"lab3-ms/patient04/brainmask.nii.gz\").get_fdata() &gt; 0.5\n\nz = int(np.argmax(gt.sum(axis=(0, 1))))   # corte axial con mayor carga lesional\ncorte, ref, m = flair[:, :, z].T, gt[:, :, z].T, masc[:, :, z].T\nPara el glioblastoma, seg.nii.gz reemplaza a consensus_gt.nii.gz y las cuatro secuencias comparten la misma grilla, de modo que un mismo índice z corta todas."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#anatomía-de-un-pipeline",
+    "href": "bme423/evals/lab3.html#anatomía-de-un-pipeline",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "3. Anatomía de un pipeline",
+    "text": "3. Anatomía de un pipeline\nCada pipeline tiene cuatro etapas.\n\n\n\n\n\n\n\nEtapa\nContenido\n\n\n\n\nPreprocesamiento\nNormalización de intensidades y uno o más filtros\n\n\nSegmentación\nEl algoritmo que decide la clase de cada vóxel\n\n\nPostproceso\nOperadores morfológicos y criterios de tamaño o posición\n\n\nEvaluación\nLas métricas de la sección 5, con el mismo código para todos\n\n\n\nUn pipeline se aplica a los dos problemas. Los parámetros pueden cambiar entre problemas, y cada cambio debe justificarse."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#ingredientes-obligatorios",
+    "href": "bme423/evals/lab3.html#ingredientes-obligatorios",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "3. Ingredientes obligatorios",
+    "text": "3. Ingredientes obligatorios\nEntre los tres pipelines deben aparecer, cada uno al menos una vez,\n\nla difusión anisotrópica de Perona y Malik, implementada sin librerías,\nun filtro en el dominio de Fourier, implementado con numpy.fft, con el espectro mostrado antes y después,\nun campo aleatorio de Markov, con la regla de actualización implementada sin librerías.\n\nLos tres pipelines deben diferir en la etapa de segmentación. Dos pipelines que cambian sólo el filtro cuentan como uno."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#arquetipos-sugeridos",
+    "href": "bme423/evals/lab3.html#arquetipos-sugeridos",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "3. Arquetipos sugeridos",
+    "text": "3. Arquetipos sugeridos\n\n\n\n\n\n\n\n\n\n\nPipeline A\nPipeline B\nPipeline C\n\n\n\n\nIdea\nDeterminista\nEspectral y agrupamiento\nProbabilístico con contexto\n\n\nPreproceso\nNormalización, Perona y Malik\nNormalización, filtro de Fourier\nNormalización, suavizado leve\n\n\nSegmentación\nUmbral de Otsu o adaptativo\nk-means, FCM o mezcla gaussiana\nMezcla gaussiana e ICM sobre un MRF\n\n\nPosproceso\nMorfología\nMorfología\nMorfología\n\n\n\nPuede proponer otra combinación siempre que respete los ingredientes obligatorios. En el glioblastoma, la segmentación puede usar un vector de intensidades con varias secuencias; en esclerosis múltiple, FLAIR es obligatoria y T1 y T2 optativas."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#ajuste-y-validación",
+    "href": "bme423/evals/lab3.html#ajuste-y-validación",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "3. Ajuste y validación",
+    "text": "3. Ajuste y validación\n\nElija un paciente de ajuste por problema. Todos los parámetros se fijan sobre él.\nPara cada pipeline estudie al menos dos parámetros críticos sobre el paciente de ajuste y muestre la curva de Dice en función de cada uno. Ejemplos, \\(\\kappa\\) y el número de iteraciones de la difusión, la frecuencia de corte del filtro, el número de clases del agrupamiento, \\(\\beta\\) del MRF, el radio del elemento estructurante.\nAplique el pipeline con esos parámetros a los pacientes de validación sin volver a ajustar. La tabla final distingue ambos conjuntos.\nUna ganancia que aparece en el paciente de ajuste y desaparece en los de validación debe discutirse como lo que es, sobreajuste."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#métodos-vistos-en-clases",
+    "href": "bme423/evals/lab3.html#métodos-vistos-en-clases",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "4. Métodos vistos en clases",
+    "text": "4. Métodos vistos en clases\nLos métodos que participan en los pipelines fueron tratados en clases y no se repiten aquí. Las láminas correspondientes son la referencia para cada etapa.\n\n\n\n\n\n\n\n\nEtapa\nMétodos\nClase\n\n\n\n\nNormalización\nEcualización, especificación, CLAHE\nProcesamiento de histogramas\n\n\nFiltrado\nPerona y Malik; pasa-bajos y homomórfico en Fourier\nEcuación de difusión; filtrado en frecuencia\n\n\nSegmentación\nUmbral iterativo, Otsu, adaptativo; k-means, FCM, EM, MRF e ICM\nSegmentación I y II\n\n\nPosproceso\nApertura, cierre, componentes conexas, llenado\nMorfología matemática"
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#descripción-en-el-notebook",
+    "href": "bme423/evals/lab3.html#descripción-en-el-notebook",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "4. Descripción en el notebook",
+    "text": "4. Descripción en el notebook\nCada método que participe en un pipeline se describe en el cuaderno, antes de usarlo, en una celda de texto con la siguiente estructura.\n\nIdea, en dos o tres oraciones.\nModelo, las ecuaciones que lo definen y el significado de cada símbolo.\nParámetros, su efecto y cómo se eligió cada valor en este problema.\nLímites, cuándo falla y qué consecuencia tiene aquí.\n\nSon obligatorias las descripciones de la normalización, de cada filtro, de cada algoritmo de segmentación, del MRF, del posproceso morfológico y de las métricas. Una descripción copiada de las láminas sin adaptarla al problema no cumple el punto 3 ni el 4."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#métricas-por-vóxel",
+    "href": "bme423/evals/lab3.html#métricas-por-vóxel",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "5. Métricas por vóxel",
+    "text": "5. Métricas por vóxel\nCon \\(S\\) la segmentación y \\(R\\) la referencia, dentro de la máscara de encéfalo, \\[ \\text{Dice} = \\frac{2|S\\cap R|}{|S|+|R|}, \\qquad \\text{Jaccard} = \\frac{|S\\cap R|}{|S\\cup R|}, \\] \\[ \\text{Sensibilidad} = \\frac{|S\\cap R|}{|R|}, \\qquad \\text{VPP} = \\frac{|S\\cap R|}{|S|}, \\] \\[ \\text{Error de volumen} = \\frac{|S|-|R|}{|R|}. \\]\nEn el glioblastoma se reportan por separado para el tumor completo y para el tumor realzante."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#métricas-por-lesión",
+    "href": "bme423/evals/lab3.html#métricas-por-lesión",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "5. Métricas por lesión",
+    "text": "5. Métricas por lesión\nEn esclerosis múltiple el Dice está dominado por las lesiones grandes. Etiquete las componentes conexas de \\(R\\) y de \\(S\\) y reporte además\n\nla tasa de detección, fracción de lesiones de \\(R\\) que intersectan alguna componente de \\(S\\),\nlos falsos positivos por corte, componentes de \\(S\\) que no intersectan a \\(R\\),\nel Dice calculado sólo sobre las lesiones de menos de 50 vóxeles."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#tabla-comparativa",
+    "href": "bme423/evals/lab3.html#tabla-comparativa",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "5. Tabla comparativa",
+    "text": "5. Tabla comparativa\nUna tabla por problema, con una fila por pipeline y paciente, que indique si el paciente es de ajuste o de validación, los parámetros empleados y las métricas. Resuma con media y desviación estándar sobre los pacientes de validación. Con dos o tres pacientes no hay base para hablar de significancia estadística, y el informe no debe hacerlo.\nAcompañe la tabla con una figura por problema que superponga, sobre el mismo corte, el contorno de la referencia y el de cada pipeline, y con un mapa de errores que pinte en colores distintos los falsos positivos y los falsos negativos."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#ablación",
+    "href": "bme423/evals/lab3.html#ablación",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "5. Ablación",
+    "text": "5. Ablación\n\nPara cada pipeline, repita la evaluación sin la etapa de filtrado y sin el posproceso, manteniendo lo demás. La diferencia de Dice atribuye la ganancia a cada etapa.\nPara el pipeline con MRF, compare con el mismo modelo con \\(\\beta = 0\\), que es la clasificación por máxima verosimilitud sin contexto.\nPresente la ablación como una tabla de diferencias respecto del pipeline completo."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#discusión-obligatoria",
+    "href": "bme423/evals/lab3.html#discusión-obligatoria",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "5. Discusión obligatoria",
+    "text": "5. Discusión obligatoria\nEl cierre del cuaderno debe responder, con referencia a las tablas y figuras, los siguientes puntos.\n\nQué pipeline recomienda para cada problema y qué etapa explica su ventaja.\nPor qué un mismo pipeline se comporta distinto en lesiones pequeñas y numerosas que en una lesión grande y heterogénea.\nQué aporta el contexto espacial del MRF frente al agrupamiento sin contexto, y a qué costo.\nQué efecto tiene la calidad de la referencia, consenso manual en un caso y segmentación automática validada en el otro, sobre las conclusiones.\nQué cambiaría al pasar de cortes a volúmenes."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#estructura-del-notebook",
+    "href": "bme423/evals/lab3.html#estructura-del-notebook",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "6. Estructura del notebook",
+    "text": "6. Estructura del notebook\n\nDatos y cortes de trabajo, con las figuras de la sección 2 reproducidas sobre sus cortes.\nFunciones comunes, carga, normalización, métricas y visualización.\nPipeline A, descripción de métodos, implementación, ajuste de parámetros, resultados en ambos problemas.\nPipeline B, ídem.\nPipeline C, ídem.\nComparación, tablas, figuras y ablación.\nDiscusión y recomendación."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#rúbrica",
+    "href": "bme423/evals/lab3.html#rúbrica",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "6. Rúbrica",
+    "text": "6. Rúbrica\n\n\n\n\n\n\n\nComponente\nPuntos\n\n\n\n\nDatos, cortes de trabajo y funciones comunes\n10\n\n\nPipelines A, B y C, implementación, descripción de métodos y ajuste (15 cada uno)\n45\n\n\nIngredientes obligatorios implementados sin librerías y verificados\n10\n\n\nTablas, figuras y ablación\n20\n\n\nDiscusión y recomendación\n15\n\n\nVersión tridimensional (bonificación)\n+5\n\n\n\nPuede emplear librerías para las etapas que no sean los ingredientes obligatorios, explicando el funcionamiento de cada función utilizada."
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#entrega",
+    "href": "bme423/evals/lab3.html#entrega",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "Entrega",
+    "text": "Entrega\n\napellido_nombre_l3.ipynb y apellido_nombre_l3.pdf\nMedio: Aula virtual\nLas versiones \\(\\texttt{.pdf}\\) corresponden a los archivos \\(\\texttt{.ipynb}\\) con las salidas de las celdas visibles.\nCada descripción de método y cada punto de la discusión van en celdas de texto, junto a las figuras y tablas que los respaldan.\nNo respetar las instrucciones significará un descuento de 10 pts."
   },
   {
     "objectID": "bme423/evals/lab3-old.html#objetivos",
@@ -3280,28 +3413,21 @@
     "href": "bme423/evals/lab3-old.html#datos",
     "title": "Segmentación de imágenes",
     "section": "Datos",
-    "text": "Datos\nSe trabajará con datos de pacientes que sufren esclerosis múltiple: Open MS data"
-  },
-  {
-    "objectID": "bme423/evals/lab3-old.html#datos-1",
-    "href": "bme423/evals/lab3-old.html#datos-1",
-    "title": "Segmentación de imágenes",
-    "section": "Datos",
-    "text": "Datos\n\n\nPaciente 4 - Anatomía, slice 312\n\n\nPaciente 4 - Anatomía + Gold Standard, slice 312"
+    "text": "Datos\nSe trabajará con datos de pacientes que sufren esclerosis múltiple: Open MS data\n\n\n\n\n\nPaciente 4 - Anatomía, slice 312\n\n\n\n\n\n\nPaciente 4 - Anatomía + Gold Standard, slice 312"
   },
   {
     "objectID": "bme423/evals/lab3-old.html#actividad",
     "href": "bme423/evals/lab3-old.html#actividad",
     "title": "Segmentación de imágenes",
     "section": "Actividad",
-    "text": "Actividad\n\nDesarrolle workflows para la segmentación de esclerosis múltiple usando los algoritmos: k-means, fuzzy k-means, mezclas gaussianas mediante EM y crecimiento de regiones (region growing).\nTodos los workflows deben considerar mejoras de contraste y filtros adecuados. Esta etapa puede ser común para todos los workflows.\nMejore los resultados obtenidos usando un MRF.\nCompare cuantitativamente los distintos workflows implementados. Analice los resultados."
+    "text": "Actividad\n\nDesarrolle workflows para la segmentación de esclerosis múltiple usando los algoritmos: k-means, fuzzy k-means, mezclas gaussianas mediante EM y crecimiento de regiones (region growing).\nTodos los workflows deben considerar mejoras de contraste y filtros adecuados. Esta etapa puede ser común para todos los workflows.\nMejore los resultados obtenidos usando un MRF y algoritmos de morfología matemática.\nCompare cuantitativamente los distintos workflows implementados. Analice los resultados."
   },
   {
     "objectID": "bme423/evals/lab3-old.html#section",
     "href": "bme423/evals/lab3-old.html#section",
     "title": "Segmentación de imágenes",
     "section": "",
-    "text": "Nota:\n\nPuede emplear las librerías que considere pertinentes para el desarrollo de los workflows. Explique el funcionamiento de todas las funciones utilizadas.\nEs necesario analizar el efecto de los principales parámetros de cada técnica de segmentación para una correcta comparación cuantitativa."
+    "text": "Nota:\n\nPuede emplear las librerías que considere pertinentes para el desarrollo de los workflows. Explique el funcionamiento de todas las funciones utilizadas.\nPara region growing debe crear una versión propia (además del uso de versiones de librerías).\nEs necesario analizar el efecto de los principales parámetros de cada técnica de segmentación para una correcta comparación cuantitativa."
   },
   {
     "objectID": "bme423/evals/lab3-old.html#instrucciones-para-la-entrega",
