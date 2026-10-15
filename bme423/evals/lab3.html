@@ -1076,8 +1076,14 @@ Dr. Alejandro Veloz
 </div>
 
 </section>
-<section class="slide level2">
-
+<section id="objetivos" class="slide level2">
+<h2>Objetivos</h2>
+<ul>
+<li>Diseñar, implementar y documentar <strong>tres <em>pipelines</em></strong> de segmentación y aplicarlos a dos problemas clínicos.</li>
+<li>Integrar difusión anisotrópica, filtrado en el dominio de Fourier y campos aleatorios de Markov como etapas de esos <em>pipelines</em>.</li>
+<li>Evaluar cada <em>pipeline</em> contra una referencia, en varios pacientes, con métricas por vóxel y por lesión.</li>
+<li>Atribuir la ganancia de cada etapa mediante ablación y recomendar un <em>pipeline</em> por problema.</li>
+</ul>
 <style>
 .dw{font-size:.52em;line-height:1.25;color:#23373b}
 .dw .ctl{display:flex;flex-wrap:wrap;gap:.5em 1.1em;align-items:center;margin:.2em 0 .5em}
@@ -1162,15 +1168,6 @@ window.LAB3 = (function(){
   return {INFO:INFO, COLOR:COLOR, drawSlice:drawSlice, drawSeg:drawSeg, onReady:onReady};
 })();
 </script>
-</section>
-<section id="objetivos" class="slide level2">
-<h2>Objetivos</h2>
-<ul>
-<li>Diseñar, implementar y documentar <strong>tres <em>pipelines</em></strong> de segmentación y aplicarlos a dos problemas clínicos.</li>
-<li>Integrar difusión anisotrópica, filtrado en el dominio de Fourier y campos aleatorios de Markov como etapas de esos <em>pipelines</em>.</li>
-<li>Evaluar cada <em>pipeline</em> contra una referencia, en varios pacientes, con métricas por vóxel y por lesión.</li>
-<li>Atribuir la ganancia de cada etapa mediante ablación y recomendar un <em>pipeline</em> por problema.</li>
-</ul>
 </section>
 <section id="estructura-del-desafío" class="slide level2">
 <h2>Estructura del desafío</h2>
@@ -1331,11 +1328,8 @@ LAB3.onReady(function(){
 <span id="cb1-3"><a aria-label="3"></a></span>
 <span id="cb1-4"><a aria-label="4"></a>flair <span class="op">=</span> nb.load(<span class="st">&quot;lab3-ms/patient04/FLAIR.nii.gz&quot;</span>).get_fdata()</span>
 <span id="cb1-5"><a aria-label="5"></a>gt    <span class="op">=</span> nb.load(<span class="st">&quot;lab3-ms/patient04/consensus_gt.nii.gz&quot;</span>).get_fdata() <span class="op">&gt;</span> <span class="fl">0.5</span></span>
-<span id="cb1-6"><a aria-label="6"></a>masc  <span class="op">=</span> nb.load(<span class="st">&quot;lab3-ms/patient04/brainmask.nii.gz&quot;</span>).get_fdata() <span class="op">&gt;</span> <span class="fl">0.5</span></span>
-<span id="cb1-7"><a aria-label="7"></a></span>
-<span id="cb1-8"><a aria-label="8"></a>z <span class="op">=</span> <span class="bu">int</span>(np.argmax(gt.<span class="bu">sum</span>(axis<span class="op">=</span>(<span class="dv">0</span>, <span class="dv">1</span>))))   <span class="co"># corte axial con mayor carga lesional</span></span>
-<span id="cb1-9"><a aria-label="9"></a>corte, ref, m <span class="op">=</span> flair[:, :, z].T, gt[:, :, z].T, masc[:, :, z].T</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Para el glioblastoma, <code>seg.nii.gz</code> reemplaza a <code>consensus_gt.nii.gz</code> y las cuatro secuencias comparten la misma grilla, de modo que un mismo índice <code>z</code> corta todas.</p>
+<span id="cb1-6"><a aria-label="6"></a>masc  <span class="op">=</span> nb.load(<span class="st">&quot;lab3-ms/patient04/brainmask.nii.gz&quot;</span>).get_fdata() <span class="op">&gt;</span> <span class="fl">0.5</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para el glioblastoma, <code>seg.nii.gz</code> reemplaza a <code>consensus_gt.nii.gz</code>, y las cuatro secuencias comparten la misma grilla.</p>
 </section></section>
 <section>
 <section id="reglas-de-diseño-de-los-pipelines" class="title-slide slide level1 center">
@@ -1375,7 +1369,7 @@ LAB3.onReady(function(){
 </tr>
 </tbody>
 </table>
-<p>Un <em>pipeline</em> se aplica a los dos problemas. Los parámetros pueden cambiar entre problemas, y cada cambio debe justificarse.</p>
+<p>Los dos problemas debe abordarlos por separado. Puede repetir los <em>pipeline</em> en ambos problemas si lo desea.</p>
 </section>
 <section id="ingredientes-obligatorios" class="slide level2 smaller">
 <h2>3. Ingredientes obligatorios</h2>
@@ -1385,7 +1379,7 @@ LAB3.onReady(function(){
 <li>un <strong>filtro en el dominio de Fourier</strong>, implementado con <code>numpy.fft</code>, con el espectro mostrado antes y después,</li>
 <li>un <strong>campo aleatorio de Markov</strong>, con la regla de actualización implementada sin librerías.</li>
 </ul>
-<p>Los tres <em>pipelines</em> deben diferir en la etapa de segmentación. Dos <em>pipelines</em> que cambian sólo el filtro cuentan como uno.</p>
+<p>Los tres <em>pipelines</em> deben diferir en la etapa de segmentación.</p>
 </section>
 <section id="arquetipos-sugeridos" class="slide level2 smaller">
 <h2>3. Arquetipos sugeridos</h2>
@@ -1433,23 +1427,8 @@ LAB3.onReady(function(){
 </table>
 <p>Puede proponer otra combinación siempre que respete los ingredientes obligatorios. En el glioblastoma, la segmentación puede usar un vector de intensidades con varias secuencias; en esclerosis múltiple, FLAIR es obligatoria y T1 y T2 optativas.</p>
 </section>
-<section id="ajuste-y-validación" class="slide level2 smaller">
-<h2>3. Ajuste y validación</h2>
-<ol start="5" type="1">
-<li><p>Elija <strong>un paciente de ajuste</strong> por problema. Todos los parámetros se fijan sobre él.</p></li>
-<li><p>Para cada <em>pipeline</em> estudie al menos <strong>dos parámetros críticos</strong> sobre el paciente de ajuste y muestre la curva de Dice en función de cada uno. Ejemplos, <span class="math inline">\(\kappa\)</span> y el número de iteraciones de la difusión, la frecuencia de corte del filtro, el número de clases del agrupamiento, <span class="math inline">\(\beta\)</span> del MRF, el radio del elemento estructurante.</p></li>
-<li><p>Aplique el <em>pipeline</em> con esos parámetros a los <strong>pacientes de validación</strong> sin volver a ajustar. La tabla final distingue ambos conjuntos.</p></li>
-<li><p>Una ganancia que aparece en el paciente de ajuste y desaparece en los de validación debe discutirse como lo que es, sobreajuste.</p></li>
-</ol>
-</section></section>
-<section>
-<section id="métodos" class="title-slide slide level1 center">
-<h1>4. Métodos</h1>
-
-</section>
 <section id="métodos-vistos-en-clases" class="slide level2 smaller">
-<h2>4. Métodos vistos en clases</h2>
-<p>Los métodos que participan en los <em>pipelines</em> fueron tratados en clases y no se repiten aquí. Las láminas correspondientes son la referencia para cada etapa.</p>
+<h2>3. Métodos vistos en clases</h2>
 <table class="caption-top">
 <colgroup>
 <col style="width: 33%">
@@ -1487,16 +1466,40 @@ LAB3.onReady(function(){
 </tbody>
 </table>
 </section>
+<section id="solo-para-postgrado" class="slide level2">
+<h2>3. Solo para postgrado</h2>
+<p>Además de los tres <em>pipelines</em> obligatorios, debe implementar dos adicionales que incluyan los siguientes métodos:</p>
+<ul>
+<li>Contornor activos (<em>active contours</em>, <em>snakes</em>).</li>
+<li>Alguna mejora surgida de combinar <em>region growing</em> con métodos basados en intensidad (por ejemplo, selección automática de los puntos semilla, selección automática del umbral de crecimiento, etc.)</li>
+</ul>
+</section>
+<section id="experimento-de-parámetros" class="slide level2 smaller">
+<h2>3. Experimento de parámetros</h2>
+<p>Elija dos parámetros por <em>pipeline</em>, como <span class="math inline">\(\kappa\)</span> de la difusión, la frecuencia de corte del filtro o <span class="math inline">\(\beta\)</span> del MRF. El experimento, en esclerosis múltiple, pregunta si los valores elegidos en un paciente sirven para segmentar a otro.</p>
+<ol type="1">
+<li><p><strong>Elegir en el paciente 1.</strong> Segmente con varios valores de cada parámetro y compare cada resultado con la referencia de ese paciente. Grafique el Dice en función del parámetro y quédese con los valores de mayor Dice.</p></li>
+<li><p><strong>Aplicar a los pacientes 2 y 3.</strong> Segméntelos con esos mismos valores, sin cambiarlos, y calcule su Dice.</p></li>
+<li><p><strong>Elegir en los pacientes 2 y 3.</strong> Repita el paso 1 en cada uno, con su propia referencia, y calcule el Dice con sus mejores valores.</p></li>
+<li><p><strong>Comparar.</strong> En los pacientes 2 y 3, el Dice del paso 3 menos el del paso 2 es lo que se pierde al usar valores elegidos en otro paciente. Discuta la diferencia en los resultados.</p></li>
+</ol>
+<p>En el glioblastoma hay un solo paciente, de modo que sólo se hace el paso 1, y su Dice es el mejor alcanzable.</p>
+</section></section>
+<section>
+<section id="métodos" class="title-slide slide level1 center">
+<h1>4. Métodos</h1>
+
+</section>
 <section id="descripción-en-el-notebook" class="slide level2 smaller">
 <h2>4. Descripción en el notebook</h2>
 <p>Cada método que participe en un <em>pipeline</em> se describe en el cuaderno, <strong>antes de usarlo</strong>, en una celda de texto con la siguiente estructura.</p>
 <ol type="1">
-<li>Idea, en dos o tres oraciones.</li>
+<li>Idea del método.</li>
 <li>Modelo, las ecuaciones que lo definen y el significado de cada símbolo.</li>
 <li>Parámetros, su efecto y cómo se eligió cada valor en este problema.</li>
-<li>Límites, cuándo falla y qué consecuencia tiene aquí.</li>
+<li>Límites, cuándo falla y qué consecuencia tiene.</li>
 </ol>
-<p>Son obligatorias las descripciones de la normalización, de cada filtro, de cada algoritmo de segmentación, del MRF, del posproceso morfológico y de las métricas. Una descripción copiada de las láminas sin adaptarla al problema no cumple el punto 3 ni el 4.</p>
+<p>Son obligatorias las descripciones de la normalización, de cada filtro, de cada algoritmo de segmentación, del MRF, del posproceso morfológico y de las métricas.</p>
 </section></section>
 <section>
 <section id="evaluación-y-comparación" class="title-slide slide level1 center">
@@ -1513,32 +1516,31 @@ LAB3.onReady(function(){
 <p>En esclerosis múltiple el Dice está dominado por las lesiones grandes. Etiquete las componentes conexas de <span class="math inline">\(R\)</span> y de <span class="math inline">\(S\)</span> y reporte además</p>
 <ul>
 <li>la <strong>tasa de detección</strong>, fracción de lesiones de <span class="math inline">\(R\)</span> que intersectan alguna componente de <span class="math inline">\(S\)</span>,</li>
-<li>los <strong>falsos positivos por corte</strong>, componentes de <span class="math inline">\(S\)</span> que no intersectan a <span class="math inline">\(R\)</span>,</li>
+<li>los <strong>falsos positivos</strong>, componentes de <span class="math inline">\(S\)</span> que no intersectan a <span class="math inline">\(R\)</span>,</li>
 <li>el Dice calculado sólo sobre las lesiones de menos de 50 vóxeles.</li>
 </ul>
 </section>
 <section id="tabla-comparativa" class="slide level2">
 <h2>5. Tabla comparativa</h2>
-<p>Una tabla por problema, con una fila por <em>pipeline</em> y paciente, que indique si el paciente es de ajuste o de validación, los parámetros empleados y las métricas. Resuma con media y desviación estándar sobre los pacientes de validación. Con dos o tres pacientes no hay base para hablar de significancia estadística, y el informe no debe hacerlo.</p>
+<p>Una tabla por problema, con una fila por <em>pipeline</em> y paciente, que indique en qué paciente se eligieron los parámetros, sus valores y las métricas. En esclerosis múltiple, resuma con media y desviación estándar los pacientes 2 y 3, por separado para los pasos 2 y 3 del experimento de parámetros (con dos o tres pacientes no hay base para hablar de significancia estadística).</p>
 <p>Acompañe la tabla con una figura por problema que superponga, sobre el mismo corte, el contorno de la referencia y el de cada <em>pipeline</em>, y con un <strong>mapa de errores</strong> que pinte en colores distintos los falsos positivos y los falsos negativos.</p>
 </section>
 <section id="ablación" class="slide level2">
 <h2>5. Ablación</h2>
-<ol start="9" type="1">
-<li><p>Para cada <em>pipeline</em>, repita la evaluación <strong>sin la etapa de filtrado</strong> y <strong>sin el posproceso</strong>, manteniendo lo demás. La diferencia de Dice atribuye la ganancia a cada etapa.</p></li>
+<ul>
+<li><p>Para los <em>pipelines</em>, repita la evaluación <strong>sin la etapa de filtrado</strong> y <strong>sin el posproceso</strong>, manteniendo lo demás. La diferencia de Dice atribuye la ganancia a cada etapa.</p></li>
 <li><p>Para el <em>pipeline</em> con MRF, compare con el mismo modelo con <span class="math inline">\(\beta = 0\)</span>, que es la clasificación por máxima verosimilitud sin contexto.</p></li>
 <li><p>Presente la ablación como una tabla de diferencias respecto del <em>pipeline</em> completo.</p></li>
-</ol>
+</ul>
 </section>
 <section id="discusión-obligatoria" class="slide level2 smaller">
 <h2>5. Discusión obligatoria</h2>
-<p>El cierre del cuaderno debe responder, con referencia a las tablas y figuras, los siguientes puntos.</p>
+<p>El cierre del notebook debe responder, con referencia a las tablas y figuras, los siguientes puntos.</p>
 <ul>
 <li>Qué <em>pipeline</em> recomienda para cada problema y qué etapa explica su ventaja.</li>
 <li>Por qué un mismo <em>pipeline</em> se comporta distinto en lesiones pequeñas y numerosas que en una lesión grande y heterogénea.</li>
 <li>Qué aporta el contexto espacial del MRF frente al agrupamiento sin contexto, y a qué costo.</li>
-<li>Qué efecto tiene la calidad de la referencia, consenso manual en un caso y segmentación automática validada en el otro, sobre las conclusiones.</li>
-<li>Qué cambiaría al pasar de cortes a volúmenes.</li>
+<li>Qué <em>pipeline</em> pierde menos Dice cuando usa valores elegidos en otro paciente, y qué parámetro explica esa pérdida.</li>
 </ul>
 </section></section>
 <section>
@@ -1549,7 +1551,7 @@ LAB3.onReady(function(){
 <section id="estructura-del-notebook" class="slide level2 smaller">
 <h2>6. Estructura del notebook</h2>
 <ol type="1">
-<li>Datos y cortes de trabajo, con las figuras de la sección 2 reproducidas sobre sus cortes.</li>
+<li>Datos, con las figuras de la sección 2 reproducidas.</li>
 <li>Funciones comunes, carga, normalización, métricas y visualización.</li>
 <li><em>Pipeline</em> A, descripción de métodos, implementación, ajuste de parámetros, resultados en ambos problemas.</li>
 <li><em>Pipeline</em> B, ídem.</li>
@@ -1573,32 +1575,27 @@ LAB3.onReady(function(){
 </thead>
 <tbody>
 <tr class="odd">
-<td>Datos, cortes de trabajo y funciones comunes</td>
-<td style="text-align: center;">10</td>
-</tr>
-<tr class="even">
 <td><em>Pipelines</em> A, B y C, implementación, descripción de métodos y ajuste (15 cada uno)</td>
 <td style="text-align: center;">45</td>
 </tr>
-<tr class="odd">
-<td>Ingredientes obligatorios implementados sin librerías y verificados</td>
-<td style="text-align: center;">10</td>
-</tr>
 <tr class="even">
-<td>Tablas, figuras y ablación</td>
+<td>Ingredientes obligatorios implementados sin librerías y verificados</td>
 <td style="text-align: center;">20</td>
 </tr>
 <tr class="odd">
+<td>Funciones comunes, tablas, figuras y ablación</td>
+<td style="text-align: center;">20</td>
+</tr>
+<tr class="even">
 <td>Discusión y recomendación</td>
 <td style="text-align: center;">15</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Versión tridimensional (bonificación)</td>
 <td style="text-align: center;">+5</td>
 </tr>
 </tbody>
 </table>
-<p>Puede emplear librerías para las etapas que no sean los ingredientes obligatorios, explicando el funcionamiento de cada función utilizada.</p>
 </section>
 <section id="entrega" class="slide level2">
 <h2>Entrega</h2>

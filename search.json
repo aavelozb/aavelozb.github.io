@@ -3301,21 +3301,21 @@
     "href": "bme423/evals/lab3.html#carga-de-los-datos",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "2. Carga de los datos",
-    "text": "2. Carga de los datos\nimport nibabel as nb\nimport numpy as np\n\nflair = nb.load(\"lab3-ms/patient04/FLAIR.nii.gz\").get_fdata()\ngt    = nb.load(\"lab3-ms/patient04/consensus_gt.nii.gz\").get_fdata() &gt; 0.5\nmasc  = nb.load(\"lab3-ms/patient04/brainmask.nii.gz\").get_fdata() &gt; 0.5\n\nz = int(np.argmax(gt.sum(axis=(0, 1))))   # corte axial con mayor carga lesional\ncorte, ref, m = flair[:, :, z].T, gt[:, :, z].T, masc[:, :, z].T\nPara el glioblastoma, seg.nii.gz reemplaza a consensus_gt.nii.gz y las cuatro secuencias comparten la misma grilla, de modo que un mismo índice z corta todas."
+    "text": "2. Carga de los datos\nimport nibabel as nb\nimport numpy as np\n\nflair = nb.load(\"lab3-ms/patient04/FLAIR.nii.gz\").get_fdata()\ngt    = nb.load(\"lab3-ms/patient04/consensus_gt.nii.gz\").get_fdata() &gt; 0.5\nmasc  = nb.load(\"lab3-ms/patient04/brainmask.nii.gz\").get_fdata() &gt; 0.5\nPara el glioblastoma, seg.nii.gz reemplaza a consensus_gt.nii.gz, y las cuatro secuencias comparten la misma grilla."
   },
   {
     "objectID": "bme423/evals/lab3.html#anatomía-de-un-pipeline",
     "href": "bme423/evals/lab3.html#anatomía-de-un-pipeline",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "3. Anatomía de un pipeline",
-    "text": "3. Anatomía de un pipeline\nCada pipeline tiene cuatro etapas.\n\n\n\n\n\n\n\nEtapa\nContenido\n\n\n\n\nPreprocesamiento\nNormalización de intensidades y uno o más filtros\n\n\nSegmentación\nEl algoritmo que decide la clase de cada vóxel\n\n\nPostproceso\nOperadores morfológicos y criterios de tamaño o posición\n\n\nEvaluación\nLas métricas de la sección 5, con el mismo código para todos\n\n\n\nUn pipeline se aplica a los dos problemas. Los parámetros pueden cambiar entre problemas, y cada cambio debe justificarse."
+    "text": "3. Anatomía de un pipeline\nCada pipeline tiene cuatro etapas.\n\n\n\n\n\n\n\nEtapa\nContenido\n\n\n\n\nPreprocesamiento\nNormalización de intensidades y uno o más filtros\n\n\nSegmentación\nEl algoritmo que decide la clase de cada vóxel\n\n\nPostproceso\nOperadores morfológicos y criterios de tamaño o posición\n\n\nEvaluación\nLas métricas de la sección 5, con el mismo código para todos\n\n\n\nLos dos problemas debe abordarlos por separado. Puede repetir los pipeline en ambos problemas si lo desea."
   },
   {
     "objectID": "bme423/evals/lab3.html#ingredientes-obligatorios",
     "href": "bme423/evals/lab3.html#ingredientes-obligatorios",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "3. Ingredientes obligatorios",
-    "text": "3. Ingredientes obligatorios\nEntre los tres pipelines deben aparecer, cada uno al menos una vez,\n\nla difusión anisotrópica de Perona y Malik, implementada sin librerías,\nun filtro en el dominio de Fourier, implementado con numpy.fft, con el espectro mostrado antes y después,\nun campo aleatorio de Markov, con la regla de actualización implementada sin librerías.\n\nLos tres pipelines deben diferir en la etapa de segmentación. Dos pipelines que cambian sólo el filtro cuentan como uno."
+    "text": "3. Ingredientes obligatorios\nEntre los tres pipelines deben aparecer, cada uno al menos una vez,\n\nla difusión anisotrópica de Perona y Malik, implementada sin librerías,\nun filtro en el dominio de Fourier, implementado con numpy.fft, con el espectro mostrado antes y después,\nun campo aleatorio de Markov, con la regla de actualización implementada sin librerías.\n\nLos tres pipelines deben diferir en la etapa de segmentación."
   },
   {
     "objectID": "bme423/evals/lab3.html#arquetipos-sugeridos",
@@ -3325,25 +3325,32 @@
     "text": "3. Arquetipos sugeridos\n\n\n\n\n\n\n\n\n\n\nPipeline A\nPipeline B\nPipeline C\n\n\n\n\nIdea\nDeterminista\nEspectral y agrupamiento\nProbabilístico con contexto\n\n\nPreproceso\nNormalización, Perona y Malik\nNormalización, filtro de Fourier\nNormalización, suavizado leve\n\n\nSegmentación\nUmbral de Otsu o adaptativo\nk-means, FCM o mezcla gaussiana\nMezcla gaussiana e ICM sobre un MRF\n\n\nPosproceso\nMorfología\nMorfología\nMorfología\n\n\n\nPuede proponer otra combinación siempre que respete los ingredientes obligatorios. En el glioblastoma, la segmentación puede usar un vector de intensidades con varias secuencias; en esclerosis múltiple, FLAIR es obligatoria y T1 y T2 optativas."
   },
   {
-    "objectID": "bme423/evals/lab3.html#ajuste-y-validación",
-    "href": "bme423/evals/lab3.html#ajuste-y-validación",
-    "title": "Segmentación: esclerosis múltiple y glioblastoma",
-    "section": "3. Ajuste y validación",
-    "text": "3. Ajuste y validación\n\nElija un paciente de ajuste por problema. Todos los parámetros se fijan sobre él.\nPara cada pipeline estudie al menos dos parámetros críticos sobre el paciente de ajuste y muestre la curva de Dice en función de cada uno. Ejemplos, \\(\\kappa\\) y el número de iteraciones de la difusión, la frecuencia de corte del filtro, el número de clases del agrupamiento, \\(\\beta\\) del MRF, el radio del elemento estructurante.\nAplique el pipeline con esos parámetros a los pacientes de validación sin volver a ajustar. La tabla final distingue ambos conjuntos.\nUna ganancia que aparece en el paciente de ajuste y desaparece en los de validación debe discutirse como lo que es, sobreajuste."
-  },
-  {
     "objectID": "bme423/evals/lab3.html#métodos-vistos-en-clases",
     "href": "bme423/evals/lab3.html#métodos-vistos-en-clases",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
-    "section": "4. Métodos vistos en clases",
-    "text": "4. Métodos vistos en clases\nLos métodos que participan en los pipelines fueron tratados en clases y no se repiten aquí. Las láminas correspondientes son la referencia para cada etapa.\n\n\n\n\n\n\n\n\nEtapa\nMétodos\nClase\n\n\n\n\nNormalización\nEcualización, especificación, CLAHE\nProcesamiento de histogramas\n\n\nFiltrado\nPerona y Malik; pasa-bajos y homomórfico en Fourier\nEcuación de difusión; filtrado en frecuencia\n\n\nSegmentación\nUmbral iterativo, Otsu, adaptativo; k-means, FCM, EM, MRF e ICM\nSegmentación I y II\n\n\nPosproceso\nApertura, cierre, componentes conexas, llenado\nMorfología matemática"
+    "section": "3. Métodos vistos en clases",
+    "text": "3. Métodos vistos en clases\n\n\n\n\n\n\n\n\nEtapa\nMétodos\nClase\n\n\n\n\nNormalización\nEcualización, especificación, CLAHE\nProcesamiento de histogramas\n\n\nFiltrado\nPerona y Malik; pasa-bajos y homomórfico en Fourier\nEcuación de difusión; filtrado en frecuencia\n\n\nSegmentación\nUmbral iterativo, Otsu, adaptativo; k-means, FCM, EM, MRF e ICM\nSegmentación I y II\n\n\nPosproceso\nApertura, cierre, componentes conexas, llenado\nMorfología matemática"
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#solo-para-postgrado",
+    "href": "bme423/evals/lab3.html#solo-para-postgrado",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "3. Solo para postgrado",
+    "text": "3. Solo para postgrado\nAdemás de los tres pipelines obligatorios, debe implementar dos adicionales que incluyan los siguientes métodos:\n\nContornor activos (active contours, snakes).\nAlguna mejora surgida de combinar region growing con métodos basados en intensidad (por ejemplo, selección automática de los puntos semilla, selección automática del umbral de crecimiento, etc.)"
+  },
+  {
+    "objectID": "bme423/evals/lab3.html#experimento-de-parámetros",
+    "href": "bme423/evals/lab3.html#experimento-de-parámetros",
+    "title": "Segmentación: esclerosis múltiple y glioblastoma",
+    "section": "3. Experimento de parámetros",
+    "text": "3. Experimento de parámetros\nElija dos parámetros por pipeline, como \\(\\kappa\\) de la difusión, la frecuencia de corte del filtro o \\(\\beta\\) del MRF. El experimento, en esclerosis múltiple, pregunta si los valores elegidos en un paciente sirven para segmentar a otro.\n\nElegir en el paciente 1. Segmente con varios valores de cada parámetro y compare cada resultado con la referencia de ese paciente. Grafique el Dice en función del parámetro y quédese con los valores de mayor Dice.\nAplicar a los pacientes 2 y 3. Segméntelos con esos mismos valores, sin cambiarlos, y calcule su Dice.\nElegir en los pacientes 2 y 3. Repita el paso 1 en cada uno, con su propia referencia, y calcule el Dice con sus mejores valores.\nComparar. En los pacientes 2 y 3, el Dice del paso 3 menos el del paso 2 es lo que se pierde al usar valores elegidos en otro paciente. Discuta la diferencia en los resultados.\n\nEn el glioblastoma hay un solo paciente, de modo que sólo se hace el paso 1, y su Dice es el mejor alcanzable."
   },
   {
     "objectID": "bme423/evals/lab3.html#descripción-en-el-notebook",
     "href": "bme423/evals/lab3.html#descripción-en-el-notebook",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "4. Descripción en el notebook",
-    "text": "4. Descripción en el notebook\nCada método que participe en un pipeline se describe en el cuaderno, antes de usarlo, en una celda de texto con la siguiente estructura.\n\nIdea, en dos o tres oraciones.\nModelo, las ecuaciones que lo definen y el significado de cada símbolo.\nParámetros, su efecto y cómo se eligió cada valor en este problema.\nLímites, cuándo falla y qué consecuencia tiene aquí.\n\nSon obligatorias las descripciones de la normalización, de cada filtro, de cada algoritmo de segmentación, del MRF, del posproceso morfológico y de las métricas. Una descripción copiada de las láminas sin adaptarla al problema no cumple el punto 3 ni el 4."
+    "text": "4. Descripción en el notebook\nCada método que participe en un pipeline se describe en el cuaderno, antes de usarlo, en una celda de texto con la siguiente estructura.\n\nIdea del método.\nModelo, las ecuaciones que lo definen y el significado de cada símbolo.\nParámetros, su efecto y cómo se eligió cada valor en este problema.\nLímites, cuándo falla y qué consecuencia tiene.\n\nSon obligatorias las descripciones de la normalización, de cada filtro, de cada algoritmo de segmentación, del MRF, del posproceso morfológico y de las métricas."
   },
   {
     "objectID": "bme423/evals/lab3.html#métricas-por-vóxel",
@@ -3357,42 +3364,42 @@
     "href": "bme423/evals/lab3.html#métricas-por-lesión",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "5. Métricas por lesión",
-    "text": "5. Métricas por lesión\nEn esclerosis múltiple el Dice está dominado por las lesiones grandes. Etiquete las componentes conexas de \\(R\\) y de \\(S\\) y reporte además\n\nla tasa de detección, fracción de lesiones de \\(R\\) que intersectan alguna componente de \\(S\\),\nlos falsos positivos por corte, componentes de \\(S\\) que no intersectan a \\(R\\),\nel Dice calculado sólo sobre las lesiones de menos de 50 vóxeles."
+    "text": "5. Métricas por lesión\nEn esclerosis múltiple el Dice está dominado por las lesiones grandes. Etiquete las componentes conexas de \\(R\\) y de \\(S\\) y reporte además\n\nla tasa de detección, fracción de lesiones de \\(R\\) que intersectan alguna componente de \\(S\\),\nlos falsos positivos, componentes de \\(S\\) que no intersectan a \\(R\\),\nel Dice calculado sólo sobre las lesiones de menos de 50 vóxeles."
   },
   {
     "objectID": "bme423/evals/lab3.html#tabla-comparativa",
     "href": "bme423/evals/lab3.html#tabla-comparativa",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "5. Tabla comparativa",
-    "text": "5. Tabla comparativa\nUna tabla por problema, con una fila por pipeline y paciente, que indique si el paciente es de ajuste o de validación, los parámetros empleados y las métricas. Resuma con media y desviación estándar sobre los pacientes de validación. Con dos o tres pacientes no hay base para hablar de significancia estadística, y el informe no debe hacerlo.\nAcompañe la tabla con una figura por problema que superponga, sobre el mismo corte, el contorno de la referencia y el de cada pipeline, y con un mapa de errores que pinte en colores distintos los falsos positivos y los falsos negativos."
+    "text": "5. Tabla comparativa\nUna tabla por problema, con una fila por pipeline y paciente, que indique en qué paciente se eligieron los parámetros, sus valores y las métricas. En esclerosis múltiple, resuma con media y desviación estándar los pacientes 2 y 3, por separado para los pasos 2 y 3 del experimento de parámetros (con dos o tres pacientes no hay base para hablar de significancia estadística).\nAcompañe la tabla con una figura por problema que superponga, sobre el mismo corte, el contorno de la referencia y el de cada pipeline, y con un mapa de errores que pinte en colores distintos los falsos positivos y los falsos negativos."
   },
   {
     "objectID": "bme423/evals/lab3.html#ablación",
     "href": "bme423/evals/lab3.html#ablación",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "5. Ablación",
-    "text": "5. Ablación\n\nPara cada pipeline, repita la evaluación sin la etapa de filtrado y sin el posproceso, manteniendo lo demás. La diferencia de Dice atribuye la ganancia a cada etapa.\nPara el pipeline con MRF, compare con el mismo modelo con \\(\\beta = 0\\), que es la clasificación por máxima verosimilitud sin contexto.\nPresente la ablación como una tabla de diferencias respecto del pipeline completo."
+    "text": "5. Ablación\n\nPara los pipelines, repita la evaluación sin la etapa de filtrado y sin el posproceso, manteniendo lo demás. La diferencia de Dice atribuye la ganancia a cada etapa.\nPara el pipeline con MRF, compare con el mismo modelo con \\(\\beta = 0\\), que es la clasificación por máxima verosimilitud sin contexto.\nPresente la ablación como una tabla de diferencias respecto del pipeline completo."
   },
   {
     "objectID": "bme423/evals/lab3.html#discusión-obligatoria",
     "href": "bme423/evals/lab3.html#discusión-obligatoria",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "5. Discusión obligatoria",
-    "text": "5. Discusión obligatoria\nEl cierre del cuaderno debe responder, con referencia a las tablas y figuras, los siguientes puntos.\n\nQué pipeline recomienda para cada problema y qué etapa explica su ventaja.\nPor qué un mismo pipeline se comporta distinto en lesiones pequeñas y numerosas que en una lesión grande y heterogénea.\nQué aporta el contexto espacial del MRF frente al agrupamiento sin contexto, y a qué costo.\nQué efecto tiene la calidad de la referencia, consenso manual en un caso y segmentación automática validada en el otro, sobre las conclusiones.\nQué cambiaría al pasar de cortes a volúmenes."
+    "text": "5. Discusión obligatoria\nEl cierre del notebook debe responder, con referencia a las tablas y figuras, los siguientes puntos.\n\nQué pipeline recomienda para cada problema y qué etapa explica su ventaja.\nPor qué un mismo pipeline se comporta distinto en lesiones pequeñas y numerosas que en una lesión grande y heterogénea.\nQué aporta el contexto espacial del MRF frente al agrupamiento sin contexto, y a qué costo.\nQué pipeline pierde menos Dice cuando usa valores elegidos en otro paciente, y qué parámetro explica esa pérdida."
   },
   {
     "objectID": "bme423/evals/lab3.html#estructura-del-notebook",
     "href": "bme423/evals/lab3.html#estructura-del-notebook",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "6. Estructura del notebook",
-    "text": "6. Estructura del notebook\n\nDatos y cortes de trabajo, con las figuras de la sección 2 reproducidas sobre sus cortes.\nFunciones comunes, carga, normalización, métricas y visualización.\nPipeline A, descripción de métodos, implementación, ajuste de parámetros, resultados en ambos problemas.\nPipeline B, ídem.\nPipeline C, ídem.\nComparación, tablas, figuras y ablación.\nDiscusión y recomendación."
+    "text": "6. Estructura del notebook\n\nDatos, con las figuras de la sección 2 reproducidas.\nFunciones comunes, carga, normalización, métricas y visualización.\nPipeline A, descripción de métodos, implementación, ajuste de parámetros, resultados en ambos problemas.\nPipeline B, ídem.\nPipeline C, ídem.\nComparación, tablas, figuras y ablación.\nDiscusión y recomendación."
   },
   {
     "objectID": "bme423/evals/lab3.html#rúbrica",
     "href": "bme423/evals/lab3.html#rúbrica",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "6. Rúbrica",
-    "text": "6. Rúbrica\n\n\n\n\n\n\n\nComponente\nPuntos\n\n\n\n\nDatos, cortes de trabajo y funciones comunes\n10\n\n\nPipelines A, B y C, implementación, descripción de métodos y ajuste (15 cada uno)\n45\n\n\nIngredientes obligatorios implementados sin librerías y verificados\n10\n\n\nTablas, figuras y ablación\n20\n\n\nDiscusión y recomendación\n15\n\n\nVersión tridimensional (bonificación)\n+5\n\n\n\nPuede emplear librerías para las etapas que no sean los ingredientes obligatorios, explicando el funcionamiento de cada función utilizada."
+    "text": "6. Rúbrica\n\n\n\n\n\n\n\nComponente\nPuntos\n\n\n\n\nPipelines A, B y C, implementación, descripción de métodos y ajuste (15 cada uno)\n45\n\n\nIngredientes obligatorios implementados sin librerías y verificados\n20\n\n\nFunciones comunes, tablas, figuras y ablación\n20\n\n\nDiscusión y recomendación\n15\n\n\nVersión tridimensional (bonificación)\n+5"
   },
   {
     "objectID": "bme423/evals/lab3.html#entrega",
