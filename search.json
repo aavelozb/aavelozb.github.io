@@ -158,7 +158,7 @@
     "href": "inf396/index.html#tareas",
     "title": "INF396 - Introducción a la Ciencia de Datos",
     "section": "Tareas",
-    "text": "Tareas\nUna vez publicada una tarea, se dispondrá de dos semanas para resolverla.\n\nTarea 1. Análisis exploratorio, visualización e inferencia sobre la evaluación de un programa público. Enunciado, datos.\nTarea 2. Pre-procesamiento, selección de características y reducción de la dimensión.\nTarea 3. Inferencia estadística paramétrica, no paramétrica y Bootstrap.\nTarea 4. Clasificación y métodos de evaluación.\n\nLos enunciados se publican en esta página a medida que avanza el semestre."
+    "text": "Tareas\nUna vez publicada una tarea, se dispondrá de dos semanas para resolverla.\n\nTarea 1. Análisis exploratorio, visualización e inferencia sobre la evaluación de un programa público. Enunciado, datos.\nTarea 2. Regularización y selección de variables, aprendizaje no supervisado, procesos gaussianos y regresión logística en un sistema de bicicletas públicas. Enunciado, datos del problema 1, problema 2, problema 3 y problema 4.\nTarea 3. Inferencia estadística paramétrica, no paramétrica y Bootstrap.\nTarea 4. Clasificación y métodos de evaluación.\n\nLos enunciados se publican en esta página a medida que avanza el semestre."
   },
   {
     "objectID": "inf396/index.html#proyecto-final",
