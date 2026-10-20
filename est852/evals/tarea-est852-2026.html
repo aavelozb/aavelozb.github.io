@@ -4398,13 +4398,13 @@ window.Quarto = {
     <h2 id="toc-title">Contenido de la página</h2>
    
   <ul class="collapse">
-  <li><a href="#problema-1.-procesos-gaussianos-para-regresión-35-puntos" id="toc-problema-1.-procesos-gaussianos-para-regresión-35-puntos" class="nav-link active" data-scroll-target="#problema-1.-procesos-gaussianos-para-regresión-35-puntos"><span class="header-section-number">1</span> Problema 1. Procesos gaussianos para regresión (35 puntos)</a>
+  <li><a href="#problema-1.-regularización-y-selección-de-variables-30-puntos" id="toc-problema-1.-regularización-y-selección-de-variables-30-puntos" class="nav-link active" data-scroll-target="#problema-1.-regularización-y-selección-de-variables-30-puntos"><span class="header-section-number">1</span> Problema 1. Regularización y selección de variables (30 puntos)</a>
   <ul class="collapse">
   <li><a href="#contexto" id="toc-contexto" class="nav-link" data-scroll-target="#contexto"><span class="header-section-number">1.1</span> Contexto</a></li>
   <li><a href="#los-datos" id="toc-los-datos" class="nav-link" data-scroll-target="#los-datos"><span class="header-section-number">1.2</span> Los datos</a></li>
   <li><a href="#preguntas" id="toc-preguntas" class="nav-link" data-scroll-target="#preguntas"><span class="header-section-number">1.3</span> Preguntas</a></li>
   </ul></li>
-  <li><a href="#problema-2.-datos-faltantes-e-importancia-de-variables-en-un-bosque-aleatorio-30-puntos" id="toc-problema-2.-datos-faltantes-e-importancia-de-variables-en-un-bosque-aleatorio-30-puntos" class="nav-link" data-scroll-target="#problema-2.-datos-faltantes-e-importancia-de-variables-en-un-bosque-aleatorio-30-puntos"><span class="header-section-number">2</span> Problema 2. Datos faltantes e importancia de variables en un bosque aleatorio (30 puntos)</a>
+  <li><a href="#problema-2.-procesos-gaussianos-para-regresión-35-puntos" id="toc-problema-2.-procesos-gaussianos-para-regresión-35-puntos" class="nav-link" data-scroll-target="#problema-2.-procesos-gaussianos-para-regresión-35-puntos"><span class="header-section-number">2</span> Problema 2. Procesos gaussianos para regresión (35 puntos)</a>
   <ul class="collapse">
   <li><a href="#contexto-1" id="toc-contexto-1" class="nav-link" data-scroll-target="#contexto-1"><span class="header-section-number">2.1</span> Contexto</a></li>
   <li><a href="#los-datos-1" id="toc-los-datos-1" class="nav-link" data-scroll-target="#los-datos-1"><span class="header-section-number">2.2</span> Los datos</a></li>
@@ -4418,8 +4418,8 @@ window.Quarto = {
   </ul></li>
   <li><a href="#rúbrica" id="toc-rúbrica" class="nav-link" data-scroll-target="#rúbrica"><span class="header-section-number">4</span> Rúbrica</a>
   <ul class="collapse">
-  <li><a href="#problema-1.-procesos-gaussianos-35-puntos" id="toc-problema-1.-procesos-gaussianos-35-puntos" class="nav-link" data-scroll-target="#problema-1.-procesos-gaussianos-35-puntos"><span class="header-section-number">4.1</span> Problema 1. Procesos gaussianos (35 puntos)</a></li>
-  <li><a href="#problema-2.-datos-faltantes-e-importancia-de-variables-30-puntos" id="toc-problema-2.-datos-faltantes-e-importancia-de-variables-30-puntos" class="nav-link" data-scroll-target="#problema-2.-datos-faltantes-e-importancia-de-variables-30-puntos"><span class="header-section-number">4.2</span> Problema 2. Datos faltantes e importancia de variables (30 puntos)</a></li>
+  <li><a href="#problema-1.-regularización-y-selección-de-variables-30-puntos-1" id="toc-problema-1.-regularización-y-selección-de-variables-30-puntos-1" class="nav-link" data-scroll-target="#problema-1.-regularización-y-selección-de-variables-30-puntos-1"><span class="header-section-number">4.1</span> Problema 1. Regularización y selección de variables (30 puntos)</a></li>
+  <li><a href="#problema-2.-procesos-gaussianos-35-puntos" id="toc-problema-2.-procesos-gaussianos-35-puntos" class="nav-link" data-scroll-target="#problema-2.-procesos-gaussianos-35-puntos"><span class="header-section-number">4.2</span> Problema 2. Procesos gaussianos (35 puntos)</a></li>
   <li><a href="#problema-3.-inferencia-mamdani-35-puntos" id="toc-problema-3.-inferencia-mamdani-35-puntos" class="nav-link" data-scroll-target="#problema-3.-inferencia-mamdani-35-puntos"><span class="header-section-number">4.3</span> Problema 3. Inferencia Mamdani (35 puntos)</a></li>
   <li><a href="#descuentos-transversales" id="toc-descuentos-transversales" class="nav-link" data-scroll-target="#descuentos-transversales"><span class="header-section-number">4.4</span> Descuentos transversales</a></li>
   <li><a href="#conversión-a-nota" id="toc-conversión-a-nota" class="nav-link" data-scroll-target="#conversión-a-nota"><span class="header-section-number">4.5</span> Conversión a nota</a></li>
@@ -4452,94 +4452,83 @@ window.Quarto = {
 
 
 <style>.pendiente{color:#c00;font-weight:bold}</style>
-<p><strong>Modalidad.</strong> Individual; rigen las políticas de colaboración, de uso de IA y de recalificación del programa del curso. <strong>Plazo.</strong> Tres semanas desde la publicación; fecha de entrega <span class="pendiente">27 de octubre</span>. <strong>Entregable.</strong> Un archivo, <code>tarea1_apellido_nombre.ipynb</code>. El cuaderno debe ejecutarse de principio a fin sin intervención, con una semilla fija declarada en la primera celda para todo lo que use aleatoriedad. En el cuaderno deben responderse las preguntas e incluirse el código que genera las figuras y los resultados. <strong>Lo más importante</strong> son sus conclusiones, que deben ser consistentes con los resultados y las figuras que obtiene. <strong>Bibliotecas.</strong> Se pueden usar <code>numpy</code>, <code>pandas</code>, <code>scipy</code>, <code>matplotlib</code> y <code>scikit-learn</code>. Cuando una pregunta pide una implementación propia, la biblioteca sirve sólo para comparar. <strong>Uso de IA.</strong> Permitido, declarando al inicio del cuaderno qué partes del código o del texto se generaron con ayuda de estas herramientas. Las conclusiones son personales.</p>
+<p><strong>Modalidad.</strong> Individual; rigen las políticas de colaboración, de uso de IA y de recalificación del programa del curso. <strong>Plazo.</strong> Tres semanas desde la publicación; fecha de entrega <span class="pendiente">27 de octubre</span>. <strong>Entregable.</strong> Un archivo, <code>tarea1_apellido_nombre.ipynb</code>. El cuaderno debe ejecutarse de principio a fin sin intervención, con una semilla fija declarada en la primera celda para todo lo que use aleatoriedad. En el cuaderno deben responderse las preguntas e incluirse el código que genera las figuras y los resultados. <strong>Lo más importante</strong> son sus conclusiones, que deben ser consistentes con los resultados y las figuras que obtiene. <strong>Bibliotecas.</strong> Se pueden usar <code>numpy</code>, <code>pandas</code>, <code>scipy</code>, <code>matplotlib</code>, <code>scikit-learn</code>, <code>skglm</code> para el group lasso del problema 1 y <code>scikit-fuzzy</code> para el sistema difuso del problema 3. Las dos últimas se instalan con <code>pip install skglm scikit-fuzzy</code>, también en Colab. No se pide implementar ningún método desde cero; se espera que use las herramientas de estas bibliotecas y que explique qué hace cada una. <strong>Uso de IA.</strong> Permitido, declarando al inicio del cuaderno qué partes del código o del texto se generaron con ayuda de estas herramientas. Las conclusiones son personales.</p>
 <p>Se presentan tres problemas. Al final de este documento se detallan el puntaje de cada parte y la conversión a nota.</p>
-<section id="problema-1.-procesos-gaussianos-para-regresión-35-puntos" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Problema 1. Procesos gaussianos para regresión (35 puntos)</h1>
+<section id="problema-1.-regularización-y-selección-de-variables-30-puntos" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Problema 1. Regularización y selección de variables (30 puntos)</h1>
 <section id="contexto" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="contexto"><span class="header-section-number">1.1</span> Contexto</h2>
-<p>Un registrador de temperatura instalado en un contenedor de la cadena de frío de vacunas toma una lectura cada treinta minutos. Durante un traslado de cinco días el registrador perdió la alimentación por algo más de un día y la serie quedó con un hueco. El servicio de salud necesita saber si la temperatura pudo salir del rango de conservación, de 2 °C a 8 °C, durante el hueco, y con qué grado de confianza. La serie tiene una tendencia lenta, por el calentamiento progresivo del contenedor, una oscilación diaria, por el ciclo ambiental, y ruido de medición. Un proceso gaussiano es el modelo natural, porque entrega una predicción con incertidumbre en el hueco y porque la estructura de la señal se puede declarar en el kernel.</p>
+<p>Una distribuidora eléctrica encuestó a 150 hogares y registró su consumo mensual de electricidad junto con características de la vivienda y del hogar. La empresa tiene dos objetivos. El primero es predecir el consumo de hogares nuevos. El segundo es saber qué características acompañan al consumo, para focalizar un programa de eficiencia energética. La base incluye variables numéricas, algunas muy correlacionadas entre sí, cuatro variables categóricas y veinte indicadores administrativos de la cuenta. Con 150 hogares y casi cuarenta columnas, los mínimos cuadrados ordinarios (MCO) sobreajustan, y el problema compara tres penalizaciones vistas en clase, ridge, lasso y group lasso.</p>
 </section>
 <section id="los-datos" class="level2" data-number="1.2">
 <h2 data-number="1.2" class="anchored" data-anchor-id="los-datos"><span class="header-section-number">1.2</span> Los datos</h2>
-<div id="232ece94" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">852</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">5</span> <span class="op">*</span> <span class="dv">24</span>, <span class="fl">0.5</span>)                       <span class="co"># horas, 240 lecturas</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="fl">4.0</span> <span class="op">+</span> <span class="fl">0.035</span> <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.9</span> <span class="op">*</span> np.sin(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> t <span class="op">/</span> <span class="dv">24</span> <span class="op">+</span> <span class="fl">0.6</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> f <span class="op">+</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.25</span>, t.size)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>hueco <span class="op">=</span> (t <span class="op">&gt;=</span> <span class="dv">52</span>) <span class="op">&amp;</span> (t <span class="op">&lt;</span> <span class="dv">80</span>)                        <span class="co"># pérdida de alimentación</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_obs, y_obs <span class="op">=</span> t[<span class="op">~</span>hueco], y[<span class="op">~</span>hueco]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="b47539cf" class="cell" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">852</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">1300</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>superficie  <span class="op">=</span> np.exp(rng.normal(<span class="fl">4.3</span>, <span class="fl">0.35</span>, n))                     <span class="co"># m2</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dormitorios <span class="op">=</span> np.clip(np.<span class="bu">round</span>(superficie <span class="op">/</span> <span class="dv">28</span> <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">0.45</span>, n)), <span class="dv">1</span>, <span class="dv">6</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>habitantes  <span class="op">=</span> rng.integers(<span class="dv">1</span>, <span class="dv">7</span>, n)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>ingreso     <span class="op">=</span> np.exp(rng.normal(<span class="fl">6.9</span>, <span class="fl">0.5</span>, n))                      <span class="co"># miles de pesos</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>antiguedad  <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">60</span>, n)                                <span class="co"># años de la vivienda</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>region      <span class="op">=</span> rng.choice([<span class="st">&quot;Norte&quot;</span>, <span class="st">&quot;Centro&quot;</span>, <span class="st">&quot;RM&quot;</span>, <span class="st">&quot;Sur&quot;</span>, <span class="st">&quot;Austral&quot;</span>], n)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>calefaccion <span class="op">=</span> rng.choice([<span class="st">&quot;Gas&quot;</span>, <span class="st">&quot;Leña&quot;</span>, <span class="st">&quot;Parafina&quot;</span>, <span class="st">&quot;Eléctrica&quot;</span>], n)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>medio_pago  <span class="op">=</span> rng.choice([<span class="st">&quot;Caja&quot;</span>, <span class="st">&quot;Transferencia&quot;</span>, <span class="st">&quot;PAC&quot;</span>, <span class="st">&quot;App&quot;</span>], n)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>telefonia   <span class="op">=</span> rng.choice([<span class="st">&quot;A&quot;</span>, <span class="st">&quot;B&quot;</span>, <span class="st">&quot;C&quot;</span>, <span class="st">&quot;D&quot;</span>, <span class="st">&quot;E&quot;</span>], n)</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>(superficie<span class="op">=</span>superficie, dormitorios<span class="op">=</span>dormitorios,</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>                      habitantes<span class="op">=</span>habitantes, ingreso<span class="op">=</span>ingreso, antiguedad<span class="op">=</span>antiguedad,</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>                      region<span class="op">=</span>region, calefaccion<span class="op">=</span>calefaccion,</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>                      medio_pago<span class="op">=</span>medio_pago, telefonia<span class="op">=</span>telefonia))</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, <span class="dv">21</span>):                                             <span class="co"># indicadores administrativos</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>    X[<span class="ss">f&quot;ind_</span><span class="sc">{</span>k<span class="sc">:02d}</span><span class="ss">&quot;</span>] <span class="op">=</span> rng.normal(<span class="dv">0</span>, <span class="dv">1</span>, n)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>consumo <span class="op">=</span> (<span class="dv">60</span> <span class="op">+</span> <span class="fl">1.1</span> <span class="op">*</span> superficie <span class="op">+</span> <span class="dv">18</span> <span class="op">*</span> habitantes <span class="op">+</span> <span class="fl">0.025</span> <span class="op">*</span> ingreso <span class="op">+</span> <span class="fl">0.6</span> <span class="op">*</span> antiguedad</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>           <span class="op">+</span> <span class="dv">50</span> <span class="op">*</span> (region <span class="op">==</span> <span class="st">&quot;Sur&quot;</span>) <span class="op">+</span> <span class="dv">70</span> <span class="op">*</span> (calefaccion <span class="op">==</span> <span class="st">&quot;Eléctrica&quot;</span>)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>           <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="dv">50</span>, n))                                 <span class="co"># kWh al mes</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>X_tr, X_te, y_tr, y_te <span class="op">=</span> train_test_split(X, consumo, train_size<span class="op">=</span><span class="dv">150</span>, random_state<span class="op">=</span><span class="dv">852</span>)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>La función <code>f</code> existe sólo para generar los datos y para evaluar las respuestas de las partes d y e. No se usa en el ajuste.</p>
+<p>Los 150 hogares de <code>X_tr</code> son la encuesta. Los 1.150 de <code>X_te</code> son hogares nuevos y se usan sólo para medir el error de predicción.</p>
+<p>En el generador el consumo depende sólo de seis variables, la superficie, el número de habitantes, el ingreso, la antigüedad de la vivienda, la región (sólo la zona Sur difiere de las demás) y el tipo de calefacción (sólo la eléctrica difiere de las demás). El número de dormitorios está muy correlacionado con la superficie, pero no tiene efecto propio. El medio de pago, la compañía de telefonía y los veinte indicadores no influyen en el consumo. Con datos reales esta información no existe; aquí sirve para evaluar qué selecciona cada método.</p>
 </section>
 <section id="preguntas" class="level2" data-number="1.3">
 <h2 data-number="1.3" class="anchored" data-anchor-id="preguntas"><span class="header-section-number">1.3</span> Preguntas</h2>
+<p>Prepare los datos con un <code>Pipeline</code> que codifique las cuatro categóricas con <code>OneHotEncoder(drop=&quot;first&quot;)</code>, deje pasar las numéricas y estandarice todas las columnas con <code>StandardScaler</code>. Así el preprocesamiento se ajusta sólo con los datos de entrenamiento y la matriz de diseño queda con 39 columnas. En toda validación cruzada use los mismos pliegues, <code>KFold(10, shuffle=True, random_state=852)</code>. El desempeño se mide con el error cuadrático medio (ECM) en el conjunto de prueba. Para el group lasso use <code>GroupLasso</code> de la biblioteca <code>skglm</code>, que minimiza <span class="math display">\[
+\frac{1}{2N}\,\lVert \mathbf{y} - \mathbf{X}\boldsymbol\beta \rVert_2^2 + \alpha \sum_{g=1}^{G} w_g\, \lVert \boldsymbol\beta_g \rVert_2 ,
+\]</span> donde <span class="math inline">\(N\)</span> es el número de observaciones, <span class="math inline">\(\boldsymbol\beta_g\)</span> son los coeficientes del grupo <span class="math inline">\(g\)</span>, <span class="math inline">\(G\)</span> es el número de grupos y <span class="math inline">\(w_g\)</span> es el peso del grupo. El término de ajuste está en la misma escala que el de <code>Lasso</code> de scikit-learn, de modo que los valores de <span class="math inline">\(\alpha\)</span> de ambos métodos son comparables.</p>
 <ol type="a">
-<li>Implemente la regresión por proceso gaussiano con código propio, sin usar <code>GaussianProcessRegressor</code>. Escriba una función que reciba las entradas de entrenamiento, las salidas, las entradas de prueba, un kernel y la varianza del ruido, y devuelva la media y la covarianza predictivas. Escriba también la función que evalúa la log verosimilitud marginal. Use un kernel exponencial cuadrático con amplitud, escala de longitud y ruido como hiperparámetros.</li>
-<li>Antes de ajustar, dibuje cinco muestras del proceso a priori para tres valores de la escala de longitud (2, 12 y 48 horas) y explique en dos líneas qué supuesto sobre la temperatura expresa cada uno.</li>
-<li>Ajuste los hiperparámetros maximizando la log verosimilitud marginal con <code>scipy.optimize.minimize</code> sobre el logaritmo de los hiperparámetros. Parta de al menos tres puntos iniciales distintos, reporte los óptimos encontrados y comente si hay más de un máximo local y cuál elegiría. Compare con el resultado de <code>GaussianProcessRegressor</code> de scikit-learn con el mismo kernel y <code>n_restarts_optimizer</code> igual a 10.</li>
-<li>Proponga un segundo kernel que exprese la estructura del contexto, suma de un kernel exponencial cuadrático para la tendencia, un kernel periódico con el período fijado en 24 horas para el ciclo diario y ruido blanco. Ajústelo del mismo modo y compare ambos modelos por la log verosimilitud marginal y por el error de predicción en el hueco. Explique por qué la verosimilitud marginal penaliza por sí sola la complejidad sin necesidad de un conjunto de validación.</li>
-<li>Con el mejor modelo, dibuje la media predictiva y la banda del 95 % sobre todo el intervalo de cinco días, con los datos observados y, en otro color, la señal <code>f</code> dentro del hueco. Responda la pregunta del servicio de salud, qué probabilidad asigna el modelo a que la temperatura haya superado 8 °C en algún instante del hueco. Para esto, muestree al menos 1.000 trayectorias de la distribución predictiva conjunta en los instantes del hueco y cuente la fracción que supera el umbral. Explique por qué no basta con mirar la banda del 95 % instante por instante.</li>
-<li>El servicio tiene registradores en 400 contenedores y cada uno acumula 50.000 lecturas. Estime el costo en tiempo y memoria de ajustar un proceso gaussiano exacto a una serie de ese tamaño y proponga dos alternativas, justificando en qué se apoya cada una.</li>
-<li>Muestre que la regresión ridge de la clase 2 es un proceso gaussiano con kernel lineal, identificando la correspondencia entre la penalización, la varianza del prior y la varianza del ruido. Verifíquelo numéricamente con los datos del problema y una base de polinomios de grado 3 en el tiempo reescalado al intervalo [0, 1].</li>
+<li><strong>Ridge y lasso.</strong> Ajuste MCO como referencia. Ajuste ridge y lasso eligiendo la penalización por validación cruzada (<code>RidgeCV</code> y <code>LassoCV</code>), y para el lasso aplique además la regla de un error estándar. Reporte en una tabla el ECM de prueba y el número de coeficientes distintos de cero de cada modelo. Compare los coeficientes de la superficie y de los dormitorios en MCO, ridge y lasso, y explique la diferencia con lo visto en clase sobre predictores correlacionados.</li>
+<li><strong>Group lasso.</strong> Defina un grupo por variable original. Cada numérica forma un grupo de tamaño uno y cada categórica forma un grupo con todas sus columnas indicadoras. Use los pesos <span class="math inline">\(w_g = \sqrt{p_g}\)</span>, con <span class="math inline">\(p_g\)</span> el número de columnas del grupo, y elija <span class="math inline">\(\alpha\)</span> por validación cruzada con <code>GridSearchCV</code>. Dibuje en un mismo gráfico de barras los coeficientes de ridge, lasso y group lasso, al menos para las columnas que no son indicadores administrativos, y destaque las columnas de cada categórica. Indique qué categóricas deja el lasso a medias, con algunas indicadoras nulas y otras no, y explique por qué eso no puede ocurrir con el group lasso.</li>
+<li><strong>Qué selecciona cada método.</strong> En una tabla con MCO, ridge, lasso (mínimo y un error estándar) y group lasso, reporte el ECM de prueba y, entre las variables originales seleccionadas, cuántas influyen en el consumo y cuántas no. Una variable cuenta como seleccionada si alguna de sus columnas tiene coeficiente distinto de cero. Luego cambie la región de referencia a «Sur», con <code>OneHotEncoder(drop=[&quot;Sur&quot;, &quot;Eléctrica&quot;, &quot;App&quot;, &quot;A&quot;])</code>, reajuste el lasso y el group lasso con la misma penalización y explique por qué la selección de la región cambia con el lasso y no con el group lasso.</li>
+<li><strong>Recomendación a la empresa.</strong> Recomiende un modelo para cada uno de los dos objetivos de la empresa y justifique la elección con los resultados de las partes anteriores. Lleve los coeficientes de MCO, lasso y group lasso del número de habitantes, del ingreso y de la antigüedad a las unidades originales, dividiendo por la desviación estándar de la variable, y compárelos con los valores del generador (18 kWh por habitante, 0,025 kWh por mil pesos y 0,6 kWh por año de antigüedad). Explique por qué los coeficientes penalizados no deben leerse como la magnitud del efecto de cada característica.</li>
 </ol>
 </section>
 </section>
-<section id="problema-2.-datos-faltantes-e-importancia-de-variables-en-un-bosque-aleatorio-30-puntos" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Problema 2. Datos faltantes e importancia de variables en un bosque aleatorio (30 puntos)</h1>
+<section id="problema-2.-procesos-gaussianos-para-regresión-35-puntos" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Problema 2. Procesos gaussianos para regresión (35 puntos)</h1>
 <section id="contexto-1" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="contexto-1"><span class="header-section-number">2.1</span> Contexto</h2>
-<p>Una unidad de urgencia quiere un modelo que anticipe, al ingreso, si un paciente requerirá hospitalización. Entre las variables hay un examen de laboratorio, el lactato, que en la práctica no se pide a todos. En unos períodos se omitió al azar por fallas del equipo, en otros se pidió sólo a los pacientes que llegaban con signos vitales alterados, y en otros se pidió precisamente a los que el médico ya consideraba graves. Los tres patrones producen la misma proporción de valores faltantes y consecuencias muy distintas sobre el modelo. El problema usa un bosque aleatorio para comparar tres maneras de tratar los valores faltantes, estudiar cómo cambia el gráfico de importancia de variables cuando hay ausencias y medir el efecto de usar el modelo en un período con un patrón de ausencia distinto al del entrenamiento.</p>
+<p>Un registrador de temperatura instalado en un contenedor de la cadena de frío de vacunas toma una lectura cada treinta minutos. Durante un traslado de cinco días el registrador perdió la alimentación por algo más de un día y la serie quedó con un hueco. El servicio de salud necesita saber si la temperatura pudo salir del rango de conservación, de 2 °C a 8 °C, durante el hueco, y con qué grado de confianza. La serie tiene una tendencia lenta, por el calentamiento progresivo del contenedor, una oscilación diaria, por el ciclo ambiental, y ruido de medición. Un proceso gaussiano es el modelo natural, porque entrega una predicción con incertidumbre en el hueco y porque la estructura de la señal se puede declarar en el kernel.</p>
 </section>
 <section id="los-datos-1" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="los-datos-1"><span class="header-section-number">2.2</span> Los datos</h2>
-<div id="2d77e5c3" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np, pandas <span class="im">as</span> pd</span>
+<div id="ba103017" class="cell" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">852</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">4000</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>edad   <span class="op">=</span> rng.uniform(<span class="dv">18</span>, <span class="dv">90</span>, n)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>pas    <span class="op">=</span> rng.normal(<span class="dv">125</span>, <span class="dv">20</span>, n)                      <span class="co"># presión arterial sistólica</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>fc     <span class="op">=</span> rng.normal(<span class="dv">85</span>, <span class="dv">15</span>, n)                       <span class="co"># frecuencia cardíaca</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>lact   <span class="op">=</span> np.exp(rng.normal(<span class="fl">0.4</span>, <span class="fl">0.45</span>, n))            <span class="co"># lactato, mmol/L</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>comorb <span class="op">=</span> rng.integers(<span class="dv">0</span>, <span class="dv">4</span>, n)                       <span class="co"># comorbilidades, 0 a 3</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>logit  <span class="op">=</span> (<span class="op">-</span><span class="fl">5.9</span> <span class="op">+</span> <span class="fl">0.03</span> <span class="op">*</span> edad <span class="op">-</span> <span class="fl">0.02</span> <span class="op">*</span> pas <span class="op">+</span> <span class="fl">0.02</span> <span class="op">*</span> fc</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>          <span class="op">+</span> <span class="fl">1.6</span> <span class="op">*</span> lact <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> comorb)</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>hosp   <span class="op">=</span> rng.random(n) <span class="op">&lt;</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> np.exp(<span class="op">-</span>logit))</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>ruido  <span class="op">=</span> rng.uniform(<span class="dv">0</span>, <span class="dv">1</span>, n)                        <span class="co"># variable de control        </span></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> pd.DataFrame(<span class="bu">dict</span>(edad<span class="op">=</span>edad, pas<span class="op">=</span>pas, fc<span class="op">=</span>fc, lact<span class="op">=</span>lact, comorb<span class="op">=</span>comorb,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                      ruido<span class="op">=</span>ruido))</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> enmascara(X, mecanismo, p<span class="op">=</span><span class="fl">0.35</span>, rng<span class="op">=</span>rng):</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">&quot;&quot;&quot;Devuelve una copia de X con lactato faltante bajo el mecanismo indicado.&quot;&quot;&quot;</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> X.copy()</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> mecanismo <span class="op">==</span> <span class="st">&quot;MCAR&quot;</span>:</span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>        falta <span class="op">=</span> rng.random(<span class="bu">len</span>(X)) <span class="op">&lt;</span> p</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> mecanismo <span class="op">==</span> <span class="st">&quot;MAR&quot;</span>:                         <span class="co"># depende de lo observado</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> (X.pas <span class="op">&lt;</span> <span class="dv">105</span>) <span class="op">|</span> (X.fc <span class="op">&gt;</span> <span class="dv">100</span>)</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        falta <span class="op">=</span> rng.random(<span class="bu">len</span>(X)) <span class="op">&lt;</span> np.where(s, <span class="fl">0.05</span>, <span class="fl">0.47</span>)</span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> mecanismo <span class="op">==</span> <span class="st">&quot;MNAR&quot;</span>:                        <span class="co"># depende del propio valor</span></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        falta <span class="op">=</span> rng.random(<span class="bu">len</span>(X)) <span class="op">&lt;</span> np.where(X.lact <span class="op">&gt;</span> <span class="fl">1.36</span>, <span class="fl">0.02</span>, <span class="fl">0.80</span>)</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>    X.loc[falta, <span class="st">&quot;lact&quot;</span>] <span class="op">=</span> np.nan</span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>t <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">5</span> <span class="op">*</span> <span class="dv">24</span>, <span class="fl">0.5</span>)                       <span class="co"># horas, 240 lecturas</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="fl">4.0</span> <span class="op">+</span> <span class="fl">0.035</span> <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.9</span> <span class="op">*</span> np.sin(<span class="dv">2</span> <span class="op">*</span> np.pi <span class="op">*</span> t <span class="op">/</span> <span class="dv">24</span> <span class="op">+</span> <span class="fl">0.6</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> f <span class="op">+</span> rng.normal(<span class="fl">0.0</span>, <span class="fl">0.25</span>, t.size)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>hueco <span class="op">=</span> (t <span class="op">&gt;=</span> <span class="dv">52</span>) <span class="op">&amp;</span> (t <span class="op">&lt;</span> <span class="dv">80</span>)                        <span class="co"># pérdida de alimentación</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>t_obs, y_obs <span class="op">=</span> t[<span class="op">~</span>hueco], y[<span class="op">~</span>hueco]</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>La columna <code>ruido</code> es independiente de las demás variables y de la respuesta. Se incluye como control para leer los gráficos de importancia de la parte c.</p>
-<p>Los tres mecanismos de la función <code>enmascara</code> corresponden a la clasificación habitual de los datos faltantes, debida a Rubin. En el primero, MCAR (<em>missing completely at random</em>, falta completamente al azar), la probabilidad de que el lactato falte es la misma para todos los pacientes y no depende de ninguna variable. En el segundo, MAR (<em>missing at random</em>, falta al azar condicional a lo observado), esa probabilidad depende sólo de variables que sí se observan, de modo que entre pacientes con los mismos valores observados la ausencia no informa sobre el valor que falta. En el tercero, MNAR (<em>missing not at random</em>, falta no al azar), la probabilidad depende del propio valor que no se observa, y esa dependencia persiste aun después de condicionar a las variables observadas.</p>
-<p>Separe antes de enmascarar un conjunto de prueba de 1.000 pacientes. Verifique que los tres mecanismos dejan cerca de un 35 % de lactato faltante en el conjunto de entrenamiento. Explique, a partir de estas definiciones y del código de <code>enmascara</code>, por qué el segundo mecanismo es MAR y el tercero es MNAR, indicando en cada caso de qué variables depende la ausencia.</p>
+<p>La función <code>f</code> existe sólo para generar los datos y para evaluar las respuestas de las partes b y c. No se usa en el ajuste.</p>
 </section>
 <section id="preguntas-1" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="preguntas-1"><span class="header-section-number">2.3</span> Preguntas</h2>
-<p>En todas las partes el modelo es un bosque aleatorio de 300 árboles (<code>RandomForestClassifier</code>) con los demás hiperparámetros por defecto, y el desempeño se mide con el área bajo la curva ROC (AUC) en el conjunto de prueba. Cuando el entrenamiento usa datos enmascarados, el conjunto de prueba se enmascara con el mismo mecanismo, salvo en la parte d.</p>
 <ol type="a">
-<li>Antes de modelar, describa la ausencia como lo haría con datos reales. Para cada mecanismo construya una tabla que compare, entre los pacientes de entrenamiento con y sin lactato medido, la proporción de hospitalizados y las medias de la presión sistólica y de la frecuencia cardíaca. Indique qué mecanismos se distinguen de MCAR con esta tabla y por qué. Explique por qué los datos observados no permiten decidir si la ausencia depende del propio lactato. Compare además el lactato verdadero de ambos grupos, que aquí se conoce porque los datos son simulados y que no estaría disponible con datos reales.</li>
-<li>Implemente tres políticas para el lactato faltante. La primera imputa con la mediana del lactato observado. La segunda imputa del mismo modo y agrega una columna indicadora <code>lact_falta</code>, que vale 1 cuando el lactato no se midió. La tercera entrega los <code>NaN</code> sin imputar, para que cada árbol aprenda hacia qué rama enviar los faltantes, lo que <code>RandomForestClassifier</code> admite desde la versión 1.4 de scikit-learn (compruebe la suya con <code>sklearn.__version__</code>). La mediana se calcula sólo con el conjunto de entrenamiento y se aplica también al de prueba. Reporte el AUC de prueba en una tabla de tres políticas por tres mecanismos y agregue dos referencias, el bosque entrenado con los datos completos y el bosque entrenado sin la columna de lactato. Indique cuál de los dos factores influye más en el AUC, la política o el mecanismo, y explique por qué el AUC baja menos bajo MNAR que bajo MCAR, respecto del bosque con datos completos, aunque falte la misma proporción de datos.</li>
-<li>Calcule las dos medidas de importancia de variables de la clase 6, la importancia por reducción de impureza (<code>feature_importances_</code>, calculada con los datos de entrenamiento) y la importancia por permutación (<code>sklearn.inspection.permutation_importance</code> con <code>scoring=&quot;roc_auc&quot;</code> y <code>n_repeats=10</code>, calculada en el conjunto de prueba). Dibuje las importancias como barras y, en la de permutación, agregue la desviación estándar de las repeticiones.
-<ol type="1">
-<li>Con el bosque entrenado en los datos completos, dibuje ambas medidas en un mismo gráfico. Explique por qué la columna <code>ruido</code> recibe más importancia por impureza que <code>comorb</code>, que sí influye en la respuesta, y por qué eso no ocurre con la permutación. Indique cuál de las dos medidas usaría para decidir qué variables aportan a la predicción.</li>
-<li>Con la política de mediana e indicador, calcule la importancia por permutación bajo los tres mecanismos y dibújela junto a la del bosque con datos completos. Describa cómo cambia la importancia del lactato y explique por qué. Indique si la barra del lactato mide la relación de la variable con la hospitalización o el uso que el modelo hace de la columna disponible, con sus valores faltantes.</li>
-<li>Bajo MNAR la barra de <code>lact_falta</code> resulta pequeña, aunque en la parte a la ausencia apareció asociada a la hospitalización. Reentrene bajo MNAR quitando la columna <code>lact</code> y dejando <code>lact_falta</code>, y vuelva a calcular la importancia por permutación. Explique por qué la importancia del indicador cambia entre ambos modelos y qué implica este resultado para la lectura del gráfico cuando dos columnas contienen la misma información.</li>
-</ol></li>
-<li>El modelo se entrenó en el período en que el lactato se pedía a los pacientes que el médico consideraba graves (MNAR) y se usa después en un período en que el examen falta por fallas del equipo (MCAR). Con el bosque entrenado bajo MNAR y la política de mediana e indicador, evalúe en el conjunto de prueba enmascarado con MCAR y compare con la evaluación bajo MNAR. Reporte en ambos casos el AUC y, para los pacientes de prueba sin lactato, la probabilidad media predicha junto a la proporción observada de hospitalizados. Explique, en el lenguaje del problema, qué había aprendido el modelo sobre los pacientes sin lactato y por qué esa asociación deja de cumplirse, y discuta si el gráfico de importancia de la parte c permitía anticipar este riesgo.</li>
+<li><strong>Primer modelo.</strong> Ajuste un proceso gaussiano con <code>GaussianProcessRegressor</code>, con el kernel <code>ConstantKernel() * RBF() + WhiteKernel()</code> (amplitud, escala de longitud y ruido) y la opción <code>normalize_y=True</code>. El método <code>fit</code> elige los hiperparámetros maximizando la log verosimilitud marginal con un optimizador local, que puede detenerse en un máximo local. Ajuste el modelo con tres escalas de longitud iniciales (1, 10 y 100 horas) y <code>n_restarts_optimizer=0</code>, y repita con <code>n_restarts_optimizer=10</code>. Reporte en una tabla los hiperparámetros encontrados y su log verosimilitud marginal, indique si hay más de un máximo local y qué modelo elegiría, e interprete en horas la escala de longitud elegida.</li>
+<li><strong>Un kernel con la estructura del problema.</strong> Proponga un segundo kernel que exprese la estructura del contexto, suma de un kernel exponencial cuadrático para la tendencia, un kernel periódico con el período fijado en 24 horas para el ciclo diario y ruido blanco (<code>ExpSineSquared</code> con <code>periodicity_bounds=&quot;fixed&quot;</code>). Ajústelo con <code>GaussianProcessRegressor</code> y compare ambos modelos por la log verosimilitud marginal y por el error de predicción en el hueco, calculado con <code>f</code>. Explique por qué la verosimilitud marginal penaliza por sí sola la complejidad sin necesidad de un conjunto de validación.</li>
+<li><strong>Respuesta al servicio de salud.</strong> Con el mejor modelo, dibuje la media predictiva y la banda del 95 % sobre todo el intervalo de cinco días, con los datos observados y, en otro color, la señal <code>f</code> dentro del hueco. Responda la pregunta del servicio de salud, qué probabilidad asigna el modelo a que la temperatura haya superado 8 °C en algún instante del hueco. Para esto, muestree al menos 1.000 trayectorias de la distribución predictiva conjunta en los instantes del hueco con <code>sample_y</code> y cuente la fracción que supera el umbral. Explique por qué no basta con mirar la banda del 95 % instante por instante.</li>
+<li><strong>Escalamiento.</strong> El servicio tiene registradores en 400 contenedores y cada uno acumula 50.000 lecturas. Estime el costo en tiempo y memoria de ajustar un proceso gaussiano exacto a una serie de ese tamaño y proponga dos alternativas, justificando en qué se apoya cada una.</li>
 </ol>
 </section>
 </section>
@@ -4589,20 +4578,18 @@ window.Quarto = {
 <section id="preguntas-2" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="preguntas-2"><span class="header-section-number">3.3</span> Preguntas</h2>
 <ol type="a">
-<li>Diseñe las funciones de pertenencia de las tres variables. Justifique los puntos de quiebre con el criterio de la clase, términos vecinos que se cruzan en una pertenencia de un medio, y dibuje las tres particiones. Explique por qué la salida tiene cuatro términos y las entradas tres.</li>
-<li>Complete la base de reglas. Con dos entradas de tres términos la base exhaustiva tiene nueve reglas, de las cuales faltan cinco. Escríbalas en una tabla de doble entrada, humedad por temperatura, con el término de salida en cada celda, y justifique cada regla nueva en una línea. Verifique que la base resultante es completa, toda combinación de términos tiene regla, y consistente, no hay dos reglas con el mismo antecedente y distinto consecuente. Verifique también la monotonía esperable, a igual temperatura el riego no debe aumentar cuando el suelo está más húmedo, y lo mismo a igual humedad cuando baja la temperatura.</li>
-<li>Implemente la inferencia Mamdani desde cero, con fusificación por singleton, t-norma mínimo en los antecedentes, implicación de Mamdani, agregación por máximo y desfusificación por centroide, siguiendo el esquema de cinco pasos del cuaderno de la clase 5. Para la entrada humedad 32 % y temperatura 28 °C muestre, en una figura, los grados de activación de cada regla, los consecuentes recortados, el conjunto agregado y el centroide.</li>
-<li>Dibuje la superficie de control, duración del riego sobre una grilla de humedad por temperatura, con la base completa de la parte b. Dibújela también con sólo las cuatro reglas del agrónomo y señale las zonas del plano donde ninguna regla se activa. Explique qué devuelve su implementación en esas zonas y por qué ese valor es peligroso para el cultivo.</li>
-<li>Repita la superficie cambiando una decisión de diseño a la vez, t-norma producto en lugar de mínimo, y desfusificación por media de los máximos en lugar de centroide. Describa las diferencias y relaciónelas con las propiedades de los operadores vistas en clase.</li>
-<li>El agrónomo propone agregar una tercera entrada, la lluvia pronosticada para las próximas horas, con tres términos. Calcule cuántas reglas tendría la base exhaustiva, proponga una forma de incorporar la variable sin escribirlas todas y argumente por qué el sistema resultante sigue siendo legible.</li>
+<li><strong>Diseño del sistema.</strong> Diseñe y dibuje las funciones de pertenencia de las tres variables, con términos vecinos que se cruzan en una pertenencia de un medio. Complete la base con las cinco reglas que faltan para cubrir las nueve combinaciones, en una tabla de humedad por temperatura, y justifique cada regla nueva en una línea. Verifique que el riego nunca aumenta cuando el suelo está más húmedo ni cuando baja la temperatura.</li>
+<li><strong>Implementación.</strong> Implemente el sistema con el módulo <code>control</code> de <code>scikit-fuzzy</code> (<code>Antecedent</code>, <code>Consequent</code>, <code>Rule</code>, <code>ControlSystem</code> y <code>ControlSystemSimulation</code>). Por defecto este módulo usa fusificación por singleton, t-norma mínimo en los antecedentes, implicación de Mamdani, agregación por máximo y desfusificación por centroide; relacione cada una de estas operaciones con el esquema de cinco pasos del cuaderno de la clase 5. Para la entrada humedad 32 % y temperatura 28 °C reporte el grado de activación de cada regla (atributo <code>aggregate_firing</code> de cada regla, evaluado en la simulación) y muestre, con el método <code>view(sim=...)</code> del consecuente, los consecuentes recortados, el conjunto agregado y el centroide.</li>
+<li><strong>Superficie de control y reglas faltantes.</strong> Dibuje la superficie de control, duración del riego sobre una grilla de humedad por temperatura, con la base completa de la parte a. Dibújela también con sólo las cuatro reglas del agrónomo y señale las zonas del plano donde ninguna regla se activa. Explique qué hace <code>scikit-fuzzy</code> cuando ninguna regla se activa, cómo lo manejó en su código y por qué reemplazar la salida faltante por un valor por defecto, como cero minutos, sería peligroso para el cultivo.</li>
+<li><strong>Una tercera entrada.</strong> El agrónomo propone agregar una tercera entrada, la lluvia pronosticada para las próximas horas, con tres términos. Calcule cuántas reglas tendría la base exhaustiva, proponga una forma de incorporar la variable sin escribirlas todas y argumente por qué el sistema resultante sigue siendo legible.</li>
 </ol>
 </section>
 </section>
 <section id="rúbrica" class="level1" data-number="4">
 <h1 data-number="4"><span class="header-section-number">4</span> Rúbrica</h1>
-<p>La tarea suma 100 puntos, 35 por el problema 1, 30 por el problema 2 y 35 por el problema 3. Cada parte se califica en uno de cuatro niveles. <strong>Logrado</strong> otorga el puntaje completo cuando la parte responde lo pedido, el resultado es correcto y verificable en el cuaderno, y la explicación usa los conceptos del curso con precisión. <strong>Parcialmente logrado</strong> otorga la mitad del puntaje cuando el procedimiento es correcto pero el resultado tiene errores, falta una verificación pedida o la explicación es incompleta. <strong>Insuficiente</strong> otorga un cuarto del puntaje cuando hay un intento pertinente con errores de fondo. <strong>No presentado</strong> otorga cero puntos. Las columnas siguientes describen el nivel logrado y las deficiencias que con más frecuencia bajan al nivel parcial.</p>
-<section id="problema-1.-procesos-gaussianos-35-puntos" class="level2" data-number="4.1">
-<h2 data-number="4.1" class="anchored" data-anchor-id="problema-1.-procesos-gaussianos-35-puntos"><span class="header-section-number">4.1</span> Problema 1. Procesos gaussianos (35 puntos)</h2>
+<p>La tarea suma 100 puntos, 30 por el problema 1, 35 por el problema 2 y 35 por el problema 3. Cada parte se califica en uno de cuatro niveles. <strong>Logrado</strong> otorga el puntaje completo cuando la parte responde lo pedido, el resultado es correcto y verificable en el cuaderno, y la explicación usa los conceptos del curso con precisión. <strong>Parcialmente logrado</strong> otorga la mitad del puntaje cuando el procedimiento es correcto pero el resultado tiene errores, falta una verificación pedida o la explicación es incompleta. <strong>Insuficiente</strong> otorga un cuarto del puntaje cuando hay un intento pertinente con errores de fondo. <strong>No presentado</strong> otorga cero puntos. Las columnas siguientes describen el nivel logrado y las deficiencias que con más frecuencia bajan al nivel parcial.</p>
+<section id="problema-1.-regularización-y-selección-de-variables-30-puntos-1" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="problema-1.-regularización-y-selección-de-variables-30-puntos-1"><span class="header-section-number">4.1</span> Problema 1. Regularización y selección de variables (30 puntos)</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
@@ -4621,51 +4608,33 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>a</td>
-<td style="text-align: right;">7</td>
-<td>Media y covarianza predictivas correctas y log verosimilitud marginal con sus tres términos, con código propio</td>
-<td>Uso de <code>GaussianProcessRegressor</code> en lugar de la implementación propia; covarianza predictiva omitida; verosimilitud sin el término del determinante</td>
+<td style="text-align: right;">9</td>
+<td>Preprocesamiento dentro del <code>Pipeline</code>, penalización elegida por validación cruzada, regla de un error estándar, tabla de ECM y coeficientes no nulos, contraste entre superficie y dormitorios explicado</td>
+<td>Escalador ajustado con todos los datos; penalización elegida con el error de prueba; contraste de los predictores correlacionados ausente</td>
 </tr>
 <tr class="even">
 <td>b</td>
-<td style="text-align: right;">3</td>
-<td>Cinco muestras a priori por cada escala y lectura correcta del supuesto de suavidad en horas</td>
-<td>Menos muestras o escalas que las pedidas; sin interpretación en unidades del problema</td>
+<td style="text-align: right;">8</td>
+<td>Grupos y pesos correctos, <span class="math inline">\(\alpha\)</span> por validación cruzada, gráfico de barras de los tres métodos con los grupos destacados, categóricas a medias del lasso identificadas y explicación por la norma del grupo</td>
+<td>Grupos definidos por columna; pesos omitidos sin justificación; explicación que no usa la forma de la penalización</td>
 </tr>
 <tr class="odd">
 <td>c</td>
-<td style="text-align: right;">6</td>
-<td>Optimización sobre log hiperparámetros desde tres inicios, tabla de óptimos, discusión de máximos locales y comparación con scikit-learn</td>
-<td>Un solo inicio; óptimos reportados sin su verosimilitud; elección sin justificar</td>
+<td style="text-align: right;">7</td>
+<td>Tabla con ECM y variables seleccionadas que influyen y que no, cambio de referencia con la misma penalización, diferencia entre lasso y group lasso explicada por la forma de la penalización</td>
+<td>Variables contadas por columna y no por variable original; penalización reelegida al cambiar la referencia; conclusión sin referencia a la codificación</td>
 </tr>
 <tr class="even">
 <td>d</td>
 <td style="text-align: right;">6</td>
-<td>Kernel suma bien parametrizado, comparación por verosimilitud marginal y error en el hueco, explicación de la navaja de Ockham bayesiana</td>
-<td>Kernel periódico sin el período fijado en 24 horas; comparación sólo por error; explicación que confunde verosimilitud marginal con ajuste</td>
-</tr>
-<tr class="odd">
-<td>e</td>
-<td style="text-align: right;">7</td>
-<td>Figura completa con banda y señal oculta, probabilidad del evento por trayectorias conjuntas, argumento de por qué la banda puntual no basta</td>
-<td>Probabilidad calculada instante por instante; menos de 1.000 trayectorias; figura sin rótulos</td>
-</tr>
-<tr class="even">
-<td>f</td>
-<td style="text-align: right;">3</td>
-<td>Costo cúbico en tiempo y cuadrático en memoria con cifras para 50.000 lecturas, dos alternativas justificadas</td>
-<td>Sólo una alternativa; cifras sin unidades o sin orden de magnitud</td>
-</tr>
-<tr class="odd">
-<td>g</td>
-<td style="text-align: right;">3</td>
-<td>Correspondencia explícita entre penalización, varianza del prior y ruido, verificada numéricamente</td>
-<td>Argumento sin verificación; base polinómica sin escalar</td>
+<td>Recomendación distinta o justificada para predecir y para describir, coeficientes en unidades originales comparados con el generador, explicación del encogimiento</td>
+<td>Recomendación sin apoyo en los resultados; coeficientes estandarizados comparados con los del generador; coeficientes penalizados leídos como efectos</td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="problema-2.-datos-faltantes-e-importancia-de-variables-30-puntos" class="level2" data-number="4.2">
-<h2 data-number="4.2" class="anchored" data-anchor-id="problema-2.-datos-faltantes-e-importancia-de-variables-30-puntos"><span class="header-section-number">4.2</span> Problema 2. Datos faltantes e importancia de variables (30 puntos)</h2>
+<section id="problema-2.-procesos-gaussianos-35-puntos" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="problema-2.-procesos-gaussianos-35-puntos"><span class="header-section-number">4.2</span> Problema 2. Procesos gaussianos (35 puntos)</h2>
 <table class="caption-top table">
 <colgroup>
 <col style="width: 24%">
@@ -4683,34 +4652,28 @@ window.Quarto = {
 </thead>
 <tbody>
 <tr class="odd">
-<td>Datos</td>
-<td style="text-align: right;">3</td>
-<td>Conjunto de prueba separado antes de enmascarar, tasas de ausencia verificadas, MAR y MNAR explicados con las definiciones del enunciado, indicando de qué variables depende la ausencia en <code>enmascara</code></td>
-<td>Enmascarado antes de separar; definiciones repetidas sin aplicarlas al generador</td>
-</tr>
-<tr class="even">
 <td>a</td>
-<td style="text-align: right;">5</td>
-<td>Tabla por mecanismo con la proporción de hospitalizados y las medias de presión y frecuencia según haya o no lactato; MAR y MNAR distinguidos de MCAR con argumento; límite de los datos observados explicado y contrastado con el lactato verdadero</td>
-<td>Tabla sin interpretación; afirma que el mecanismo MNAR se identifica con los datos observados</td>
-</tr>
-<tr class="odd">
-<td>b</td>
-<td style="text-align: right;">7</td>
-<td>Tres políticas implementadas con la mediana calculada sólo en entrenamiento, tabla completa con las dos referencias, conclusión sobre la influencia de la política y del mecanismo, y explicación de la menor caída del AUC bajo MNAR</td>
-<td>Mediana calculada con todos los datos; tabla sin referencias; diferencias pequeñas entre políticas sobreinterpretadas</td>
+<td style="text-align: right;">10</td>
+<td>Ajustes desde las tres escalas iniciales y con reinicios, tabla con hiperparámetros y log verosimilitud, máximos locales discutidos, elección justificada y escala de longitud interpretada en horas</td>
+<td>Un solo inicio; óptimos sin su verosimilitud; elección sin justificar; escala sin interpretar</td>
 </tr>
 <tr class="even">
-<td>c</td>
-<td style="text-align: right;">10</td>
-<td>Gráficos de ambas medidas con barras de error; sesgo de la impureza explicado con <code>ruido</code> y <code>comorb</code>; cambio en la importancia del lactato interpretado como uso de la columna y no como relevancia de la variable; indicador reevaluado sin la columna <code>lact</code> y redundancia explicada</td>
-<td>Gráficos sin interpretación; importancia leída como efecto causal; permutación calculada en entrenamiento; falta el modelo sin <code>lact</code></td>
+<td>b</td>
+<td style="text-align: right;">9</td>
+<td>Kernel suma bien parametrizado, comparación por verosimilitud marginal y error en el hueco, explicación de la navaja de Ockham bayesiana</td>
+<td>Kernel periódico sin el período fijado en 24 horas; comparación sólo por error; explicación que confunde verosimilitud marginal con ajuste</td>
 </tr>
 <tr class="odd">
+<td>c</td>
+<td style="text-align: right;">11</td>
+<td>Figura completa con banda y señal oculta, probabilidad del evento por trayectorias conjuntas, argumento de por qué la banda puntual no basta</td>
+<td>Probabilidad calculada instante por instante; menos de 1.000 trayectorias; figura sin rótulos</td>
+</tr>
+<tr class="even">
 <td>d</td>
 <td style="text-align: right;">5</td>
-<td>AUC bajo ambos patrones, probabilidad media predicha y proporción observada en los pacientes sin lactato, explicación de la asociación aprendida y de por qué deja de cumplirse, vínculo con la parte c</td>
-<td>Sólo AUC; explicación sin referencia al criterio con que se pedía el examen</td>
+<td>Costo cúbico en tiempo y cuadrático en memoria con cifras para 50.000 lecturas, dos alternativas justificadas</td>
+<td>Sólo una alternativa; cifras sin unidades o sin orden de magnitud</td>
 </tr>
 </tbody>
 </table>
@@ -4735,37 +4698,25 @@ window.Quarto = {
 <tbody>
 <tr class="odd">
 <td>a</td>
-<td style="text-align: right;">5</td>
-<td>Tres particiones dibujadas, cruce en un medio justificado, explicación del número de términos de la salida</td>
-<td>Cruce arbitrario; universos sin cubrir por completo; sin justificar los cuatro términos</td>
+<td style="text-align: right;">12</td>
+<td>Tres particiones dibujadas con cruce en un medio, tabla de nueve reglas con las cinco nuevas justificadas, monotonía verificada</td>
+<td>Cruce arbitrario o universos sin cubrir; reglas nuevas sin justificar; verificación de monotonía omitida o incorrecta</td>
 </tr>
 <tr class="even">
 <td>b</td>
 <td style="text-align: right;">8</td>
-<td>Tabla de nueve reglas, justificación de las cinco nuevas, verificación de completitud, consistencia y monotonía</td>
-<td>Reglas nuevas sin justificar; verificación de monotonía omitida o incorrecta</td>
+<td>Sistema implementado con <code>scikit-fuzzy</code>, operaciones de la biblioteca relacionadas con el esquema de la clase, activación de cada regla reportada y figura con consecuentes recortados, agregado y centroide para la entrada indicada</td>
+<td>Activaciones no reportadas; figura sin alguno de sus elementos; operaciones de la biblioteca sin relacionar con el esquema de la clase</td>
 </tr>
 <tr class="odd">
 <td>c</td>
-<td style="text-align: right;">8</td>
-<td>Inferencia en cinco pasos desde cero y figura con activaciones, consecuentes recortados, agregado y centroide para la entrada indicada</td>
-<td>Uso de una biblioteca difusa; figura sin alguno de los cuatro elementos; centroide calculado sobre el conjunto sin recortar</td>
+<td style="text-align: right;">9</td>
+<td>Dos superficies, zonas sin regla activa señaladas, comportamiento de la biblioteca en esas zonas identificado y manejado en el código, riesgo de un valor por defecto explicado</td>
+<td>Una sola superficie; zonas sin regla activa no señaladas; salida faltante rellenada con un valor por defecto sin discusión</td>
 </tr>
 <tr class="even">
 <td>d</td>
 <td style="text-align: right;">6</td>
-<td>Dos superficies, zonas sin regla activa señaladas, valor devuelto en esas zonas identificado y su riesgo para el cultivo explicado</td>
-<td>Una sola superficie; zonas sin regla activa no señaladas; sin discutir el valor devuelto</td>
-</tr>
-<tr class="odd">
-<td>e</td>
-<td style="text-align: right;">4</td>
-<td>Superficies con producto y con media de los máximos, diferencias relacionadas con las propiedades de los operadores</td>
-<td>Cambio de ambas decisiones a la vez; descripción sin vínculo con la teoría</td>
-</tr>
-<tr class="even">
-<td>f</td>
-<td style="text-align: right;">4</td>
 <td>Conteo de 27 reglas, propuesta jerárquica o equivalente, argumento de legibilidad</td>
 <td>Conteo correcto sin propuesta; propuesta que exige escribir todas las reglas</td>
 </tr>
@@ -4796,14 +4747,10 @@ window.Quarto = {
 <td style="text-align: right;">hasta 5 puntos</td>
 </tr>
 <tr class="odd">
-<td>Biblioteca donde se pidió implementación propia</td>
-<td style="text-align: right;">puntaje de esa parte y hasta 5 puntos adicionales</td>
-</tr>
-<tr class="even">
 <td>Cuaderno que no sigue el orden del enunciado</td>
 <td style="text-align: right;">hasta 5 puntos</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Uso de IA sin declarar</td>
 <td style="text-align: right;">se rige por las políticas del curso</td>
 </tr>
