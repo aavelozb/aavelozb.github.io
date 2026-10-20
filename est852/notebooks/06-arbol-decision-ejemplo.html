@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Árboles de decisión: un ejemplo simple</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-1dc1b4f9dff3763bf9510c4588684ca3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-622f28c2bbd02885262cc7b1dbb2a6ed.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-1dc1b4f9dff3763bf9510c4588684ca3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  .cv-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .cv-photo-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D9E3E4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .cv-info {
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    .cv-container { flex-direction: column-reverse; text-align: center; }
+  }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Árboles de decisión: un ejemplo simple">
+<meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<meta property="og:image" content="https://aavelozb.github.io/est852/notebooks/06-arbol-decision-ejemplo_files/figure-html/cell-3-output-1.png">
+<meta property="og:image:height" content="425">
+<meta property="og:image:width" content="865">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Árboles de decisión: un ejemplo simple</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="#" class="sidebar-logo-link">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=eq254vUAAAAJ" title="Google Scholar" class="quarto-navigation-tool px-1" aria-label="Google Scholar"><i class="bi bi-mortarboard-fill"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenido de la página</h2>
+   
+  <ul>
+  <li><a href="#datos" id="toc-datos" class="nav-link active" data-scroll-target="#datos">1. Datos</a></li>
+  <li><a href="#un-solo-corte" id="toc-un-solo-corte" class="nav-link" data-scroll-target="#un-solo-corte">2. Un solo corte</a></li>
+  <li><a href="#efecto-de-la-profundidad" id="toc-efecto-de-la-profundidad" class="nav-link" data-scroll-target="#efecto-de-la-profundidad">3. Efecto de la profundidad</a>
+  <ul class="collapse">
+  <li><a href="#tamaño-mínimo-de-las-hojas" id="toc-tamaño-mínimo-de-las-hojas" class="nav-link" data-scroll-target="#tamaño-mínimo-de-las-hojas">Tamaño mínimo de las hojas</a></li>
+  </ul></li>
+  <li><a href="#lectura-del-árbol" id="toc-lectura-del-árbol" class="nav-link" data-scroll-target="#lectura-del-árbol">4. Lectura del árbol</a></li>
+  <li><a href="#elección-de-la-complejidad" id="toc-elección-de-la-complejidad" class="nav-link" data-scroll-target="#elección-de-la-complejidad">5. Elección de la complejidad</a></li>
+  <li><a href="#inestabilidad" id="toc-inestabilidad" class="nav-link" data-scroll-target="#inestabilidad">6. Inestabilidad</a></li>
+  <li><a href="#clasificación-en-dos-dimensiones" id="toc-clasificación-en-dos-dimensiones" class="nav-link" data-scroll-target="#clasificación-en-dos-dimensiones">7. Clasificación en dos dimensiones</a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios">Ejercicios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Árboles de decisión: un ejemplo simple</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://colab.research.google.com/github/aavelozb/aavelozb.github.io/blob/main/est852/notebooks/06-arbol-decision-ejemplo-gc.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" class="img-fluid"></a></p>
+<p>Cuaderno de acompañamiento del apunte <strong>Árboles de decisión</strong> de la clase 6.</p>
+<p>Ajustamos árboles de regresión a una función de una variable con ruido, la misma que se usa en el ejemplo de procesos gaussianos, y estudiamos cómo cambia el ajuste con los hiperparámetros. Al final repetimos lo mismo en un problema de clasificación con dos variables.</p>
+<p>Contenido:</p>
+<ol type="1">
+<li>Datos.</li>
+<li>Un solo corte.</li>
+<li>Efecto de la profundidad y del tamaño mínimo de las hojas.</li>
+<li>Lectura del árbol como reglas.</li>
+<li>Elección de la complejidad por poda y validación cruzada.</li>
+<li>Inestabilidad.</li>
+<li>Clasificación en dos dimensiones.</li>
+</ol>
+<div id="0af636ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:03.686517Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:03.686302Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:04.622127Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:04.621605Z&quot;}}" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> KFold, cross_val_score</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier, DecisionTreeRegressor, export_text, plot_tree</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({<span class="st">"figure.figsize"</span>: (<span class="dv">8</span>, <span class="dv">4</span>), <span class="st">"axes.grid"</span>: <span class="va">True</span>, <span class="st">"grid.alpha"</span>: <span class="fl">0.25</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"axes.spines.top"</span>: <span class="va">False</span>, <span class="st">"axes.spines.right"</span>: <span class="va">False</span>,</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>                     <span class="st">"font.size"</span>: <span class="dv">11</span>, <span class="st">"legend.frameon"</span>: <span class="va">False</span>, <span class="st">"figure.dpi"</span>: <span class="dv">110</span>})</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>np.set_printoptions(precision<span class="op">=</span><span class="dv">4</span>, suppress<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>ROJO, AZUL, VERDE, NARANJA, GRIS <span class="op">=</span> <span class="st">"#8c1515"</span>, <span class="st">"#3C72E8"</span>, <span class="st">"#006400"</span>, <span class="st">"#E85C3C"</span>, <span class="st">"#4d4d4d"</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">852</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="datos" class="level2">
+<h2 class="anchored" data-anchor-id="datos">1. Datos</h2>
+<p>La función verdadera es <span class="math inline">\(f(x) = \sin x + 0{,}3\cos 3x\)</span>. Observamos 40 puntos en <span class="math inline">\([-3, 3]\)</span> con ruido gaussiano de desviación estándar 0,15, y evaluamos los modelos en una grilla que se extiende a <span class="math inline">\([-4, 4]\)</span> para ver cómo extrapola el árbol.</p>
+<div id="47faba29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:04.623459Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:04.623352Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:04.780928Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:04.780483Z&quot;}}" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> f(x):</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.sin(x) <span class="op">+</span> <span class="fl">0.3</span> <span class="op">*</span> np.cos(<span class="dv">3</span> <span class="op">*</span> x)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> np.sort(rng.uniform(<span class="op">-</span><span class="dv">3</span>, <span class="dv">3</span>, n))[:, <span class="va">None</span>]</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> f(X_train[:, <span class="dv">0</span>]) <span class="op">+</span> <span class="fl">0.15</span> <span class="op">*</span> rng.standard_normal(n)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">800</span>)[:, <span class="va">None</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>plt.figure()</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>plt.plot(X_test[:, <span class="dv">0</span>], f(X_test[:, <span class="dv">0</span>]), <span class="st">"k--"</span>, label<span class="op">=</span><span class="st">"Función verdadera"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>plt.plot(X_train[:, <span class="dv">0</span>], y_train, <span class="st">"o"</span>, color<span class="op">=</span>ROJO, label<span class="op">=</span><span class="st">"Observaciones"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x$"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="un-solo-corte" class="level2">
+<h2 class="anchored" data-anchor-id="un-solo-corte">2. Un solo corte</h2>
+<p>Un árbol de profundidad 1 (un <em>stump</em>) divide la recta en dos intervalos y predice la media de <span class="math inline">\(y\)</span> en cada uno. Para elegir el umbral <span class="math inline">\(t\)</span> se prueban todos los puntos medios entre valores consecutivos de <span class="math inline">\(x\)</span> y se elige el que minimiza la suma de cuadrados dentro de los dos hijos,</p>
+<p><span class="math display">\[\mathrm{SC}(t) = \sum_{x_i \le t} (y_i - \bar y_L)^2 + \sum_{x_i &gt; t} (y_i - \bar y_R)^2.\]</span></p>
+<p>Calculamos esta curva a mano y la comparamos con el umbral que elige <code>DecisionTreeRegressor</code>.</p>
+<div id="23f17ce8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:04.782019Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:04.781953Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:04.880804Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:04.880387Z&quot;}}" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x, yv <span class="op">=</span> X_train[:, <span class="dv">0</span>], y_train</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>umbrales <span class="op">=</span> (x[:<span class="op">-</span><span class="dv">1</span>] <span class="op">+</span> x[<span class="dv">1</span>:]) <span class="op">/</span> <span class="dv">2</span>            <span class="co"># x ya está ordenado</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> []</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> umbrales:</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    izq, der <span class="op">=</span> yv[x <span class="op">&lt;=</span> t], yv[x <span class="op">&gt;</span> t]</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    sc.append(((izq <span class="op">-</span> izq.mean()) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>() <span class="op">+</span> ((der <span class="op">-</span> der.mean()) <span class="op">**</span> <span class="dv">2</span>).<span class="bu">sum</span>())</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>sc <span class="op">=</span> np.array(sc)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>t_mano <span class="op">=</span> umbrales[np.argmin(sc)]</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>stump <span class="op">=</span> DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">1</span>).fit(X_train, y_train)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Umbral calculado a mano:   </span><span class="sc">{</span>t_mano<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Umbral de scikit-learn:    </span><span class="sc">{</span>stump<span class="sc">.</span>tree_<span class="sc">.</span>threshold[<span class="dv">0</span>]<span class="sc">:.4f}</span><span class="ss">"</span>)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">4</span>))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(umbrales, sc, <span class="st">"o-"</span>, color<span class="op">=</span>AZUL, ms<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].axvline(t_mano, color<span class="op">=</span>ROJO, ls<span class="op">=</span><span class="st">"--"</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="st">"Umbral candidato $t$"</span>)<span class="op">;</span> axs[<span class="dv">0</span>].set_ylabel(<span class="st">"SC dentro de los hijos"</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_title(<span class="st">"Búsqueda del mejor corte"</span>)</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], f(X_test[:, <span class="dv">0</span>]), <span class="st">"k--"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_train[:, <span class="dv">0</span>], y_train, <span class="st">"o"</span>, color<span class="op">=</span>ROJO, ms<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], stump.predict(X_test), color<span class="op">=</span>AZUL, lw<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"Árbol de profundidad 1"</span>)</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].axvline(t_mano, color<span class="op">=</span>GRIS, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)<span class="op">;</span> axs[<span class="dv">1</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Umbral calculado a mano:   -0.4121
+Umbral de scikit-learn:    -0.4121</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-4-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="efecto-de-la-profundidad" class="level2">
+<h2 class="anchored" data-anchor-id="efecto-de-la-profundidad">3. Efecto de la profundidad</h2>
+<p>La profundidad máxima (<code>max_depth</code>) controla cuántos cortes sucesivos puede hacer el árbol. Un árbol de profundidad <span class="math inline">\(d\)</span> tiene a lo sumo <span class="math inline">\(2^d\)</span> hojas. Con poca profundidad el ajuste es una escalera gruesa (sesgo alto). Sin límite, cada hoja contiene una sola observación y el árbol interpola el ruido (varianza alta). Fuera de <span class="math inline">\([-3, 3]\)</span> la predicción es constante, igual a la media de la hoja del extremo.</p>
+<div id="da2bb617" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:04.881948Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:04.881872Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:05.099505Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:05.099174Z&quot;}}" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>profundidades <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="va">None</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">8</span>), sharex<span class="op">=</span><span class="va">True</span>, sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, d <span class="kw">in</span> <span class="bu">zip</span>(axs.flatten(), profundidades):</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    arbol <span class="op">=</span> DecisionTreeRegressor(max_depth<span class="op">=</span>d, random_state<span class="op">=</span><span class="dv">0</span>).fit(X_train, y_train)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(X_test[:, <span class="dv">0</span>], f(X_test[:, <span class="dv">0</span>]), <span class="st">"k--"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    ax.plot(X_train[:, <span class="dv">0</span>], y_train, <span class="st">"o"</span>, color<span class="op">=</span>ROJO, ms<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    ax.plot(X_test[:, <span class="dv">0</span>], arbol.predict(X_test), color<span class="op">=</span>AZUL, lw<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    ecm <span class="op">=</span> np.mean((arbol.predict(X_train) <span class="op">-</span> y_train) <span class="op">**</span> <span class="dv">2</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    nombre <span class="op">=</span> <span class="st">"Sin límite"</span> <span class="cf">if</span> d <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> <span class="ss">f"max_depth = </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>nombre<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>arbol<span class="sc">.</span>get_n_leaves()<span class="sc">}</span><span class="ss"> hojas, ECM ent. = </span><span class="sc">{</span>ecm<span class="sc">:.3f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    ax.set_ylim(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs[<span class="dv">1</span>]:</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"$x$"</span>)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax <span class="kw">in</span> axs[:, <span class="dv">0</span>]:</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    ax.set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="tamaño-mínimo-de-las-hojas" class="level3">
+<h3 class="anchored" data-anchor-id="tamaño-mínimo-de-las-hojas">Tamaño mínimo de las hojas</h3>
+<p>Otra forma de limitar el árbol es exigir un número mínimo de observaciones en cada hoja (<code>min_samples_leaf</code>). Aquí dejamos crecer el árbol sin límite de profundidad. Hojas más grandes promedian más observaciones, y la función estimada es más estable y menos detallada.</p>
+<div id="13b9a9dd" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:05.100757Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:05.100681Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:05.226176Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:05.225787Z&quot;}}" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tamanos <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">12</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">18</span>, <span class="dv">4</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, h <span class="kw">in</span> <span class="bu">zip</span>(axs, tamanos):</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    arbol <span class="op">=</span> DecisionTreeRegressor(min_samples_leaf<span class="op">=</span>h, random_state<span class="op">=</span><span class="dv">0</span>).fit(X_train, y_train)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    ax.plot(X_test[:, <span class="dv">0</span>], f(X_test[:, <span class="dv">0</span>]), <span class="st">"k--"</span>, lw<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    ax.plot(X_train[:, <span class="dv">0</span>], y_train, <span class="st">"o"</span>, color<span class="op">=</span>ROJO, ms<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    ax.plot(X_test[:, <span class="dv">0</span>], arbol.predict(X_test), color<span class="op">=</span>AZUL, lw<span class="op">=</span><span class="fl">2.5</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"min_samples_leaf = </span><span class="sc">{</span>h<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>arbol<span class="sc">.</span>get_n_leaves()<span class="sc">}</span><span class="ss"> hojas"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"$x$"</span>)<span class="op">;</span> ax.set_ylim(<span class="op">-</span><span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="lectura-del-árbol" class="level2">
+<h2 class="anchored" data-anchor-id="lectura-del-árbol">4. Lectura del árbol</h2>
+<p>Cada camino desde la raíz hasta una hoja es una regla. <code>plot_tree</code> dibuja el árbol y <code>export_text</code> lo escribe como texto. En cada nodo, <code>squared_error</code> es la varianza de <span class="math inline">\(y\)</span> en el nodo, <code>samples</code> es el número de observaciones y <code>value</code> es la media de <span class="math inline">\(y\)</span>, que es la predicción si el nodo fuera una hoja.</p>
+<div id="cda5a3c6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:05.227254Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:05.227191Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:05.292820Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:05.292425Z&quot;}}" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>arbol2 <span class="op">=</span> DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">2</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(X_train, y_train)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="dv">5</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>plot_tree(arbol2, feature_names<span class="op">=</span>[<span class="st">"x"</span>], filled<span class="op">=</span><span class="va">True</span>, rounded<span class="op">=</span><span class="va">True</span>, precision<span class="op">=</span><span class="dv">2</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(export_text(arbol2, feature_names<span class="op">=</span>[<span class="st">"x"</span>], decimals<span class="op">=</span><span class="dv">2</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>|--- x &lt;= -0.41
+|   |--- x &lt;= -1.63
+|   |   |--- value: [-0.55]
+|   |--- x &gt;  -1.63
+|   |   |--- value: [-0.91]
+|--- x &gt;  -0.41
+|   |--- x &lt;= 2.84
+|   |   |--- value: [0.61]
+|   |--- x &gt;  2.84
+|   |   |--- value: [0.09]
+</code></pre>
+</div>
+</div>
+</section>
+<section id="elección-de-la-complejidad" class="level2">
+<h2 class="anchored" data-anchor-id="elección-de-la-complejidad">5. Elección de la complejidad</h2>
+<p>La profundidad que mejor predice no se puede elegir con el error de entrenamiento, que siempre baja al agregar cortes. Usamos poda por costo-complejidad. Para cada <span class="math inline">\(\alpha \ge 0\)</span> se busca el subárbol <span class="math inline">\(T\)</span> que minimiza</p>
+<p><span class="math display">\[C_\alpha(T) = \sum_{m=1}^{|T|} \mathrm{SC}_m + \alpha\,|T|,\]</span></p>
+<p>donde <span class="math inline">\(\mathrm{SC}_m\)</span> es la suma de cuadrados de la hoja <span class="math inline">\(m\)</span> y <span class="math inline">\(|T|\)</span> es el número de hojas. <code>cost_complexity_pruning_path</code> entrega la sucesión de valores de <span class="math inline">\(\alpha\)</span> en que cambia el subárbol óptimo (scikit-learn divide el criterio por <span class="math inline">\(n\)</span>, así que su <span class="math inline">\(\alpha\)</span> está en esa escala), y elegimos <span class="math inline">\(\alpha\)</span> por validación cruzada con 5 pliegues. Los pliegues se forman al azar (<code>shuffle=True</code>); como <code>X_train</code> está ordenado, pliegues contiguos dejarían cada intervalo de validación fuera del rango de los datos de entrenamiento.</p>
+<p>Con sólo 40 observaciones el error de validación cruzada es ruidoso y casi plano para árboles grandes. Por eso, además del mínimo, aplicamos la regla de un error estándar, que elige el árbol más pequeño cuyo error está a menos de un error estándar del mínimo.</p>
+<div id="6011c846" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:05.293827Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:05.293761Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:05.480907Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:05.480499Z&quot;}}" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>camino <span class="op">=</span> DecisionTreeRegressor(random_state<span class="op">=</span><span class="dv">0</span>).cost_complexity_pruning_path(X_train, y_train)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>alfas <span class="op">=</span> camino.ccp_alphas[:<span class="op">-</span><span class="dv">1</span>]           <span class="co"># el último valor deja sólo la raíz</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>pliegues <span class="op">=</span> KFold(<span class="dv">5</span>, shuffle<span class="op">=</span><span class="va">True</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>ecm_cv, ee_cv, hojas, ecm_ent <span class="op">=</span> [], [], [], []</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> a <span class="kw">in</span> alfas:</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    arbol <span class="op">=</span> DecisionTreeRegressor(ccp_alpha<span class="op">=</span>a, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    ecm <span class="op">=</span> <span class="op">-</span>cross_val_score(arbol, X_train, y_train, cv<span class="op">=</span>pliegues,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>                           scoring<span class="op">=</span><span class="st">"neg_mean_squared_error"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    ecm_cv.append(ecm.mean())</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>    ee_cv.append(ecm.std(ddof<span class="op">=</span><span class="dv">1</span>) <span class="op">/</span> np.sqrt(<span class="bu">len</span>(ecm)))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    arbol.fit(X_train, y_train)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    hojas.append(arbol.get_n_leaves())</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    ecm_ent.append(np.mean((arbol.predict(X_train) <span class="op">-</span> y_train) <span class="op">**</span> <span class="dv">2</span>))</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>ecm_cv, ee_cv, hojas <span class="op">=</span> np.array(ecm_cv), np.array(ee_cv), np.array(hojas)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>k_min <span class="op">=</span> np.argmin(ecm_cv)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> np.<span class="bu">max</span>(np.where(ecm_cv <span class="op">&lt;=</span> ecm_cv[k_min] <span class="op">+</span> ee_cv[k_min])[<span class="dv">0</span>])   <span class="co"># regla de un error estándar</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Mínimo de validación cruzada: </span><span class="sc">{</span>hojas[k_min]<span class="sc">}</span><span class="ss"> hojas"</span>)</span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Regla de un error estándar:   alfa = </span><span class="sc">{</span>alfas[k]<span class="sc">:.5f}</span><span class="ss">, </span><span class="sc">{</span>hojas[k]<span class="sc">}</span><span class="ss"> hojas"</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>podado <span class="op">=</span> DecisionTreeRegressor(ccp_alpha<span class="op">=</span>alfas[k], random_state<span class="op">=</span><span class="dv">0</span>).fit(X_train, y_train)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">13</span>, <span class="dv">4</span>))</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(hojas, ecm_ent, <span class="st">"o-"</span>, color<span class="op">=</span>AZUL, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">"Entrenamiento"</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].plot(hojas, ecm_cv, <span class="st">"o-"</span>, color<span class="op">=</span>ROJO, ms<span class="op">=</span><span class="dv">4</span>, label<span class="op">=</span><span class="st">"Validación cruzada"</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].fill_between(hojas, ecm_cv <span class="op">-</span> ee_cv, ecm_cv <span class="op">+</span> ee_cv, color<span class="op">=</span>ROJO, alpha<span class="op">=</span><span class="fl">0.15</span>, lw<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].scatter([hojas[k]], [ecm_cv[k]], s<span class="op">=</span><span class="dv">120</span>, facecolor<span class="op">=</span><span class="st">"none"</span>, edgecolor<span class="op">=</span>ROJO, lw<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_xlabel(<span class="st">"Número de hojas"</span>)<span class="op">;</span> axs[<span class="dv">0</span>].set_ylabel(<span class="st">"ECM"</span>)</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].legend()</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], f(X_test[:, <span class="dv">0</span>]), <span class="st">"k--"</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"Función verdadera"</span>)</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_train[:, <span class="dv">0</span>], y_train, <span class="st">"o"</span>, color<span class="op">=</span>ROJO, ms<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].plot(X_test[:, <span class="dv">0</span>], podado.predict(X_test), color<span class="op">=</span>AZUL, lw<span class="op">=</span><span class="fl">2.5</span>,</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="ss">f"Árbol podado (</span><span class="sc">{</span>podado<span class="sc">.</span>get_n_leaves()<span class="sc">}</span><span class="ss"> hojas)"</span>)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].set_xlabel(<span class="st">"$x$"</span>)<span class="op">;</span> axs[<span class="dv">1</span>].set_ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">1</span>].legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Mínimo de validación cruzada: 28 hojas
+Regla de un error estándar:   alfa = 0.00324, 8 hojas</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-8-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="inestabilidad" class="level2">
+<h2 class="anchored" data-anchor-id="inestabilidad">6. Inestabilidad</h2>
+<p>Ajustamos el mismo árbol de profundidad 4 a cinco remuestras bootstrap de los datos, es decir, a cinco muestras de tamaño 40 extraídas con reemplazo de las observaciones originales. Los umbrales y los escalones cambian de una remuestra a otra. Esta varianza alta es la que reducen los ensambles de árboles (bagging y random forest), que promedian muchos árboles como estos.</p>
+<div id="209928f0" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:05.481982Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:05.481922Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:05.536036Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:05.535739Z&quot;}}" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">9</span>, <span class="fl">4.5</span>))</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>plt.plot(X_test[:, <span class="dv">0</span>], f(X_test[:, <span class="dv">0</span>]), <span class="st">"k--"</span>, lw<span class="op">=</span><span class="dv">1</span>, label<span class="op">=</span><span class="st">"Función verdadera"</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>predicciones <span class="op">=</span> []</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">5</span>):</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    idx <span class="op">=</span> rng.integers(<span class="dv">0</span>, n, n)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    arbol <span class="op">=</span> DecisionTreeRegressor(max_depth<span class="op">=</span><span class="dv">4</span>, random_state<span class="op">=</span><span class="dv">0</span>).fit(X_train[idx], y_train[idx])</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    predicciones.append(arbol.predict(X_test))</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    plt.plot(X_test[:, <span class="dv">0</span>], predicciones[<span class="op">-</span><span class="dv">1</span>], lw<span class="op">=</span><span class="fl">1.5</span>, alpha<span class="op">=</span><span class="fl">0.8</span>)</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>plt.plot(X_test[:, <span class="dv">0</span>], np.mean(predicciones, axis<span class="op">=</span><span class="dv">0</span>), color<span class="op">=</span><span class="st">"k"</span>, lw<span class="op">=</span><span class="dv">3</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>         label<span class="op">=</span><span class="st">"Promedio de los 5 árboles"</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>plt.plot(X_train[:, <span class="dv">0</span>], y_train, <span class="st">"o"</span>, color<span class="op">=</span>ROJO, ms<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"$x$"</span>)<span class="op">;</span> plt.ylabel(<span class="st">"$y$"</span>)</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">"lower right"</span>)</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="clasificación-en-dos-dimensiones" class="level2">
+<h2 class="anchored" data-anchor-id="clasificación-en-dos-dimensiones">7. Clasificación en dos dimensiones</h2>
+<p>En clasificación cada hoja predice la clase mayoritaria y los cortes se eligen para reducir la impureza de Gini, <span class="math inline">\(Q = 1 - \sum_k \hat p_k^2\)</span>. Las regiones de decisión son rectángulos con lados paralelos a los ejes. Usamos el conjunto <code>make_moons</code>, con dos clases en forma de media luna, y medimos la exactitud en una muestra de prueba independiente.</p>
+<div id="5b96e5c4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-20T17:08:05.537281Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-20T17:08:05.537218Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-20T17:08:05.737187Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-20T17:08:05.736894Z&quot;}}" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>Xc_train, yc_train <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">200</span>, noise<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">0</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Xc_test, yc_test <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">2000</span>, noise<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>gx, gy <span class="op">=</span> np.meshgrid(np.linspace(<span class="op">-</span><span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">400</span>), np.linspace(<span class="op">-</span><span class="fl">1.5</span>, <span class="dv">2</span>, <span class="dv">400</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>grilla <span class="op">=</span> np.column_stack([gx.ravel(), gy.ravel()])</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>fig, axs <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">18</span>, <span class="fl">4.2</span>), sharey<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, d <span class="kw">in</span> <span class="bu">zip</span>(axs, [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">5</span>, <span class="va">None</span>]):</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    arbol <span class="op">=</span> DecisionTreeClassifier(max_depth<span class="op">=</span>d, random_state<span class="op">=</span><span class="dv">0</span>).fit(Xc_train, yc_train)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    z <span class="op">=</span> arbol.predict(grilla).reshape(gx.shape)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    ax.contourf(gx, gy, z, levels<span class="op">=</span>[<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>], colors<span class="op">=</span>[<span class="st">"#dbe6fb"</span>, <span class="st">"#f6dede"</span>])</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    ax.scatter(<span class="op">*</span>Xc_train[yc_train <span class="op">==</span> <span class="dv">0</span>].T, s<span class="op">=</span><span class="dv">15</span>, color<span class="op">=</span>AZUL, edgecolor<span class="op">=</span><span class="st">"white"</span>, lw<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>    ax.scatter(<span class="op">*</span>Xc_train[yc_train <span class="op">==</span> <span class="dv">1</span>].T, s<span class="op">=</span><span class="dv">15</span>, color<span class="op">=</span>ROJO, edgecolor<span class="op">=</span><span class="st">"white"</span>, lw<span class="op">=</span><span class="fl">0.4</span>)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    nombre <span class="op">=</span> <span class="st">"Sin límite"</span> <span class="cf">if</span> d <span class="kw">is</span> <span class="va">None</span> <span class="cf">else</span> <span class="ss">f"max_depth = </span><span class="sc">{</span>d<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    ax.set_title(<span class="ss">f"</span><span class="sc">{</span>nombre<span class="sc">}</span><span class="ch">\n</span><span class="ss">Exactitud: ent. </span><span class="sc">{</span>arbol<span class="sc">.</span>score(Xc_train, yc_train)<span class="sc">:.3f}</span><span class="ss">, "</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>                 <span class="ss">f"prueba </span><span class="sc">{</span>arbol<span class="sc">.</span>score(Xc_test, yc_test)<span class="sc">:.3f}</span><span class="ss">"</span>, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"$x_1$"</span>)<span class="op">;</span> ax.grid(<span class="va">False</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>axs[<span class="dv">0</span>].set_ylabel(<span class="st">"$x_2$"</span>)</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="06-arbol-decision-ejemplo_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El árbol sin límite clasifica perfectamente los datos de entrenamiento con regiones muy fragmentadas, y su exactitud de prueba es menor que la de los árboles de profundidad intermedia.</p>
+</section>
+<section id="ejercicios" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicios">Ejercicios</h2>
+<ol type="1">
+<li>Cambie el ruido de los datos de regresión de 0,15 a 0,4 y repita la sección 5. ¿Cómo cambia el número de hojas elegido por validación cruzada?</li>
+<li>Aumente el número de observaciones de 40 a 400. ¿Qué ocurre con la diferencia entre el árbol sin límite y el árbol podado?</li>
+<li>En la sección 7, elija <code>max_depth</code> por validación cruzada con <code>cross_val_score</code> y compare la exactitud de prueba del árbol elegido con la de los árboles de la figura.</li>
+<li>Reemplace <span class="math inline">\(x\)</span> por <span class="math inline">\(e^x\)</span> en los datos de regresión, ajuste el árbol de profundidad 2 y compare las hojas con las de la sección 4. ¿Por qué la partición de los datos no cambia?</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/aavelozb\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Alejandro Veloz</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
