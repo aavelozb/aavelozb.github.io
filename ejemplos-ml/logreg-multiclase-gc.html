@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Regresión logística multiclase (softmax) desde cero</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-1dc1b4f9dff3763bf9510c4588684ca3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-622f28c2bbd02885262cc7b1dbb2a6ed.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-1dc1b4f9dff3763bf9510c4588684ca3.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>
+  .cv-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    margin-top: 30px;
+  }
+  .cv-photo-circle {
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #D9E3E4;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .cv-info {
+    flex: 1;
+  }
+  @media (max-width: 768px) {
+    .cv-container { flex-direction: column-reverse; text-align: center; }
+  }
+</style>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<meta property="og:title" content="Regresión logística multiclase (softmax) desde cero">
+<meta property="og:description" content="Alejandro Veloz - Academic Profile">
+<meta property="og:image" content="https://aavelozb.github.io/ejemplos-ml/logreg-multiclase-gc_files/figure-html/cell-3-output-1.png">
+<meta property="og:image:height" content="438">
+<meta property="og:image:width" content="430">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Regresión logística multiclase (softmax) desde cero</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-center sidebar-header">
+      <a href="#" class="sidebar-logo-link">
+      <img src="../images/logo.png" alt="" class="sidebar-logo light-content py-0 d-lg-inline d-none">
+      <img src="../images/logo.png" alt="" class="sidebar-logo dark-content py-0 d-lg-inline d-none">
+      </a>
+      <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/aavelozb" title="GitHub" class="quarto-navigation-tool px-1" aria-label="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://scholar.google.com/citations?user=eq254vUAAAAJ" title="Google Scholar" class="quarto-navigation-tool px-1" aria-label="Google Scholar"><i class="bi bi-mortarboard-fill"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+      </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Contenido de la página</h2>
+   
+  <ul>
+  <li><a href="#datos" id="toc-datos" class="nav-link active" data-scroll-target="#datos">Datos</a></li>
+  <li><a href="#la-función-softmax" id="toc-la-función-softmax" class="nav-link" data-scroll-target="#la-función-softmax">La función softmax</a></li>
+  <li><a href="#entropía-cruzada-y-gradiente" id="toc-entropía-cruzada-y-gradiente" class="nav-link" data-scroll-target="#entropía-cruzada-y-gradiente">Entropía cruzada y gradiente</a></li>
+  <li><a href="#descenso-de-gradiente" id="toc-descenso-de-gradiente" class="nav-link" data-scroll-target="#descenso-de-gradiente">Descenso de gradiente</a></li>
+  <li><a href="#regiones-de-decisión-y-probabilidades" id="toc-regiones-de-decisión-y-probabilidades" class="nav-link" data-scroll-target="#regiones-de-decisión-y-probabilidades">Regiones de decisión y probabilidades</a></li>
+  <li><a href="#dígitos-manuscritos" id="toc-dígitos-manuscritos" class="nav-link" data-scroll-target="#dígitos-manuscritos">Dígitos manuscritos</a></li>
+  <li><a href="#el-mismo-modelo-en-pytorch" id="toc-el-mismo-modelo-en-pytorch" class="nav-link" data-scroll-target="#el-mismo-modelo-en-pytorch">El mismo modelo en PyTorch</a></li>
+  <li><a href="#verificación-con-scikit-learn" id="toc-verificación-con-scikit-learn" class="nav-link" data-scroll-target="#verificación-con-scikit-learn">Verificación con scikit-learn</a></li>
+  <li><a href="#ejercicios" id="toc-ejercicios" class="nav-link" data-scroll-target="#ejercicios">Ejercicios</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Regresión logística multiclase (softmax) desde cero</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Este cuaderno extiende la regresión logística a <span class="math inline">\(K\)</span> clases con la función softmax, escrita desde cero.</p>
+<ol type="1">
+<li>Generar tres clases en el plano.</li>
+<li>Escribir la softmax, la entropía cruzada y su gradiente, y verificar el gradiente.</li>
+<li>Ajustar por descenso de gradiente y dibujar las regiones de decisión y las probabilidades.</li>
+<li>Aplicar el mismo código a dígitos manuscritos de <span class="math inline">\(8 \times 8\)</span> píxeles, con penalización L2.</li>
+<li>Repetir el ajuste con PyTorch y verificar con scikit-learn.</li>
+</ol>
+<div id="99f15e30" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:33.098309Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:33.098010Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:33.274289Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:33.273770Z&quot;}}" data-execution_count="1">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.colors <span class="im">import</span> ListedColormap</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>plt.rcParams.update({<span class="st">"figure.figsize"</span>: (<span class="dv">6</span>, <span class="fl">4.5</span>), <span class="st">"font.size"</span>: <span class="dv">12</span>, <span class="st">"axes.grid"</span>: <span class="va">True</span>, <span class="st">"grid.alpha"</span>: <span class="fl">0.25</span>})</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>COLORES <span class="op">=</span> [<span class="st">"#3C72E8"</span>, <span class="st">"#8C1515"</span>, <span class="st">"#006400"</span>]</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>rng <span class="op">=</span> np.random.default_rng(<span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<section id="datos" class="level2">
+<h2 class="anchored" data-anchor-id="datos">Datos</h2>
+<p>Tres nubes normales en el plano, con 100 puntos de entrenamiento por clase.</p>
+<div id="11b4b980" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:33.275656Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:33.275542Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:33.439619Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:33.439093Z&quot;}}" data-execution_count="2">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>CENTROS <span class="op">=</span> np.array([[<span class="fl">0.0</span>, <span class="fl">0.0</span>], [<span class="fl">3.0</span>, <span class="fl">0.5</span>], [<span class="fl">1.2</span>, <span class="fl">2.8</span>]])</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simula(n_por_clase, rng):</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> np.repeat(np.arange(<span class="dv">3</span>), n_por_clase)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> CENTROS[y] <span class="op">+</span> rng.normal(<span class="dv">0</span>, <span class="fl">0.9</span>, (<span class="bu">len</span>(y), <span class="dv">2</span>))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> X, y</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>X_tr, y_tr <span class="op">=</span> simula(<span class="dv">100</span>, rng)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>X_te, y_te <span class="op">=</span> simula(<span class="dv">1000</span>, rng)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>MARCAS <span class="op">=</span> [<span class="st">"o"</span>, <span class="st">"s"</span>, <span class="st">"^"</span>]</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> dibuja(ax, X, y):</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>        ax.plot(<span class="op">*</span>X[y <span class="op">==</span> k].T, MARCAS[k], ms<span class="op">=</span><span class="dv">5</span>, color<span class="op">=</span>COLORES[k], alpha<span class="op">=</span><span class="fl">0.75</span>, label<span class="op">=</span><span class="ss">f"Clase </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">"$x_1$"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"$x_2$"</span>)<span class="op">;</span> ax.set_aspect(<span class="st">"equal"</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots()</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>dibuja(ax, X_tr, y_tr)<span class="op">;</span> ax.legend()<span class="op">;</span> ax.set_title(<span class="st">"Datos de entrenamiento"</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg-multiclase-gc_files/figure-html/cell-3-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="la-función-softmax" class="level2">
+<h2 class="anchored" data-anchor-id="la-función-softmax">La función softmax</h2>
+<p>El modelo calcula un puntaje por clase, <span class="math inline">\(z_k = \mathbf{x}^\top\boldsymbol\beta_k\)</span>, y los convierte en probabilidades, <span class="math display">\[\Pr(y = k \mid \mathbf{x}) = \frac{e^{z_k}}{\sum_{j=1}^{K}e^{z_j}} .\]</span></p>
+<p>Por ejemplo, los puntajes <span class="math inline">\((2;\ 1;\ 0{,}1)\)</span> dan probabilidades <span class="math inline">\((0{,}66;\ 0{,}24;\ 0{,}10)\)</span>. Sumar la misma constante a todos los puntajes no cambia el resultado, y eso permite restar el máximo antes de exponenciar para evitar desbordes.</p>
+<div id="972742ed" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:33.441121Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:33.441019Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:33.443295Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:33.443001Z&quot;}}" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> softmax(Z):</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    Z <span class="op">=</span> Z <span class="op">-</span> Z.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)          <span class="co"># estabilidad numérica</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    E <span class="op">=</span> np.exp(Z)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> E<span class="op">/</span>E.<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(softmax(np.array([[<span class="fl">2.0</span>, <span class="fl">1.0</span>, <span class="fl">0.1</span>]])).<span class="bu">round</span>(<span class="dv">3</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(softmax(np.array([[<span class="fl">1002.0</span>, <span class="fl">1001.0</span>, <span class="fl">1000.1</span>]])).<span class="bu">round</span>(<span class="dv">3</span>))   <span class="co"># sin restar el máximo daría inf/inf</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[0.659 0.242 0.099]]
+[[0.659 0.242 0.099]]</code></pre>
+</div>
+</div>
+</section>
+<section id="entropía-cruzada-y-gradiente" class="level2">
+<h2 class="anchored" data-anchor-id="entropía-cruzada-y-gradiente">Entropía cruzada y gradiente</h2>
+<p>Sea <span class="math inline">\(\mathbf{Y}\)</span> la codificación one-hot de las etiquetas (<span class="math inline">\(n \times K\)</span>) y <span class="math inline">\(\mathbf{B} = [\boldsymbol\beta_1, \ldots, \boldsymbol\beta_K]\)</span> la matriz de coeficientes, con una fila para el intercepto. La pérdida media con penalización L2 (sin los interceptos) y su gradiente son <span class="math display">\[\ell(\mathbf{B}) = -\frac{1}{n}\sum_{i=1}^{n}\log P_{i,y_i} + \frac{\lambda}{2}\|\mathbf{B}_{\text{sin intercepto}}\|^2, \qquad
+\nabla_{\mathbf{B}}\ell = \frac{1}{n}\mathbf{X}^\top(\mathbf{P} - \mathbf{Y}) + \lambda\,\mathbf{B}_{\text{sin intercepto}} .\]</span> El gradiente tiene la misma forma que en el caso binario: predicción menos observación, multiplicada por la entrada.</p>
+<div id="588fa71f" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:33.444599Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:33.444511Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:33.448178Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:33.447768Z&quot;}}" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> con_unos(X):</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.column_stack([np.ones(<span class="bu">len</span>(X)), X])</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> one_hot(y, K):</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.eye(K)[y]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perdida(B, X, y, lam<span class="op">=</span><span class="fl">0.0</span>):</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    Z <span class="op">=</span> X <span class="op">@</span> B<span class="op">;</span> Z <span class="op">=</span> Z <span class="op">-</span> Z.<span class="bu">max</span>(axis<span class="op">=</span><span class="dv">1</span>, keepdims<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    lse <span class="op">=</span> np.log(np.exp(Z).<span class="bu">sum</span>(axis<span class="op">=</span><span class="dv">1</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.mean(lse <span class="op">-</span> Z[np.arange(<span class="bu">len</span>(y)), y]) <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span>lam<span class="op">*</span>np.<span class="bu">sum</span>(B[<span class="dv">1</span>:]<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradiente(B, X, y, lam<span class="op">=</span><span class="fl">0.0</span>):</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    G <span class="op">=</span> X.T <span class="op">@</span> (softmax(X <span class="op">@</span> B) <span class="op">-</span> one_hot(y, B.shape[<span class="dv">1</span>]))<span class="op">/</span><span class="bu">len</span>(y)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    G[<span class="dv">1</span>:] <span class="op">+=</span> lam<span class="op">*</span>B[<span class="dv">1</span>:]</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> G</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>A_tr, A_te <span class="op">=</span> con_unos(X_tr), con_unos(X_te)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>B_prueba <span class="op">=</span> rng.normal(size<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>))<span class="op">;</span> h <span class="op">=</span> <span class="fl">1e-6</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>num <span class="op">=</span> np.zeros_like(B_prueba)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">3</span>):</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>        E <span class="op">=</span> np.zeros_like(B_prueba)<span class="op">;</span> E[i, j] <span class="op">=</span> h</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        num[i, j] <span class="op">=</span> (perdida(B_prueba <span class="op">+</span> E, A_tr, y_tr, <span class="fl">0.1</span>) <span class="op">-</span> perdida(B_prueba <span class="op">-</span> E, A_tr, y_tr, <span class="fl">0.1</span>))<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span>h)</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Máxima diferencia con diferencias finitas:"</span>, np.<span class="bu">max</span>(np.<span class="bu">abs</span>(num <span class="op">-</span> gradiente(B_prueba, A_tr, y_tr, <span class="fl">0.1</span>))))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Máxima diferencia con diferencias finitas: 5.984710227391332e-10</code></pre>
+</div>
+</div>
+</section>
+<section id="descenso-de-gradiente" class="level2">
+<h2 class="anchored" data-anchor-id="descenso-de-gradiente">Descenso de gradiente</h2>
+<div id="5f4bda69" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:33.449244Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:33.449180Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:33.597656Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:33.597129Z&quot;}}" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> descenso(X, y, K, lam<span class="op">=</span><span class="fl">0.0</span>, eta<span class="op">=</span><span class="fl">0.5</span>, iteraciones<span class="op">=</span><span class="dv">3000</span>):</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    B <span class="op">=</span> np.zeros((X.shape[<span class="dv">1</span>], K))<span class="op">;</span> historia <span class="op">=</span> []</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(iteraciones):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>        historia.append(perdida(B, X, y, lam))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>        B <span class="op">=</span> B <span class="op">-</span> eta<span class="op">*</span>gradiente(B, X, y, lam)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> B, np.array(historia)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>LAM <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>B, hist <span class="op">=</span> descenso(A_tr, y_tr, <span class="dv">3</span>, lam<span class="op">=</span>LAM)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">3.5</span>))</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>ax.plot(hist, color<span class="op">=</span>COLORES[<span class="dv">1</span>])<span class="op">;</span> ax.set_xlabel(<span class="st">"Iteración"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"Pérdida"</span>)<span class="op">;</span> ax.set_title(<span class="st">"Entropía cruzada durante el ajuste"</span>)</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Error de entrenamiento:"</span>, np.mean((A_tr <span class="op">@</span> B).argmax(<span class="dv">1</span>) <span class="op">!=</span> y_tr))</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Error de test:         "</span>, np.mean((A_te <span class="op">@</span> B).argmax(<span class="dv">1</span>) <span class="op">!=</span> y_te))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg-multiclase-gc_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error de entrenamiento: 0.06
+Error de test:          0.09033333333333333</code></pre>
+</div>
+</div>
+</section>
+<section id="regiones-de-decisión-y-probabilidades" class="level2">
+<h2 class="anchored" data-anchor-id="regiones-de-decisión-y-probabilidades">Regiones de decisión y probabilidades</h2>
+<p>Cada punto del plano se asigna a la clase de mayor puntaje. Las fronteras entre dos clases son rectas, porque el logaritmo del cociente de sus probabilidades, <span class="math inline">\(z_k - z_j\)</span>, es lineal en <span class="math inline">\(\mathbf{x}\)</span>.</p>
+<div id="4b067c68" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:33.598831Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:33.598742Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:33.837248Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:33.836723Z&quot;}}" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>g1, g2 <span class="op">=</span> np.meshgrid(np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="dv">6</span>, <span class="dv">300</span>), np.linspace(<span class="op">-</span><span class="dv">3</span>, <span class="fl">5.5</span>, <span class="dv">300</span>))</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>PG <span class="op">=</span> softmax(con_unos(np.column_stack([g1.ravel(), g2.ravel()])) <span class="op">@</span> B)</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">19</span>, <span class="fl">4.4</span>), layout<span class="op">=</span><span class="st">"constrained"</span>)</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>].contourf(g1, g2, PG.argmax(<span class="dv">1</span>).reshape(g1.shape), levels<span class="op">=</span>[<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">1.5</span>, <span class="fl">2.5</span>],</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>               colors<span class="op">=</span>[<span class="st">"#DCE6FA"</span>, <span class="st">"#F5D5D0"</span>, <span class="st">"#D5EBD5"</span>])</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>dibuja(ax[<span class="dv">0</span>], X_tr, y_tr)<span class="op">;</span> ax[<span class="dv">0</span>].set_title(<span class="st">"Regiones de decisión"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k, cm <span class="kw">in</span> <span class="bu">zip</span>(<span class="bu">range</span>(<span class="dv">3</span>), [<span class="st">"Blues"</span>, <span class="st">"Reds"</span>, <span class="st">"Greens"</span>]):</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    cf <span class="op">=</span> ax[k <span class="op">+</span> <span class="dv">1</span>].contourf(g1, g2, PG[:, k].reshape(g1.shape), levels<span class="op">=</span>np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">11</span>), cmap<span class="op">=</span>cm, alpha<span class="op">=</span><span class="fl">0.7</span>)</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    dibuja(ax[k <span class="op">+</span> <span class="dv">1</span>], X_tr, y_tr)<span class="op">;</span> ax[k <span class="op">+</span> <span class="dv">1</span>].set_title(<span class="ss">f"Pr(y = </span><span class="sc">{</span>k<span class="sc">}</span><span class="ss"> | x)"</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    fig.colorbar(cf, ax<span class="op">=</span>ax[k <span class="op">+</span> <span class="dv">1</span>], fraction<span class="op">=</span><span class="fl">0.046</span>, ticks<span class="op">=</span>[<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="dv">1</span>])</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg-multiclase-gc_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dígitos-manuscritos" class="level2">
+<h2 class="anchored" data-anchor-id="dígitos-manuscritos">Dígitos manuscritos</h2>
+<p>El conjunto <code>load_digits</code> de scikit-learn tiene 1 797 imágenes de <span class="math inline">\(8 \times 8\)</span> píxeles con valores de 0 a 16. Cada imagen es un vector de 64 números, y hay diez clases. Se usan 1 000 imágenes para entrenar y el resto para evaluar.</p>
+<div id="53b654e2" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:33.838442Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:33.838363Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:34.636537Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:34.636049Z&quot;}}" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_digits</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>dg <span class="op">=</span> load_digits()</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>Xd, yd <span class="op">=</span> dg.data<span class="op">/</span><span class="fl">16.0</span>, dg.target</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>perm <span class="op">=</span> np.random.default_rng(<span class="dv">0</span>).permutation(<span class="bu">len</span>(yd))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>itr, ite <span class="op">=</span> perm[:<span class="dv">1000</span>], perm[<span class="dv">1000</span>:]</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">10</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">2.8</span>))</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> f <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>        ax[f, k].imshow(dg.images[itr[yd[itr] <span class="op">==</span> k][f]], cmap<span class="op">=</span><span class="st">"gray_r"</span>, interpolation<span class="op">=</span><span class="st">"nearest"</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>        ax[f, k].set_xticks([])<span class="op">;</span> ax[f, k].set_yticks([])<span class="op">;</span> ax[f, k].grid(<span class="va">False</span>)</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>, k].set_title(<span class="bu">str</span>(k))</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg-multiclase-gc_files/figure-html/cell-8-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>El mismo código de descenso de gradiente ajusta los <span class="math inline">\(65 \times 10 = 650\)</span> coeficientes. Con <span class="math inline">\(\lambda\)</span> pequeño la pérdida es casi plana en algunas direcciones, y el descenso de gradiente necesita muchas iteraciones para llegar al mínimo. Aquí se usan 20 000 pasos con <span class="math inline">\(\eta = 4\)</span>, unos dos segundos.</p>
+<div id="585435de" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:34.637856Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:34.637705Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:37.821140Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:37.820659Z&quot;}}" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Ad_tr, Ad_te <span class="op">=</span> con_unos(Xd[itr]), con_unos(Xd[ite])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>LAM_D <span class="op">=</span> <span class="fl">1e-3</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Bd, hist_d <span class="op">=</span> descenso(Ad_tr, yd[itr], <span class="dv">10</span>, lam<span class="op">=</span>LAM_D, eta<span class="op">=</span><span class="fl">4.0</span>, iteraciones<span class="op">=</span><span class="dv">20000</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>pred <span class="op">=</span> (Ad_te <span class="op">@</span> Bd).argmax(<span class="dv">1</span>)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Error de test en los dígitos:"</span>, np.mean(pred <span class="op">!=</span> yd[ite]))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>C <span class="op">=</span> np.zeros((<span class="dv">10</span>, <span class="dv">10</span>), <span class="bu">int</span>)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t, p <span class="kw">in</span> <span class="bu">zip</span>(yd[ite], pred):</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>    C[t, p] <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">5.5</span>, <span class="dv">5</span>))</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>ax.imshow(C, cmap<span class="op">=</span><span class="st">"Blues"</span>)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> C[i, j]:</span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>            ax.text(j, i, C[i, j], ha<span class="op">=</span><span class="st">"center"</span>, va<span class="op">=</span><span class="st">"center"</span>, fontsize<span class="op">=</span><span class="dv">8</span>, color<span class="op">=</span><span class="st">"w"</span> <span class="cf">if</span> C[i, j] <span class="op">&gt;</span> <span class="dv">40</span> <span class="cf">else</span> <span class="st">"k"</span>)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>ax.set_xticks(<span class="bu">range</span>(<span class="dv">10</span>))<span class="op">;</span> ax.set_yticks(<span class="bu">range</span>(<span class="dv">10</span>))<span class="op">;</span> ax.grid(<span class="va">False</span>)</span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">"Clase predicha"</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">"Clase verdadera"</span>)<span class="op">;</span> ax.set_title(<span class="st">"Matriz de confusión en test"</span>)</span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error de test en los dígitos: 0.03513174404015056</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg-multiclase-gc_files/figure-html/cell-9-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Los pesos de cada clase se pueden ver como imágenes. Un píxel rojo aumenta el puntaje de la clase cuando tiene tinta, y uno azul lo disminuye. Los pesos marcan los píxeles que distinguen una clase de las demás, y por eso no se parecen al dígito promedio.</p>
+<div id="fa43a475" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:37.822455Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:37.822365Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:37.955595Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:37.955204Z&quot;}}" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(<span class="dv">2</span>, <span class="dv">10</span>, figsize<span class="op">=</span>(<span class="dv">12</span>, <span class="fl">2.8</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>m <span class="op">=</span> np.<span class="bu">abs</span>(Bd[<span class="dv">1</span>:]).<span class="bu">max</span>()</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> k <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>):</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>, k].imshow(Xd[itr][yd[itr] <span class="op">==</span> k].mean(<span class="dv">0</span>).reshape(<span class="dv">8</span>, <span class="dv">8</span>), cmap<span class="op">=</span><span class="st">"gray_r"</span>, interpolation<span class="op">=</span><span class="st">"nearest"</span>)</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">1</span>, k].imshow(Bd[<span class="dv">1</span>:, k].reshape(<span class="dv">8</span>, <span class="dv">8</span>), cmap<span class="op">=</span><span class="st">"RdBu_r"</span>, vmin<span class="op">=-</span>m, vmax<span class="op">=</span>m, interpolation<span class="op">=</span><span class="st">"nearest"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> f <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>):</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>        ax[f, k].set_xticks([])<span class="op">;</span> ax[f, k].set_yticks([])<span class="op">;</span> ax[f, k].grid(<span class="va">False</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    ax[<span class="dv">0</span>, k].set_title(<span class="bu">str</span>(k))</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>ax[<span class="dv">0</span>, <span class="dv">0</span>].set_ylabel(<span class="st">"Promedio"</span>)<span class="op">;</span> ax[<span class="dv">1</span>, <span class="dv">0</span>].set_ylabel(<span class="st">"Pesos"</span>)</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="logreg-multiclase-gc_files/figure-html/cell-10-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="el-mismo-modelo-en-pytorch" class="level2">
+<h2 class="anchored" data-anchor-id="el-mismo-modelo-en-pytorch">El mismo modelo en PyTorch</h2>
+<p>Una capa lineal de 64 entradas y 10 salidas produce los puntajes, y <code>CrossEntropyLoss</code> aplica la softmax y la entropía cruzada en un solo paso estable. La penalización L2 se agrega a mano para no penalizar los interceptos.</p>
+<div id="a360fc4c" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:37.956882Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:37.956795Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:38.823871Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:38.823421Z&quot;}}" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>Xt <span class="op">=</span> torch.tensor(Xd[itr], dtype<span class="op">=</span>torch.float64)<span class="op">;</span> yt <span class="op">=</span> torch.tensor(yd[itr])</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>capa <span class="op">=</span> torch.nn.Linear(<span class="dv">64</span>, <span class="dv">10</span>).double()</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>torch.nn.init.zeros_(capa.weight)<span class="op">;</span> torch.nn.init.zeros_(capa.bias)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>opt <span class="op">=</span> torch.optim.LBFGS(capa.parameters(), lr<span class="op">=</span><span class="dv">1</span>, max_iter<span class="op">=</span><span class="dv">500</span>, tolerance_grad<span class="op">=</span><span class="fl">1e-10</span>, tolerance_change<span class="op">=</span><span class="fl">1e-14</span>,</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>                        line_search_fn<span class="op">=</span><span class="st">"strong_wolfe"</span>)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>ce <span class="op">=</span> torch.nn.CrossEntropyLoss()</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cierre():</span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>    opt.zero_grad()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>    l <span class="op">=</span> ce(capa(Xt), yt) <span class="op">+</span> <span class="fl">0.5</span><span class="op">*</span>LAM_D<span class="op">*</span>(capa.weight<span class="op">**</span><span class="dv">2</span>).<span class="bu">sum</span>()</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>    l.backward()</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> l</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>opt.step(cierre)</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>pred_t <span class="op">=</span> capa(torch.tensor(Xd[ite], dtype<span class="op">=</span>torch.float64)).argmax(<span class="dv">1</span>).numpy()</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Error de test con PyTorch:"</span>, np.mean(pred_t <span class="op">!=</span> yd[ite]))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error de test con PyTorch: 0.03513174404015056</code></pre>
+</div>
+</div>
+</section>
+<section id="verificación-con-scikit-learn" class="level2">
+<h2 class="anchored" data-anchor-id="verificación-con-scikit-learn">Verificación con scikit-learn</h2>
+<p>scikit-learn minimiza <span class="math inline">\(C\sum_i \text{pérdida}_i + \frac{1}{2}\|\mathbf{B}\|^2\)</span> sin penalizar los interceptos. Dividiendo por <span class="math inline">\(Cn\)</span> se obtiene la pérdida media con <span class="math inline">\(\lambda = 1/(Cn)\)</span>, de modo que <span class="math inline">\(C = 1/(n\lambda)\)</span> reproduce el modelo de arriba. Con más clases que dos ajusta por defecto el modelo multinomial.</p>
+<div id="04e65790" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;execution&quot;,&quot;value&quot;:{&quot;iopub.execute_input&quot;:&quot;2026-10-16T16:23:38.825178Z&quot;,&quot;iopub.status.busy&quot;:&quot;2026-10-16T16:23:38.825026Z&quot;,&quot;iopub.status.idle&quot;:&quot;2026-10-16T16:23:38.981879Z&quot;,&quot;shell.execute_reply&quot;:&quot;2026-10-16T16:23:38.981373Z&quot;}}" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>sk <span class="op">=</span> LogisticRegression(C<span class="op">=</span><span class="dv">1</span><span class="op">/</span>(<span class="bu">len</span>(itr)<span class="op">*</span>LAM_D), tol<span class="op">=</span><span class="fl">1e-10</span>, max_iter<span class="op">=</span><span class="dv">20000</span>).fit(Xd[itr], yd[itr])</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>P_sk <span class="op">=</span> sk.predict_proba(Xd[ite])<span class="op">;</span> P_gd <span class="op">=</span> softmax(Ad_te <span class="op">@</span> Bd)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Error de test con scikit-learn:"</span>, np.mean(sk.predict(Xd[ite]) <span class="op">!=</span> yd[ite]))</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Máxima diferencia en las probabilidades (descenso de gradiente frente a scikit-learn):"</span>, np.<span class="bu">abs</span>(P_sk <span class="op">-</span> P_gd).<span class="bu">max</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Error de test con scikit-learn: 0.03513174404015056
+Máxima diferencia en las probabilidades (descenso de gradiente frente a scikit-learn): 9.227241878906334e-07</code></pre>
+</div>
+</div>
+</section>
+<section id="ejercicios" class="level2">
+<h2 class="anchored" data-anchor-id="ejercicios">Ejercicios</h2>
+<ol type="1">
+<li>Verifique que con <span class="math inline">\(K = 2\)</span> la regresión softmax da las mismas probabilidades que la regresión logística binaria. ¿Qué relación hay entre <span class="math inline">\(\boldsymbol\beta_1 - \boldsymbol\beta_0\)</span> y el coeficiente binario?</li>
+<li>Elija <span class="math inline">\(\lambda\)</span> para los dígitos por validación cruzada de cinco pliegues, con valores entre <span class="math inline">\(10^{-5}\)</span> y <span class="math inline">\(10^{-1}\)</span>.</li>
+<li>Ajuste diez regresiones binarias, una por clase contra el resto, y compare su error y sus probabilidades con la regresión softmax.</li>
+</ol>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/aavelozb\.github\.io\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>© Copyright 2026, Alejandro Veloz</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+      &nbsp;
+    </div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
