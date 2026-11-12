@@ -1852,7 +1852,7 @@
     "href": "bme423/evals/files/lab3/w-gbm.html",
     "title": "",
     "section": "",
-    "text": "Paciente\n      patient-022patient-010\n    Secuencia\n      CT1 (T1 con gadolinio)FLAIRT2\n    Corte axial \n      62 / 138\n    Ir al centro del tumor\n  \n  \n     Referencia sobre la imagen\n    Opacidad \n    necrosis (1)\n      edema (2)\n      realce (3)\n  \n  \n    \n      imagen\n    \n      referencia"
+    "text": "Paciente\n      patient-022patient-010\n    Secuencia\n      CT1 (T1 con gadolinio)FLAIRT2\n    Corte axial \n      62 / 138\n    Ir al centro del tumor\n  \n  \n     Referencia sobre la imagen\n    Opacidad \n    necrosis (2)\n      edema (3)\n      realce (1)\n  \n  \n    \n      imagen\n    \n      referencia"
   },
   {
     "objectID": "bme423/evals/files/lab1/w-window.html",
@@ -2412,14 +2412,14 @@
     "href": "bme423/evals/lab3.html#glioblastoma",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "2. Glioblastoma",
-    "text": "2. Glioblastoma\n\nPaciente 022. Las cuatro secuencias y la referencia sobre CT1Etiquetas de seg.nii.gz, 1 núcleo necrótico, 2 edema, 3 tumor realzante. Tumor completo es la unión de las tres; tumor realzante es la etiqueta 3. La referencia es la segmentación de DeepBraTumIA validada por los autores de la base, no un trazado manual, y conviene tenerlo presente al interpretar los resultados."
+    "text": "2. Glioblastoma\n\nPaciente 022. Las cuatro secuencias y la referencia sobre CT1Etiquetas de seg.nii.gz, 1 tumor realzante, 2 núcleo necrótico, 3 edema. Tumor completo es la unión de las tres; tumor realzante es la etiqueta 1. La referencia es la segmentación de DeepBraTumIA validada por los autores de la base, no un trazado manual, y conviene tenerlo presente al interpretar los resultados."
   },
   {
     "objectID": "bme423/evals/lab3.html#section",
     "href": "bme423/evals/lab3.html#section",
     "title": "Segmentación: esclerosis múltiple y glioblastoma",
     "section": "",
-    "text": "Paciente\n      patient-022patient-010\n    Secuencia\n      CT1 (T1 con gadolinio)FLAIRT2\n    Corte axial \n      62 / 138\n    Ir al centro del tumor\n  \n  \n     Referencia sobre la imagen\n    Opacidad \n    necrosis (1)\n      edema (2)\n      realce (3)\n  \n  \n    \n      imagen\n    \n      referencia"
+    "text": "Paciente\n      patient-022patient-010\n    Secuencia\n      CT1 (T1 con gadolinio)FLAIRT2\n    Corte axial \n      62 / 138\n    Ir al centro del tumor\n  \n  \n     Referencia sobre la imagen\n    Opacidad \n    necrosis (2)\n      edema (3)\n      realce (1)\n  \n  \n    \n      imagen\n    \n      referencia"
   },
   {
     "objectID": "bme423/evals/lab3.html#carga-de-los-datos",

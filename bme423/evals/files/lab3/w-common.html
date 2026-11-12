@@ -344,8 +344,9 @@ window.LAB3 = (function(){
     "022": {w:138, h:172, nz:139, cols:12, zTumor:62},
     "010": {w:144, h:170, nz:147, cols:12, zTumor:95}
   };
-  // colores de la referencia: 1 necrosis, 2 edema, 3 tumor realzante
-  const COLOR = {1:[253,227,158], 2:[37,224,224], 3:[255,47,208]};
+  // colores de la referencia: 1 tumor realzante, 2 necrosis, 3 edema
+  // (etiquetas de DeepBraTumIA, verificadas contra volumenes_mm3.json)
+  const COLOR = {1:[255,47,208], 2:[253,227,158], 3:[37,224,224]};
   const segData = {};
   function imageData(img){
     const c = document.createElement('canvas');
