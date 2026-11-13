@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Visor fuzzy GLM</title>
+<style>
+:root{--bg:#fbfbf9;--panel:#ffffff;--ink:#1d2329;--muted:#5d6670;--line:#d9dde1;--accent:#1f5f8b;
+  --can:#2b6cb0;--fz:#d9480f;--sh:#6b7280;--task:rgba(31,95,139,.10);--grid:#eceff2;--robust:#2f9e44;--sens:#f08c00;--omis:#9c36b5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15181b;--panel:#1d2125;--ink:#e6e8ea;--muted:#9aa3ab;
+  --line:#32383e;--accent:#74b3e0;--can:#6aa8e6;--fz:#ff8a50;--sh:#9aa3ab;--task:rgba(116,179,224,.13);--grid:#262b30}}
+:root[data-theme="dark"]{--bg:#15181b;--panel:#1d2125;--ink:#e6e8ea;--muted:#9aa3ab;--line:#32383e;--accent:#74b3e0;
+  --can:#6aa8e6;--fz:#ff8a50;--sh:#9aa3ab;--task:rgba(116,179,224,.13);--grid:#262b30}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif}
+header{padding:14px 16px 6px}
+h1{font-size:19px;margin:0 0 4px}
+.sub{color:var(--muted);font-size:13px;margin:0}
+.ctrl{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:center;padding:8px 16px;border-bottom:1px solid var(--line)}
+.ctrl label{font-size:13px;color:var(--muted);display:flex;gap:6px;align-items:center}
+select,input[type=range]{font:inherit;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:3px 6px}
+main{display:grid;grid-template-columns:minmax(300px,520px) minmax(0,1fr);gap:16px;padding:12px 16px}
+@media (max-width:900px){main{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+.views{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.views .ax{grid-column:1 / span 2}
+.view{position:relative}
+.view canvas{width:100%;display:block;background:#000;border-radius:6px;cursor:crosshair;image-rendering:pixelated}
+.vt{position:absolute;left:6px;top:4px;color:#fff;font-size:11px;text-shadow:0 0 3px #000}
+.lr{position:absolute;top:45%;color:#ffd43b;font-size:12px;font-weight:600;text-shadow:0 0 3px #000}
+.leg{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted);margin-top:8px;flex-wrap:wrap}
+.leg canvas{width:160px;height:10px;border-radius:3px}
+.sw{display:inline-block;width:11px;height:11px;border-radius:2px;vertical-align:-1px;margin-right:3px}
+.nums{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:6px 14px;font-size:13px;margin:4px 0 6px}
+.nums b{font-variant-numeric:tabular-nums}
+.nums .k{color:var(--muted);font-size:12px;display:block}
+.plots{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.plots .wide{grid-column:1 / span 2}
+@media (max-width:640px){.plots{grid-template-columns:1fr}.plots .wide{grid-column:auto}}
+.plot h3{font-size:13px;margin:2px 0 2px;font-weight:600}
+.plot p{font-size:12px;color:var(--muted);margin:0 0 4px}
+.plot canvas{width:100%;height:210px;display:block}
+.plots .wide canvas{height:230px}
+.diag{font-size:13px;padding:8px 10px;border-left:3px solid var(--accent);background:var(--task);border-radius:4px;margin-top:8px}
+.notas{padding:4px 16px 30px;max-width:1100px}
+.notas h2{font-size:16px;margin:18px 0 6px}
+.notas p,.notas li{color:var(--ink);font-size:14px}
+.notas li{margin-bottom:4px}
+.muted{color:var(--muted)}
+#estado{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>GLM canónico y fuzzy GLM en pacientes con tumor cerebral</h1>
+  <p class="sub">fMRI prequirúrgica en bloques (30 s de reposo y 30 s de tarea, TR = 3 s, 1,5 T) en el espacio nativo de cada paciente. Haga clic en cualquier corte para ver la señal de ese punto, su ajuste y su retraso.</p>
+</header>
+<div class="ctrl">
+  <label>Paciente <select id="selPac"></select></label>
+  <label>Tarea <select id="selTarea"></select></label>
+  <label>Mapa <select id="selMapa">
+    <option value="tcan">t del GLM canónico</option>
+    <option value="tprop">t del fuzzy GLM</option>
+    <option value="clase">Sensibilidad a la forma</option>
+    <option value="fase">Retraso por fase (s)</option>
+    <option value="ttp">ttp de la forma más posible (s)</option>
+  </select></label>
+  <label>Mostrar en <select id="selDonde">
+    <option value="det">vóxeles detectados (GLM o fuzzy)</option>
+    <option value="t3">t de la mejor forma &gt; 3</option>
+    <option value="todo">todo el cerebro</option>
+  </select></label>
+  <label><input type="checkbox" id="chkTumor" checked> contorno del tumor</label>
+  <label>Corte axial <input type="range" id="rngK" min="0" max="28" value="14"></label>
+  <span id="estado">cargando…</span>
+</div>
+<main>
+  <section class="card">
+    <div class="views">
+      <div class="view ax"><canvas id="cvA"></canvas><span class="vt" id="tA">Axial</span><span class="lr" style="left:6px">I</span><span class="lr" style="right:6px">D</span></div>
+      <div class="view"><canvas id="cvC"></canvas><span class="vt" id="tC">Coronal</span><span class="lr" style="left:6px">I</span><span class="lr" style="right:6px">D</span></div>
+      <div class="view"><canvas id="cvS"></canvas><span class="vt" id="tS">Sagital</span><span class="lr" style="left:6px">P</span><span class="lr" style="right:6px">A</span></div>
+    </div>
+    <div class="leg" id="leyenda"></div>
+    <p class="muted" style="font-size:12px;margin:8px 0 0">Vista neurológica (la derecha del paciente a la derecha). El fondo es la imagen EPI media. Los umbrales están calibrados en cada corrida. El círculo rojo aproxima el tumor marcado.</p>
+  </section>
+  <section class="card">
+    <div class="nums" id="nums"></div>
+    <div class="plots">
+      <div class="plot wide"><h3>Señal en el tiempo</h3><p>Señal sin deriva ni movimiento (% de cambio). Franjas: bloques de tarea. Azul: ajuste con la HRF canónica. Naranja: ajuste con la forma más posible del fuzzy GLM.</p><canvas id="pT"></canvas></div>
+      <div class="plot"><h3>Ciclo promedio de 60 s</h3><p>Promedio de los ciclos (±1 error estándar) y las predicciones de cada ajuste. Las marcas indican cuándo la respuesta cruza la mitad de su rango.</p><canvas id="pC"></canvas></div>
+      <div class="plot"><h3>Ajuste según el corrimiento del diseño</h3><p>R² del GLM canónico al correr el diseño. El máximo indica el retraso que mejor explica la señal.</p><canvas id="pD"></canvas></div>
+      <div class="plot"><h3>HRF difusa</h3><p>Formas con posibilidad ≥ α (gris), la más posible (naranja) y la canónica (azul, trazos).</p><canvas id="pH"></canvas></div>
+      <div class="plot"><h3>Posibilidad de cada forma</h3><p>Según el tiempo al pico, para las tres dispersiones de la familia. La línea marca α.</p><canvas id="pM"></canvas></div>
+    </div>
+    <div class="diag" id="diag"></div>
+  </section>
+</main>
+<section class="notas">
+  <h2>Qué se muestra</h2>
+  <p>El GLM canónico supone en todos los vóxeles la misma respuesta hemodinámica, con el pico a los 5 s. El fuzzy GLM considera 45 formas candidatas, con tiempo al pico (ttp) de 3 a 10 s y tres dispersiones. Cada forma recibe un grado de posibilidad calculado con un test de multiplicadores de Lagrange. El conjunto de formas con posibilidad mayor o igual que α (aquí α = 0,5) es una región de confianza para la forma. El t difuso es el intervalo de valores de t que toman esas formas. Una detección del GLM canónico es <span style="color:var(--robust)">robusta</span> cuando todo el intervalo supera el umbral. Es <span style="color:var(--sens)">sensible a la forma</span> cuando alguna forma compatible con los datos no lo supera. Es una <span style="color:var(--omis)">posible omisión</span> cuando el GLM canónico no detecta y alguna forma compatible sí.</p>
+  <p>Los mapas y los valores de t provienen del análisis a la resolución de adquisición (1,875 × 1,875 × 5 mm). La señal del panel derecho es el promedio de un bloque de 2 × 2 vóxeles en el plano (3,75 × 3,75 × 5 mm), y sus ajustes y posibilidades se calcularon sobre esa señal promediada. Por eso pueden diferir algo de los mapas. Se descartaron los primeros cuatro volúmenes de cada corrida.</p>
+  <h2>Tres medidas del retraso</h2>
+  <ul>
+    <li><b>Retraso por fase.</b> Compara la fase de la señal y la de la predicción canónica a la frecuencia del ciclo de 60 s. Un valor positivo indica una respuesta más tardía que la canónica. Mide el corrimiento de toda la respuesta, sea de origen neural o hemodinámico.</li>
+    <li><b>Corrimiento del diseño.</b> Es el corrimiento del diseño que maximiza el ajuste del GLM canónico. Mide lo mismo que el retraso por fase con otro procedimiento.</li>
+    <li><b>ttp de la forma más posible.</b> Es el tiempo al pico de la forma que mejor ajusta en el fuzzy GLM. Está acotado a 3–10 s por la familia, así que un retraso de más de unos 5 s respecto de la canónica queda en el borde.</li>
+  </ul>
+  <h2>¿Retraso neural o hemodinámico?</h2>
+  <p>Con bloques de 30 s, un retraso en un solo vóxel no distingue entre una respuesta hemodinámica lenta y una actividad neural que empieza tarde. Hay cuatro indicios que ayudan a separarlos.</p>
+  <ul>
+    <li><b>Asimetría entre la subida y la bajada.</b> Una HRF lenta retrasa por igual la subida al inicio del bloque y la bajada al final. Si el paciente empieza la tarea tarde pero se detiene cuando se le indica, sólo se retrasa la subida. Si continúa después de la señal de término, se retrasa sobre todo la bajada. El recuadro bajo los gráficos compara ambas con la predicción canónica.</li>
+    <li><b>Dependencia de la tarea.</b> El retraso hemodinámico es una propiedad del tejido y de sus vasos, así que en un mismo vóxel debería repetirse en todas las tareas que lo activan. Un retraso que cambia de una tarea a otra en la misma sesión apunta a la conducta.</li>
+    <li><b>Extensión espacial.</b> El desacople neurovascular se concentra alrededor del tumor. Un retraso parecido cerca y lejos del tumor, o en ambos hemisferios, es más compatible con un retraso de la tarea.</li>
+    <li><b>Medidas independientes.</b> Un mapa de reactividad vascular (apnea o hipercapnia) o de latencias en reposo mide la hemodinámica sin depender de la tarea. Un registro de la ejecución (respuestas, video o EMG) mide cuándo empieza la actividad.</li>
+  </ul>
+  <h2>Limitaciones</h2>
+  <p>Son pocos pacientes y corridas cortas (96 volúmenes por tarea), así que el ciclo promedio de un vóxel tiene cuatro o cinco repeticiones por punto. La asimetría entre subida y bajada es ruidosa en vóxeles con un ajuste pobre, y conviene mirarla donde la señal sigue con claridad el diseño. Los pacientes se identifican con letras y no se incluyen imágenes anatómicas.</p>
+</section>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const ST = {idx:null, pac:null, anat:null, run:null, cur:[64,64,14], mapa:"tcan", donde:"det"};
+
+// ---------------------------------------------------------------- carga
+async function getJSON(u){const r=await fetch(u);if(!r.ok)throw new Error(u);return r.json()}
+async function getBin(u){const r=await fetch(u);if(!r.ok)throw new Error(u);return r.arrayBuffer()}
+
+async function cargarPaciente(p){
+  $("estado").textContent="cargando paciente…";
+  const buf=await getBin(`datos/${p.id}/anat.bin`); const [nx,ny,nz]=p.dims, n=nx*ny*nz; const [mx,my]=p.ddims;
+  const fondo=new Uint8Array(buf,0,n), les=new Uint8Array(buf,n,n), dm=new Uint8Array(buf,2*n,mx*my*nz);
+  const midx=new Int32Array(n).fill(-1); let c=0; for(let q=0;q<n;q++) if(fondo[q]>0) midx[q]=c++;
+  const didx=new Int32Array(mx*my*nz).fill(-1); c=0; for(let q=0;q<dm.length;q++) if(dm[q]) didx[q]=c++;
+  const lesv=[]; for(let i=0;i<nx;i++)for(let j=0;j<ny;j++)for(let k=0;k<nz;k++) if(les[(i*ny+j)*nz+k]) lesv.push([i,j,k]);
+  let ci=[0,0,0]; lesv.forEach(v=>{ci[0]+=v[0];ci[1]+=v[1];ci[2]+=v[2]});
+  const cen=lesv.length?ci.map(x=>x/lesv.length):null;
+  ST.pac=p; ST.anat={fondo,les,midx,didx,lesv,cen};
+  $("rngK").max=nz-1;
+  if(cen){ST.cur=cen.map(Math.round)} else ST.cur=[nx>>1,ny>>1,nz>>1];
+  $("selTarea").innerHTML=p.tareas.map(t=>`<option value="${t.id}">${t.nombre}</option>`).join("");
+}
+
+async function cargarTarea(t){
+  $("estado").textContent="cargando tarea…";
+  const p=ST.pac, meta=await getJSON(`datos/${p.id}/${t}.json`), buf=await getBin(`datos/${p.id}/${t}.bin`);
+  const nm=p.nmask, nd=meta.nd, T=meta.T, M=meta.G.length;
+  const m16=i=>new Int16Array(buf,2*nm*i,nm);
+  let o=10*nm; const ttp=new Uint8Array(buf,o,nm); o+=nm;
+  const ser=new Int8Array(buf,o,nd*T); o+=nd*T;
+  const off=new Float32Array(buf.slice(o,o+4*nd)); o+=4*nd; const sc=new Float32Array(buf.slice(o,o+4*nd)); o+=4*nd;
+  const mu=new Uint8Array(buf,o,nd*M);
+  ST.run={meta,tcan:m16(0),tprop:m16(1),lo:m16(2),hi:m16(3),fase:m16(4),ttp,ser,off,sc,mu,M,T};
+  $("estado").textContent=`${meta.nombre}: ${meta.n.canonical} vóxeles detectados por el GLM canónico y ${meta.n.proposed} por el fuzzy GLM`;
+}
+
+// ---------------------------------------------------------------- colores
+function lerp(a,b,t){return a.map((x,i)=>x+(b[i]-x)*t)}
+function rampa(stops,t){t=Math.max(0,Math.min(1,t));const n=stops.length-1,i=Math.min(n-1,Math.floor(t*n));return lerp(stops[i],stops[i+1],t*n-i)}
+const CALOR=[[120,0,0],[220,40,0],[255,150,0],[255,240,120]];
+const DIVERG=[[33,102,172],[103,169,207],[247,247,247],[239,138,98],[178,24,43]];
+const SECU=[[68,1,84],[59,82,139],[33,145,140],[94,201,98],[253,231,37]];
+const hex=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16));
+
+function valorMapa(q){ // q: índice en la máscara; devuelve [r,g,b] o null
+  const R=ST.run, m=R.meta, cc=m.umbral.canonical, cp=m.umbral.proposed;
+  const tc=R.tcan[q]/100, tp=R.tprop[q]/100, lo=R.lo[q]/100, hi=R.hi[q]/100;
+  const det=tc>cc||tp>cp;
+  if(ST.donde==="det"&&!det&&ST.mapa!=="clase") return null;
+  if(ST.donde==="t3"&&hi<=3&&ST.mapa!=="clase") return null;
+  switch(ST.mapa){
+    case "tcan": return tc>cc?rampa(CALOR,(tc-cc)/6):null;
+    case "tprop": return tp>cp?rampa(CALOR,(tp-cp)/6):null;
+    case "clase": if(tc>cc) return lo>cc?hex("#2f9e44"):hex("#f08c00"); return hi>cc?hex("#9c36b5"):null;
+    case "fase": return rampa(DIVERG,(R.fase[q]/100+15)/30);
+    case "ttp": return rampa(SECU,(R.ttp[q]/2-3)/7);
+  }
+}
+
+function leyenda(){
+  const L=$("leyenda"), m=ST.run.meta;
+  const barra=(stops,a,b,u)=>{const c=document.createElement("canvas");c.width=160;c.height=10;const g=c.getContext("2d");
+    for(let x=0;x<160;x++){const v=rampa(stops,x/159);g.fillStyle=`rgb(${v.map(Math.round)})`;g.fillRect(x,0,1,10)}
+    L.innerHTML=`<span>${a}</span>`;L.appendChild(c);L.insertAdjacentHTML("beforeend",`<span>${b}</span><span>${u}</span>`)};
+  if(ST.mapa==="tcan") barra(CALOR,`t = ${m.umbral.canonical.toFixed(2)}`,`${(m.umbral.canonical+6).toFixed(1)}`,"(umbral calibrado del GLM canónico)");
+  else if(ST.mapa==="tprop") barra(CALOR,`t = ${m.umbral.proposed.toFixed(2)}`,`${(m.umbral.proposed+6).toFixed(1)}`,"(umbral calibrado del fuzzy GLM)");
+  else if(ST.mapa==="fase") barra(DIVERG,"−15 s","+15 s","antes ← canónico → después");
+  else if(ST.mapa==="ttp") barra(SECU,"3 s","10 s","(canónica: 5 s)");
+  else L.innerHTML=`<span><i class="sw" style="background:#2f9e44"></i>robusta</span><span><i class="sw" style="background:#f08c00"></i>sensible a la forma</span><span><i class="sw" style="background:#9c36b5"></i>posible omisión</span>`;
+}
+
+// ---------------------------------------------------------------- cortes
+// grilla LAS: i crece hacia la izquierda del paciente; en pantalla la derecha del paciente va a la derecha
+const VISTAS={A:{cv:"cvA",ejes:[0,1],fijo:2},C:{cv:"cvC",ejes:[0,2],fijo:1},S:{cv:"cvS",ejes:[1,2],fijo:0}};
+function dibujarCortes(){
+  const p=ST.pac,[nx,ny,nz]=p.dims,a=ST.anat,vox=p.vox,esc=3;
+  for(const [nom,v] of Object.entries(VISTAS)){
+    const [e0,e1]=v.ejes, n0=p.dims[e0], n1=p.dims[e1], cv=$(v.cv);
+    const sx=vox[e0]/vox[0], sy=vox[e1]/vox[0];
+    const W=Math.round(n0*sx*esc), H=Math.round(n1*sy*esc);
+    const off=document.createElement("canvas");off.width=n0;off.height=n1;const g=off.getContext("2d"),img=g.createImageData(n0,n1);
+    for(let u=0;u<n0;u++)for(let w=0;w<n1;w++){
+      const ijk=[...ST.cur];ijk[e0]=u;ijk[e1]=w;const q=(ijk[0]*ny+ijk[1])*nz+ijk[2];
+      const px=(e0===0?n0-1-u:u), py=n1-1-w, o=4*(py*n0+px);
+      const f=a.fondo[q]; let c=[f,f,f];
+      const mq=a.midx[q]; if(mq>=0){const vv=valorMapa(mq);if(vv)c=vv}
+      img.data[o]=c[0];img.data[o+1]=c[1];img.data[o+2]=c[2];img.data[o+3]=255;
+    }
+    g.putImageData(img,0,0);
+    cv.width=W;cv.height=H;const G=cv.getContext("2d");G.imageSmoothingEnabled=false;G.drawImage(off,0,0,W,H);
+    const toPx=(u,w)=>[((e0===0?n0-1-u:u)+.5)*W/n0,(n1-1-w+.5)*H/n1];
+    if($("chkTumor").checked&&a.lesv.length){ // contorno del tumor en este corte
+      G.fillStyle="rgba(255,60,60,.9)";const fij=ST.cur[v.fijo];
+      const set=new Set(a.lesv.filter(x=>x[v.fijo]===fij).map(x=>x[e0]+","+x[e1]));
+      for(const s of set){const [u,w]=s.split(",").map(Number);
+        if(!set.has((u+1)+","+w)||!set.has((u-1)+","+w)||!set.has(u+","+(w+1))||!set.has(u+","+(w-1))){const [X,Y]=toPx(u,w);G.fillRect(X-1,Y-1,2,2)}}
+    }
+    const [X,Y]=toPx(ST.cur[e0],ST.cur[e1]);G.strokeStyle="rgba(80,255,120,.8)";G.lineWidth=1;
+    G.beginPath();G.moveTo(X,0);G.lineTo(X,H);G.moveTo(0,Y);G.lineTo(W,Y);G.stroke();
+    cv.onclick=ev=>{const r=cv.getBoundingClientRect();const px=(ev.clientX-r.left)/r.width*n0, py=(ev.clientY-r.top)/r.height*n1;
+      let u=Math.floor(px), w=n1-1-Math.floor(py); if(e0===0)u=n0-1-u;
+      ST.cur[e0]=Math.max(0,Math.min(n0-1,u));ST.cur[e1]=Math.max(0,Math.min(n1-1,w));actualizar()};
+  }
+  $("tA").textContent=`Axial (corte ${ST.cur[2]+1} de ${nz})`;$("rngK").value=ST.cur[2];
+}
+
+// ---------------------------------------------------------------- gráficos
+function lienzo(cv){const r=window.devicePixelRatio||1,w=cv.clientWidth,h=cv.clientHeight;cv.width=w*r;cv.height=h*r;
+  const g=cv.getContext("2d");g.setTransform(r,0,0,r,0,0);g.clearRect(0,0,w,h);return [g,w,h]}
+function ticks(a,b,n){const s=(b-a)/n,p=Math.pow(10,Math.floor(Math.log10(s))),m=[1,2,2.5,5,10].find(x=>x*p>=s)*p;
+  const t=[];for(let v=Math.ceil(a/m)*m;v<=b+1e-9;v+=m)t.push(+v.toFixed(6));return t}
+function grafico(cv,o){
+  const [g,w,h]=lienzo(cv),L=44,R=10,T=8,B=30,ink=css("--ink"),mu=css("--muted"),gr=css("--grid");
+  const X=x=>L+(x-o.x[0])/(o.x[1]-o.x[0])*(w-L-R), Y=y=>T+(1-(y-o.y[0])/(o.y[1]-o.y[0]))*(h-T-B);
+  g.font="11px system-ui";g.fillStyle=mu;g.strokeStyle=gr;g.lineWidth=1;
+  (o.sombra||[]).forEach(([a,b])=>{g.fillStyle=css("--task");g.fillRect(X(Math.max(a,o.x[0])),T,X(Math.min(b,o.x[1]))-X(Math.max(a,o.x[0])),h-T-B)});
+  g.fillStyle=mu;
+  ticks(o.y[0],o.y[1],4).forEach(v=>{g.strokeStyle=gr;g.beginPath();g.moveTo(L,Y(v));g.lineTo(w-R,Y(v));g.stroke();g.textAlign="right";g.fillText(v,L-4,Y(v)+4)});
+  ticks(o.x[0],o.x[1],o.nx||6).forEach(v=>{g.textAlign="center";g.fillText(v,X(v),h-B+14)});
+  g.textAlign="center";g.fillText(o.xl||"",L+(w-L-R)/2,h-3);
+  g.save();g.translate(11,T+(h-T-B)/2);g.rotate(-Math.PI/2);g.fillText(o.yl||"",0,0);g.restore();
+  g.strokeStyle=mu;g.beginPath();g.moveTo(L,T);g.lineTo(L,h-B);g.lineTo(w-R,h-B);g.stroke();
+  (o.vlin||[]).forEach(([x,c,d])=>{g.strokeStyle=c;g.setLineDash(d||[3,3]);g.beginPath();g.moveTo(X(x),T);g.lineTo(X(x),h-B);g.stroke();g.setLineDash([])});
+  (o.hlin||[]).forEach(([y,c])=>{g.strokeStyle=c;g.setLineDash([3,3]);g.beginPath();g.moveTo(L,Y(y));g.lineTo(w-R,Y(y));g.stroke();g.setLineDash([])});
+  g.save();g.beginPath();g.rect(L,T,w-L-R,h-T-B);g.clip();
+  for(const s of o.series){
+    if(s.err){g.fillStyle=s.col+"33";g.beginPath();s.x.forEach((x,i)=>g[i?"lineTo":"moveTo"](X(x),Y(s.y[i]+s.err[i])));
+      for(let i=s.x.length-1;i>=0;i--)g.lineTo(X(s.x[i]),Y(s.y[i]-s.err[i]));g.fill()}
+    if(s.pts){g.fillStyle=s.col;s.x.forEach((x,i)=>{g.beginPath();g.arc(X(x),Y(s.y[i]),s.r||2.2,0,7);g.fill()})}
+    if(s.lw!==0){g.strokeStyle=s.col;g.lineWidth=s.lw||1.6;g.setLineDash(s.dash||[]);g.beginPath();
+      s.x.forEach((x,i)=>g[i?"lineTo":"moveTo"](X(x),Y(s.y[i])));g.stroke();g.setLineDash([])}
+  }
+  (o.marcas||[]).forEach(([x,y,c])=>{g.fillStyle=c;g.beginPath();g.moveTo(X(x),Y(y)-6);g.lineTo(X(x)-4,Y(y)-12);g.lineTo(X(x)+4,Y(y)-12);g.fill()});
+  g.restore();
+}
+const rango=(arrs,pad=.08)=>{let a=Infinity,b=-Infinity;arrs.forEach(r=>r.forEach(v=>{if(isFinite(v)){a=Math.min(a,v);b=Math.max(b,v)}}));const d=(b-a)||1;return [a-pad*d,b+pad*d]};
+const dot=(a,b)=>a.reduce((s,v,i)=>s+v*b[i],0);
+
+// cruce de la mitad del rango en una curva periódica de 60 s muestreada en fases ph
+function cruce(ph,f,desde,sube){
+  const lo=Math.min(...f),hi=Math.max(...f),nivel=(lo+hi)/2;
+  const xs=[...ph.map(p=>p-60),...ph,...ph.map(p=>p+60)], fs=[...f,...f,...f];
+  const val=x=>{x=((x%60)+60)%60;let i=1;while(i<xs.length-1&&xs[i]<x)i++;const t=(x-xs[i-1])/(xs[i]-xs[i-1]);return fs[i-1]+(fs[i]-fs[i-1])*t};
+  for(let t=0;t<60;t+=.1){const v=val(desde+t);if(sube?v>=nivel:v<=nivel)return t}
+  return NaN;
+}
+
+function panelVoxel(){
+  const p=ST.pac,a=ST.anat,R=ST.run,m=R.meta,[nx,ny,nz]=p.dims,[i,j,k]=ST.cur;
+  const q=(i*ny+j)*nz+k, mq=a.midx[q], dq=((i>>1)*p.ddims[1]+(j>>1))*nz+k, r=a.didx[dq];
+  const cc=m.umbral.canonical,cp=m.umbral.proposed;
+  let dist="—";
+  if(a.lesv.length){if(a.les[q])dist="dentro del tumor";else{let d2=Infinity;for(const v of a.lesv){const d=((v[0]-i)*p.vox[0])**2+((v[1]-j)*p.vox[1])**2+((v[2]-k)*p.vox[2])**2;if(d<d2)d2=d}dist=`${Math.sqrt(d2).toFixed(0)} mm del tumor`}}
+  if(mq<0||r<0){$("nums").innerHTML=`<div><span class="k">Vóxel</span><b>fuera del cerebro</b></div>`;["pT","pC","pD","pH","pM"].forEach(id=>lienzo($(id)));$("diag").textContent="";return}
+  const tc=R.tcan[mq]/100,tp=R.tprop[mq]/100,lo=R.lo[mq]/100,hi=R.hi[mq]/100;
+  const clase=tc>cc?(lo>cc?"robusta":"sensible a la forma"):(hi>cc?"posible omisión":"no detectado");
+  // señal
+  const T=R.T,TR=m.TR,y=new Array(T);for(let n=0;n<T;n++)y[n]=R.ser[r*T+n]*R.sc[r]+R.off[r];
+  const tt=y.map((_,n)=>m.t0+n*TR);
+  const xc=m.x_can, bc=dot(xc,y)/dot(xc,xc), fc=xc.map(v=>bc*v);
+  const muR=Array.from({length:R.M},(_,c)=>R.mu[r*R.M+c]/255); let mo=0;muR.forEach((v,c)=>{if(v>muR[mo])mo=c});
+  const xm=m.x_cand[mo], bm=dot(xm,y)/dot(xm,xm), fm=xm.map(v=>bm*v);
+  const yy=dot(y,y), r2=x=>dot(x,y)**2/(dot(x,x)*yy), r2s=m.x_despl.map(x=>Math.sign(dot(x,y))*r2(x));
+  let ib=0;r2s.forEach((v,c)=>{if(v>r2s[ib])ib=c});
+  // ciclo
+  const nb=Math.round(60/TR),ph=Array.from({length:nb},(_,b)=>(b+.5)*TR),S=Array(nb).fill(0),S2=Array(nb).fill(0),N=Array(nb).fill(0),Pc=Array(nb).fill(0),Pm=Array(nb).fill(0);
+  tt.forEach((t,n)=>{const b=Math.floor((((t+TR/2)%60)+60)%60/TR)%nb;S[b]+=y[n];S2[b]+=y[n]*y[n];N[b]++;Pc[b]+=fc[n];Pm[b]+=fm[n]});
+  const cy=S.map((s,b)=>s/N[b]),ce=S2.map((s,b)=>Math.sqrt(Math.max(s/N[b]-cy[b]**2,0)/Math.max(N[b]-1,1))),cpc=Pc.map((s,b)=>s/N[b]),cpm=Pm.map((s,b)=>s/N[b]);
+  const ini=m.dur, fin=0; // en el ciclo, la tarea ocupa de 30 a 60 s
+  // tiempos de cruce con la señal orientada según el signo de su mejor ajuste y con el regresor canónico sin escalar
+  const sg=Math.sign(dot(m.x_despl[ib],y))||1, cyo=cy.map(v=>sg*v), X=Array(nb).fill(0);
+  tt.forEach((t,n)=>{X[Math.floor((((t+TR/2)%60)+60)%60/TR)%nb]+=xc[n]}); const cx=X.map((s,b)=>s/N[b]);
+  const sub=cruce(ph,cyo,ini,true),baj=cruce(ph,cyo,fin,false),subC=cruce(ph,cx,ini,true),bajC=cruce(ph,cx,fin,false);
+  // números
+  const g=m.G[mo];
+  $("nums").innerHTML=[
+    ["Vóxel",`(${i+1}, ${j+1}, ${k+1}), ${dist}`],
+    ["t GLM canónico",`${tc.toFixed(2)} <span class="muted">(umbral ${cc.toFixed(2)})</span>`],
+    ["t fuzzy GLM",`${tp.toFixed(2)} <span class="muted">(umbral ${cp.toFixed(2)})</span>`],
+    [`t difuso (α = ${m.alpha})`,`[${lo.toFixed(2)}, ${hi.toFixed(2)}]`],
+    ["Clase",clase],
+    ["Retraso por fase",`${(R.fase[mq]/100).toFixed(1)} s <span class="muted">(mapa)</span>`],
+    ["Mejor corrimiento",`${m.despl[ib].toFixed(1)} s <span class="muted">(R² ${Math.max(r2s[ib],0).toFixed(2)})</span>`],
+    ["Forma más posible",`ttp ${g[0]} s, dispersión ${g[1]}`]
+  ].map(([a,b])=>`<div><span class="k">${a}</span><b>${b}</b></div>`).join("");
+  const C=css("--can"),F=css("--fz"),Sh=css("--sh"),mu_=css("--muted");
+  const somb=m.bloques.map(o=>[m.t0+o,m.t0+o+m.dur]);
+  grafico($("pT"),{x:[tt[0],tt[T-1]+TR],y:rango([y,fc,fm]),xl:"tiempo desde el inicio de la adquisición (s)",yl:"% señal",sombra:somb,nx:8,
+    series:[{x:tt,y,col:mu_,lw:1,pts:true,r:1.8},{x:tt,y:fc,col:C,lw:2},{x:tt,y:fm,col:F,lw:2}]});
+  grafico($("pC"),{x:[0,60],y:rango([cy.map((v,b)=>v+ce[b]),cy.map((v,b)=>v-ce[b]),cpc,cpm]),xl:"fase del ciclo (s)",yl:"% señal",sombra:[[30,60]],
+    series:[{x:ph,y:cy,err:ce,col:mu_,lw:1.2,pts:true},{x:ph,y:cpc,col:C,lw:2},{x:ph,y:cpm,col:F,lw:2}],
+    vlin:[[(30+sub)%60,mu_,[2,2]],[(30+subC)%60,C,[2,2]],[baj%60,mu_,[6,3]],[bajC%60,C,[6,3]]]});
+  grafico($("pD"),{x:[m.despl[0],m.despl[m.despl.length-1]],y:[Math.min(0,...r2s),Math.max(.05,...r2s)*1.1],xl:"corrimiento del diseño (s)",yl:"R² (con signo)",
+    series:[{x:m.despl,y:r2s,col:C,lw:2,pts:true}],vlin:[[0,mu_],[m.despl[ib],F,[]]]});
+  const th=m.t_h, Hs=m.H.map((h,c)=>({h,c})).filter(o=>muR[o.c]>=m.alpha);
+  const nrm=h=>{const mx=Math.max(...h.map(Math.abs))||1;return h.map(v=>v/mx)};
+  grafico($("pH"),{x:[0,th[th.length-1]],y:[-.35,1.1],xl:"tiempo (s)",yl:"HRF normalizada",
+    series:[...Hs.map(o=>({x:th,y:nrm(o.h),col:Sh+"99",lw:1})),{x:th,y:nrm(m.H[mo]),col:F,lw:2.4},{x:th,y:nrm(m.h_can),col:C,lw:2,dash:[5,4]}]});
+  const disp=[...new Set(m.G.map(g=>g[1]))],cols=[css("--accent"),F,mu_];
+  grafico($("pM"),{x:[3,10],y:[0,1.05],xl:"tiempo al pico (s)",yl:"posibilidad",hlin:[[m.alpha,mu_]],vlin:[[5,C]],
+    series:disp.map((d,c)=>{const sel=m.G.map((g,z)=>[g,z]).filter(([g])=>g[1]===d);return{x:sel.map(([g])=>g[0]),y:sel.map(([,z])=>muR[z]),col:cols[c],lw:1.8,pts:true}})});
+  // diagnóstico subida/bajada
+  const dS=sub-subC,dB=baj-bajC,ok=r2s[ib]>=.15;
+  let txt=`Cruce de la mitad del rango en el ciclo promedio: subida ${sub.toFixed(1)} s después del inicio del bloque (canónica ${subC.toFixed(1)} s), bajada ${baj.toFixed(1)} s después del final (canónica ${bajC.toFixed(1)} s). `;
+  if(!ok) txt+="El ajuste de este punto es pobre (R² < 0,15), así que la comparación no es informativa.";
+  else if(dS>3&&dB<dS-3) txt+=`Se retrasa sobre todo la subida (${dS.toFixed(1)} s frente a ${dB.toFixed(1)} s en la bajada), lo que es más compatible con un inicio tardío de la tarea que con una HRF lenta.`;
+  else if(dB>3&&dS<dB-3) txt+=`Se retrasa sobre todo la bajada (${dB.toFixed(1)} s frente a ${dS.toFixed(1)} s en la subida), lo que sugiere actividad que continúa después del final del bloque.`;
+  else if(dS>3&&dB>3) txt+=`Subida y bajada se retrasan de forma parecida (${dS.toFixed(1)} y ${dB.toFixed(1)} s), lo que es compatible con una respuesta hemodinámica lenta o con un corrimiento de toda la actividad.`;
+  else txt+=`Subida y bajada están dentro de 3 s de la canónica (${dS.toFixed(1)} y ${dB.toFixed(1)} s).`;
+  $("diag").textContent=txt;
+}
+
+// ---------------------------------------------------------------- control
+function actualizar(){dibujarCortes();panelVoxel()}
+async function elegirPaciente(){const p=ST.idx.pacientes.find(x=>x.id===$("selPac").value);await cargarPaciente(p);await elegirTarea()}
+async function elegirTarea(){await cargarTarea($("selTarea").value);leyenda();actualizar()}
+$("selPac").onchange=elegirPaciente;$("selTarea").onchange=elegirTarea;
+$("selMapa").onchange=()=>{ST.mapa=$("selMapa").value;leyenda();dibujarCortes()};
+$("selDonde").onchange=()=>{ST.donde=$("selDonde").value;dibujarCortes()};
+$("chkTumor").onchange=dibujarCortes;
+$("rngK").oninput=()=>{ST.cur[2]=+$("rngK").value;actualizar()};
+document.addEventListener("keydown",e=>{if(!ST.run)return;const d={ArrowUp:[2,1],ArrowDown:[2,-1]}[e.key];if(d&&e.target.tagName!=="SELECT"){ST.cur[d[0]]=Math.max(0,Math.min(ST.pac.dims[d[0]]-1,ST.cur[d[0]]+d[1]));actualizar();e.preventDefault()}});
+window.addEventListener("resize",()=>ST.run&&panelVoxel());
+(async()=>{try{ST.idx=await getJSON("datos/indice.json");
+  $("selPac").innerHTML=ST.idx.pacientes.map(p=>`<option value="${p.id}">Paciente ${p.id}</option>`).join("");
+  const q=new URLSearchParams(location.search);if(q.get("p"))$("selPac").value=q.get("p");
+  await cargarPaciente(ST.idx.pacientes.find(x=>x.id===$("selPac").value));
+  if(q.get("t"))$("selTarea").value=q.get("t");await elegirTarea();
+}catch(e){$("estado").textContent="No se pudieron cargar los datos ("+e.message+"). Abra la página desde un servidor web."}})();
+</script>
+</body>
+</html>
