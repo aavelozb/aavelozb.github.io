@@ -125,8 +125,8 @@ const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).
 const ST = {idx:null, pac:null, anat:null, run:null, cur:[64,64,14], mapa:"tcan", donde:"det"};
 
 // ---------------------------------------------------------------- carga
-async function getJSON(u){const r=await fetch(u);if(!r.ok)throw new Error(u);return r.json()}
-async function getBin(u){const r=await fetch(u);if(!r.ok)throw new Error(u);return r.arrayBuffer()}
+async function getJSON(u){const r=await fetch(u,{cache:"no-cache"});if(!r.ok)throw new Error(u);return r.json()}
+async function getBin(u){const r=await fetch(u,{cache:"no-cache"});if(!r.ok)throw new Error(u);return r.arrayBuffer()}
 
 async function cargarPaciente(p){
   $("estado").textContent="cargando paciente…";
@@ -345,9 +345,9 @@ document.addEventListener("keydown",e=>{if(!ST.run)return;const d={ArrowUp:[2,1]
 window.addEventListener("resize",()=>ST.run&&panelVoxel());
 (async()=>{try{ST.idx=await getJSON("datos/indice.json");
   $("selPac").innerHTML=ST.idx.pacientes.map(p=>`<option value="${p.id}">Paciente ${p.id}</option>`).join("");
-  const q=new URLSearchParams(location.search);if(q.get("p"))$("selPac").value=q.get("p");
+  const q=new URLSearchParams(location.search);if(ST.idx.pacientes.some(x=>x.id===q.get("p")))$("selPac").value=q.get("p");
   await cargarPaciente(ST.idx.pacientes.find(x=>x.id===$("selPac").value));
-  if(q.get("t"))$("selTarea").value=q.get("t");await elegirTarea();
+  if([...$("selTarea").options].some(o=>o.value===q.get("t")))$("selTarea").value=q.get("t");await elegirTarea();
 }catch(e){$("estado").textContent="No se pudieron cargar los datos ("+e.message+"). Abra la página desde un servidor web."}})();
 </script>
 </body>
