@@ -1,6 +1,68 @@
 {
  "pacientes": [
   {
+   "id": "P4",
+   "dims": [
+    128,
+    128,
+    29
+   ],
+   "vox": [
+    1.875,
+    1.875,
+    5.0000200271606445
+   ],
+   "nmask": 116980,
+   "ddims": [
+    64,
+    64,
+    29
+   ],
+   "tareas": [
+    {
+     "id": "boston",
+     "nombre": "Denominaci\u00f3n de Boston"
+    },
+    {
+     "id": "seudop",
+     "nombre": "Palabras frente a seudopalabras"
+    },
+    {
+     "id": "motor_mano",
+     "nombre": "Motora mano"
+    }
+   ]
+  },
+  {
+   "id": "P10",
+   "dims": [
+    128,
+    128,
+    22
+   ],
+   "vox": [
+    1.875,
+    1.875,
+    5.000052452087402
+   ],
+   "nmask": 100215,
+   "ddims": [
+    64,
+    64,
+    22
+   ],
+   "tareas": [
+    {
+     "id": "boston",
+     "nombre": "Denominaci\u00f3n de Boston"
+    },
+    {
+     "id": "seudop",
+     "nombre": "Palabras frente a seudopalabras"
+    }
+   ]
+  },
+  {
    "id": "P30",
    "dims": [
     128,
